@@ -7,9 +7,12 @@
 //
 
 #include <stdio.h>
+#include "rgb.h"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+    ushort c[] = {0, 255, 255};
+    struct Rgb *color = makeRGB(c);
+    
+    printf("g is %i", color->g);
     return 0;
 }
