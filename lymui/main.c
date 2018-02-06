@@ -8,11 +8,15 @@
 
 #include <stdio.h>
 #include "rgb.h"
+#include "hex.h"
 
 int main(int argc, const char * argv[]) {
-    ushort c[] = {0, 255, 255};
+    ushort c[] = {0, 255, 254};
     struct Rgb *color = makeRGB(c);
     
-    printf("g is %i", color->g);
+    char *hex = getHexFromRGB(color);
+    printf("\ngreen is %i", color->g);
+    printf("\nhex is %s\n", hex);
+    
     return 0;
 }

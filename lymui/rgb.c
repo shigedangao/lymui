@@ -12,13 +12,13 @@
 // Make RGB
 // Return RGB struct pointer
 // Params : Array of ushort length 3
-struct Rgb *makeRGB(ushort c[]) {
+struct Rgb *makeRGB(ushort *c) {
     struct Rgb *color = malloc (sizeof (struct Rgb));
     
     if (color == NULL)
         return NULL;
     
-    int isArrayInvalidValid = sizeof(c) < 3;
+    int isArrayInvalidValid = (sizeof(c) / sizeof(c[0])) < 3;
     
     if (isArrayInvalidValid) {
         free(color);

@@ -23,4 +23,7 @@ struct Rgb* makeRGB(ushort c[]);
 // Make RGB From Hex
 struct Rgb* makeRGBFromHex(char str[]);
 
+// Free RGB
+void freeRgb(struct Rgb *c);
+
 #endif /* rgb_h */
