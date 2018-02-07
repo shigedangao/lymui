@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 
+// Rgb Struct
 struct Rgb {
     ushort r;
     ushort g;

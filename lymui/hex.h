@@ -17,4 +17,13 @@
 // Params --> struct pointer Rgb
 char * getHexFromRGB(struct Rgb *c);
 
+// Get Raw RGB Array Value From Hex
+ushort * getRawRGBArrayValueFromHex(char *hex);
+
+// Calculate RGB Value from Hex
+void calculateRGBValue(ushort x, ushort y, ushort idx, ushort *arr);
+
+// Set Value
+ushort setValue(char *value, ushort var);
+
 #endif /* hex_h */

@@ -18,5 +18,7 @@ int main(int argc, const char * argv[]) {
     printf("\ngreen is %i", color->g);
     printf("\nhex is %s\n", hex);
     
+    getRawRGBArrayValueFromHex(hex);
+    
     return 0;
 }

@@ -7,7 +7,10 @@
 //
 
 #include "rgb.h"
+#include "helper.h"
 #include <stdlib.h>
+
+
 
 // Make RGB
 // Return RGB struct pointer
@@ -30,4 +33,14 @@ struct Rgb *makeRGB(ushort *c) {
     color->b = c[2];
     
     return color;
+}
+
+
+struct Rgb *makeRGBFromHex(char *hex) {
+    return NULL;
+}
+
+// Free Rgb
+void freeRgb(struct Rgb *c) {
+    free(c);
 }
