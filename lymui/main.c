@@ -11,7 +11,7 @@
 #include "hex.h"
 
 int main(int argc, const char * argv[]) {
-    ushort c[] = {0, 255, 254};
+    uint8_t c[] = {0, 155, 205};
     struct Rgb *color = makeRGB(c);
     
     char *hex = getHexFromRGB(color);

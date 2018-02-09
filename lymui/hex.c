@@ -24,62 +24,39 @@ char * getHexFromRGB(struct Rgb *c) {
 }
 
 // Get RGB Value From Hex
-ushort * getRawRGBArrayValueFromHex(char *hex) {
-    ushort *rgbArr = malloc(sizeof (char) * 3);
-    ushort idx = 0;
+uint8_t * getRawRGBArrayValueFromHex(char *hex) {
+    const char * copy = hex;
+    // Make a copy of the pointer
+    uint8_t *rgbArr = malloc(sizeof (char) * 3);
+    uint8_t idx = 0;
     // As we use the ushort we set 16 as our flag
-    ushort x = 16,
-           y = 16;
     
-    struct RgbHex * list = getCorrespondingStruct();
-    
-    while (idx <= 6) {
-        ushort isquot = idx % 2 == 0;
-        for (int i = sizeof(list); i >= 0; i--) {
-            if (list[i].id == hex[idx] && strlen(&hex[idx]) != 0) {
-                if (isquot)
-                    x = list[i].v;
-                else
-                    y = list[i].v;
-            }
-        }
+    while (idx < strlen(copy)) {
+        int x = getUintCharValue(copy[idx]);
+        int y = getUintCharValue(copy[idx + 1]);
         
-        if (isquot)
-            x = setValue(&hex[idx], x);
-        else
-            y = setValue(&hex[idx], y);
-        
-        if (isquot && idx != 0) {
-            calculateRGBValue(x, y, idx, rgbArr);
-            // reset x and y
-            x = 16;
-            y = 16;
-        }
-        
-        idx++;
+        rgbArr[(idx / 2)] = y + (x * 16);
+        idx = idx + 2;
     }
     
+    printf("\nrgb arr %i\n", rgbArr[2]);
     // Don't forget to free it after it's usage
     return rgbArr;
 }
 
-ushort setValue(char *value, ushort res) {
-    if (res == 16) {
-        res = (ushort) strtoul(value, NULL, 0);
+// Get Uint Char Value
+// Though it could have been better than using a switch...
+uint8_t getUintCharValue(char c) {
+    uint8_t n = 0;
+    switch (c) {
+        case 'A': n = 10; break;
+        case 'B': n = 11; break;
+        case 'C': n = 12; break;
+        case 'D': n = 13; break;
+        case 'E': n = 14; break;
+        case 'F': n = 15; break;
+        default: n = (uint8_t) strtoul(&c, NULL, 0);
     }
     
-    return res;
+    return n;
 }
-
-// Calculate RGB Value
-void calculateRGBValue(ushort x, ushort y, ushort idx, ushort * arr) {
-    ushort isquot = idx % 2 == 0;
-    if (x == 16 || y == 16) {
-        return;
-    } else if (!isquot) {
-        return;
-    }
-    
-    arr[(idx / 2) - 1] = x + (y * 16);
-}
-

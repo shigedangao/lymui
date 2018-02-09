@@ -18,12 +18,14 @@
 char * getHexFromRGB(struct Rgb *c);
 
 // Get Raw RGB Array Value From Hex
-ushort * getRawRGBArrayValueFromHex(char *hex);
+uint8_t * getRawRGBArrayValueFromHex(char *hex);
 
 // Calculate RGB Value from Hex
-void calculateRGBValue(ushort x, ushort y, ushort idx, ushort *arr);
+void calculateRGBValue(uint8_t x, uint8_t y, uint8_t idx, uint8_t *arr);
 
 // Set Value
-ushort setValue(char *value, ushort var);
+uint8_t setValue(char *value, uint8_t var);
+
+uint8_t getUintCharValue(char v);
 
 #endif /* hex_h */

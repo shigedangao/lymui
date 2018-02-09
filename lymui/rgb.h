@@ -13,13 +13,13 @@
 
 // Rgb Struct
 struct Rgb {
-    ushort r;
-    ushort g;
-    ushort b;
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
 };
 
 // Make RGB
-struct Rgb* makeRGB(ushort c[]);
+struct Rgb* makeRGB(uint8_t c[]);
 
 // Make RGB From Hex
 struct Rgb* makeRGBFromHex(char str[]);
