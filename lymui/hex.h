@@ -26,6 +26,7 @@ void calculateRGBValue(uint8_t x, uint8_t y, uint8_t idx, uint8_t *arr);
 // Set Value
 uint8_t setValue(char *value, uint8_t var);
 
+// Get Uint8 Char Value
 uint8_t getUintCharValue(char v);
 
 #endif /* hex_h */

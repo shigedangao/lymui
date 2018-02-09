@@ -35,11 +35,6 @@ struct Rgb *makeRGB(uint8_t *c) {
     return color;
 }
 
-
-struct Rgb *makeRGBFromHex(char *hex) {
-    return NULL;
-}
-
 // Free Rgb
 void freeRgb(struct Rgb *c) {
     free(c);
