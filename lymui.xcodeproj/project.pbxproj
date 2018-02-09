@@ -30,6 +30,7 @@
 		9F05AC0C2029208B00734C15 /* rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb.c; sourceTree = "<group>"; };
 		9F3A07AE2028891300CB2311 /* lymui */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lymui; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F3A07B12028891300CB2311 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		9F6C2320202E632000804575 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9F9AA8A52029DE74008A28B8 /* helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
 		9F9AA8A62029DE74008A28B8 /* helper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = helper.c; sourceTree = "<group>"; };
 		9F9AA8A9202A546B008A28B8 /* hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hex.h; sourceTree = "<group>"; };
@@ -50,6 +51,7 @@
 		9F3A07A52028891300CB2311 = {
 			isa = PBXGroup;
 			children = (
+				9F6C2320202E632000804575 /* README.md */,
 				9F3A07B02028891300CB2311 /* lymui */,
 				9F3A07AF2028891300CB2311 /* Products */,
 			);
