@@ -7,12 +7,15 @@
 //
 
 #include "rgb.h"
+#include "helper.h"
 #include <stdlib.h>
+
+
 
 // Make RGB
 // Return RGB struct pointer
 // Params : Array of ushort length 3
-struct Rgb *makeRGB(ushort *c) {
+struct Rgb *makeRGB(uint8_t *c) {
     struct Rgb *color = malloc (sizeof (struct Rgb));
     
     if (color == NULL)
@@ -30,4 +33,9 @@ struct Rgb *makeRGB(ushort *c) {
     color->b = c[2];
     
     return color;
+}
+
+// Free Rgb
+void freeRgb(struct Rgb *c) {
+    free(c);
 }

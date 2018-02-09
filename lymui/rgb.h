@@ -11,17 +11,15 @@
 
 #include <stdio.h>
 
+// Rgb Struct
 struct Rgb {
-    ushort r;
-    ushort g;
-    ushort b;
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
 };
 
 // Make RGB
-struct Rgb* makeRGB(ushort c[]);
-
-// Make RGB From Hex
-struct Rgb* makeRGBFromHex(char str[]);
+struct Rgb* makeRGB(uint8_t c[]);
 
 // Free RGB
 void freeRgb(struct Rgb *c);

@@ -11,8 +11,13 @@
 
 #include <stdio.h>
 
-// Ushort To Hex
-char * ushortToHex(ushort v);
+// Rgb Hex Struct
+struct RgbHex {
+    char id;
+    uint8_t v;
+};
 
+// Ushort To Hex
+char * ushortToHex(uint8_t v);
 
 #endif /* helper_h */
