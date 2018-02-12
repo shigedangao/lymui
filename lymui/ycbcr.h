@@ -22,4 +22,7 @@ struct Ycbcr {
 // Make Ycbcr
 struct Ycbcr *makeYcbcr(struct Rgb *rgb);
 
+// Get Raw RGB Array Value From Ycbcr
+uint8_t * getRawRGBArrayValueFromYcbcr(struct Ycbcr *yc);
+
 #endif /* ycbcr_h */
