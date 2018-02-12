@@ -20,4 +20,8 @@ struct RgbHex {
 // Ushort To Hex
 char * ushortToHex(uint8_t v);
 
+// Float to Uint
+// Use by Ycbcr conversion
+uint8_t floatToUint(float value);
+
 #endif /* helper_h */

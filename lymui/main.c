@@ -25,10 +25,10 @@ int main(int argc, const char * argv[]) {
     printf("\n blue value from created struct from arr is %i", otherc->b);
     
     struct Ycbcr *cb = makeYcbcr(otherc);
-    printf("\n ycbcr y value is %f", cb->y);
+    printf("\n ycbcr y value is %f", cb->cb);
     
     uint8_t * rbgycb = getRawRGBArrayValueFromYcbcr(cb);
-    printf("\n rgb from ycbcr value is %u\n", rbgycb[0]);
+    printf("\n rgb from ycbcr value is %u\n", rbgycb[2]);
 
     
     return 0;

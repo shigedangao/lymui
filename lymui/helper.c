@@ -28,3 +28,12 @@ char * ushortToHex(uint8_t v) {
     
     return hexa;
 }
+
+// Float To Uint
+uint8_t floatToUint(float value) {    
+    if (value < 0)
+        return 0;
+    
+    return (uint8_t) value;
+}
+
