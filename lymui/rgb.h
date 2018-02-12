@@ -21,6 +21,9 @@ struct Rgb {
 // Make RGB
 struct Rgb* makeRGB(uint8_t c[]);
 
+// Make RGB From Arr Pointer
+struct Rgb* makeRGBFromArrPointer(uint8_t c[]);
+
 // Free RGB
 void freeRgb(struct Rgb *c);
 
