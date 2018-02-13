@@ -1,3 +1,7 @@
+# set os for testing
+os:
+  - osx
+
 # set the language
 language: c
 
