@@ -6,9 +6,11 @@
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
-#include "ycbcr.h"
+#include <stdint.h>
 #include <stdlib.h>
+#include "ycbcr.h"
 #include "helper.h"
+
 
 
 // constant variable

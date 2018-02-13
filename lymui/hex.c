@@ -6,10 +6,11 @@
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
-#include "hex.h"
-#include "helper.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+#include "hex.h"
+#include "helper.h"
 
 // Get Hex From RGB
 char * getHexFromRGB(struct Rgb *c) {
