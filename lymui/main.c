@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <cunit.h>
+#include <ctest.h>
 #include "rgb.h"
 #include "hex.h"
 #include "ycbcr.h"
