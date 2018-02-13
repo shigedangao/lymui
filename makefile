@@ -1,17 +1,19 @@
 IDIR = lymui/include
 ILIB_DIR = lib/cunit/include
-CC = clang
+CC = gcc
 CFLAGS = -I$(IDIR) -I$(ILIB_DIR)
 ODIR = output
 DEPS = lymui/main.h lymui/rgb.h lymui/hex.h lymui/ycbcr.h lymui/helper.h
 OBJ = lymui/main.c lymui/rgb.c lymui/hex.c lymui/ycbcr.c lymui/helper.c
-SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+
+LDFLAGS += -Llib/cunit
+LIBFLAGS += -lcunit 
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 lym: $(OBJ)
-	$(CC) -o $@ $^ -L./lib/cunit -lcunit $(CFLAGS)
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS) $(LIBFLAGS)
 
 .PHONY: clean
 
