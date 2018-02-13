@@ -44,7 +44,7 @@ ctest_return_t testExample(ctest_t *test, void *arg) {
 
 int main(int argc, const char * argv[]) {
     int results = run_test();
-    ctest_t *test = ctest("test example", testExample, NULL);
+    //ctest_t *test = ctest("test example", testExample, NULL);
     
     if (results == OK)
         printf("Test passings \n");
