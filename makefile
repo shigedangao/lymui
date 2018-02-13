@@ -11,7 +11,7 @@ $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 lym: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS) -L$(SELF_DIR)/lib/cunit -lcunit
+	$(CC) -o $@ $^ -L$(SELF_DIR)/lib/cunit -lcunit $(CFLAGS)
 
 .PHONY: clean
 
