@@ -4,3 +4,6 @@ language: c
 # set the compiler
 compiler:
   - gcc
+
+script: 
+  - make && make test
