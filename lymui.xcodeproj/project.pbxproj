@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9F05AC0D2029208B00734C15 /* rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F05AC0C2029208B00734C15 /* rgb.c */; };
 		9F3A07B22028891300CB2311 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A07B12028891300CB2311 /* main.c */; };
+		9F87675620333B1C00578E08 /* libcunit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E797E203336B600152E72 /* libcunit.a */; };
 		9F9AA8A72029DE74008A28B8 /* helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AA8A62029DE74008A28B8 /* helper.c */; };
 		9F9AA8AB202A546B008A28B8 /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AA8AA202A546B008A28B8 /* hex.c */; };
 		9FC4EB8620319B990083637E /* ycbcr.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4EB8520319B990083637E /* ycbcr.c */; };
@@ -31,6 +32,8 @@
 		9F05AC0C2029208B00734C15 /* rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb.c; sourceTree = "<group>"; };
 		9F3A07AE2028891300CB2311 /* lymui */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lymui; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F3A07B12028891300CB2311 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		9F3E797C2033369900152E72 /* cunit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cunit; path = lib/cunit; sourceTree = "<group>"; };
+		9F3E797E203336B600152E72 /* libcunit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcunit.a; path = lib/cunit/libcunit.a; sourceTree = "<group>"; };
 		9F6C2320202E632000804575 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9F9AA8A52029DE74008A28B8 /* helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
 		9F9AA8A62029DE74008A28B8 /* helper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = helper.c; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F87675620333B1C00578E08 /* libcunit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +61,7 @@
 				9F6C2320202E632000804575 /* README.md */,
 				9F3A07B02028891300CB2311 /* lymui */,
 				9F3A07AF2028891300CB2311 /* Products */,
+				9F3E797B2033369900152E72 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +84,15 @@
 				9FC4EB8520319B990083637E /* ycbcr.c */,
 			);
 			path = lymui;
+			sourceTree = "<group>";
+		};
+		9F3E797B2033369900152E72 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9F3E797E203336B600152E72 /* libcunit.a */,
+				9F3E797C2033369900152E72 /* cunit */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9F70D72F2032EB1D0002E3F3 /* include */ = {
@@ -267,7 +281,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/lib/cunit/include";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib/cunit",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/lib/cunit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
 			};
 			name = Debug;
 		};
@@ -275,7 +297,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib/cunit",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/lib/cunit";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include";
 			};
 			name = Release;
 		};

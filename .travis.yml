@@ -3,7 +3,7 @@ language: c
 
 # set the compiler
 compiler:
-  - gcc
+  - clang
 
 script: 
   - make && make test

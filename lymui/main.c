@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <cunit.h>
+#include <ctest.h>
 #include "rgb.h"
 #include "hex.h"
 #include "ycbcr.h"
@@ -36,8 +38,13 @@ int run_test() {
     return OK;
 }
 
+ctest_return_t testExample(ctest_t *test, void *arg) {
+    puts("Hello this is a test\n");
+}
+
 int main(int argc, const char * argv[]) {
     int results = run_test();
+    //ctest_t *test = ctest("test example", testExample, NULL);
     
     if (results == OK)
         printf("Test passings \n");
