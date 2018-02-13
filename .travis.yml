@@ -1,0 +1,9 @@
+# set the language
+language: c
+
+# set the compiler
+compiler:
+  - gcc
+
+# scripts
+- make && make test
