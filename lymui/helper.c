@@ -8,6 +8,7 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+#include <math.h>
 #include "helper.h"
 
 // Global variable of a list of RgbHex
@@ -31,8 +32,8 @@ char * ushortToHex(uint8_t v) {
 }
 
 // Float To Uint
-uint8_t floatToUint(float value) {    
-    if (value < 0)
+uint8_t floatToUint(float value) {
+    if (fabsf(value) != value)
         return 0;
     
     return (uint8_t) value;
