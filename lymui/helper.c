@@ -6,8 +6,10 @@
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
-#include "helper.h"
 #include <stdlib.h>
+#include <stdint.h>
+#include <math.h>
+#include "helper.h"
 
 // Global variable of a list of RgbHex
 struct RgbHex *list;
@@ -19,7 +21,7 @@ char * ushortToHex(uint8_t v) {
     
     char HEX[] = "0123456789ABCDEF";
     char *hexa = malloc(1);
-    ushort accum = 2;
+    uint8_t accum = 2;
     while(accum > 0) {
         hexa[accum - 1] = HEX[(v % 16)];
         v = v / 16;
@@ -30,8 +32,8 @@ char * ushortToHex(uint8_t v) {
 }
 
 // Float To Uint
-uint8_t floatToUint(float value) {    
-    if (value < 0)
+uint8_t floatToUint(float value) {
+    if (fabsf(value) != value)
         return 0;
     
     return (uint8_t) value;

@@ -6,9 +6,10 @@
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
+#include <stdlib.h>
+#include <stdint.h>
 #include "rgb.h"
 #include "helper.h"
-#include <stdlib.h>
 
 
 
