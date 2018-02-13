@@ -12,6 +12,7 @@ Before compiling the project we need to make sure that you have the following pr
 
 - Clang / GCC / LLVM GCC
 - Xcode preferably
+- CZ cli available here for commit consistency: [CZ-cli](https://github.com/commitizen/cz-cli)
 
 ## Instruction
 
