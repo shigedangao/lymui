@@ -15,3 +15,6 @@ lym: $(OBJ)
 
 clean:
 	rm -f $(ODIR)/*o *~	core $(INCDIR)/*~
+
+test:
+	./lym

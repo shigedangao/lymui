@@ -2,12 +2,13 @@
 
 ### Totoro is going to review your PR
 
-[!Totoro](https://cdn.dribbble.com/users/77598/screenshots/3893621/totoro_family.png)
+![Totoro](https://cdn.dribbble.com/users/77598/screenshots/3893621/totoro_family.png)
 
 ### What does this PR accomplish
 
 - [ ] Add a new feature supporting a new color type
 - [ ] Provide a fix to the current project
+- [ ] Add new test
 
 ### We will check that
 
