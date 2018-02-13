@@ -1,6 +1,6 @@
 IDIR = lymui/include
 ILIB_DIR = lib/cunit/include
-CC = gcc
+CC = clang
 CFLAGS = -I$(IDIR) -I$(ILIB_DIR)
 ODIR = output
 DEPS = lymui/main.h lymui/rgb.h lymui/hex.h lymui/ycbcr.h lymui/helper.h
