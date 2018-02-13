@@ -11,6 +11,7 @@
 #include <stdint.h>
 #include <cunit.h>
 #include <ctest.h>
+#include <ctcase.h>
 #include "rgb.h"
 #include "hex.h"
 #include "ycbcr.h"
@@ -38,13 +39,33 @@ int run_test() {
     return OK;
 }
 
-ctest_return_t testExample(ctest_t *test, void *arg) {
-    puts("Hello this is a test\n");
+// Test Rgb Creation
+ctest_return_t testRgbCreation(ctest_t *test, void *arg) {
+    uint8_t uc[] = {0, 100, 200};
+    struct Rgb *rgb = makeRGB(uc);
+    
+    CTAssertEqual(test, 0, rgb->r, "%d is not equal to %d", 0, rgb->r);
+    CTAssertEqual(test, 100, rgb->g, "%d is not equal to %d", 0, rgb->g);
+    CTAssertEqual(test, 200, rgb->b, "%d is not equal to %d", 0, rgb->b);
+
+    free(rgb);
 }
 
+
 int main(int argc, const char * argv[]) {
+    // Create suite case
+    ctsuite_t *suite = ctsuite("Lymui test");
+    ctcase_t  *casetest  = ctcase("Rgb creation test case");
+    
+    // Create test case for rgb test
+    ctest_t   *rgbCreation = ctest("Create RGB from UINT_8T Array", testRgbCreation, NULL);
+    // Add test to test case
+    ctctestadd(casetest, rgbCreation);
+    // Launch suite
+    ctscaseadd(suite, casetest);
+    ctsrun(suite);
+    
     int results = run_test();
-    //ctest_t *test = ctest("test example", testExample, NULL);
     
     if (results == OK)
         printf("Test passings \n");
