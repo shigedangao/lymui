@@ -22,7 +22,7 @@ compiler:
 
 # Launch the build & test process
 script: 
-  - ./configure --enable-gcov && make && make test
+  - make && make test
 
 after_success:
   - coveralls --exclude lib --excludes tests --gcov-options '\-lp'
