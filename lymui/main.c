@@ -23,10 +23,12 @@ int main(int argc, const char * argv[]) {
     ctsuite_t *suite = ctsuite("Lymui test");
     ctcase_t  *rgb   = wrapRgbCreationTest();
     ctcase_t  *hex   = wrapHexCreationTest();
+    ctcase_t  *ycbcr = wrapYcbcrCreationTest();
     
     // Launch suite
     ctscaseadd(suite, rgb);
     ctscaseadd(suite, hex);
+    ctscaseadd(suite, ycbcr);
     ctsrun(suite);
     
     return 0;

@@ -23,7 +23,8 @@ OBJ  = lymui/main.c \
 			 lymui/ycbcr.c \
 			 lymui/helper.c \
 			 lymui/tests/rgb_test.c \
-			 lymui/tests/hex_test.c
+			 lymui/tests/hex_test.c \
+			 lymui/tests/ycbcr_test.c
 
 LDFLAGS += -Llib/cunit
 LIBFLAGS += -lcunit

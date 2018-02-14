@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <cunit.h>
 #include <stdlib.h>
+#include <string.h>
 #include "test_header.h"
 #include "hex.h"
 #include "rgb.h"
@@ -18,28 +19,51 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     struct Rgb *lym = makeRGB(uc, sizeof(uc));
     
     char *hex = getHexFromRGB(lym);
-    char *value = "050A5F";
+    char *value = malloc(sizeof(char) * 5);
+    value = "050A5F";
     
     // As the lib does not support the hex test yet
-    CTAssertEqual(test, value[0], hex[0], "Hex is not equal to lym values %s", hex);
-    CTAssertEqual(test, value[1], hex[1], "Hex is not equal to lym values %s", hex);
-    CTAssertEqual(test, value[2], hex[2], "Hex is not equal to lym values %s", hex);
-    CTAssertEqual(test, value[3], hex[3], "Hex is not equal to lym values %s", hex);
-    CTAssertEqual(test, value[4], hex[4], "Hex is not equal to lym values %s", hex);
-    CTAssertEqual(test, value[5], hex[5], "Hex is not equal to lym values %s", hex);
+    CTAssertEqual(test, 0, strcmp(value, hex), "Hex is not equal to lym values %s", hex);
     
     free(lym);
     free(hex);
+}
+
+ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
+    char *hex = malloc(sizeof(char) * 5);
+    hex = "050A5F";
+    uint8_t *uc = getRawRGBArrayValueFromHex(hex);
+    
+    CTAssertEqual(test, 5, uc[0], "UC value is %d where as it should be %d", 5, uc[0]);
+    CTAssertEqual(test, 10, uc[1], "UC value is %d where as it should be %d", 10, uc[1]);
+    CTAssertEqual(test, 95, uc[2], "UC value is %d where as it should be %d", 95, uc[2]);
+    
+    free(uc);
+}
+
+ctest_return_t testUintNullCreationFromHex(ctest_t *test, void *arg) {
+    char *hex = NULL;
+    uint8_t *uc = getRawRGBArrayValueFromHex(hex);
+    
+    CTAssertNull(test, uc, "Test uint null creation, value is not NULL");
 }
 
 ctcase_t *wrapHexCreationTest() {
     // Create test case
     ctcase_t *hexCase = ctcase("Hex creation test");
     
-    // Hex creation
-    ctest_t *hexCreation = ctest("Create an Hex from RGB", testHexCreationFromRgb, NULL);
+    // Hex test
+    ctest_t *hexCreation  = ctest("Create an Hex from RGB", testHexCreationFromRgb, NULL);
+    ctest_t *uintCreation = ctest("Create an Uint8 Array from HEX", testUintArrayCreationFromHex, NULL);
+    ctest_t *uintNull = ctest("Create an Uint8 Array from a Null HEX", testUintNullCreationFromHex, NULL);
+    
+    // Add test to test case
     ctctestadd(hexCase, hexCreation);
+    ctctestadd(hexCase, uintCreation);
+    ctctestadd(hexCase, uintNull);
     
     return hexCase;
 }
+
+
 

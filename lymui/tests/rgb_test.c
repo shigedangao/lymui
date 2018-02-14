@@ -40,13 +40,12 @@ ctest_return_t testCreationRgbFromPointerArr(ctest_t *test, void *arg) {
     uc[1] = 152;
     uc[2] = 200;
     
-    struct Rgb *rgb = makeRGB(uc, 3);
+    struct Rgb *rgb = makeRGBFromArrPointer(uc, 3);
     CTAssertEqual(test, 100, rgb->r, "%d is not equal to %d", 100, rgb->r);
     CTAssertEqual(test, 152, rgb->g, "%d is not equal to %d", 152, rgb->g);
     CTAssertEqual(test, 200, rgb->b, "%d is not equal to %d", 100, rgb->b);
     
     free(rgb);
-    free(uc);
 }
 
 // Wrap Rgb Creation Test
