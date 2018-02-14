@@ -2,6 +2,12 @@
 
 Lymui is a small color library for fun & testing c
 
+## Status
+
+[![Coverage Status](https://coveralls.io/repos/github/MarcInthaamnouay/lymui/badge.svg)](https://coveralls.io/github/MarcInthaamnouay/lymui)
+
+[!Travis build](https://travis-ci.org/MarcInthaamnouay/lymui.svg?branch=master)
+
 ## Contribute
 
 Contributions are always welcomed. Please open a PR and assign me or other people who has been involved in the project 🐼.
