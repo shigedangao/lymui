@@ -1,10 +1,11 @@
 IDIR = lymui/include
 ILIB_DIR = lib/cunit/include
+ITEST_DIR = lymui/tests
 CC = gcc
 
 CFLAGS = -fprofile-arcs -ftest-coverage
 
-ICFLAGS = -I$(IDIR) -I$(ILIB_DIR) -Wall -fprofile-arcs -ftest-coverage
+ICFLAGS = -I$(IDIR) -I$(ILIB_DIR) -I$(ITEST_DIR) -Wall -fprofile-arcs -ftest-coverage
 
 ODIR = output
 TARGET = cov
@@ -13,13 +14,16 @@ DEPS = lymui/main.h \
 			 lymui/rgb.h \
 			 lymui/hex.h \
 			 lymui/ycbcr.h \
-			 lymui/helper.h
+			 lymui/helper.h \
+			 lymui/test_header.h
 
 OBJ  = lymui/main.c \
 			 lymui/rgb.c \
 			 lymui/hex.c \
 			 lymui/ycbcr.c \
-			 lymui/helper.c
+			 lymui/helper.c \
+			 lymui/tests/rgb_test.c \
+			 lymui/tests/hex_test.c
 
 LDFLAGS += -Llib/cunit
 LIBFLAGS += -lcunit

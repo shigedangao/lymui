@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F04726F203476D1000639EA /* rgb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04726E203476D1000639EA /* rgb_test.c */; };
+		9F04727120347861000639EA /* hex_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727020347861000639EA /* hex_test.c */; };
 		9F05AC0D2029208B00734C15 /* rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F05AC0C2029208B00734C15 /* rgb.c */; };
 		9F3A07B22028891300CB2311 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A07B12028891300CB2311 /* main.c */; };
 		9F87675620333B1C00578E08 /* libcunit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E797E203336B600152E72 /* libcunit.a */; };
@@ -28,6 +30,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9F04726D203476D1000639EA /* test_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test_header.h; sourceTree = "<group>"; };
+		9F04726E203476D1000639EA /* rgb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb_test.c; sourceTree = "<group>"; };
+		9F04727020347861000639EA /* hex_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hex_test.c; sourceTree = "<group>"; };
 		9F05AC0B2029208B00734C15 /* rgb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rgb.h; sourceTree = "<group>"; };
 		9F05AC0C2029208B00734C15 /* rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb.c; sourceTree = "<group>"; };
 		9F3A07AE2028891300CB2311 /* lymui */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lymui; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +60,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9F04726920347692000639EA /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				9F04726D203476D1000639EA /* test_header.h */,
+				9F04726E203476D1000639EA /* rgb_test.c */,
+				9F04727020347861000639EA /* hex_test.c */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
 		9F3A07A52028891300CB2311 = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +91,7 @@
 		9F3A07B02028891300CB2311 /* lymui */ = {
 			isa = PBXGroup;
 			children = (
+				9F04726920347692000639EA /* tests */,
 				9F70D72F2032EB1D0002E3F3 /* include */,
 				9F3A07B12028891300CB2311 /* main.c */,
 				9F05AC0C2029208B00734C15 /* rgb.c */,
@@ -164,6 +180,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F3A07B22028891300CB2311 /* main.c in Sources */,
+				9F04726F203476D1000639EA /* rgb_test.c in Sources */,
+				9F04727120347861000639EA /* hex_test.c in Sources */,
 				9FC4EB8620319B990083637E /* ycbcr.c in Sources */,
 				9F9AA8A72029DE74008A28B8 /* helper.c in Sources */,
 				9F05AC0D2029208B00734C15 /* rgb.c in Sources */,
