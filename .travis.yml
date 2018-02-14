@@ -5,9 +5,17 @@ os:
 # set the language
 language: c
 
+# install package before launching the test
+before_install:
+  - pip install --user cpp-coveralls
+
 # set the compiler
 compiler:
-  - clang
+  - gcc
 
+# Launch the build & test process
 script: 
-  - make && make test
+  - ./configure --enable-gcov && make && make test
+
+after_success:
+  - coveralls --exclude lib --excludes tests --gcov-options '\-lp'
