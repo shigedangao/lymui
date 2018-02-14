@@ -1,9 +1,28 @@
+# set os for testing
+os:
+  - osx
+
 # set the language
 language: c
 
+# install package before launching the test
+before_install:
+  - brew update
+  - brew upgrade pyenv
+  - eval "$(pyenv init -)"
+  - pyenv install 2.7.6
+  - pyenv global 2.7.6
+  - pyenv rehash
+  - pip install cpp-coveralls
+  - pyenv rehash
+
 # set the compiler
 compiler:
-  - clang
+  - gcc
 
+# Launch the build & test process
 script: 
   - make && make test
+
+after_success:
+  - coveralls --exclude lib --excludes tests --gcov-options '\-lp'
