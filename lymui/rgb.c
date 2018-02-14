@@ -16,14 +16,13 @@
 // Make RGB
 // Return RGB struct pointer
 // Params : Array of ushort length 3
-struct Rgb *makeRGB(uint8_t *c) {
+struct Rgb *makeRGB(uint8_t c[], uint8_t length) {
     struct Rgb *color = malloc (sizeof (struct Rgb));
     
     if (color == NULL)
         return NULL;
     
-    int isArrayInvalidValid = (sizeof(c) / sizeof(c[0])) < 3;
-    
+    uint8_t isArrayInvalidValid = length != 3;
     if (isArrayInvalidValid) {
         free(color);
         return NULL;
@@ -37,14 +36,9 @@ struct Rgb *makeRGB(uint8_t *c) {
 }
 
 // Make Rgb From Arr Pointer
-struct Rgb *makeRGBFromArrPointer(uint8_t *c) {
-    struct Rgb *color = makeRGB(c);
+struct Rgb *makeRGBFromArrPointer(uint8_t *c, uint8_t length) {
+    struct Rgb *color = makeRGB(c, length);
     free(c);
     
     return color;
-}
-
-// Free Rgb
-void freeRgb(struct Rgb *c) {
-    free(c);
 }

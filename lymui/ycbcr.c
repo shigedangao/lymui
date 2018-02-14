@@ -25,9 +25,13 @@ struct Ycbcr *makeYcbcr(struct Rgb *rgb) {
         return NULL;
     
     struct Ycbcr *v = malloc(sizeof (struct Ycbcr));
-    v->y  = 16  + (yValue[0]  * rgb->r + yValue[1]   * rgb->g + yValue[2]   * rgb->b);
-    v->cb = 128 + (- (cbValue[0] * rgb->r) - (cbValue[1] * rgb->g) + (cbValue[2] * rgb->b));
-    v->cr = 128 + (crValue[0] * rgb->r - crValue[1]  * rgb->g  - crValue[2] * rgb->b);
+    uint8_t y  = floatToUint(16  + (yValue[0] * rgb->r + yValue[1] * rgb->g + yValue[2] * rgb->b));
+    uint8_t cb = floatToUint(128 + (- (cbValue[0] * rgb->r) - (cbValue[1] * rgb->g) + (cbValue[2] * rgb->b)));
+    uint8_t cr = floatToUint(128 + (crValue[0] * rgb->r - crValue[1]  * rgb->g  - crValue[2] * rgb->b));
+    
+    v->y  = y;
+    v->cb = cb;
+    v->cr = cr;
     
     // don't forget to free when not needed anymore
     return v;

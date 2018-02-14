@@ -26,6 +26,9 @@ char * getHexFromRGB(struct Rgb *c) {
 
 // Get RGB Value From Hex
 uint8_t * getRawRGBArrayValueFromHex(char *hex) {
+    if (hex == NULL)
+        return NULL;
+    
     const char * copy = hex;
     // Make a copy of the pointer
     uint8_t *rgbArr = malloc(sizeof (char) * 3);
@@ -40,7 +43,6 @@ uint8_t * getRawRGBArrayValueFromHex(char *hex) {
         idx = idx + 2;
     }
     
-    printf("\nrgb arr %i\n", rgbArr[2]);
     // Don't forget to free it after it's usage
     return rgbArr;
 }

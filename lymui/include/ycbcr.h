@@ -14,9 +14,9 @@
 
 // Struct Ycbcr
 struct Ycbcr {
-    float y;
-    float cb;
-    float cr;
+    uint8_t y;
+    uint8_t cb;
+    uint8_t cr;
 };
 
 // Make Ycbcr
