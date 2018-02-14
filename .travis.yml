@@ -7,22 +7,26 @@ language: c
 
 # install package before launching the test
 before_install:
-  - brew update
-  - brew upgrade pyenv
-  - eval "$(pyenv init -)"
-  - pyenv install 2.7.6
-  - pyenv global 2.7.6
-  - pyenv rehash
-  - pip install cpp-coveralls
-  - pyenv rehash
+  - wget http://downloads.sourceforge.net/ltp/lcov-1.13.tar.gz
+  - tar xf lcov-1.13.tar.gz
+  - sudo make -C lcov-1.13/ install
+
+  # Install lcov
+  - gem install coveralls-lcov
 
 # set the compiler
 compiler:
   - gcc
 
+before_script:
+  - lcov --directory . --zerocounters
+
 # Launch the build & test process
 script: 
-  - make && make test
+  - sh coverage.sh
 
 after_success:
-  - coveralls --exclude lib --excludes tests --gcov-options '\-lp'
+  - lcov --directory . --capture --output-file coverage.info
+  - lcov --remove coverage.info 'tests/*' '/usr/*' 'test-library*' --output-file coverage.info
+  - lcov --list coverage.info
+  - coveralls-lcov  coverage.info
