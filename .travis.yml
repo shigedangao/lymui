@@ -30,3 +30,11 @@ after_success:
   - lcov --remove coverage.info 'tests/*' '/usr/*' 'test-library*' --output-file coverage.info
   - lcov --list coverage.info
   - coveralls-lcov  coverage.info
+
+deploy:
+  provider: releases
+  api_key: ${GH_TOKEN}
+  file: "lym"
+  skip_cleanup: true
+  on:
+    tags: true
