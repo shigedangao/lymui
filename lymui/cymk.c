@@ -38,6 +38,22 @@ struct Cymk *getCymkFromRgb(struct Rgb *rgb) {
     cymk->c = (1.0f - _r - _k) / (1.0f - _k);
     cymk->m = (1.0f - _g - _k) / (1.0f - _k);
     cymk->y = (1.0f - _b - _k) / (1.0f - _k);
+    
+    free(_l);
         
     return cymk;
+}
+
+uint8_t * getRawRGBArrayValueFromCymk(struct Cymk *cymk) {
+    if (cymk == NULL)
+        return NULL;
+    
+    uint8_t *value = malloc(sizeof(uint8_t) * 2);
+    const uint8_t _kv = 1 - cymk->k;
+    
+    value[0] = 255 * (1 - cymk->c) * _kv;
+    value[1] = 255 * (1 - cymk->m) * _kv;
+    value[2] = 255 * (1 - cymk->y) * _kv;
+    
+    return value;
 }

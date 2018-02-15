@@ -12,21 +12,27 @@
 #include <stdio.h>
 #include "rgb.h"
 
-// Get Hex From RGB
-// Return --> char array
-// Params --> struct pointer Rgb
-char * getHexFromRGB(struct Rgb *c);
+/*!
+ * @discussion Create a char array which is the HEX value
+ * @param rgb a RGB structure
+ * @return a Char array pointer containing the HEX
+ */
+char * getHexFromRGB(struct Rgb *rgb);
 
-// Get Raw RGB Array Value From Hex
+/*!
+ * @discussion Get a raw uint8_t array value
+ * @param hex a Hex char array
+ * @return a uint8_t value
+ * @TODO return an RGB struct
+ */
 uint8_t * getRawRGBArrayValueFromHex(char *hex);
 
-// Calculate RGB Value from Hex
-void calculateRGBValue(uint8_t x, uint8_t y, uint8_t idx, uint8_t *arr);
-
-// Set Value
-uint8_t setValue(char *value, uint8_t var);
-
-// Get Uint8 Char Value
-uint8_t getUintCharValue(char v);
+/*!
+ * @discussion Get the uint8_t value based on each character of the Hex
+ * @param v a char array representing the Hex array
+ * @param idx an index
+ * @return a uint8_t value
+ */
+uint8_t getUintCharValue(char *v, uint8_t idx);
 
 #endif /* hex_h */
