@@ -24,11 +24,13 @@ int main(int argc, const char * argv[]) {
     ctcase_t  *rgb   = wrapRgbCreationTest();
     ctcase_t  *hex   = wrapHexCreationTest();
     ctcase_t  *ycbcr = wrapYcbcrCreationTest();
+    ctcase_t  *cymk  = wrapCymkCreationTest();
     
     // Launch suite
     ctscaseadd(suite, rgb);
     ctscaseadd(suite, hex);
     ctscaseadd(suite, ycbcr);
+    ctscaseadd(suite, cymk);
     ctsrun(suite);
     
     return 0;

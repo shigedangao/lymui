@@ -30,10 +30,16 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
-    char *hex = malloc(sizeof(char) * 5);
-    hex = "050A5F";
-    uint8_t *uc = getRawRGBArrayValueFromHex(hex);
+    char *hex = malloc(sizeof (char) * 5);
+    hex[0] = '0';
+    hex[1] = '5';
+    hex[2] = '0';
+    hex[3] = 'A';
+    hex[4] = '5';
+    hex[5] = 'F';
     
+    uint8_t *uc = getRawRGBArrayValueFromHex(hex);
+
     CTAssertEqual(test, 5, uc[0], "UC value is %d where as it should be %d", 5, uc[0]);
     CTAssertEqual(test, 10, uc[1], "UC value is %d where as it should be %d", 10, uc[1]);
     CTAssertEqual(test, 95, uc[2], "UC value is %d where as it should be %d", 95, uc[2]);

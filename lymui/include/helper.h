@@ -24,4 +24,7 @@ char * ushortToHex(uint8_t v);
 // Use by Ycbcr conversion
 uint8_t floatToUint(float value);
 
+// Get Max Value
+float getMaxValue(float *value, int size);
+
 #endif /* helper_h */

@@ -40,6 +40,7 @@ uint8_t * getRawRGBArrayValueFromHex(char *hex) {
         int y = getUintCharValue(copy[idx + 1]);
         
         rgbArr[(idx / 2)] = y + (x * 16);
+        
         idx = idx + 2;
     }
     
@@ -52,13 +53,21 @@ uint8_t * getRawRGBArrayValueFromHex(char *hex) {
 uint8_t getUintCharValue(char c) {
     uint8_t n = 0;
     switch (c) {
+        case '1': n = 1; break;
+        case '2': n = 2; break;
+        case '3': n = 3; break;
+        case '4': n = 4; break;
+        case '5': n = 5; break;
+        case '6': n = 6; break;
+        case '7': n = 7; break;
+        case '8': n = 8; break;
+        case '9': n = 9; break;
         case 'A': n = 10; break;
         case 'B': n = 11; break;
         case 'C': n = 12; break;
         case 'D': n = 13; break;
         case 'E': n = 14; break;
         case 'F': n = 15; break;
-        default: n = (uint8_t) strtoul(&c, NULL, 0);
     }
     
     return n;

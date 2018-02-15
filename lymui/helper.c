@@ -39,3 +39,17 @@ uint8_t floatToUint(float value) {
     return (uint8_t) value;
 }
 
+// Get Max Value
+float getMaxValue(float * value, int size) {
+    if (!size)
+        return 0;
+    
+    float _m = value[size];
+    for (int idx = size; idx >= 0; idx--) {
+        if (value[idx] > _m)
+            _m = value[idx];
+    }
+    
+    return _m;
+}
+
