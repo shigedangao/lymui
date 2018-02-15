@@ -43,17 +43,17 @@ ctest_return_t testUintCreationFromYcbcr(ctest_t *test, void *arg) {
     ycbcr->cb = 186;
     ycbcr->cr = 77;
     
-    uint8_t *rgb = getRawRGBArrayValueFromYcbcr(ycbcr);
-    CTAssertEqual(test, 0, rgb[0], "R value is wrong %d, expected: %d", rgb[0], 0);
-    CTAssertEqual(test, 100, rgb[1], "G value is wrong %d, expected: %d", rgb[1], 100);
-    CTAssertEqual(test, 198, rgb[2], "B value is wrong %d, expected: %d", rgb[2], 198);
+    struct Rgb *rgb = getRawRGBValueFromYcbcr(ycbcr);
+    CTAssertEqual(test, 0, rgb->r, "R value is wrong %d, expected: 0", rgb[0]);
+    CTAssertEqual(test, 100, rgb->g, "G value is wrong %d, expected: 100", rgb[1]);
+    CTAssertEqual(test, 198, rgb->b, "B value is wrong %d, expected: 198", rgb[2]);
     
     free(ycbcr);
     free(rgb);
 }
 
 ctest_return_t testUintNullCreationFromYcbcr(ctest_t *test, void *arg) {
-    uint8_t *rgb = getRawRGBArrayValueFromYcbcr(NULL);
+    struct Rgb *rgb = getRawRGBValueFromYcbcr(NULL);
     CTAssertNull(test, rgb, "Rgb from YCbCr is not Null");
     
     free(rgb);

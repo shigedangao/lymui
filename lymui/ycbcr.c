@@ -38,7 +38,7 @@ struct Ycbcr *makeYcbcr(struct Rgb *rgb) {
 }
 
 // Get Raw RGB Array Value From Ycbcr
-uint8_t * getRawRGBArrayValueFromYcbcr(struct Ycbcr *cb) {
+struct Rgb * getRawRGBValueFromYcbcr(struct Ycbcr *cb) {
     if (cb == NULL)
         return NULL;
     
@@ -51,6 +51,9 @@ uint8_t * getRawRGBArrayValueFromYcbcr(struct Ycbcr *cb) {
     cArr[1] = g;
     cArr[2] = b;
     
+    struct Rgb *rgb = makeRGB(cArr, 3);
+    free(cArr);
+    
     // don't forget to free when not needed anymore
-    return cArr;
+    return rgb;
 }

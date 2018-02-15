@@ -42,18 +42,18 @@ ctest_return_t testCymkToUint8Array(ctest_t *test, void *arg) {
     cymk->m = 0.0f;
     cymk->k = 1.0f;
     
-    uint8_t *colors = getRawRGBArrayValueFromCymk(cymk);
+    struct Rgb *color = getRawRGBValueFromCymk(cymk);
     
-    CTAssertEqual(test, 0, colors[0], "Expected R to be 0, instead %ui", colors[0]);
-    CTAssertEqual(test, 0, colors[1], "Expected G to be 0, instead %ui", colors[1]);
-    CTAssertEqual(test, 0, colors[2], "Expected B to be 0, instead %ui", colors[2]);
+    CTAssertEqual(test, 0, color->r, "Expected R to be 0, instead %ui", color->r);
+    CTAssertEqual(test, 0, color->g, "Expected G to be 0, instead %ui", color->g);
+    CTAssertEqual(test, 0, color->b, "Expected B to be 0, instead %ui", color->b);
 
     free(cymk);
-    free(colors);
+    free(color);
 }
 
 ctest_return_t testCymkToUintNull(ctest_t *test, void *arg) {
-    uint8_t *colors = getRawRGBArrayValueFromCymk(NULL);
+    struct Rgb *colors = getRawRGBValueFromCymk(NULL);
     
     CTAssertNull(test, colors, "Expected colors to be NULL");
     free(colors);
