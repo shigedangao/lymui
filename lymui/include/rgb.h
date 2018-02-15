@@ -11,17 +11,23 @@
 
 #include <stdio.h>
 
-// Rgb Struct
+/*!
+ * @brief Rgb structure Object
+ */
 struct Rgb {
     uint8_t r;
     uint8_t g;
     uint8_t b;
 };
 
-// Make RGB
+/*!
+ * @discussion Create an RGB structure from an uint8_t array
+ * @param c a uint8_t array
+ * @param length the length of the array
+ * @return a Rgb struct
+ */
 struct Rgb* makeRGB(uint8_t c[], uint8_t length);
 
-// Make RGB From Arr Pointer
 struct Rgb* makeRGBFromArrPointer(uint8_t *c, uint8_t length);
 
 #endif /* rgb_h */

@@ -30,14 +30,38 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
+    char *hex = malloc(sizeof (char) * 5);
+    hex[0] = '0';
+    hex[1] = '5';
+    hex[2] = '0';
+    hex[3] = 'A';
+    hex[4] = '5';
+    hex[5] = 'F';
+    
+    uint8_t *uc = getRawRGBArrayValueFromHex(hex);
+
+    CTAssertEqual(test, 5, uc[0], "R value is %d where as it should be %d", 5, uc[0]);
+    CTAssertEqual(test, 10, uc[1], "G value is %d where as it should be %d", 10, uc[1]);
+    CTAssertEqual(test, 95, uc[2], "B value is %d where as it should be %d", 95, uc[2]);
+    
+    free(uc);
+}
+
+ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
     char *hex = malloc(sizeof(char) * 5);
-    hex = "050A5F";
+    hex[0] = 'A';
+    hex[1] = 'B';
+    hex[2] = 'C';
+    hex[3] = 'D';
+    hex[4] = 'E';
+    hex[5] = 'F';
+    
     uint8_t *uc = getRawRGBArrayValueFromHex(hex);
     
-    CTAssertEqual(test, 5, uc[0], "UC value is %d where as it should be %d", 5, uc[0]);
-    CTAssertEqual(test, 10, uc[1], "UC value is %d where as it should be %d", 10, uc[1]);
-    CTAssertEqual(test, 95, uc[2], "UC value is %d where as it should be %d", 95, uc[2]);
-    
+    CTAssertEqual(test, 171, uc[0], "R value expected: %ui, value: %ui", 171, uc[0]);
+    CTAssertEqual(test, 205, uc[1], "G value expected: %ui, value: %ui", 205, uc[1]);
+    CTAssertEqual(test, 239, uc[2], "B value expected: %ui, value: %ui", 239, uc[2]);
+
     free(uc);
 }
 
@@ -56,11 +80,13 @@ ctcase_t *wrapHexCreationTest() {
     ctest_t *hexCreation  = ctest("Create an Hex from RGB", testHexCreationFromRgb, NULL);
     ctest_t *uintCreation = ctest("Create an Uint8 Array from HEX", testUintArrayCreationFromHex, NULL);
     ctest_t *uintNull = ctest("Create an Uint8 Array from a Null HEX", testUintNullCreationFromHex, NULL);
+    ctest_t *uintOtherHex = ctest("Create RGB From String Hex", testUintArrayCreationFromSecHex, NULL);
     
     // Add test to test case
     ctctestadd(hexCase, hexCreation);
     ctctestadd(hexCase, uintCreation);
     ctctestadd(hexCase, uintNull);
+    ctctestadd(hexCase, uintOtherHex);
     
     return hexCase;
 }

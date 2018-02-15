@@ -18,4 +18,6 @@ ctcase_t *wrapHexCreationTest(void);
 
 ctcase_t *wrapYcbcrCreationTest(void);
 
+ctcase_t *wrapCymkCreationTest(void);
+
 #endif /* rgb_test_h */
