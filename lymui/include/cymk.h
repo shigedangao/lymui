@@ -39,6 +39,6 @@ struct Cymk *getCymkFromRgb(struct Rgb *rgb);
  * @return a uint8_t array
  * @TODO return RGB struct instead
  */
-uint8_t * getRawRGBArrayValueFromCymk(struct Cymk *cymk);
+struct Rgb * getRawRGBValueFromCymk(struct Cymk *cymk);
 
 #endif /* cymk_h */

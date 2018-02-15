@@ -25,7 +25,7 @@ char * getHexFromRGB(struct Rgb *c) {
 }
 
 // Get RGB Value From Hex
-uint8_t * getRawRGBArrayValueFromHex(char *hex) {
+struct Rgb * getRawRGBValueFromHex(char *hex) {
     if (hex == NULL)
         return NULL;
     
@@ -44,8 +44,10 @@ uint8_t * getRawRGBArrayValueFromHex(char *hex) {
     
     // remove the pointer as we don't need it anymore
     free(hex);
+    struct Rgb *rgb = makeRGB(rgbArr, 3);
+    free(rgbArr);
     // Don't forget to free it after it's usage
-    return rgbArr;
+    return rgb;
 }
 
 // Get Uint Char Value

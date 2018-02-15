@@ -32,6 +32,6 @@ struct Ycbcr *makeYcbcr(struct Rgb *rgb);
  * @return a uint8_t array
  * @TODO return RGB struct instead
  */
-uint8_t * getRawRGBArrayValueFromYcbcr(struct Ycbcr *yc);
+struct Rgb * getRawRGBValueFromYcbcr(struct Ycbcr *yc);
 
 #endif /* ycbcr_h */

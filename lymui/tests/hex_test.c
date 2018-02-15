@@ -38,11 +38,11 @@ ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
     hex[4] = '5';
     hex[5] = 'F';
     
-    uint8_t *uc = getRawRGBArrayValueFromHex(hex);
+    struct Rgb *uc = getRawRGBValueFromHex(hex);
 
-    CTAssertEqual(test, 5, uc[0], "R value is %d where as it should be %d", 5, uc[0]);
-    CTAssertEqual(test, 10, uc[1], "G value is %d where as it should be %d", 10, uc[1]);
-    CTAssertEqual(test, 95, uc[2], "B value is %d where as it should be %d", 95, uc[2]);
+    CTAssertEqual(test, 5, uc->r, "R value is %d where as it should be 5", 5);
+    CTAssertEqual(test, 10, uc->g, "G value is %d where as it should be 10", 10);
+    CTAssertEqual(test, 95, uc->b, "B value is %d where as it should be 95", 95);
     
     free(uc);
 }
@@ -56,18 +56,18 @@ ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
     hex[4] = 'E';
     hex[5] = 'F';
     
-    uint8_t *uc = getRawRGBArrayValueFromHex(hex);
+    struct Rgb *uc = getRawRGBValueFromHex(hex);
     
-    CTAssertEqual(test, 171, uc[0], "R value expected: %ui, value: %ui", 171, uc[0]);
-    CTAssertEqual(test, 205, uc[1], "G value expected: %ui, value: %ui", 205, uc[1]);
-    CTAssertEqual(test, 239, uc[2], "B value expected: %ui, value: %ui", 239, uc[2]);
+    CTAssertEqual(test, 171, uc->r, "R value expected: 171, value: %ui", 171);
+    CTAssertEqual(test, 205, uc->g, "G value expected: 205, value: %ui", 205);
+    CTAssertEqual(test, 239, uc->b, "B value expected: 239, value: %ui", 239);
 
     free(uc);
 }
 
 ctest_return_t testUintNullCreationFromHex(ctest_t *test, void *arg) {
     char *hex = NULL;
-    uint8_t *uc = getRawRGBArrayValueFromHex(hex);
+    struct Rgb *uc = getRawRGBValueFromHex(hex);
     
     CTAssertNull(test, uc, "Test uint null creation, value is not NULL");
 }

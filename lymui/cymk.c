@@ -44,7 +44,7 @@ struct Cymk *getCymkFromRgb(struct Rgb *rgb) {
     return cymk;
 }
 
-uint8_t * getRawRGBArrayValueFromCymk(struct Cymk *cymk) {
+struct Rgb * getRawRGBValueFromCymk(struct Cymk *cymk) {
     if (cymk == NULL)
         return NULL;
     
@@ -55,5 +55,7 @@ uint8_t * getRawRGBArrayValueFromCymk(struct Cymk *cymk) {
     value[1] = 255 * (1 - cymk->m) * _kv;
     value[2] = 255 * (1 - cymk->y) * _kv;
     
-    return value;
+    struct Rgb *rgb = makeRGB(value, 3);
+    free(value);
+    return rgb;
 }
