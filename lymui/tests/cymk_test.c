@@ -28,14 +28,23 @@ ctest_return_t testCymkCreation(ctest_t *test, void *arg) {
     free(cymk);
 }
 
+ctest_return_t testCymkNullCreation(ctest_t *test, void *arg) {
+    struct Cymk *cymk = getCymkFromRgb(NULL);
+    CTAssertNull(test, cymk, "Expected CYMK to be NULL");
+    
+    free(cymk);
+}
+
 ctcase_t *wrapCymkCreationTest() {
     // Create case
     ctcase_t *cymkCase = ctcase("Cymk test case");
     
     // Create test
     ctest_t *cymkCreation = ctest("Create Cymk From RGB struct", testCymkCreation, NULL);
+    ctest_t *cymkNull = ctest("Cymk should return NULL", testCymkNullCreation, NULL);
     
     // add test to cases
     ctctestadd(cymkCase, cymkCreation);
+    ctctestadd(cymkCase, cymkNull);
     return cymkCase;
 }

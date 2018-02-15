@@ -38,9 +38,6 @@ struct Cymk *getCymkFromRgb(struct Rgb *rgb) {
     cymk->c = (1.0f - _r - _k) / (1.0f - _k);
     cymk->m = (1.0f - _g - _k) / (1.0f - _k);
     cymk->y = (1.0f - _b - _k) / (1.0f - _k);
-    
-    printf("\nVALUE VALUE OF M %f\n", cymk->m);
-
-    
+        
     return cymk;
 }
