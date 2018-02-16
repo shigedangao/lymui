@@ -11,7 +11,7 @@ echo $output;
 if [[ $output = *"failures"* ]]
 then
   echo "exit";
-  exit;
+  exit -1;
 fi
 
 # coverage the lib
