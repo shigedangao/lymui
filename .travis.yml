@@ -35,7 +35,7 @@ before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name ${USERNAME}
   - git config --local user.email ${EMAIL}
-  - git tag -a v${TRAVIS_BUILD_ID} -m "Build generate from travis"
+  - git tag -a v${TRAVIS_BUILD_NUMBER} -m "Build generate from travis"
   - git push -q https://${GH_TOKEN}@github.com/MarcInthaamnouay/lymui --tags
 
 notifications:
