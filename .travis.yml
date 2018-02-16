@@ -35,7 +35,14 @@ before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name ${USERNAME}
   - git config --local user.email ${EMAIL}
-  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+  - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
+  - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER
+  - git push -q https://$TAGPERM@github.com/MarcInthaamnouay/lymui --tags
+
+notifications:
+  email:
+    on_success: never
+    on_error: always
 
 deploy:
   provider: releases
