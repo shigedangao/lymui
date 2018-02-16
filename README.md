@@ -24,3 +24,37 @@ Before compiling the project we need to make sure that you have the following pr
 
 For OSX users: Open the project in Xcode and compile it.
 For other users, go to the root of the project and **build the project** with the command ```make```. Test the project with ```make test```
+
+## Documentation
+
+## Rgb methods
+
+Create an RGB require 2 parameters
+
+- param: uint8_t array
+- param: length of the array (3)
+- return struct Rgb* | NULL if the array does not satisfy the method
+
+```c
+uint8_t *foo = malloc(sizeof(uint_8t) * 3);
+foo[0] = 100;
+foo[1] = 200;
+foo[2] = 250;
+
+struct Rgb *rgb = makeRGB(foo, 3);
+```
+
+## Hex methods
+
+Create an Hex. Create an Hex required an Rgb struct.
+
+- params: struct Rgb (pointer)
+- return: char *hex | NULL
+
+```c
+// let's take the variable from the above example
+char *hex = getHexFromRGB(rgb);
+// the size of the hex char arary is 5 eg: "ABCDEF"
+```
+
+WIP
