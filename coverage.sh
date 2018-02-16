@@ -6,11 +6,12 @@ make
 
 # test the project (generate GCDA)
 
-output=$(./lym); 
-
-if [output = -1]
+output=$(./lym params); 
+echo $output;
+if [[ $output = *"failures"* ]]
 then
-  echo $output;
+  echo "exit";
+  exit;
 fi
 
 # coverage the lib
