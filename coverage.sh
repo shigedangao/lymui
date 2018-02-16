@@ -6,7 +6,12 @@ make
 
 # test the project (generate GCDA)
 
-./lym
+output=$(./lym); 
+
+if [output = -1]
+then
+  echo $output;
+fi
 
 # coverage the lib
 gcov rgb.gcno -b
