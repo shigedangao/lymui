@@ -20,7 +20,12 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     
     char *hex = getHexFromRGB(lym);
     char *value = malloc(sizeof(char) * 5);
-    value = "050A5F";
+    value[0] = '1';
+    value[1] = '5';
+    value[2] = '0';
+    value[3] = 'A';
+    value[4] = '5';
+    value[5] = 'F';
     
     // As the lib does not support the hex test yet
     CTAssertEqual(test, 0, strcmp(value, hex), "Hex is not equal to lym values %s", hex);
