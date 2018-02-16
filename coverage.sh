@@ -6,7 +6,13 @@ make
 
 # test the project (generate GCDA)
 
-./lym
+output=$(./lym params); 
+echo $output;
+if [[ $output = *"failures"* ]]
+then
+  echo "exit";
+  exit -1;
+fi
 
 # coverage the lib
 gcov rgb.gcno -b
