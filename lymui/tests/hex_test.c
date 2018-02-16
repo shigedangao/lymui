@@ -20,7 +20,7 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     
     char *hex = getHexFromRGB(lym);
     char *value = malloc(sizeof(char) * 5);
-    value[0] = '0';
+    value[0] = '1';
     value[1] = '5';
     value[2] = '0';
     value[3] = 'A';
