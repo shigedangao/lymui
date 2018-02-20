@@ -22,12 +22,14 @@ int main(int argc, const char * argv[]) {
     ctcase_t  *hex   = wrapHexCreationTest();
     ctcase_t  *ycbcr = wrapYcbcrCreationTest();
     ctcase_t  *cymk  = wrapCymkCreationTest();
+    ctcase_t  *hue   = wrapHueCreationTest();
     
     // Launch suite
     ctscaseadd(suite, rgb);
     ctscaseadd(suite, hex);
     ctscaseadd(suite, ycbcr);
     ctscaseadd(suite, cymk);
+    ctscaseadd(suite, hue);
     ctsrun(suite);
     
     uint8_t failNb = suite->failed;

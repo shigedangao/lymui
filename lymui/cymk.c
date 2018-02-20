@@ -27,9 +27,9 @@ struct Cymk *getCymkFromRgb(struct Rgb *rgb) {
     _l[1] = _g;
     _l[2] = _b;
     
-    float _m = getMaxValue(_l, 2);
+    float * _m = getMinMaxValue(_l, 2);
     // Calculate the K value
-    float _k = 1 - _m;
+    float _k = 1 - _m[1];
     
     struct Cymk *cymk = malloc(sizeof(struct Cymk));
     
@@ -40,6 +40,7 @@ struct Cymk *getCymkFromRgb(struct Rgb *rgb) {
     cymk->y = (1.0f - _b - _k) / (1.0f - _k);
     
     free(_l);
+    free(_m);
         
     return cymk;
 }

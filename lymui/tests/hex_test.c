@@ -26,9 +26,9 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     value[3] = 'A';
     value[4] = '5';
     value[5] = 'F';
-    
+
     // As the lib does not support the hex test yet
-    CTAssertEqual(test, 0, strcmp(value, hex), "Hex is not equal to lym values %s", hex);
+    CTAssertEqual(test, value, hex, "Hex is not equal to lym values %s", value);
     
     free(lym);
     free(hex);

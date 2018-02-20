@@ -11,20 +11,27 @@
 
 #include <stdio.h>
 
-// Rgb Hex Struct
-struct RgbHex {
-    char id;
-    uint8_t v;
-};
-
-// Ushort To Hex
+/*!
+ * @discussion convert an uint character to hex value
+ * @param v a Hex char array
+ * @return a char
+ */
 char * ushortToHex(uint8_t v);
 
-// Float to Uint
-// Use by Ycbcr conversion
+/*!
+ * @discussion convert a float to a uint
+ * @param value float
+ * @return a uint8_t value
+ */
 uint8_t floatToUint(float value);
 
-// Get Max Value
-float getMaxValue(float *value, int size);
+/*!
+ * @discussion Get Max value in an array of value
+ * @param value the float array
+ * @param size the size of the array
+ * @return an array of float value [min, max]
+ */
+float * getMinMaxValue(float *value, int size);
+
 
 #endif /* helper_h */
