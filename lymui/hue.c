@@ -7,6 +7,7 @@
 //
 
 #include <stdlib.h>
+#include <math.h>
 #include "hue.h"
 #include "helper.h"
 
@@ -14,16 +15,9 @@ float getHueFromRgb(struct Rgb *rgb) {
     if (rgb == NULL)
         return 0.0f;
     
-    float * value = malloc(sizeof(float) * 3);
-    // add the value of the rgb color
-    value[0] = rgb->r;
-    value[1] = rgb->g;
-    value[2] = rgb->b;
-    
-    float * minmax = getMinMaxValue(value, sizeof(value) / sizeof(value[0]));
     // might be better to have a getMinMax value for the uint directly
-    uint8_t min = floatToUint(minmax[0]);
-    uint8_t max = floatToUint(minmax[1]);
+    uint8_t max = fmaxf(fmaxf(rgb->r, rgb->g), rgb->b);
+    uint8_t min = fminf(fminf(rgb->r, rgb->g), rgb->b);
     
     // in case of min == max then return 0
     if (max == min)

@@ -14,6 +14,10 @@
 #include "hex.h"
 #include "rgb.h"
 
+int compareHex(const void *expected, const void *value) {
+    return ((int) expected) - ((int) value);
+}
+
 ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     uint8_t uc[]    = {5, 10, 95};
     struct Rgb *lym = makeRGB(uc, sizeof(uc));
@@ -28,7 +32,7 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     value[5] = 'F';
 
     // As the lib does not support the hex test yet
-    CTAssertEqual(test, value, hex, "Hex is not equal to lym values %s", value);
+    CTAssertStringEqual(test, value, hex, "%s is not equal to %s", value, hex);
     
     free(lym);
     free(hex);
