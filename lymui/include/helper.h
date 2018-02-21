@@ -26,12 +26,11 @@ char * ushortToHex(uint8_t v);
 uint8_t floatToUint(float value);
 
 /*!
- * @discussion Get Max value in an array of value
+ * @discussion Update Constraint Value
  * @param value the float array
- * @param size the size of the array
- * @return an array of float value [min, max]
+ * @return an array of float
  */
-float * getMinMaxValue(float *value, int size);
+float * updateConstraintValue(float *value, uint8_t size);
 
 
 #endif /* helper_h */

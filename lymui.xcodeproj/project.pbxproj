@@ -19,6 +19,7 @@
 		9F8BC44C203CD17F001709CA /* hue_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BC44B203CD17F001709CA /* hue_test.c */; };
 		9F9AA8A72029DE74008A28B8 /* helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AA8A62029DE74008A28B8 /* helper.c */; };
 		9F9AA8AB202A546B008A28B8 /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AA8AA202A546B008A28B8 /* hex.c */; };
+		9FB09146203DE0B000249EEB /* hsl.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FB09145203DE0B000249EEB /* hsl.c */; };
 		9FC4EB8620319B990083637E /* ycbcr.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4EB8520319B990083637E /* ycbcr.c */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,8 @@
 		9F9AA8A62029DE74008A28B8 /* helper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = helper.c; sourceTree = "<group>"; };
 		9F9AA8A9202A546B008A28B8 /* hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hex.h; sourceTree = "<group>"; };
 		9F9AA8AA202A546B008A28B8 /* hex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hex.c; sourceTree = "<group>"; };
+		9FB09144203DE0B000249EEB /* hsl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hsl.h; sourceTree = "<group>"; };
+		9FB09145203DE0B000249EEB /* hsl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hsl.c; sourceTree = "<group>"; };
 		9FC4EB8420319B990083637E /* ycbcr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ycbcr.h; sourceTree = "<group>"; };
 		9FC4EB8520319B990083637E /* ycbcr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ycbcr.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +118,7 @@
 				9FC4EB8520319B990083637E /* ycbcr.c */,
 				9F83F43F20358ACF00F16CF6 /* cymk.c */,
 				9F8BC449203CC9EE001709CA /* hue.c */,
+				9FB09145203DE0B000249EEB /* hsl.c */,
 			);
 			path = lymui;
 			sourceTree = "<group>";
@@ -131,6 +135,7 @@
 		9F70D72F2032EB1D0002E3F3 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				9FB09144203DE0B000249EEB /* hsl.h */,
 				9F8BC448203CC9EE001709CA /* hue.h */,
 				9F83F43E20358ACF00F16CF6 /* cymk.h */,
 				9F05AC0B2029208B00734C15 /* rgb.h */,
@@ -210,6 +215,7 @@
 				9F04727320348E67000639EA /* ycbcr_test.c in Sources */,
 				9F83F44020358ACF00F16CF6 /* cymk.c in Sources */,
 				9F83F4422035922A00F16CF6 /* cymk_test.c in Sources */,
+				9FB09146203DE0B000249EEB /* hsl.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

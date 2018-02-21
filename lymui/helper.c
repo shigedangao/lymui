@@ -34,24 +34,16 @@ uint8_t floatToUint(float value) {
     return (uint8_t) value;
 }
 
-float * getMinMaxValue(float * value, int size) {
-    if (!size)
-        return 0;
-    
-    float _m = value[size];
-    float _mn = value[size];
-    for (int idx = size; idx >= 0; idx--) {
-        if (value[idx] > _m)
-            _m = value[idx];
-        else if (value[idx] < _mn)
-            _mn = value[idx];
+float *updateConstraintValue(float *value, uint8_t size) {
+    for (uint8_t idx = size; idx > 0; idx--) {
+        if (value[idx] < 0.0f) {
+            value[idx] = value[idx] + 1;
+        } else if (value[idx] > 1.0f) {
+            value[idx] = value[idx] - 1;
+        }
     }
     
-    float * minmax = malloc(sizeof(float) * 2);
-    minmax[0] = _mn;
-    minmax[1] = _m;
-    
-    return minmax;
+    return value;
 }
 
 
