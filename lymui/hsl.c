@@ -61,6 +61,9 @@ struct Rgb *getRgbValueFromHsl(struct Hsl *hsl) {
     float temp_lum_s = 2 * hsl->l - temp_lum;
     float *temp_rgb  = getTempRgbValue(hsl->h);
     
+    rgb->r = calculateEachColoralue(temp_rgb[0], temp_lum, temp_lum_s);
+    rgb->g = calculateEachColoralue(temp_rgb[1], temp_lum, temp_lum_s);
+    rgb->b = calculateEachColoralue(temp_rgb[2], temp_lum, temp_lum_s);
     
     return rgb;
 }
@@ -92,6 +95,18 @@ static float *getTempRgbValue(float hue) {
     return updateConstraintValue(_rgb, sizeof(_rgb) - sizeof(_rgb[0]));
 }
 
-static float calculateEachColoralue(float c, float temp_m, float temp_l) {
-    return 0.0f;
+static uint8_t calculateEachColoralue(float c, float temp_m, float temp_l) {
+    float fv = 0.0f;
+    
+    if (6.0f * c < 1.0f) {
+        fv = temp_l + (temp_m - temp_l) * 6 * c;
+    } else if (2.0f * c < 1.0f) {
+        fv = temp_m;
+    } else if (3.0f * c < 2.0f) {
+        fv = temp_l + (temp_m - temp_l) * (0.666f - c) * 6;
+    } else {
+        fv = temp_l;
+    }
+    
+    return fv * 255;
 }

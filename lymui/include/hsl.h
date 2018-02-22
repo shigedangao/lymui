@@ -64,7 +64,7 @@ static float *getTempRgbValue(float hue);
  * @param temp_m a temporary luminance based on the value of the luminace
  * @param temp_l a temporary luminance based on the temp_m and the current luminance
  */
-static float calculateEachColoralue(float c, float temp_m, float temp_l);
+static uint8_t calculateEachColoralue(float c, float temp_m, float temp_l);
 
 
 #endif /* hsl_h */
