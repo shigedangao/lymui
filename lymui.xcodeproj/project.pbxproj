@@ -12,6 +12,7 @@
 		9F04727320348E67000639EA /* ycbcr_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727220348E67000639EA /* ycbcr_test.c */; };
 		9F05AC0D2029208B00734C15 /* rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F05AC0C2029208B00734C15 /* rgb.c */; };
 		9F3A07B22028891300CB2311 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A07B12028891300CB2311 /* main.c */; };
+		9F6F0FD0203F6FDE00113349 /* hsl_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F6F0FCF203F6FDE00113349 /* hsl_test.c */; };
 		9F83F44020358ACF00F16CF6 /* cymk.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F83F43F20358ACF00F16CF6 /* cymk.c */; };
 		9F83F4422035922A00F16CF6 /* cymk_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F83F4412035922A00F16CF6 /* cymk_test.c */; };
 		9F87675620333B1C00578E08 /* libcunit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E797E203336B600152E72 /* libcunit.a */; };
@@ -47,6 +48,7 @@
 		9F3E797C2033369900152E72 /* cunit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cunit; path = lib/cunit; sourceTree = "<group>"; };
 		9F3E797E203336B600152E72 /* libcunit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcunit.a; path = lib/cunit/libcunit.a; sourceTree = "<group>"; };
 		9F6C2320202E632000804575 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9F6F0FCF203F6FDE00113349 /* hsl_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hsl_test.c; sourceTree = "<group>"; };
 		9F83F43E20358ACF00F16CF6 /* cymk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cymk.h; sourceTree = "<group>"; };
 		9F83F43F20358ACF00F16CF6 /* cymk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cymk.c; sourceTree = "<group>"; };
 		9F83F4412035922A00F16CF6 /* cymk_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cymk_test.c; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				9F04727220348E67000639EA /* ycbcr_test.c */,
 				9F83F4412035922A00F16CF6 /* cymk_test.c */,
 				9F8BC44B203CD17F001709CA /* hue_test.c */,
+				9F6F0FCF203F6FDE00113349 /* hsl_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -216,6 +219,7 @@
 				9F83F44020358ACF00F16CF6 /* cymk.c in Sources */,
 				9F83F4422035922A00F16CF6 /* cymk_test.c in Sources */,
 				9FB09146203DE0B000249EEB /* hsl.c in Sources */,
+				9F6F0FD0203F6FDE00113349 /* hsl_test.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

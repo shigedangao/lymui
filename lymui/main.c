@@ -15,6 +15,7 @@
 #include "ycbcr.h"
 #include "test_header.h"
 
+// @TODO free all the test and the suite and the case
 int main(int argc, const char * argv[]) {
     // Create suite case
     ctsuite_t *suite = ctsuite("Lymui test");
@@ -23,6 +24,7 @@ int main(int argc, const char * argv[]) {
     ctcase_t  *ycbcr = wrapYcbcrCreationTest();
     ctcase_t  *cymk  = wrapCymkCreationTest();
     ctcase_t  *hue   = wrapHueCreationTest();
+    ctcase_t  *hsl   = wrapHslCreationTest();
     
     // Launch suite
     ctscaseadd(suite, rgb);
@@ -30,6 +32,7 @@ int main(int argc, const char * argv[]) {
     ctscaseadd(suite, ycbcr);
     ctscaseadd(suite, cymk);
     ctscaseadd(suite, hue);
+    ctscaseadd(suite, hsl);
     ctsrun(suite);
     
     uint8_t failNb = suite->failed;

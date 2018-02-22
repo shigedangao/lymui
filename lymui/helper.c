@@ -34,6 +34,10 @@ uint8_t floatToUint(float value) {
     return (uint8_t) value;
 }
 
+float roundOneDigit(float value) {
+    return roundf(value * 10) / 10;
+}
+
 float *updateConstraintValue(float *value, uint8_t size) {
     for (uint8_t idx = size; idx > 0; idx--) {
         if (value[idx] < 0.0f) {

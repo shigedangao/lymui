@@ -22,4 +22,6 @@ ctcase_t *wrapCymkCreationTest(void);
 
 ctcase_t *wrapHueCreationTest(void);
 
+ctcase_t *wrapHslCreationTest(void);
+
 #endif /* rgb_test_h */

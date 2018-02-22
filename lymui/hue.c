@@ -16,8 +16,8 @@ float getHueFromRgb(struct Rgb *rgb) {
         return 0.0f;
     
     // might be better to have a getMinMax value for the uint directly
-    uint8_t max = fmaxf(fmaxf(rgb->r, rgb->g), rgb->b);
-    uint8_t min = fminf(fminf(rgb->r, rgb->g), rgb->b);
+    float max = fmaxf(fmaxf(rgb->r, rgb->g), rgb->b);
+    float min = fminf(fminf(rgb->r, rgb->g), rgb->b);
     
     // in case of min == max then return 0
     if (max == min)
@@ -25,13 +25,17 @@ float getHueFromRgb(struct Rgb *rgb) {
     
     // Create the hue variable here
     float hue = 0.0f;
+    // cast the value to a float no repetition..
+    float _r = (float) rgb->r;
+    float _g = (float) rgb->g;
+    float _b = (float) rgb->b;
 
     if (max == rgb->r) {
-        hue = (rgb->g - rgb->b) / (max - min);
+        hue = (_g - _b) / (max - min);
     } else if (max == rgb->g) {
-        hue = 2.0f + (rgb->b - rgb->r) / (max - min);
+        hue = 2.0f + (_b - _r) / (max - min);
     } else {
-        hue = 4.0f + (rgb->r - rgb->g) / (max - min);
+        hue = 4.0f + (_r - _g) / (max - min);
     }
      
     hue = hue * 60;
@@ -39,5 +43,5 @@ float getHueFromRgb(struct Rgb *rgb) {
     if (hue < 0.0f)
         hue = hue + 360.0f;
     
-    return hue;
+    return roundf(hue);
 }

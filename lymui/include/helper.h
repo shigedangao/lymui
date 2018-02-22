@@ -26,6 +26,13 @@ char * ushortToHex(uint8_t v);
 uint8_t floatToUint(float value);
 
 /*!
+ * @discussion round a float to 1 digit
+ * @param value float
+ * @return a float
+ */
+float roundOneDigit(float value);
+
+/*!
  * @discussion Update Constraint Value
  * @param value the float array
  * @return an array of float

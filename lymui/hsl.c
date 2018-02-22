@@ -21,10 +21,14 @@ struct Hsl *getHslFromRgb(struct Rgb *rgb) {
     float min = fminf(fminf(rgb->r, rgb->g), rgb->b);
     float max = fmaxf(fmaxf(rgb->r, rgb->g), rgb->b);
     
+    min = min / 255;
+    max = max / 255;
+    float _l = (min + max) / 2;
+    
     struct Hsl *hsl = malloc(sizeof(hsl));
     hsl->h = hue;
-    hsl->l = (min + max) / 2;
-    hsl->s = getSaturation(min, max, hsl->l);
+    hsl->s = roundOneDigit(getSaturation(min, max, _l) * 100);
+    hsl->l = roundOneDigit(_l * 100);
     
     free(rgb);
     
@@ -44,9 +48,11 @@ struct Rgb *getRgbValueFromHsl(struct Hsl *hsl) {
     }
     
     if (!hsl->h && !hsl->s) {
+        // return a gray shade rgb struct
         return getShadeOfGray(hsl);
     }
     
+    // Create a new RGB struct
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     
     // choose the luminace formula
@@ -65,11 +71,13 @@ struct Rgb *getRgbValueFromHsl(struct Hsl *hsl) {
     rgb->g = calculateEachColoralue(temp_rgb[1], temp_lum, temp_lum_s);
     rgb->b = calculateEachColoralue(temp_rgb[2], temp_lum, temp_lum_s);
     
+    free(hsl);
+    
     return rgb;
 }
 
 static struct Rgb *getShadeOfGray(struct Hsl *hsl) {
-    uint8_t v = hsl->l * 255;
+    uint8_t v = hsl->l / 100 * 255;
     
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = v;
