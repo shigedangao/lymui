@@ -16,6 +16,7 @@ DEPS = lymui/main.h \
 			 lymui/ycbcr.h \
 			 lymui/cymk.h \
 			 lymui/hue.h \
+			 lymui/hsl.h \
 			 lymui/helper.h \
 			 lymui/test_header.h
 
@@ -25,12 +26,14 @@ OBJ  = lymui/main.c \
 			 lymui/ycbcr.c \
 			 lymui/cymk.c \
 			 lymui/hue.c \
+			 lymui/hsl.c \
 			 lymui/helper.c \
 			 lymui/tests/rgb_test.c \
 			 lymui/tests/hex_test.c \
 			 lymui/tests/ycbcr_test.c \
 			 lymui/tests/cymk_test.c \
-			 lymui/tests/hue_test.c
+			 lymui/tests/hue_test.c \
+			 lymui/tests/hsl_test.c
 
 LDFLAGS += -Llib/cunit
 LIBFLAGS += -lcunit

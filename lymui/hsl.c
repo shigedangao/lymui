@@ -55,16 +55,19 @@ struct Rgb *getRgbValueFromHsl(struct Hsl *hsl) {
     // Create a new RGB struct
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     
+    float _l = hsl->l / 100;
+    float _s = hsl->s / 100;
+    
     // choose the luminace formula
     float temp_lum = 0.0f;
-    if (round(hsl->l)) {
-        temp_lum = (hsl->l + hsl->s) - (hsl->l * hsl->s);
+    if (round(_l)) {
+        temp_lum = (_l + _s) - (_l * _s);
     } else {
-        temp_lum = hsl->l * (1.0f + hsl->s);
+        temp_lum = _l * (1.0f + _s);
     }
     
     // get other temp value
-    float temp_lum_s = 2 * hsl->l - temp_lum;
+    float temp_lum_s = 2.0f * _l - temp_lum;
     float *temp_rgb  = getTempRgbValue(hsl->h);
     
     rgb->r = calculateEachColoralue(temp_rgb[0], temp_lum, temp_lum_s);
@@ -91,7 +94,7 @@ static struct Rgb *getShadeOfGray(struct Hsl *hsl) {
 
 static float *getTempRgbValue(float hue) {
     float *_rgb = malloc(sizeof(uint8_t) * 3);
-    float _hue = hue / 360;
+    float _hue  = hue / 360;
     
     // red
     _rgb[0] = _hue + 0.333f;
@@ -107,14 +110,14 @@ static uint8_t calculateEachColoralue(float c, float temp_m, float temp_l) {
     float fv = 0.0f;
     
     if (6.0f * c < 1.0f) {
-        fv = temp_l + (temp_m - temp_l) * 6 * c;
+        fv = temp_l + (temp_m - temp_l) * 6.0f * c;
     } else if (2.0f * c < 1.0f) {
         fv = temp_m;
     } else if (3.0f * c < 2.0f) {
-        fv = temp_l + (temp_m - temp_l) * (0.666f - c) * 6;
+        fv = temp_l + (temp_m - temp_l) * (0.666f - c) * 6.0f;
     } else {
         fv = temp_l;
     }
     
-    return fv * 255;
+    return floatToUint(roundf(fv * 255));
 }

@@ -56,6 +56,36 @@ ctest_return_t testRgbGrayCreationFromHsv(ctest_t *test, void *arg) {
     free(rgb);
 }
 
+ctest_return_t testNiwaHSLRgb(ctest_t *test, void *arg) {
+    struct Hsl *hsl = malloc(sizeof(struct Hsl));
+    hsl->h = 193;
+    hsl->s = 67;
+    hsl->l = 28;
+    
+    struct Rgb *rgb = getRgbValueFromHsl(hsl);
+
+    CTAssertEqual(test, 24, rgb->r, "Expect r to be equal to 24 but got %i", rgb->r);
+    CTAssertEqual(test, 98, rgb->g, "Expect g to be equal to 98 but got %i", rgb->g);
+    CTAssertEqual(test, 119, rgb->b, "Expect b to be equal to 119 but got %i", rgb->b);
+    
+    free(rgb);
+}
+
+ctest_return_t testComplexHslRgb(ctest_t *test, void *arg) {
+    struct Hsl *hsl = malloc(sizeof(struct Hsl));
+    hsl->h = 5;
+    hsl->s = 10;
+    hsl->l = 98;
+    
+    struct Rgb *rgb = getRgbValueFromHsl(hsl);
+    
+    CTAssertEqual(test, 250, rgb->r, "Expect r to be equal to 250 but got %i", rgb->r);
+    CTAssertEqual(test, 249, rgb->g, "Expect g to be equal to 249 but got %i", rgb->g);
+    CTAssertEqual(test, 249, rgb->b, "Expect b to be equal to 249 but got %i", rgb->b);
+    
+    free(rgb);
+}
+
 ctcase_t *wrapHslCreationTest() {
     ctcase_t *hslCase = ctcase("Hsl test case");
     
@@ -65,12 +95,16 @@ ctcase_t *wrapHslCreationTest() {
     ctest_t *lowSatHslCreation  = ctest("Low saturation HSL creation", testLowSaturationHsl, NULL);
     
     ctest_t *grayShadeCreation  = ctest("Shade of gray creation RGB", testRgbGrayCreationFromHsv, NULL);
-    
+    ctest_t *colorShadeCreation = ctest("Color shade creation RGB", testNiwaHSLRgb, NULL);
+    ctest_t *colorCmplCreation  = ctest("Creation of complex RGB", testComplexHslRgb, NULL);
+
     // Add the test to the test case
     ctctestadd(hslCase, simpleHslCreation);
     ctctestadd(hslCase, highSatHslCreation);
     ctctestadd(hslCase, lowSatHslCreation);
     ctctestadd(hslCase, grayShadeCreation);
+    ctctestadd(hslCase, colorShadeCreation);
+    ctctestadd(hslCase, colorCmplCreation);
     
     return hslCase;
 }
