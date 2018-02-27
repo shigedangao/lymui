@@ -86,6 +86,34 @@ ctest_return_t testComplexHslRgb(ctest_t *test, void *arg) {
     free(rgb);
 }
 
+ctest_return_t testBlackHslRgb(ctest_t *test, void *arg) {
+    struct Hsl *hsl = malloc(sizeof(struct Hsl));
+    hsl->h = 0;
+    hsl->s = 0;
+    hsl->l = 0;
+    
+    struct Rgb *rgb = getRgbValueFromHsl(hsl);
+    
+    CTAssertEqual(test, 0, rgb->r, "Expect r to be equal to 0 but got %i", rgb->r);
+    CTAssertEqual(test, 0, rgb->g, "Expect g to be equal to 0 but got %i", rgb->g);
+    CTAssertEqual(test, 0, rgb->b, "Expect b to be equal to 0 but got %i", rgb->b);
+    
+    free(rgb);
+}
+
+ctest_return_t testNegativeRgbValue(ctest_t *test, void *arg) {
+    struct Hsl *hsl = malloc(sizeof(struct Hsl));
+    hsl->h = 1;
+    hsl->s = 1;
+    hsl->l = 1;
+    
+    struct Rgb *rgb = getRgbValueFromHsl(hsl);
+    
+    CTAssertEqual(test, 3, rgb->r, "Expect r to be equal to 3 but got %i", rgb->r);
+    CTAssertEqual(test, 3, rgb->g, "Expect g to be equal to 3 but got %i", rgb->g);
+    CTAssertEqual(test, 3, rgb->b, "Expect r to be equal to 3 but got %i", rgb->b);
+}
+
 ctcase_t *wrapHslCreationTest() {
     ctcase_t *hslCase = ctcase("Hsl test case");
     
@@ -97,6 +125,8 @@ ctcase_t *wrapHslCreationTest() {
     ctest_t *grayShadeCreation  = ctest("Shade of gray creation RGB", testRgbGrayCreationFromHsv, NULL);
     ctest_t *colorShadeCreation = ctest("Color shade creation RGB", testNiwaHSLRgb, NULL);
     ctest_t *colorCmplCreation  = ctest("Creation of complex RGB", testComplexHslRgb, NULL);
+    ctest_t *colorBlackCreation = ctest("Create black RGB color", testBlackHslRgb, NULL);
+    ctest_t *colorNegativeRGB   = ctest("Create an RGB based on small value", testNegativeRgbValue, NULL);
 
     // Add the test to the test case
     ctctestadd(hslCase, simpleHslCreation);
@@ -105,6 +135,8 @@ ctcase_t *wrapHslCreationTest() {
     ctctestadd(hslCase, grayShadeCreation);
     ctctestadd(hslCase, colorShadeCreation);
     ctctestadd(hslCase, colorCmplCreation);
+    ctctestadd(hslCase, colorBlackCreation);
+    ctctestadd(hslCase, colorNegativeRGB);
     
     return hslCase;
 }

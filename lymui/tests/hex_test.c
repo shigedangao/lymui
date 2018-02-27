@@ -14,10 +14,6 @@
 #include "hex.h"
 #include "rgb.h"
 
-int compareHex(const void *expected, const void *value) {
-    return ((int) expected) - ((int) value);
-}
-
 ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     uint8_t uc[]    = {5, 10, 95};
     struct Rgb *lym = makeRGB(uc, sizeof(uc));

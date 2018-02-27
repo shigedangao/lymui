@@ -66,6 +66,11 @@ ctest_return_t testR(ctest_t *test, void *arg) {
     free(rgb);
 }
 
+ctest_return_t testNullHue(ctest_t *test, void *arg) {
+    float hue = getHueFromRgb(NULL);
+    CTAssertEqual(test, 0.0f, hue, "Expect Hue to be equal to 0 but got %f", hue);
+}
+
 ctcase_t *wrapHueCreationTest() {
     ctcase_t *hueCase = ctcase("Hue test case");
     
@@ -75,12 +80,14 @@ ctcase_t *wrapHueCreationTest() {
     ctest_t *colorB = ctest("Creation of a dominant B color hue", testB, NULL);
     ctest_t *colorG = ctest("Creation of a dominant G color hue", testG, NULL);
     ctest_t *colorR = ctest("Creation of a dominant R color hue", testR, NULL);
+    ctest_t *colorN = ctest("Creation of a NULL color hue", testNullHue, NULL);
     
     ctctestadd(hueCase, basicHueCreation);
     ctctestadd(hueCase, lessSimpleCreation);
     ctctestadd(hueCase, colorB);
     ctctestadd(hueCase, colorG);
     ctctestadd(hueCase, colorR);
+    ctctestadd(hueCase, colorN);
     
     return hueCase;
 }
