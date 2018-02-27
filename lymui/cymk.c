@@ -41,7 +41,7 @@ struct Rgb * getRawRGBValueFromCymk(struct Cymk *cymk) {
     if (cymk == NULL)
         return NULL;
     
-    uint8_t *value = malloc(sizeof(uint8_t) * 2);
+    uint8_t *value = malloc(sizeof(uint8_t) * 3);
     const uint8_t _kv = 1 - cymk->k;
     
     value[0] = 255 * (1 - cymk->c) * _kv;
