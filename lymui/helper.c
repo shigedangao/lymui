@@ -40,10 +40,10 @@ float roundOneDigit(float value) {
 
 float *updateConstraintValue(float *value, uint8_t size) {
     for (uint8_t idx = size; idx > 0; idx--) {
-        if (value[idx] < 0.0f) {
-            value[idx] = value[idx] + 1;
-        } else if (value[idx] > 1.0f) {
-            value[idx] = value[idx] - 1;
+        if (value[idx - 1] < 0.0f) {
+            value[idx - 1] = value[idx - 1] + 1.0f;
+        } else if (value[idx - 1] > 1.0f) {
+            value[idx - 1] = value[idx - 1] - 1.0f;
         }
     }
     

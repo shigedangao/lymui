@@ -93,7 +93,7 @@ static struct Rgb *getShadeOfGray(struct Hsl *hsl) {
 }
 
 static float *getTempRgbValue(float hue) {
-    float *_rgb = malloc(sizeof(uint8_t) * 3);
+    float * _rgb = malloc(sizeof(uint8_t) * 3);
     float _hue  = hue / 360;
     
     // red
@@ -102,8 +102,8 @@ static float *getTempRgbValue(float hue) {
     _rgb[1] = _hue;
     // blue
     _rgb[2] = _hue - 0.333f;
-    
-    return updateConstraintValue(_rgb, sizeof(_rgb) - sizeof(_rgb[0]));
+
+    return updateConstraintValue(_rgb, 3);
 }
 
 static uint8_t calculateEachColoralue(float c, float temp_m, float temp_l) {

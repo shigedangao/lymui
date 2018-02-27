@@ -112,31 +112,64 @@ ctest_return_t testNegativeRgbValue(ctest_t *test, void *arg) {
     CTAssertEqual(test, 3, rgb->r, "Expect r to be equal to 3 but got %i", rgb->r);
     CTAssertEqual(test, 3, rgb->g, "Expect g to be equal to 3 but got %i", rgb->g);
     CTAssertEqual(test, 3, rgb->b, "Expect r to be equal to 3 but got %i", rgb->b);
+    
+    free(rgb);
+}
+
+ctest_return_t testPositiveRgbValue(ctest_t *test, void *arg) {
+    struct Hsl *hsl = malloc(sizeof(struct Hsl));
+    hsl->h = 300;
+    hsl->s = 100;
+    hsl->l = 56;
+    
+    struct Rgb *rgb = getRgbValueFromHsl(hsl);
+    
+    CTAssertEqual(test, 255, rgb->r, "Expect r to be equal to 255 but got %i", rgb->r);
+    CTAssertEqual(test, 31, rgb->g, "Expect g to be equal to 31 but got %i", rgb->g);
+    CTAssertEqual(test, 254, rgb->b, "Expect b to be equal to 255 but got %i", rgb->b);
+
+    free(rgb);
+}
+
+ctest_return_t testNullRgbFromHsl(ctest_t *test, void *arg) {
+    struct Rgb *rgb = getRgbValueFromHsl(NULL);
+    
+    CTAssertNull(test, rgb, "Expect RGB to be NULL");
 }
 
 ctcase_t *wrapHslCreationTest() {
     ctcase_t *hslCase = ctcase("Hsl test case");
     
-    // Create test
+    // HSL Creation
     ctest_t *simpleHslCreation  = ctest("Simple HSL creation", testHslCreation, NULL);
     ctest_t *highSatHslCreation = ctest("High saturation HSL creation", testHighSaturationHsl, NULL);
     ctest_t *lowSatHslCreation  = ctest("Low saturation HSL creation", testLowSaturationHsl, NULL);
     
+    // RGB creation
     ctest_t *grayShadeCreation  = ctest("Shade of gray creation RGB", testRgbGrayCreationFromHsv, NULL);
     ctest_t *colorShadeCreation = ctest("Color shade creation RGB", testNiwaHSLRgb, NULL);
     ctest_t *colorCmplCreation  = ctest("Creation of complex RGB", testComplexHslRgb, NULL);
     ctest_t *colorBlackCreation = ctest("Create black RGB color", testBlackHslRgb, NULL);
     ctest_t *colorNegativeRGB   = ctest("Create an RGB based on small value", testNegativeRgbValue, NULL);
-
+    ctest_t *colorPositiveRGB   = ctest("Create an RGB based on big value", testPositiveRgbValue, NULL);
+    
+    // NULL Value test
+    ctest_t *colorNULL = ctest("Create NULL RGB struct from NULL HSL", testNullRgbFromHsl, NULL);
+    
     // Add the test to the test case
     ctctestadd(hslCase, simpleHslCreation);
     ctctestadd(hslCase, highSatHslCreation);
     ctctestadd(hslCase, lowSatHslCreation);
     ctctestadd(hslCase, grayShadeCreation);
+    
     ctctestadd(hslCase, colorShadeCreation);
     ctctestadd(hslCase, colorCmplCreation);
     ctctestadd(hslCase, colorBlackCreation);
+    
     ctctestadd(hslCase, colorNegativeRGB);
+    ctctestadd(hslCase, colorPositiveRGB);
+    
+    ctctestadd(hslCase, colorNULL);
     
     return hslCase;
 }
