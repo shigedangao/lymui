@@ -37,6 +37,9 @@ int main(int argc, const char * argv[]) {
     
     uint8_t failNb = suite->failed;
     
+    // free the suite
+    ctsfree(suite);
+    
     if (failNb > 0)
         return -1;
     
