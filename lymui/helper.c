@@ -11,10 +11,6 @@
 #include <math.h>
 #include "helper.h"
 
-// Global variable of a list of RgbHex
-struct RgbHex *list;
-
-// Ushort To Hex
 char * ushortToHex(uint8_t v) {
     if (v > 255)
         return NULL;
@@ -31,7 +27,6 @@ char * ushortToHex(uint8_t v) {
     return hexa;
 }
 
-// Float To Uint
 uint8_t floatToUint(float value) {
     if (fabsf(value) != value)
         return 0;
@@ -39,17 +34,20 @@ uint8_t floatToUint(float value) {
     return (uint8_t) value;
 }
 
-// Get Max Value
-float getMaxValue(float * value, int size) {
-    if (!size)
-        return 0;
-    
-    float _m = value[size];
-    for (int idx = size; idx >= 0; idx--) {
-        if (value[idx] > _m)
-            _m = value[idx];
+float roundOneDigit(float value) {
+    return roundf(value * 10) / 10;
+}
+
+float *updateConstraintValue(float *value, uint8_t size) {
+    for (uint8_t idx = size; idx > 0; idx--) {
+        if (value[idx - 1] < 0.0f) {
+            value[idx - 1] = value[idx - 1] + 1.0f;
+        } else if (value[idx - 1] > 1.0f) {
+            value[idx - 1] = value[idx - 1] - 1.0f;
+        }
     }
     
-    return _m;
+    return value;
 }
+
 

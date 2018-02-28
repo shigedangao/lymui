@@ -19,23 +19,24 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     struct Rgb *lym = makeRGB(uc, sizeof(uc));
     
     char *hex = getHexFromRGB(lym);
-    char *value = malloc(sizeof(char) * 5);
+    char *value = malloc(sizeof(char) * 6);
     value[0] = '0';
     value[1] = '5';
     value[2] = '0';
     value[3] = 'A';
     value[4] = '5';
     value[5] = 'F';
-    
+
     // As the lib does not support the hex test yet
-    CTAssertEqual(test, 0, strcmp(value, hex), "Hex is not equal to lym values %s", hex);
+    CTAssertStringEqual(test, value, hex, "%s is not equal to %s", value, hex);
     
     free(lym);
     free(hex);
+    free(value);
 }
 
 ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
-    char *hex = malloc(sizeof (char) * 5);
+    char *hex = malloc(sizeof (char) * 6);
     hex[0] = '0';
     hex[1] = '5';
     hex[2] = '0';
@@ -53,7 +54,7 @@ ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
-    char *hex = malloc(sizeof(char) * 5);
+    char *hex = malloc(sizeof(char) * 6);
     hex[0] = 'A';
     hex[1] = 'B';
     hex[2] = 'C';

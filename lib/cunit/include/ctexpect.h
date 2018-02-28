@@ -35,5 +35,6 @@ typedef struct ctexpect_t {
  */
 
 void fulfill(ctexpect_t *texpect);
+void ctefree(ctexpect_t *texpect);
 
 #endif /* ctexpect_h */

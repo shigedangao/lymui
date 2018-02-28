@@ -10,13 +10,14 @@
 #define ctassert_h
 
 #include "ctest.h"
+#include <string.h>
 
 /*!
  * @define _CTFailure(test, ...)
  * Generates a failure unconditionally (for internal usage, use CFail(...) instead in your code).
  */
 
-#define _CTFailure(test, expr1Str, assertionStr, expr2Str, ...) _cfail(test, expr1Str, assertionStr, expr2Str, __FILE__, __LINE__, "" __VA_ARGS__);
+#define _CTFailure(test, expr1Str, assertionStr, expr2Str, ...) _ctfail(test, expr1Str, assertionStr, expr2Str, __FILE__, __LINE__, "" __VA_ARGS__);
 
 /*!
  * @define CTFail(test, ...)
@@ -48,6 +49,56 @@
  */
 
 #define CTAssertNotEqual(test, expression1, expression2, ...) if ((expression1) == (expression2)) { _CTFailure(test, #expression1, "is equal to", #expression2, __VA_ARGS__) }
+
+/*!
+ * @define CTAssertStringEqual(test, str1, str2, ...)
+ * Generates a failure when str1 is not equal to str2.
+ * @param test The test
+ * @param str1 A string.
+ * @param str2 A string.
+ * @param ... An optional supplementary description of the failure. A literal string, optionally with format specifiers. This parameter can be completely omitted.
+ */
+
+#define CTAssertStringEqual(test, str1, str2, ...) if (strcmp(str1, str2) != 0) { _CTFailure(test, #str1, "string is not equal to string", #str2, __VA_ARGS__) }
+
+/*!
+ * @define CTAssertStringNotEqual(test, str1, str2, ...)
+ * Generates a failure when str1 is equal to str2.
+ * @param test The test
+ * @param str1 A string.
+ * @param str2 A string.
+ * @param ... An optional supplementary description of the failure. A literal string, optionally with format specifiers. This parameter can be completely omitted.
+ */
+
+#define CTAssertStringNotEqual(test, str1, str2, ...) if (strcmp(str1, str2) == 0) { _CTFailure(test, #str1, "string is equal to string", #str2, __VA_ARGS__) }
+
+/*!
+ * @define CTAssertArrayEqual(test, arr1, arr2, asize, atsize, aeltcmp_fct, ...)
+ * Generates a failure when arr1 is not equal to arr2.
+ * @param test The test
+ * @param arr1 An array.
+ * @param arr2 An array.
+ * @param asize The size of the array.
+ * @param atsize The size of the array element.
+ * @param aeltcmp_fct The function to use for comparing two array elements.
+ * @param ... An optional supplementary description of the failure. A literal string, optionally with format specifiers. This parameter can be completely omitted.
+ */
+
+#define CTAssertArrayEqual(test, arr1, arr2, asize, atsize, aeltcmp_fct, ...) if (_ctarraycmp(arr1, arr2, asize, atsize, aeltcmp_fct) != 0) { _CTFailure(test, #arr1, "array is not equal to array", #arr2, __VA_ARGS__) }
+
+/*!
+ * @define CTAssertArrayNotEqual(test, arr1, arr2, asize, atsize, aeltcmp_fct, ...)
+ * Generates a failure when arr1 is equal to arr2.
+ * @param test The test
+ * @param arr1 An array.
+ * @param arr2 An array.
+ * @param asize The size of the array.
+ * @param atsize The size of the array element.
+ * @param aeltcmp_fct The function to use for comparing two array elements.
+ * @param ... An optional supplementary description of the failure. A literal string, optionally with format specifiers. This parameter can be completely omitted.
+ */
+
+#define CTAssertArrayNotEqual(test, arr1, arr2, asize, atsize, aeltcmp_fct, ...) if (_ctarraycmp(arr1, arr2, asize, atsize, aeltcmp_fct) == 0) { _CTFailure(test, #arr1, "array is equal to array", #arr2, __VA_ARGS__) }
 
 /*!
  * @define CTAssertTrue(expression, ...)
@@ -137,9 +188,18 @@
  @function   _cfail
  @abstract   Generates a failure unconditionally.
  
-@discussion This function is for internal usage. If you want to generate a failure unconditionally, please use the defined macro CTFail(test, ...)
+@discussion This function is for internal usage. If you want to generate a failure unconditionally, please use the defined macro CTFail
  */
 
-void _cfail(ctest_t *test, const char *expr1, const char *assertion, const char *expr2, const char *filename, unsigned long lineNumber, const char * format, ...);
+void _ctfail(ctest_t *test, const char *expr1, const char *assertion, const char *expr2, const char *filename, unsigned long lineNumber, const char * format, ...);
+
+/*!
+ @function   _ctarraycmp
+ @abstract   Compares two arrays.
+ 
+ @discussion This function is for internal usage. If you want to test array equality, please use the defined macros CTAssertArrayEqual and CTAssertArrayNotEqual
+ */
+
+int _ctarraycmp(void *arr1, void *arr2, size_t asize, size_t atsize, int (* _aeltcmp)(const void *, const void *));
 
 #endif /* ctassert_h */

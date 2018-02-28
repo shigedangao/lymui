@@ -23,7 +23,6 @@ char * getHexFromRGB(struct Rgb *rgb);
  * @discussion Get a raw uint8_t array value
  * @param hex a Hex char array
  * @return a uint8_t value
- * @TODO return an RGB struct
  */
 struct Rgb * getRawRGBValueFromHex(char *hex);
 
