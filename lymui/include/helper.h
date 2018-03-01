@@ -40,5 +40,14 @@ float roundOneDigit(float value);
  */
 float * updateConstraintValue(float *value, uint8_t size);
 
+/*!
+ * @discussion Get the saturation between 2 values
+ * @param min float value of the rgb struct
+ * @param max float value of the rgb struct
+ * @param l   float representing the luminance
+ * @return float saturation
+ */
+float getSaturation(float min, float max, float l);
+
 
 #endif /* helper_h */

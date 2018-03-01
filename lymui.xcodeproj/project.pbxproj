@@ -22,6 +22,7 @@
 		9F9AA8AB202A546B008A28B8 /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AA8AA202A546B008A28B8 /* hex.c */; };
 		9FB09146203DE0B000249EEB /* hsl.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FB09145203DE0B000249EEB /* hsl.c */; };
 		9FC4EB8620319B990083637E /* ycbcr.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4EB8520319B990083637E /* ycbcr.c */; };
+		9FF5D4E72048A99C00D364BD /* hsv.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FF5D4E62048A99C00D364BD /* hsv.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +64,8 @@
 		9FB09145203DE0B000249EEB /* hsl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hsl.c; sourceTree = "<group>"; };
 		9FC4EB8420319B990083637E /* ycbcr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ycbcr.h; sourceTree = "<group>"; };
 		9FC4EB8520319B990083637E /* ycbcr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ycbcr.c; sourceTree = "<group>"; };
+		9FF5D4E52048A99C00D364BD /* hsv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hsv.h; sourceTree = "<group>"; };
+		9FF5D4E62048A99C00D364BD /* hsv.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hsv.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,7 @@
 				9F83F43F20358ACF00F16CF6 /* cymk.c */,
 				9F8BC449203CC9EE001709CA /* hue.c */,
 				9FB09145203DE0B000249EEB /* hsl.c */,
+				9FF5D4E62048A99C00D364BD /* hsv.c */,
 			);
 			path = lymui;
 			sourceTree = "<group>";
@@ -138,6 +142,7 @@
 		9F70D72F2032EB1D0002E3F3 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				9FF5D4E52048A99C00D364BD /* hsv.h */,
 				9FB09144203DE0B000249EEB /* hsl.h */,
 				9F8BC448203CC9EE001709CA /* hue.h */,
 				9F83F43E20358ACF00F16CF6 /* cymk.h */,
@@ -212,6 +217,7 @@
 				9F04727120347861000639EA /* hex_test.c in Sources */,
 				9F8BC44C203CD17F001709CA /* hue_test.c in Sources */,
 				9FC4EB8620319B990083637E /* ycbcr.c in Sources */,
+				9FF5D4E72048A99C00D364BD /* hsv.c in Sources */,
 				9F9AA8A72029DE74008A28B8 /* helper.c in Sources */,
 				9F05AC0D2029208B00734C15 /* rgb.c in Sources */,
 				9F9AA8AB202A546B008A28B8 /* hex.c in Sources */,
