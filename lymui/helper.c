@@ -34,6 +34,13 @@ uint8_t floatToUint(float value) {
     return (uint8_t) value;
 }
 
+uint8_t floatToUintRound(float value) {
+    if (fabs(value) != value)
+        return 0;
+    
+    return (uint8_t) round(value);
+}
+
 float roundOneDigit(float value) {
     return roundf(value * 10) / 10;
 }

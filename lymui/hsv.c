@@ -56,53 +56,63 @@ static struct Rgb *getValueRGB(struct Hsv *hsv) {
     return rgb;
 }
 
+/**
+ * @discussion assign value to an rgb struct
+ * @param r uint8_t
+ * @param g uint8_t
+ * @param b uint8_t
+ * @param rgb struct Rgb pointer
+ */
+static void putRgb(uint8_t r, uint8_t g, uint8_t b, struct Rgb *rgb) {
+    rgb->r = r;
+    rgb->g = g;
+    rgb->b = b;
+}
+
 struct Rgb *getRgbValueFromHsv(struct Hsv *hsv) {
     if (hsv == NULL)
         return NULL;
     
-    if (!hsv->s && !hsv->h)
+    if (!hsv->s)
         return getValueRGB(hsv);
     
     float _hue = hsv->h >= 360 ? 0.0f : hsv->h / 60;
     int i = (int) _hue;
     float _factor = _hue - i;
     
-    float _p = hsv->v * (1.0f - hsv->s);
-    float _q = hsv->v * (1.0f - (hsv->s * _factor));
-    float _t = hsv->v * (1.0f - (hsv->s * (1.0f * _factor)));
+    float _v = hsv->v / 100;
+    float _s = hsv->s / 100;
+    
+    float _p = _v * (1.0f - _s);
+    float _q = _v * (1.0f - (_s * _factor));
+    float _t = _v * (1.0f - (1.0f - _factor) * _s);
+    
+    // convert to uint the value
+    uint8_t up = floatToUintRound(_p * 255);
+    uint8_t uq = floatToUintRound(_q * 255);
+    uint8_t ut = floatToUintRound(_t * 255);
+    uint8_t uv = floatToUintRound(_v * 255);
     
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     
     switch(i) {
         case 0:
-            rgb->r = hsv->v;
-            rgb->g = _t;
-            rgb->b = _p;
+            putRgb(uv, ut, up, rgb);
             break;
         case 1:
-            rgb->r = _q;
-            rgb->g = hsv->v;
-            rgb->b = _p;
+            putRgb(uq, uv, up, rgb);
             break;
         case 2:
-            rgb->r = _p;
-            rgb->g = hsv->v;
-            rgb->b = _t;
+            putRgb(up, uv, ut, rgb);
             break;
         case 3:
-            rgb->r = _p;
-            rgb->g = _p;
-            rgb->b = hsv->v;
+            putRgb(up, uq, uv, rgb);
             break;
         case 4:
-            rgb->r = _t;
-            rgb->g = _p;
-            rgb->b = hsv->v;
+            putRgb(ut, up, uv, rgb);
             break;
         default:
-            rgb->r = hsv->v;
-            rgb->g = _p;
-            rgb->b = _q;
+            putRgb(uv, up, uq, rgb);
     }
     
     free(hsv);
