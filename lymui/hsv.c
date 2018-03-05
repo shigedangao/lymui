@@ -20,12 +20,19 @@ struct Hsv *getHsvFromRgb(struct Rgb *rgb) {
     float hue = getHueFromRgb(rgb);
     float min = fminf(fminf(rgb->r, rgb->g), rgb->b) / 255;
     float max = fmaxf(fmaxf(rgb->r, rgb->g), rgb->b) / 255;
-    float _l  = (min + max) / 2;
+    
+    // delta
+    float _delta = max - min;
     
     struct Hsv *hsv = malloc(sizeof(struct Hsv));
     hsv->h = hue;
-    hsv->s = getSaturation(min, max, _l);
-    hsv->v = max;
+    hsv->v = roundOneDigit(max * 100);
+    
+    if (max > 0.0f) {
+        hsv->s = roundOneDigit(_delta / max) * 100;
+    } else {
+        hsv->s = 0.0f;
+    }
     
     free(rgb);
     return hsv;
@@ -57,7 +64,47 @@ struct Rgb *getRgbValueFromHsv(struct Hsv *hsv) {
         return getValueRGB(hsv);
     
     float _hue = hsv->h >= 360 ? 0.0f : hsv->h / 60;
+    int i = (int) _hue;
+    float _factor = _hue - i;
     
-    // WIP
-    return NULL;
+    float _p = hsv->v * (1.0f - hsv->s);
+    float _q = hsv->v * (1.0f - (hsv->s * _factor));
+    float _t = hsv->v * (1.0f - (hsv->s * (1.0f * _factor)));
+    
+    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    
+    switch(i) {
+        case 0:
+            rgb->r = hsv->v;
+            rgb->g = _t;
+            rgb->b = _p;
+            break;
+        case 1:
+            rgb->r = _q;
+            rgb->g = hsv->v;
+            rgb->b = _p;
+            break;
+        case 2:
+            rgb->r = _p;
+            rgb->g = hsv->v;
+            rgb->b = _t;
+            break;
+        case 3:
+            rgb->r = _p;
+            rgb->g = _p;
+            rgb->b = hsv->v;
+            break;
+        case 4:
+            rgb->r = _t;
+            rgb->g = _p;
+            rgb->b = hsv->v;
+            break;
+        default:
+            rgb->r = hsv->v;
+            rgb->g = _p;
+            rgb->b = _q;
+    }
+    
+    free(hsv);
+    return rgb;
 }

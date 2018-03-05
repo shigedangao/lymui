@@ -10,6 +10,7 @@
 		9F04726F203476D1000639EA /* rgb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04726E203476D1000639EA /* rgb_test.c */; };
 		9F04727120347861000639EA /* hex_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727020347861000639EA /* hex_test.c */; };
 		9F04727320348E67000639EA /* ycbcr_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727220348E67000639EA /* ycbcr_test.c */; };
+		9F04979C204D485200173243 /* hsv_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04979B204D485200173243 /* hsv_test.c */; };
 		9F05AC0D2029208B00734C15 /* rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F05AC0C2029208B00734C15 /* rgb.c */; };
 		9F3A07B22028891300CB2311 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A07B12028891300CB2311 /* main.c */; };
 		9F6F0FD0203F6FDE00113349 /* hsl_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F6F0FCF203F6FDE00113349 /* hsl_test.c */; };
@@ -42,6 +43,7 @@
 		9F04726E203476D1000639EA /* rgb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb_test.c; sourceTree = "<group>"; };
 		9F04727020347861000639EA /* hex_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hex_test.c; sourceTree = "<group>"; };
 		9F04727220348E67000639EA /* ycbcr_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ycbcr_test.c; sourceTree = "<group>"; };
+		9F04979B204D485200173243 /* hsv_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hsv_test.c; sourceTree = "<group>"; };
 		9F05AC0B2029208B00734C15 /* rgb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rgb.h; sourceTree = "<group>"; };
 		9F05AC0C2029208B00734C15 /* rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb.c; sourceTree = "<group>"; };
 		9F3A07AE2028891300CB2311 /* lymui */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lymui; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +92,7 @@
 				9F83F4412035922A00F16CF6 /* cymk_test.c */,
 				9F8BC44B203CD17F001709CA /* hue_test.c */,
 				9F6F0FCF203F6FDE00113349 /* hsl_test.c */,
+				9F04979B204D485200173243 /* hsv_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				9F05AC0D2029208B00734C15 /* rgb.c in Sources */,
 				9F9AA8AB202A546B008A28B8 /* hex.c in Sources */,
 				9F04727320348E67000639EA /* ycbcr_test.c in Sources */,
+				9F04979C204D485200173243 /* hsv_test.c in Sources */,
 				9F83F44020358ACF00F16CF6 /* cymk.c in Sources */,
 				9F83F4422035922A00F16CF6 /* cymk_test.c in Sources */,
 				9FB09146203DE0B000249EEB /* hsl.c in Sources */,
