@@ -76,7 +76,7 @@ struct Rgb *getRgbValueFromHsv(struct Hsv *hsv) {
     if (!hsv->s)
         return getValueRGB(hsv);
     
-    float _hue = hsv->h >= 360 ? 0.0f : hsv->h / 60;
+    float _hue = hsv->h / 60;
     int i = (int) _hue;
     float _factor = _hue - i;
     
@@ -112,7 +112,7 @@ struct Rgb *getRgbValueFromHsv(struct Hsv *hsv) {
             putRgb(ut, up, uv, rgb);
             break;
         default:
-            putRgb(uv, up, uq, rgb);
+            putRgb(uv, up, ut, rgb);
     }
     
     free(hsv);
