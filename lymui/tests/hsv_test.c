@@ -12,6 +12,12 @@
 #include "rgb.h"
 #include "hsv.h"
 
+ctest_return_t testNullHsvCreation(ctest_t *test, void *arg) {
+    struct Hsv *hsv = getHsvFromRgb(NULL);
+    CTAssertNull(test, hsv, "Expect HSV to be NULL");
+    
+    free(hsv);
+}
 
 ctest_return_t testHsvCreation(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
@@ -83,17 +89,16 @@ ctest_return_t testCaseRgb_1(ctest_t *test, void *arg) {
     free(rgb);
 }
 
-
 ctest_return_t testCaseRgb_2(ctest_t *test, void *arg) {
     struct Hsv *hsv = malloc(sizeof(struct Hsv));
-    hsv->h = 100.0f;
+    hsv->h = 160.0f;
     hsv->s = 40.0f;
     hsv->v = 90.0f;
     
     struct Rgb *rgb = getRgbValueFromHsv(hsv);
-    CTAssertEqual(test, 168, rgb->r, "Expect r to be equal to 168 but got %ui", rgb->r);
+    CTAssertEqual(test, 138, rgb->r, "Expect r to be equal to 168 but got %ui", rgb->r);
     CTAssertEqual(test, 230, rgb->g, "Expect g to be equal to 230 but got %ui", rgb->g);
-    CTAssertEqual(test, 138, rgb->b, "Expect b to be equal to 138 but got %ui", rgb->b);
+    CTAssertEqual(test, 199, rgb->b, "Expect b to be equal to 138 but got %ui", rgb->b);
     
     free(rgb);
 }
@@ -126,6 +131,20 @@ ctest_return_t testCaseRgb_4(ctest_t *test, void *arg) {
     free(rgb);
 }
 
+ctest_return_t testCaseNo_Sat(ctest_t *test, void *arg) {
+    struct Hsv *hsv = malloc(sizeof(struct Hsv));
+    hsv->h = 260.0f;
+    hsv->s = 0.0f;
+    hsv->v = 90.0f;
+    
+    struct Rgb *rgb = getRgbValueFromHsv(hsv);
+    CTAssertEqual(test, 230, rgb->r, "Expect r to be equal to 230 but got %ui", rgb->r);
+    CTAssertEqual(test, 230, rgb->g, "Expect g to be equal to 230 but got %ui", rgb->g);
+    CTAssertEqual(test, 230, rgb->b, "Expect b to be equal to 230 but got %ui", rgb->b);
+    
+    free(rgb);
+}
+
 ctest_return_t testCaseRgb_Default(ctest_t *test, void *arg) {
     struct Hsv *hsv = malloc(sizeof(struct Hsv));
     hsv->h = 360.0f;
@@ -151,6 +170,7 @@ ctcase_t *wrapHsvCreationTest() {
     ctcase_t *hsvCase = ctcase("Hsv test case");
     
     // creation of hsv
+    ctest_t *hsvNull = ctest("Hsv null from NULL Rgb", testNullHsvCreation, NULL);
     ctest_t *hsvCreation = ctest("Hsv creation test from RGB", testHsvCreation, NULL);
     ctest_t *hsvEmptyCreation = ctest("Hsv creation test from black RGB", testBlackHsvCreation, NULL);
     ctest_t *hsvComplexCreation = ctest("Hsv creation using complex RGB", testComplexHsvCreation, NULL);
@@ -163,8 +183,10 @@ ctcase_t *wrapHsvCreationTest() {
     ctest_t *rgbCreation4 = ctest("Creation of RGB from HSV 4", testCaseRgb_4, NULL);
     ctest_t *rgbCreationDefault = ctest("Creation of RGB from HSV Default", testCaseRgb_Default, NULL);
     ctest_t *rgbCreationNull    = ctest("Creation of a NULL RGB", testCaseRgb_NULL, NULL);
+    ctest_t *rgbCreationSat     = ctest("Creation of RGB from Sat value at 0", testCaseNo_Sat, NULL);
     
     // add test related to HSV creation from RGB
+    ctctestadd(hsvCase, hsvNull);
     ctctestadd(hsvCase, hsvCreation);
     ctctestadd(hsvCase, hsvEmptyCreation);
     ctctestadd(hsvCase, hsvComplexCreation);
@@ -175,8 +197,11 @@ ctcase_t *wrapHsvCreationTest() {
     ctctestadd(hsvCase, rgbCreation2);
     ctctestadd(hsvCase, rgbCreation3);
     ctctestadd(hsvCase, rgbCreation4);
+    
+    // default test
     ctctestadd(hsvCase, rgbCreationDefault);
     ctctestadd(hsvCase, rgbCreationNull);
+    ctctestadd(hsvCase, rgbCreationSat);
     
     return hsvCase;
 }
