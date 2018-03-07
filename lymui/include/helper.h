@@ -26,6 +26,13 @@ char * ushortToHex(uint8_t v);
 uint8_t floatToUint(float value);
 
 /*!
+ * @discussion convert a float to a uint and round the uint value
+ * @param value float
+ * @return a uint8_t value
+ */
+uint8_t floatToUintRound(float value);
+
+/*!
  * @discussion round a float to 1 digit
  * @param value float
  * @return a float
@@ -39,6 +46,15 @@ float roundOneDigit(float value);
  * @return an array of float
  */
 float * updateConstraintValue(float *value, uint8_t size);
+
+/*!
+ * @discussion Get the saturation between 2 values
+ * @param min float value of the rgb struct
+ * @param max float value of the rgb struct
+ * @param l   float representing the luminance
+ * @return float saturation
+ */
+float getSaturation(float min, float max, float l);
 
 
 #endif /* helper_h */

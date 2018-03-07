@@ -34,8 +34,22 @@ uint8_t floatToUint(float value) {
     return (uint8_t) value;
 }
 
+uint8_t floatToUintRound(float value) {
+    if (fabs(value) != value)
+        return 0;
+    
+    return (uint8_t) round(value);
+}
+
 float roundOneDigit(float value) {
     return roundf(value * 10) / 10;
+}
+
+float getSaturation(float min, float max, float l) {
+    if (l > 0.5f)
+        return (max - min) / (2.0f - max - min);
+    
+    return (max - min) / (max + min);
 }
 
 float *updateConstraintValue(float *value, uint8_t size) {

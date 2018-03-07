@@ -20,7 +20,7 @@ char * getHexFromRGB(struct Rgb *c) {
     
     // create a char array of hex value
     char *hex = malloc(sizeof(char) * 5);
-    snprintf(hex, sizeof(hex), "%s%s%s", r, g, b);
+    snprintf(hex, sizeof(hex) / sizeof(hex[0]), "%s%s%s", r, g, b);
     return hex;
 }
 
