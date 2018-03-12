@@ -26,10 +26,10 @@ struct Hsv *getHsvFromRgb(struct Rgb *rgb) {
     
     struct Hsv *hsv = malloc(sizeof(struct Hsv));
     hsv->h = hue;
-    hsv->v = roundOneDigit(max * 100);
+    hsv->v = roundDigit(max * 100, 10);
     
     if (max > 0.0f) {
-        hsv->s = roundOneDigit(_delta / max) * 100;
+        hsv->s = roundDigit(_delta / max, 10) * 100;
     } else {
         hsv->s = 0.0f;
     }

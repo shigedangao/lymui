@@ -26,4 +26,6 @@ ctcase_t *wrapHslCreationTest(void);
 
 ctcase_t *wrapHsvCreationTest(void);
 
+ctcase_t *wrapYuvCreationTest(void);
+
 #endif /* rgb_test_h */

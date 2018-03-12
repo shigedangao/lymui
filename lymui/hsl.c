@@ -24,8 +24,8 @@ struct Hsl *getHslFromRgb(struct Rgb *rgb) {
     
     struct Hsl *hsl = malloc(sizeof(struct Hsl));
     hsl->h = hue;
-    hsl->s = roundOneDigit(getSaturation(min, max, _l) * 100);
-    hsl->l = roundOneDigit(_l * 100);
+    hsl->s = roundDigit(getSaturation(min, max, _l) * 100, 10);
+    hsl->l = roundDigit(_l * 100, 10);
     
     free(rgb);
     

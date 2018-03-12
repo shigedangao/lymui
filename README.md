@@ -25,36 +25,19 @@ Before compiling the project we need to make sure that you have the following pr
 For OSX users: Open the project in Xcode and compile it.
 For other users, go to the root of the project and **build the project** with the command ```make```. Test the project with ```make test```
 
-## Documentation
+## Usage
 
-## Rgb methods
+Every modules allow you to convert a Type T to an RGB and vice versa
 
-Create an RGB require 2 parameters
-
-- param: uint8_t array
-- param: length of the array (3)
-- return struct Rgb* | NULL if the array does not satisfy the method
+## Example
 
 ```c
-uint8_t *foo = malloc(sizeof(uint_8t) * 3);
-foo[0] = 100;
-foo[1] = 200;
-foo[2] = 250;
+uint8_t c[] = {5, 10, 95};
+struct Rgb *rgb = makeRGB(c)
 
-struct Rgb *rgb = makeRGB(foo, 3);
+// convert it to yuv
+struct Yuv *yuv = getYuvFromRgb(rgb)
+
+// you can convert it back to rgb too
+struct Rgb *rgbFromYuv = getRgbFromYuv(yuv)
 ```
-
-## Hex methods
-
-Create an Hex. Create an Hex required an Rgb struct.
-
-- params: struct Rgb (pointer)
-- return: char *hex | NULL
-
-```c
-// let's take the variable from the above example
-char *hex = getHexFromRGB(rgb);
-// the size of the hex char arary is 5 eg: "ABCDEF"
-```
-
-WIP
