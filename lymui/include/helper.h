@@ -35,9 +35,10 @@ uint8_t floatToUintRound(float value);
 /*!
  * @discussion round a float to 1 digit
  * @param value float
+ * @param factor int
  * @return a float
  */
-float roundOneDigit(float value);
+float roundDigit(float value, int factor);
 
 /*!
  * @discussion Update Constraint Value

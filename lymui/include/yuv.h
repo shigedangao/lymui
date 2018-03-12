@@ -16,9 +16,9 @@
  * @disuccsion Yuv structure
  */
 struct Yuv {
-    double y;
-    double u;
-    double v;
+    float y;
+    float u;
+    float v;
 };
 
 /**

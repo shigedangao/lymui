@@ -41,8 +41,8 @@ uint8_t floatToUintRound(float value) {
     return (uint8_t) round(value);
 }
 
-float roundOneDigit(float value) {
-    return roundf(value * 10) / 10;
+float roundDigit(float value, int factor) {
+    return roundf(value * factor) / factor;
 }
 
 float getSaturation(float min, float max, float l) {

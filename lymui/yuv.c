@@ -16,14 +16,14 @@ struct Yuv *getYuvFromRgb(struct Rgb *rgb) {
     
     struct Yuv *yuv = malloc(sizeof(struct Yuv));
     
-    double _r = rgb->r / 255;
-    double _g = rgb->g / 255;
-    double _b = rgb->b / 255;
-    double _y = 0.299 * _r + 0.587 * _g + 0.114 * _b;
-    
-    yuv->y = _y;
-    yuv->u = 0.492 * (_b - _y);
-    yuv->v = 0.877 * (_r - _y);
+    float _r = (float) rgb->r / 255;
+    float _g = (float) rgb->g / 255;
+    float _b = (float) rgb->b / 255;
+    float _y = 0.299f * _r + 0.587f * _g + 0.114f * _b;
+        
+    yuv->y = roundDigit(_y, 1000);
+    yuv->u = roundDigit(0.492f * (_b - _y), 1000);
+    yuv->v = roundDigit(0.877f * (_r - _y), 1000);
     
     free(rgb);
     
@@ -39,9 +39,9 @@ struct Rgb *getRgbFromYuv(struct Yuv *yuv) {
     float _b = yuv->y + 2.03211f * yuv->u;
     
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
-    rgb->r = floatToUintRound(_r);
-    rgb->g = floatToUintRound(_g);
-    rgb->b = floatToUintRound(_b);
+    rgb->r = floatToUintRound(_r * 255);
+    rgb->g = floatToUintRound(_g * 255);
+    rgb->b = floatToUintRound(_b * 255);
     
     free(yuv);
     

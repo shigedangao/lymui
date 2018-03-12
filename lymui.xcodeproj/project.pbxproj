@@ -25,6 +25,7 @@
 		9FC4EB8620319B990083637E /* ycbcr.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4EB8520319B990083637E /* ycbcr.c */; };
 		9FF5D4E72048A99C00D364BD /* hsv.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FF5D4E62048A99C00D364BD /* hsv.c */; };
 		9FFE46FC20567B8B00EA68D5 /* yuv.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FFE46FB20567B8B00EA68D5 /* yuv.c */; };
+		9FFE46FE20568E4900EA68D5 /* yuv_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FFE46FD20568E4900EA68D5 /* yuv_test.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +72,7 @@
 		9FF5D4E62048A99C00D364BD /* hsv.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hsv.c; sourceTree = "<group>"; };
 		9FFE46FA20567B8B00EA68D5 /* yuv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = yuv.h; sourceTree = "<group>"; };
 		9FFE46FB20567B8B00EA68D5 /* yuv.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = yuv.c; sourceTree = "<group>"; };
+		9FFE46FD20568E4900EA68D5 /* yuv_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = yuv_test.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				9F8BC44B203CD17F001709CA /* hue_test.c */,
 				9F6F0FCF203F6FDE00113349 /* hsl_test.c */,
 				9F04979B204D485200173243 /* hsv_test.c */,
+				9FFE46FD20568E4900EA68D5 /* yuv_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				9F83F44020358ACF00F16CF6 /* cymk.c in Sources */,
 				9F83F4422035922A00F16CF6 /* cymk_test.c in Sources */,
 				9FB09146203DE0B000249EEB /* hsl.c in Sources */,
+				9FFE46FE20568E4900EA68D5 /* yuv_test.c in Sources */,
 				9F6F0FD0203F6FDE00113349 /* hsl_test.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
