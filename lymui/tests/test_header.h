@@ -28,4 +28,8 @@ ctcase_t *wrapHsvCreationTest(void);
 
 ctcase_t *wrapYuvCreationTest(void);
 
+ctcase_t *wrapSRgbCreationTest(void);
+
+ctcase_t *wrapXyzCreationTest(void);
+
 #endif /* rgb_test_h */
