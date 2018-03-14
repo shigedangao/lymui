@@ -27,7 +27,6 @@ ctest_return_t aRgbCreationTestCase(ctest_t *test, void *arg) {
     CTAssertEqual(test, 3.89f, roundDigit(argb->g * 100, 100), "Expect R to be equal to X but got %f", roundDigit(argb->g * 100, 100));
     CTAssertEqual(test, 37.25f, roundDigit(argb->b * 100, 100), "Expect R to be equal to X but got %f", roundDigit(argb->b * 100, 100));
     
-    free(rgb);
     free(argb);
 }
 
