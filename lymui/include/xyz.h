@@ -25,6 +25,19 @@
 #define zg 0.1191f
 #define zb 0.9503f
 
+// Constant for Adobe RGB value
+#define axr 0.5767f
+#define axg 0.1855f
+#define axb 0.1881f
+
+#define ayr 0.2973f
+#define ayg 0.6273f
+#define ayb 0.0752f
+
+#define azr 0.0270f
+#define azg 0.0706f
+#define azb 0.9911f
+
 /**
  * @brief Xyz struct
  */
@@ -38,7 +51,8 @@ struct Xyz {
  * @brief enum which define the value of the matrix for converting the matrix
  */
 typedef enum Matrix {
-    sRgb
+    sRgb,
+    adobeRgb
 } Matrix;
 
 /**

@@ -18,15 +18,14 @@ ctest_return_t testSRgbCreation(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 50;
     rgb->g = 10;
-    rgb->g = 95;
+    rgb->b = 95;
     
     struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
     struct sRgb *srgb = getSRgbFromXyz(xyz);
     
-    CTAssertEqual(test, 1.8f, roundDigit(srgb->r * 10, 10), "Expect r to be equal to be equal to 1.8 but got %f", roundDigit(srgb->r * 10, 10));
-    CTAssertEqual(test, 3.7f, roundDigit(srgb->g * 10, 10), "Expect g to be equal to be equal to 3.7 but got %f", roundDigit(srgb->g * 10, 10));
+    CTAssertEqual(test, 1.9f, roundDigit(srgb->r * 10, 10), "Expect r to be equal to be equal to 1.8 but got %f", roundDigit(srgb->r * 10, 10));
+    CTAssertEqual(test, 0.3f, roundDigit(srgb->g * 10, 10), "Expect g to be equal to be equal to 0.3 but got %f", roundDigit(srgb->g * 10, 10));
     CTAssertEqual(test, 3.7f, roundDigit(srgb->b * 10, 10), "Expect r to be equal to be equal to 3.7 but got %f", roundDigit(srgb->b * 10, 10));
-
 }
 
 ctest_return_t testSRgbCreationNull(ctest_t *test, void *arg) {
