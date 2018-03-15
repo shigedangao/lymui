@@ -39,5 +39,7 @@ struct aRgb *getARgbFromXyz(struct Xyz *xyz) {
     argb->g = adobeGammaCorrection(g);
     argb->b = adobeGammaCorrection(b);
     
+    free(xyz);
+    
     return argb;
 }
