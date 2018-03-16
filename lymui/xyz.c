@@ -97,6 +97,7 @@ struct Xyz * generateXyzFromRgb(struct Rgb *rgb, enum Matrix m) {
     xyz->z = value[2];
     
     free(rgb);
+    free(value);
     
     return xyz;
 }
