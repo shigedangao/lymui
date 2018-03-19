@@ -12,6 +12,7 @@
 		9F04727320348E67000639EA /* ycbcr_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727220348E67000639EA /* ycbcr_test.c */; };
 		9F04979C204D485200173243 /* hsv_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04979B204D485200173243 /* hsv_test.c */; };
 		9F05AC0D2029208B00734C15 /* rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F05AC0C2029208B00734C15 /* rgb.c */; };
+		9F10A9BD20605C7F00692EA8 /* lab.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F10A9BC20605C7F00692EA8 /* lab.c */; };
 		9F3A07B22028891300CB2311 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A07B12028891300CB2311 /* main.c */; };
 		9F4D411B20599A590031CDA5 /* argb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F4D411A20599A590031CDA5 /* argb.c */; };
 		9F4D411D20599E020031CDA5 /* argb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F4D411C20599E020031CDA5 /* argb_test.c */; };
@@ -54,6 +55,8 @@
 		9F04979B204D485200173243 /* hsv_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hsv_test.c; sourceTree = "<group>"; };
 		9F05AC0B2029208B00734C15 /* rgb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rgb.h; sourceTree = "<group>"; };
 		9F05AC0C2029208B00734C15 /* rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb.c; sourceTree = "<group>"; };
+		9F10A9BB20605C7F00692EA8 /* lab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lab.h; sourceTree = "<group>"; };
+		9F10A9BC20605C7F00692EA8 /* lab.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lab.c; sourceTree = "<group>"; };
 		9F3A07AE2028891300CB2311 /* lymui */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = lymui; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F3A07B12028891300CB2311 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		9F3E797C2033369900152E72 /* cunit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cunit; path = lib/cunit; sourceTree = "<group>"; };
@@ -157,6 +160,7 @@
 				9FFE470A20572EE800EA68D5 /* xyz.c */,
 				9FFE470D20573A7A00EA68D5 /* srgb.c */,
 				9F4D411A20599A590031CDA5 /* argb.c */,
+				9F10A9BC20605C7F00692EA8 /* lab.c */,
 			);
 			path = lymui;
 			sourceTree = "<group>";
@@ -173,6 +177,7 @@
 		9F70D72F2032EB1D0002E3F3 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				9F10A9BB20605C7F00692EA8 /* lab.h */,
 				9F4D411920599A590031CDA5 /* argb.h */,
 				9FFE470920572EE800EA68D5 /* xyz.h */,
 				9FFE46FA20567B8B00EA68D5 /* yuv.h */,
@@ -262,6 +267,7 @@
 				9FF5D4E72048A99C00D364BD /* hsv.c in Sources */,
 				9F9AA8A72029DE74008A28B8 /* helper.c in Sources */,
 				9F05AC0D2029208B00734C15 /* rgb.c in Sources */,
+				9F10A9BD20605C7F00692EA8 /* lab.c in Sources */,
 				9F9AA8AB202A546B008A28B8 /* hex.c in Sources */,
 				9F04727320348E67000639EA /* ycbcr_test.c in Sources */,
 				9F04979C204D485200173243 /* hsv_test.c in Sources */,
