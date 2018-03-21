@@ -28,6 +28,7 @@
 		9F9AA8AB202A546B008A28B8 /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AA8AA202A546B008A28B8 /* hex.c */; };
 		9FB09146203DE0B000249EEB /* hsl.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FB09145203DE0B000249EEB /* hsl.c */; };
 		9FC4EB8620319B990083637E /* ycbcr.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4EB8520319B990083637E /* ycbcr.c */; };
+		9FECCB452061BA6200725C97 /* lab_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FECCB442061BA6200725C97 /* lab_test.c */; };
 		9FF5D4E72048A99C00D364BD /* hsv.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FF5D4E62048A99C00D364BD /* hsv.c */; };
 		9FFE46FC20567B8B00EA68D5 /* yuv.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FFE46FB20567B8B00EA68D5 /* yuv.c */; };
 		9FFE46FE20568E4900EA68D5 /* yuv_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FFE46FD20568E4900EA68D5 /* yuv_test.c */; };
@@ -82,6 +83,7 @@
 		9FB09145203DE0B000249EEB /* hsl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hsl.c; sourceTree = "<group>"; };
 		9FC4EB8420319B990083637E /* ycbcr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ycbcr.h; sourceTree = "<group>"; };
 		9FC4EB8520319B990083637E /* ycbcr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ycbcr.c; sourceTree = "<group>"; };
+		9FECCB442061BA6200725C97 /* lab_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lab_test.c; sourceTree = "<group>"; };
 		9FF5D4E52048A99C00D364BD /* hsv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hsv.h; sourceTree = "<group>"; };
 		9FF5D4E62048A99C00D364BD /* hsv.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hsv.c; sourceTree = "<group>"; };
 		9FFE46FA20567B8B00EA68D5 /* yuv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = yuv.h; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				9F649FBB2057E45C0019A8BD /* srgb_test.c */,
 				9F649FBD20580CF10019A8BD /* xyz_test.c */,
 				9F4D411C20599E020031CDA5 /* argb_test.c */,
+				9FECCB442061BA6200725C97 /* lab_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				9FC4EB8620319B990083637E /* ycbcr.c in Sources */,
 				9FF5D4E72048A99C00D364BD /* hsv.c in Sources */,
 				9F9AA8A72029DE74008A28B8 /* helper.c in Sources */,
+				9FECCB452061BA6200725C97 /* lab_test.c in Sources */,
 				9F05AC0D2029208B00734C15 /* rgb.c in Sources */,
 				9F10A9BD20605C7F00692EA8 /* lab.c in Sources */,
 				9F9AA8AB202A546B008A28B8 /* hex.c in Sources */,

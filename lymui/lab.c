@@ -14,14 +14,15 @@
 
 /**
  * @discussion Calculate Domain of the color
+ * @credit Big credits to Bruce Lindbloom and to Color Mine lib
  * @param c float
  * @return float
  */
 static float calculateDomain(float c) {
-    if (c > powf(teta, 3.0f))
-        return 3.0f * sqrtf(teta);
+    if (c > epsilon)
+        return 3.0f * sqrtf(c);
     
-    return c / powf(teta, 2.0f) + 4.0f / 29.0f;
+    return (c * kameah + 16.0f) / 116.0f;
 }
 
 struct Lab *getLabFromXyz(struct Xyz *xyz) {
@@ -42,10 +43,9 @@ struct Lab *getLabFromXyz(struct Xyz *xyz) {
 
 /**
  * @discussion Get Ka Kb return the Ka Kb value based on the Xyz value (should exposed ?)
- * @param xyz Xyz struct
  * @return float Array
  */
-static float *getKaKb(struct Xyz *xyz) {
+static float *getKaKb() {
     float * kAkB = malloc(sizeof(float) * 2);
     kAkB[0] = (175.0f / 198.04f) * (Xn + Yn);
     kAkB[1] = (70.0f / 218.11f) * (Yn + Zn);
@@ -57,12 +57,12 @@ struct Lab *getHunterLabFromXyz(struct Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
-    float * kAkB = getKaKb(xyz);
+    float * kAkB = getKaKb();
     
     struct Lab *lab = malloc(sizeof(struct Lab));
     lab->l = 100 * sqrtf(xyz->y / Yn);
     lab->a = kAkB[0] * ((xyz->x / Xn - xyz->y / Yn) / sqrtf(xyz->y / Yn));
-    lab->b = kAkB[1] * ((xyz->y - Yn - xyz->z / Zn) / sqrtf(xyz->y / Yn));
+    lab->b = kAkB[1] * ((xyz->y / Yn - xyz->z / Zn) / sqrtf(xyz->y / Yn));
     
     free(xyz);
     free(kAkB);
@@ -78,11 +78,10 @@ struct Lab *getHunterLabFromXyz(struct Xyz *xyz) {
  * @return float
  */
 static float calculateReverseDomain(float c) {
-    if (c > teta)
+    if (powf(c, 3) > epsilon)
         return powf(c, 3.0f);
     
-    float tt = 3 * powf(teta, 2.0f);
-    return tt * (c - 4.0f / 29.0f);
+    return (116.0f * c - 16.0f) / kameah;
 }
 
 struct Xyz *getXyzFromLab(struct Lab *lab) {
@@ -93,8 +92,13 @@ struct Xyz *getXyzFromLab(struct Lab *lab) {
     
     float labL = (lab->l + 16.0f) / 116.0f;
     xyz->x = Xn * calculateReverseDomain(labL + lab->a / 500.0f);
-    xyz->y = Yn * calculateReverseDomain(labL);
     xyz->z = Zn * calculateReverseDomain(labL - lab->b / 200.0f);
+    
+    // special case for y value
+    if (lab->l > epsilon * kameah)
+        xyz->y = Yn * powf(labL, 3);
+    else
+        xyz->y = lab->l / kameah;
     
     free(lab);
     

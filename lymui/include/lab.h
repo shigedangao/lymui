@@ -12,7 +12,8 @@
 #include <stdio.h>
 #include "xyz.h"
 
-#define teta 6 / 29
+#define epsilon 0.008856f
+#define kameah 903.3f
 
 // Illuminant for D65
 #define Xn 95.047f
