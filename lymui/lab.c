@@ -47,7 +47,7 @@ struct Lab *getLabFromXyz(struct Xyz *xyz) {
  */
 static float *getKaKb() {
     float * kAkB = malloc(sizeof(float) * 2);
-    kAkB[0] = (175.0f / 198.04f) * (Xn + Yn);
+    kAkB[0] = (175.0f / 198.04f) * (Yn + Xn);
     kAkB[1] = (70.0f / 218.11f) * (Yn + Zn);
     
     return kAkB;
@@ -58,8 +58,8 @@ struct Lab *getHunterLabFromXyz(struct Xyz *xyz) {
         return NULL;
     
     float * kAkB = getKaKb();
-    
     struct Lab *lab = malloc(sizeof(struct Lab));
+    
     lab->l = 100 * sqrtf(xyz->y / Yn);
     lab->a = kAkB[0] * ((xyz->x / Xn - xyz->y / Yn) / sqrtf(xyz->y / Yn));
     lab->b = kAkB[1] * ((xyz->y / Yn - xyz->z / Zn) / sqrtf(xyz->y / Yn));
@@ -98,7 +98,7 @@ struct Xyz *getXyzFromLab(struct Lab *lab) {
     if (lab->l > epsilon * kameah)
         xyz->y = Yn * powf(labL, 3);
     else
-        xyz->y = lab->l / kameah;
+        xyz->y = Yn * (lab->l / kameah);
     
     free(lab);
     
