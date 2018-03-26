@@ -47,9 +47,13 @@ static void calculateXyzRgb(float r, float g, float b, float *arr) {
     g = pivotRGB(g);
     b = pivotRGB(b);
     
-    arr[0] = xr * r + xg * g + xb * b;
-    arr[1] = yr * r + yg * g + yb * b;
-    arr[2] = zr * r + zg * g + zb * b;
+    float x = xr * r + xg * g + xb * b;
+    float y = yr * r + yg * g + yb * b;
+    float z = zr * r + zg * g + zb * b;
+    
+    arr[0] = x > 1.0f ? 1.0f : x;
+    arr[1] = y > 1.0f ? 1.0f : y;
+    arr[2] = z > 1.0f ? 1.0f : z;
 }
 
 /**

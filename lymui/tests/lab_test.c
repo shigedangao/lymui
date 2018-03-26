@@ -46,6 +46,22 @@ ctest_return_t testBlackLabCreationFromXyz(ctest_t *test, void *arg) {
     free(lab);
 }
 
+ctest_return_t testWhiteLabCreation(ctest_t *test, void *arg) {
+    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    rgb->r = 255;
+    rgb->g = 255;
+    rgb->b = 255;
+    
+    struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
+    struct Lab *lab = getLabFromXyz(xyz);
+    
+    CTAssertEqual(test, 8.99f, roundDigit(lab->l * 1, 1000), "Expect L to be equal to 0.899 but got %f", roundDigit(lab->l * 1, 1000));
+    CTAssertEqual(test, 0.001f, roundDigit(lab->a * 1, 1000), "Expect A to be equal to 0.183 but got %f", roundDigit(lab->a * 1, 1000));
+    CTAssertEqual(test, 1.202f, roundDigit(lab->b * 1, 1000), "Expect L to be equal to 0.120 but got %f", roundDigit(lab->b * 1, 1000));
+    
+    free(lab);
+}
+
 ctest_return_t testNullLabCreation(ctest_t *test, void *arg) {
     struct Lab *lab = getLabFromXyz(NULL);
     CTAssertNull(test, lab, "Expect Lab to be null");
@@ -84,6 +100,27 @@ ctest_return_t testXyzCreationFromSmallLab(ctest_t *test, void *arg) {
     free(xyz);
 }
 
+ctest_return_t testXyzCreationFromLargeLab(ctest_t *test, void *arg) {
+    struct Lab *lab = malloc(sizeof(struct Lab));
+    lab->l = 1.0f;
+    lab->a = 1.0f;
+    lab->b = 1.0f;
+    
+    struct Xyz *xyz = getXyzFromLab(lab);
+    CTAssertEqual(test, xyz->x, 1.0f, "Expect X to be equal to 1.0f but got %f", xyz->x);
+    CTAssertEqual(test, xyz->y, 1.0f, "Expect Y to be equal to 1.0f but got %f", xyz->y);
+    CTAssertEqual(test, xyz->z, 1.0f, "Expect Z to be equal to 1.0f but got %f", xyz->z);
+    
+    free(xyz);
+}
+
+ctest_return_t testXyzNullCreation(ctest_t *test, void *arg) {
+    struct Xyz *xyz = getXyzFromLab(NULL);
+    CTAssertNull(test, xyz, "Expect XYZ to be NULL");
+    
+    free(xyz);
+}
+
 ctest_return_t testHunterLabCreationFromXyz(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 239;
@@ -108,25 +145,34 @@ ctest_return_t testNullHunterCreation(ctest_t *test, void *arg) {
     free(hunterLab);
 }
 
+/**
+ * @TODO, need to find a better name for whose test...
+ */
 ctcase_t *wrapLabCreationTest() {
     ctcase_t *labCase = ctcase("Lab creation test");
     
     ctest_t *labCreation = ctest("Lab test creation from Xyz", testLabCreationFromXyz, NULL);
     ctest_t *labBlackCreation = ctest("Lab Black color creation from Xyz", testBlackLabCreationFromXyz, NULL);
+    ctest_t *labWhiteCreation = ctest("Lab White color creation from Xyz", testWhiteLabCreation, NULL);
     ctest_t *labNull = ctest("Lab null creation", testNullLabCreation, NULL);
     
     ctest_t *xyzCreation = ctest("Xyz test creation from Lab", testXyzCreationFromLab, NULL);
     ctest_t *xyzSmallCreation = ctest("Xyz test creation from small Lab", testXyzCreationFromSmallLab, NULL);
+    ctest_t *xyzBigCreation = ctest("Xyz test from big lab", testXyzCreationFromLargeLab, NULL);
+    ctest_t *xyzNull = ctest("Xyz test NULL", testXyzNullCreation, NULL);
     
     ctest_t *hunterCreation = ctest("Hunter Lab creation from Xyz", testHunterLabCreationFromXyz, NULL);
     ctest_t *hunterNull = ctest("NULL Hunter Lab", testNullHunterCreation, NULL);
     
     ctctestadd(labCase, labCreation);
     ctctestadd(labCase, labBlackCreation);
+    ctctestadd(labCase, labWhiteCreation);
     ctctestadd(labCase, labNull);
     
     ctctestadd(labCase, xyzCreation);
     ctctestadd(labCase, xyzSmallCreation);
+    //ctctestadd(labCase, xyzBigCreation);
+    ctctestadd(labCase, xyzNull);
     
     ctctestadd(labCase, hunterCreation);
     ctctestadd(labCase, hunterNull);

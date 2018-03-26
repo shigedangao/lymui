@@ -20,7 +20,7 @@
  */
 static float calculateDomain(float c) {
     if (c > epsilon)
-        return 3.0f * sqrtf(c);
+        return powf(c, (1.0f / 3.0f));
     
     return (c * kameah + 16.0f) / 116.0f;
 }
