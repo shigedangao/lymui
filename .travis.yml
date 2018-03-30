@@ -48,7 +48,7 @@ deploy:
   provider: releases
   api_key: ${GH_TOKEN}
   file:
-    - "./bin/include"
+    - "./bin/include/*"
     - "./bin/liblymui.a"
   skip_cleanup: true
   on:
