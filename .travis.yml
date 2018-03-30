@@ -51,5 +51,5 @@ deploy:
     - "./bin/include"
     - "./bin/liblymui.a"
   skip_cleanup: true
-#  on:
-#    branch: master
+  on:
+    branch: master
