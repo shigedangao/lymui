@@ -1,8 +1,8 @@
 # clean the project
-make clean
+make cleanTest
 
 # compile the project (generate GCNO)
-make
+make lym
 
 # test the project (generate GCDA)
 

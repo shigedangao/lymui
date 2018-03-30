@@ -24,6 +24,7 @@ before_script:
 # Launch the build & test process
 script: 
   - sh coverage.sh
+  - make lib
 
 after_success:
   - lcov --directory . --capture --output-file coverage.info
@@ -46,7 +47,9 @@ notifications:
 deploy:
   provider: releases
   api_key: ${GH_TOKEN}
-  file: "lym"
+  file:
+    - "./bin/include"
+    - "./bin/liblymui.a"
   skip_cleanup: true
   on:
     branch: master
