@@ -25,6 +25,7 @@ before_script:
 script: 
   - sh coverage.sh
   - make lib
+  - zip -r liblymui.zip bin
 
 after_success:
   - lcov --directory . --capture --output-file coverage.info
@@ -48,8 +49,7 @@ deploy:
   provider: releases
   api_key: ${GH_TOKEN}
   file:
-    - "./bin/include/*"
-    - "./bin/liblymui.a"
+    - "liblymui.zip"
   skip_cleanup: true
   on:
     branch: master
