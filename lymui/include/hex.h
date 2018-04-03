@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include "rgb.h"
 
+#define HEX_SIZE 7
+
 /*!
  * @discussion Create a char array which is the HEX value
  * @param rgb a RGB structure
