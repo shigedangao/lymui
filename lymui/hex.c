@@ -19,8 +19,8 @@ char * getHexFromRGB(struct Rgb *c) {
     char *b = ushortToHex(c->b);
     
     // create a char array of hex value
-    char *hex = malloc(sizeof(char) * 5);
-    snprintf(hex, sizeof(hex) / sizeof(hex[0]), "%s%s%s", r, g, b);
+    char *hex = malloc(sizeof(char) * HEX_SIZE);
+    snprintf(hex, HEX_SIZE, "%s%s%s", r, g, b);
     return hex;
 }
 
