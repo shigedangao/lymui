@@ -49,15 +49,60 @@ struct Luv * getLuvFromRgb(struct Xyz *xyz) {
     luv->v = 13.0f * l * (uv[1] - urv[1]);
     
     free(xyz);
+    free(urv);
+    free(uv);
     
     return luv;
+}
+
+/**
+ * @discussion Calculate Y Value caclulate the y value based on the K and E value
+ * @param l float
+ * @return float
+ */
+static float calculateYValue(float l) {
+    if (l > k * e)
+        return powf((l + 16.0f) / 116, 3);
+    
+    return l / k;
+}
+
+/**
+ * @discussion Calculate Xyz Params Calculate the required params for converting a luv to an xyz
+ * @param luv struct Luv pointer
+ * @return *float params
+ */
+static float * calculateXyzParams(struct Luv *luv) {
+    // calculate the u0 and v0 value
+    float *ur = calculateParams(xr, yr, zr);
+    
+    float y = calculateYValue(luv->l);
+    float a = 1/3 * ((52.0f * luv->l) / (luv->u + 13.0f * luv->l * ur[0]) - 1.0f);
+    float b = -5.0f * y;
+    float c = -1/3;
+    float d = y * ((39.0 * luv->l) / (luv->v + 13.0f * luv->l * ur[1]) - 5.0f);
+    
+    float *params = malloc(sizeof(float) * 5);
+    params[0] = a;
+    params[1] = b;
+    params[2] = c;
+    params[3] = d;
+    params[4] = y;
+    
+    return params;
 }
 
 struct Xyz * getXyzFromLuv(struct Luv *luv) {
     if (luv == NULL)
         return NULL;
     
+    // Calculate the Y value use by other formula...
+    float *params = calculateXyzParams(luv);
     struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    
+    xyz->x = (params[3] - params[1]) / (params[0] - params[2]);
+    xyz->y = params[4];
+    xyz->z = xyz->x * params[0] + params[1];
     
     return xyz;
 }
