@@ -29,7 +29,7 @@ struct Luv {
  * @param xyz struct Rgb pointer
  * @return Luv struct
  */
-struct Luv * getLuvFromRgb(struct Xyz *xyz);
+struct Luv * getLuvFromXyz(struct Xyz *xyz);
 
 /**
  * @description Get Xyz From Luv calculate the Xyz struct based on the Luv struct

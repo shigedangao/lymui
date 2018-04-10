@@ -28,25 +28,27 @@ static float * calculateParams(float x, float y, float z) {
     return params;
 }
 
-struct Luv * getLuvFromRgb(struct Xyz *xyz) {
+struct Luv * getLuvFromXyz(struct Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
     // Calculate the nYr value
-    float nYr = xyz->y / yr;
+    float nYr = xyz->y / Yn;
     float *uv  = calculateParams(xyz->x, xyz->y, xyz->z);
     float *urv = calculateParams(Xn, Yn, Zn);
     float l = 0.0f;
     
     struct Luv *luv = malloc(sizeof(struct Luv));
     if (nYr > e)
-        l = 116.0f * powf(Yn, 1/3) - 16;
+        l = 116.0f * powf(nYr, 1/3) - 16;
     else
-        l = k * Yn;
+        l = k * nYr;
     
     luv->l = l;
-    luv->u = 13.0f * l * (uv[0] - urv[1]);
+    luv->u = 13.0f * l * (uv[0] - urv[0]);
     luv->v = 13.0f * l * (uv[1] - urv[1]);
+    
+    printf("value of l %f \n", l);
     
     free(xyz);
     free(urv);
