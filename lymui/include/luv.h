@@ -19,8 +19,11 @@
  * @brief struct representing the Luv format
  */
 struct Luv {
+    // Range from 0 > L > 100
     float l;
+    // Range from +-100
     float u;
+    // Range from +-100
     float v;
 };
 

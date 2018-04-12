@@ -32,23 +32,22 @@ struct Luv * getLuvFromXyz(struct Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
-    // Calculate the nYr value
-    float nYr = xyz->y / Yn;
-    float *uv  = calculateParams(xyz->x, xyz->y, xyz->z);
-    float *urv = calculateParams(Xn, Yn, Zn);
     float l = 0.0f;
     
+    // Calculate the nYr value
+    float y = xyz->y / Yn;
+    float *uv  = calculateParams(xyz->x, xyz->y, xyz->z);
+    float *urv = calculateParams(Xn, Yn, Zn);
+    
     struct Luv *luv = malloc(sizeof(struct Luv));
-    if (nYr > e)
-        l = 116.0f * powf(nYr, 1/3) - 16;
+    if (y > e)
+        l = 116.0f * powf(y, 1.0f / 3.0f) - 16.0f;
     else
-        l = k * nYr;
+        l = k * y;
     
     luv->l = l;
     luv->u = 13.0f * l * (uv[0] - urv[0]);
     luv->v = 13.0f * l * (uv[1] - urv[1]);
-    
-    printf("value of l %f \n", l);
     
     free(xyz);
     free(urv);
@@ -64,7 +63,7 @@ struct Luv * getLuvFromXyz(struct Xyz *xyz) {
  */
 static float calculateYValue(float l) {
     if (l > k * e)
-        return powf((l + 16.0f) / 116, 3);
+        return powf((l + 16.0f) / 116.0f, 3.0f);
     
     return l / k;
 }
@@ -79,9 +78,9 @@ static float * calculateXyzParams(struct Luv *luv) {
     float *ur = calculateParams(xr, yr, zr);
     
     float y = calculateYValue(luv->l);
-    float a = 1/3 * ((52.0f * luv->l) / (luv->u + 13.0f * luv->l * ur[0]) - 1.0f);
+    float a = 1.0f / 3.0f * ((52.0f * luv->l) / (luv->u + 13.0f * luv->l * ur[0]) - 1.0f);
     float b = -5.0f * y;
-    float c = -1/3;
+    float c = -1.0f / 3.0f;
     float d = y * ((39.0 * luv->l) / (luv->v + 13.0f * luv->l * ur[1]) - 5.0f);
     
     float *params = malloc(sizeof(float) * 5);
@@ -106,5 +105,6 @@ struct Xyz * getXyzFromLuv(struct Luv *luv) {
     xyz->y = params[4];
     xyz->z = xyz->x * params[0] + params[1];
     
+    free(luv);
     return xyz;
 }
