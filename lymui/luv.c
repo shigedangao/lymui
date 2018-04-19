@@ -90,6 +90,8 @@ static float * calculateXyzParams(struct Luv *luv) {
     params[3] = d;
     params[4] = y;
     
+    free(ur);
+    
     return params;
 }
 
@@ -107,5 +109,7 @@ struct Xyz * getXyzFromLuv(struct Luv *luv) {
     xyz->z = (tempX * params[0] + params[1]) * 100.0f;
     
     free(luv);
+    free(params);
+    
     return xyz;
 }
