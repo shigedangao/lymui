@@ -38,6 +38,13 @@
 #define azg 0.0706f
 #define azb 0.9911f
 
+// Illuminant for White D65
+
+// Illuminant for D65
+#define Xn 95.047f
+#define Yn 100.0f
+#define Zn 108.883f
+
 /**
  * @brief Xyz struct
  */
