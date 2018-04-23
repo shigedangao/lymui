@@ -31,13 +31,6 @@ uint8_t floatToUint(float value) {
     if (fabsf(value) != value)
         return 0;
     
-    return (uint8_t) value;
-}
-
-uint8_t floatToUintRound(float value) {
-    if (fabs(value) != value)
-        return 0;
-    
     return (uint8_t) round(value);
 }
 

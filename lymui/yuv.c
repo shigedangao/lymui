@@ -39,9 +39,9 @@ struct Rgb *getRgbFromYuv(struct Yuv *yuv) {
     float _b = yuv->y + 2.03211f * yuv->u;
     
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
-    rgb->r = floatToUintRound(_r * 255);
-    rgb->g = floatToUintRound(_g * 255);
-    rgb->b = floatToUintRound(_b * 255);
+    rgb->r = floatToUint(_r * 255);
+    rgb->g = floatToUint(_g * 255);
+    rgb->b = floatToUint(_b * 255);
     
     free(yuv);
     

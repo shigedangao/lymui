@@ -26,13 +26,6 @@ char * ushortToHex(uint8_t v);
 uint8_t floatToUint(float value);
 
 /*!
- * @discussion convert a float to a uint and round the uint value
- * @param value float
- * @return a uint8_t value
- */
-uint8_t floatToUintRound(float value);
-
-/*!
  * @discussion round a float to 1 digit
  * @param value float
  * @param factor int

@@ -34,11 +34,3 @@ struct Rgb *makeRGB(uint8_t c[], uint8_t length) {
     
     return color;
 }
-
-// Make Rgb From Arr Pointer
-struct Rgb *makeRGBFromArrPointer(uint8_t *c, uint8_t length) {
-    struct Rgb *color = makeRGB(c, length);
-    free(c);
-    
-    return color;
-}
