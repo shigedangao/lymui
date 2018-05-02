@@ -28,7 +28,7 @@ ctest_return_t testSRgbCreation(ctest_t *test, void *arg) {
     CTAssertEqual(test, 3.7f, roundDigit(srgb->b * 10, 10), "Expect r to be equal to be equal to 3.7 but got %f", roundDigit(srgb->b * 10, 10));
 }
 
-ctest_return_t testSRgbCreationNull(ctest_t *test, void *arg) {
+ctest_return_t testNullSRgbCreation(ctest_t *test, void *arg) {
     struct sRgb *srgb = getSRgbFromXyz(NULL);
     CTAssertNull(test, srgb, "Expect sRgb to be NULL");
     
@@ -39,8 +39,8 @@ ctcase_t *wrapSRgbCreationTest() {
     ctcase_t *sRgbCase = ctcase("sRGB test case");
     
     //test regarding the creation of srgb
-    ctest_t *srgb  = ctest("Creating sRGB", testSRgbCreation, NULL);
-    ctest_t *nSrgb = ctest("Creating NULL sRgb", testSRgbCreationNull, NULL);
+    ctest_t *srgb  = ctest("Creation of an sRGB from Rgb struct", testSRgbCreation, NULL);
+    ctest_t *nSrgb = ctest("Creating of an NULL sRGB from an empty Rgb struct", testNullSRgbCreation, NULL);
     
     ctctestadd(sRgbCase, srgb);
     ctctestadd(sRgbCase, nSrgb);
