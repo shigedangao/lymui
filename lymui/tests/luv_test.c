@@ -13,7 +13,7 @@
 #include "luv.h"
 #include "helper.h"
 
-ctest_return_t createLuvFromXyz(ctest_t *test, void *arg) {
+ctest_return_t testLuvFromXyz(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 5;
     rgb->g = 10;
@@ -113,7 +113,7 @@ ctcase_t * wrapLuvCreationTest() {
     ctcase_t *luvCase = ctcase("Luv creation test");
     
     // test case Xyz -> Luv
-    ctest_t *testLuv     = ctest("Creation of a Luv from Xyz", createLuvFromXyz, NULL);
+    ctest_t *testLuv     = ctest("Creation of a Luv from Xyz", testLuvFromXyz, NULL);
     ctest_t *testSupLuv  = ctest("Creation of an Superior Y Luv from Xyz", testSuperiorYLuvFromXyz, NULL);
     ctest_t *testInfLuv  = ctest("Creation of an Inferior Y Luv from Xyz", testInferiorYLuvFromXyz, NULL);
     ctest_t *testEmptyLuv= ctest("Creation of an NULL Luv from an empty Xyz", testNullLuv, NULL);

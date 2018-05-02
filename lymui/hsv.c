@@ -44,7 +44,7 @@ struct Hsv *getHsvFromRgb(struct Rgb *rgb) {
  * @return Rgb struct pointer
  */
 static struct Rgb *getValueRGB(struct Hsv *hsv) {
-    float v = floatToUintRound((hsv->v / 100) * 255);
+    float v = floatToUint((hsv->v / 100) * 255);
     
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = v;
@@ -88,10 +88,10 @@ struct Rgb *getRgbValueFromHsv(struct Hsv *hsv) {
     float _t = _v * (1.0f - (1.0f - _factor) * _s);
     
     // convert to uint the value
-    uint8_t up = floatToUintRound(_p * 255);
-    uint8_t uq = floatToUintRound(_q * 255);
-    uint8_t ut = floatToUintRound(_t * 255);
-    uint8_t uv = floatToUintRound(_v * 255);
+    uint8_t up = floatToUint(_p * 255);
+    uint8_t uq = floatToUint(_q * 255);
+    uint8_t ut = floatToUint(_t * 255);
+    uint8_t uv = floatToUint(_v * 255);
     
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     

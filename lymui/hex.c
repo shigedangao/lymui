@@ -14,9 +14,9 @@
 
 // Get Hex From RGB
 char * getHexFromRGB(struct Rgb *c) {
-    char *r = ushortToHex(c->r);
-    char *g = ushortToHex(c->g);
-    char *b = ushortToHex(c->b);
+    char *r = uintToHex(c->r);
+    char *g = uintToHex(c->g);
+    char *b = uintToHex(c->b);
     
     // create a char array of hex value
     char *hex = malloc(sizeof(char) * HEX_SIZE);

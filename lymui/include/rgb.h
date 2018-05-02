@@ -28,6 +28,4 @@ struct Rgb {
  */
 struct Rgb* makeRGB(uint8_t c[], uint8_t length);
 
-struct Rgb* makeRGBFromArrPointer(uint8_t *c, uint8_t length);
-
 #endif /* rgb_h */
