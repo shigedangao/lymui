@@ -16,7 +16,7 @@
  * @param v a Hex char array
  * @return a char
  */
-char * ushortToHex(uint8_t v);
+char * uintToHex(uint8_t v);
 
 /*!
  * @discussion convert a float to a uint
