@@ -15,7 +15,7 @@
 #include "xyz.h"
 #include "argb.h"
 
-ctest_return_t aRgbCreationTestCase(ctest_t *test, void *arg) {
+ctest_return_t testArgbCreation(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 50;
     rgb->g = 10;
@@ -25,14 +25,14 @@ ctest_return_t aRgbCreationTestCase(ctest_t *test, void *arg) {
     struct aRgb *argb = getARgbFromXyz(xyz);
     
     // These test are a bit falsy as i didn't find any converter of XYZ -> Adobe RGB so take it with grain of salt
-    CTAssertEqual(test, 19.6f, roundDigit(argb->r * 100, 100), "Expect R to be equal to 19.6 but got %f", roundDigit(argb->r * 100, 100));
-    CTAssertEqual(test, 3.89f, roundDigit(argb->g * 100, 100), "Expect R to be equal to 3.89 but got %f", roundDigit(argb->g * 100, 100));
-    CTAssertEqual(test, 37.25f, roundDigit(argb->b * 100, 100), "Expect R to be equal to 37.25 but got %f", roundDigit(argb->b * 100, 100));
+    CTAssertEqual(test, 19.6f, roundDigit(argb->r * 100, 100), "Expect R to be equal to %f but got %f", 19.6f, roundDigit(argb->r * 100, 100));
+    CTAssertEqual(test, 3.89f, roundDigit(argb->g * 100, 100), "Expect G to be equal to %f but got %f", 3.89f, roundDigit(argb->g * 100, 100));
+    CTAssertEqual(test, 37.25f, roundDigit(argb->b * 100, 100), "Expect B to be equal to %f but got %f", 37.25f, roundDigit(argb->b * 100, 100));
     
     free(argb);
 }
 
-ctest_return_t aRgbEmptyTestCase(ctest_t *test, void *arg) {
+ctest_return_t testArgbEmpty(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 0;
     rgb->g = 0;
@@ -48,7 +48,7 @@ ctest_return_t aRgbEmptyTestCase(ctest_t *test, void *arg) {
     free(argb);
 }
 
-ctest_return_t aRgbFullTestCase(ctest_t *test, void *arg) {
+ctest_return_t testMaxArgb(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 255;
     rgb->g = 255;
@@ -58,14 +58,14 @@ ctest_return_t aRgbFullTestCase(ctest_t *test, void *arg) {
     struct aRgb *argb = getARgbFromXyz(xyz);
     
     // Value are equal to 0.999... so round it to 1.0f
-    CTAssertEqual(test, 1.0f, roundf(argb->r), "Expeect R to be equal to 1.0 but got %f", argb->r);
-    CTAssertEqual(test, 1.0f, roundf(argb->g), "Expeect G to be equal to 1.0 but got %f", argb->g);
-    CTAssertEqual(test, 1.0f, roundf(argb->b), "Expeect B to be equal to 1.0 but got %f", argb->b);
+    CTAssertEqual(test, 1.0f, roundf(argb->r), "Expect R to be equal to %f but got %f", 1.0f, argb->r);
+    CTAssertEqual(test, 1.0f, roundf(argb->g), "Expect G to be equal to %f but got %f", 1.0f, argb->g);
+    CTAssertEqual(test, 1.0f, roundf(argb->b), "Expect B to be equal to %f but got %f", 1.0f, argb->b);
     
     free(argb);
 }
 
-ctest_return_t aRgbNullCreationTestCase(ctest_t *test, void *arg) {
+ctest_return_t testNullArgb(ctest_t *test, void *arg) {
     struct aRgb *argb = getARgbFromXyz(NULL);
     CTAssertNull(test, argb, "Expect argb to be NULL");
     
@@ -75,15 +75,15 @@ ctest_return_t aRgbNullCreationTestCase(ctest_t *test, void *arg) {
 ctcase_t *wrapARgbCreationTest() {
     ctcase_t *aRgbCase = ctcase("Adobe RGB test case");
     
-    ctest_t *aRgbCreation = ctest("Adobe RGB creation", aRgbCreationTestCase, NULL);
-    ctest_t *aNullCreation = ctest("Adobe RGB Null creation", aRgbNullCreationTestCase, NULL);
-    ctest_t *aEmptyCreation = ctest("Adobe RGB with full black color creation", aRgbEmptyTestCase, NULL);
-    ctest_t *aFullCreation  = ctest("Adobe RGB with full white color creation", aRgbFullTestCase, NULL);
+    ctest_t *testArgb      = ctest("Creation of an Adobe RGB struct from Rgb struct", testArgbCreation, NULL);
+    ctest_t *testArgbNull  = ctest("Creation of an NULL Adobe RGB", testNullArgb, NULL);
+    ctest_t *testEmptyArgb = ctest("Creation of an Adobe RGB struct from Rgb struct black color", testArgbEmpty, NULL);
+    ctest_t *testArgbMax   = ctest("Creation of an Adobe RGB struct from Rgb struct with with white color", testMaxArgb, NULL);
     
-    ctctestadd(aRgbCase, aRgbCreation);
-    ctctestadd(aRgbCase, aNullCreation);
-    ctctestadd(aRgbCase, aEmptyCreation);
-    ctctestadd(aRgbCase, aFullCreation);
+    ctctestadd(aRgbCase, testArgb);
+    ctctestadd(aRgbCase, testArgbNull);
+    ctctestadd(aRgbCase, testEmptyArgb);
+    ctctestadd(aRgbCase, testArgbMax);
     
     return aRgbCase;
 }

@@ -14,6 +14,7 @@
 		9F05AC0D2029208B00734C15 /* rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F05AC0C2029208B00734C15 /* rgb.c */; };
 		9F10A9BD20605C7F00692EA8 /* lab.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F10A9BC20605C7F00692EA8 /* lab.c */; };
 		9F3A07B22028891300CB2311 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A07B12028891300CB2311 /* main.c */; };
+		9F41ED57207CD80E00B8B644 /* luv_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F41ED56207CD80E00B8B644 /* luv_test.c */; };
 		9F4D411B20599A590031CDA5 /* argb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F4D411A20599A590031CDA5 /* argb.c */; };
 		9F4D411D20599E020031CDA5 /* argb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F4D411C20599E020031CDA5 /* argb_test.c */; };
 		9F649FBC2057E45C0019A8BD /* srgb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F649FBB2057E45C0019A8BD /* srgb_test.c */; };
@@ -26,6 +27,7 @@
 		9F8BC44C203CD17F001709CA /* hue_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BC44B203CD17F001709CA /* hue_test.c */; };
 		9F9AA8A72029DE74008A28B8 /* helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AA8A62029DE74008A28B8 /* helper.c */; };
 		9F9AA8AB202A546B008A28B8 /* hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AA8AA202A546B008A28B8 /* hex.c */; };
+		9FA29B5820757F6B009DC625 /* luv.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FA29B5720757F6B009DC625 /* luv.c */; };
 		9FB09146203DE0B000249EEB /* hsl.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FB09145203DE0B000249EEB /* hsl.c */; };
 		9FC4EB8620319B990083637E /* ycbcr.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FC4EB8520319B990083637E /* ycbcr.c */; };
 		9FECCB452061BA6200725C97 /* lab_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9FECCB442061BA6200725C97 /* lab_test.c */; };
@@ -62,6 +64,7 @@
 		9F3A07B12028891300CB2311 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		9F3E797C2033369900152E72 /* cunit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cunit; path = lib/cunit; sourceTree = "<group>"; };
 		9F3E797E203336B600152E72 /* libcunit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcunit.a; path = lib/cunit/libcunit.a; sourceTree = "<group>"; };
+		9F41ED56207CD80E00B8B644 /* luv_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = luv_test.c; sourceTree = "<group>"; };
 		9F4D411920599A590031CDA5 /* argb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argb.h; sourceTree = "<group>"; };
 		9F4D411A20599A590031CDA5 /* argb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = argb.c; sourceTree = "<group>"; };
 		9F4D411C20599E020031CDA5 /* argb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = argb_test.c; sourceTree = "<group>"; };
@@ -79,6 +82,8 @@
 		9F9AA8A62029DE74008A28B8 /* helper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = helper.c; sourceTree = "<group>"; };
 		9F9AA8A9202A546B008A28B8 /* hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hex.h; sourceTree = "<group>"; };
 		9F9AA8AA202A546B008A28B8 /* hex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hex.c; sourceTree = "<group>"; };
+		9FA29B5620757F6B009DC625 /* luv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = luv.h; sourceTree = "<group>"; };
+		9FA29B5720757F6B009DC625 /* luv.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = luv.c; sourceTree = "<group>"; };
 		9FB09144203DE0B000249EEB /* hsl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hsl.h; sourceTree = "<group>"; };
 		9FB09145203DE0B000249EEB /* hsl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hsl.c; sourceTree = "<group>"; };
 		9FC4EB8420319B990083637E /* ycbcr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ycbcr.h; sourceTree = "<group>"; };
@@ -123,6 +128,7 @@
 				9F649FBD20580CF10019A8BD /* xyz_test.c */,
 				9F4D411C20599E020031CDA5 /* argb_test.c */,
 				9FECCB442061BA6200725C97 /* lab_test.c */,
+				9F41ED56207CD80E00B8B644 /* luv_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -164,6 +170,7 @@
 				9FFE470D20573A7A00EA68D5 /* srgb.c */,
 				9F4D411A20599A590031CDA5 /* argb.c */,
 				9F10A9BC20605C7F00692EA8 /* lab.c */,
+				9FA29B5720757F6B009DC625 /* luv.c */,
 			);
 			path = lymui;
 			sourceTree = "<group>";
@@ -180,6 +187,7 @@
 		9F70D72F2032EB1D0002E3F3 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				9FA29B5620757F6B009DC625 /* luv.h */,
 				9F10A9BB20605C7F00692EA8 /* lab.h */,
 				9F4D411920599A590031CDA5 /* argb.h */,
 				9FFE470920572EE800EA68D5 /* xyz.h */,
@@ -223,7 +231,7 @@
 		9F3A07A62028891300CB2311 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Marc;
 				TargetAttributes = {
 					9F3A07AD2028891300CB2311 = {
@@ -272,8 +280,10 @@
 				9FECCB452061BA6200725C97 /* lab_test.c in Sources */,
 				9F05AC0D2029208B00734C15 /* rgb.c in Sources */,
 				9F10A9BD20605C7F00692EA8 /* lab.c in Sources */,
+				9FA29B5820757F6B009DC625 /* luv.c in Sources */,
 				9F9AA8AB202A546B008A28B8 /* hex.c in Sources */,
 				9F04727320348E67000639EA /* ycbcr_test.c in Sources */,
+				9F41ED57207CD80E00B8B644 /* luv_test.c in Sources */,
 				9F04979C204D485200173243 /* hsv_test.c in Sources */,
 				9F83F44020358ACF00F16CF6 /* cymk.c in Sources */,
 				9F83F4422035922A00F16CF6 /* cymk_test.c in Sources */,
@@ -300,6 +310,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -307,6 +318,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -355,6 +367,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -362,6 +375,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

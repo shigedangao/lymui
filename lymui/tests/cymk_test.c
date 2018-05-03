@@ -20,10 +20,10 @@ ctest_return_t testCymkCreation(ctest_t *test, void *arg) {
     struct Cymk *cymk = getCymkFromRgb(rgb);
     
     // Check the value of the cymk
-    CTAssertEqual(test, 0.0f, cymk->c, "Expected value for C %f, value: %f", 0.0f, cymk->c);
-    CTAssertEqual(test, 8.0f, roundf(cymk->m * 10), "Expected value for M %f, value: %f", cymk->m);
-    CTAssertEqual(test, 6.0f, round(cymk->y * 10), "Expected value for Y %f, value: %f", 0.6f, cymk->y);
-    CTAssertEqual(test, 0.0, cymk->k, "Expected value for K %f, value: %f", 0.0f, cymk->k);
+    CTAssertEqual(test, 0.0f, cymk->c, "Expect C to be equal to %f but got %f", 0.0f, cymk->c);
+    CTAssertEqual(test, 8.0f, roundf(cymk->m * 10), "Expect Y to be equal to %f but got %f", 8.0f, cymk->m);
+    CTAssertEqual(test, 6.0f, round(cymk->y * 10), "Expect M to be equal to %f but got %f", 0.6f, cymk->y);
+    CTAssertEqual(test, 0.0, cymk->k, "Expect K to be equal to %f but got %f", 0.0f, cymk->k);
     
     free(cymk);
 }
@@ -35,7 +35,7 @@ ctest_return_t testCymkNullCreation(ctest_t *test, void *arg) {
     free(cymk);
 }
 
-ctest_return_t testCymkToUint8Array(ctest_t *test, void *arg) {
+ctest_return_t testCymkToRgb(ctest_t *test, void *arg) {
     struct Cymk *cymk = malloc(sizeof(struct Cymk));
     cymk->c = 0.0f;
     cymk->y = 0.0f;
@@ -44,9 +44,9 @@ ctest_return_t testCymkToUint8Array(ctest_t *test, void *arg) {
     
     struct Rgb *color = getRawRGBValueFromCymk(cymk);
     
-    CTAssertEqual(test, 0, color->r, "Expected R to be 0, instead %ui", color->r);
-    CTAssertEqual(test, 0, color->g, "Expected G to be 0, instead %ui", color->g);
-    CTAssertEqual(test, 0, color->b, "Expected B to be 0, instead %ui", color->b);
+    CTAssertEqual(test, 0, color->r, "Expect R to be equal to %i but got %i", 0, color->r);
+    CTAssertEqual(test, 0, color->g, "Expect G to be equal to %i but got %i", 0, color->g);
+    CTAssertEqual(test, 0, color->b, "Expect B to be equal to %i but got %i", 0, color->b);
 
     free(cymk);
     free(color);
@@ -55,7 +55,7 @@ ctest_return_t testCymkToUint8Array(ctest_t *test, void *arg) {
 ctest_return_t testCymkToUintNull(ctest_t *test, void *arg) {
     struct Rgb *colors = getRawRGBValueFromCymk(NULL);
     
-    CTAssertNull(test, colors, "Expected colors to be NULL");
+    CTAssertNull(test, colors, "Expected RGB to be NULL");
     free(colors);
 }
 
@@ -64,17 +64,17 @@ ctcase_t *wrapCymkCreationTest() {
     ctcase_t *cymkCase = ctcase("Cymk test case");
     
     // Create test
-    ctest_t *cymkCreation = ctest("Create Cymk From RGB struct", testCymkCreation, NULL);
-    ctest_t *cymkNull = ctest("Cymk should return NULL", testCymkNullCreation, NULL);
-    ctest_t *colorsCymk = ctest("Cymk to UINT should return a valid colors array", testCymkToUint8Array, NULL);
-    ctest_t *uintColorNull = ctest("Cymk should return NULL", testCymkToUintNull, NULL);
+    ctest_t *testCymk     = ctest("Creation of a Cymk From RGB", testCymkCreation, NULL);
+    ctest_t *testCymkNull = ctest("Creation of a NULL Cymk from a RGB NULL", testCymkNullCreation, NULL);
+    ctest_t *testRgbCymk  = ctest("Creation of a RGB from a CYMK", testCymkToRgb, NULL);
+    ctest_t *testRgbNull  = ctest("Creation of a NULL RGB from a NULL Cymk", testCymkToUintNull, NULL);
 
     
     // add test to cases
-    ctctestadd(cymkCase, cymkCreation);
-    ctctestadd(cymkCase, cymkNull);
-    ctctestadd(cymkCase, colorsCymk);
-    ctctestadd(cymkCase, uintColorNull);
+    ctctestadd(cymkCase, testCymk);
+    ctctestadd(cymkCase, testCymkNull);
+    ctctestadd(cymkCase, testRgbCymk);
+    ctctestadd(cymkCase, testRgbNull);
     
     return cymkCase;
 }

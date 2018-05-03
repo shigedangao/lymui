@@ -14,7 +14,7 @@
 #include "xyz.h"
 #include "lab.h"
 
-ctest_return_t testLabCreationFromXyz(ctest_t *test, void *arg) {
+ctest_return_t testLabFromXyz(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 50;
     rgb->g = 10;
@@ -23,14 +23,14 @@ ctest_return_t testLabCreationFromXyz(ctest_t *test, void *arg) {
     struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
     struct Lab *lab = getLabFromXyz(xyz);
     
-    CTAssertEqual(test, 43.0f, floorf(lab->l * 100), "Expect L to be equal to 43.0f but got %f real value is %f", floorf(lab->l), lab->l);
-    CTAssertEqual(test, 2.0f, floorf(lab->a), "Expect A to be equal to 3.0f but got %f real value is %f", floorf(lab->a), lab->a);
-    CTAssertEqual(test, -7.0f, floorf(lab->b), "Expect B to be equal to -7.0f but got %f real value is %f", floorf(lab->b), lab->b);
+    CTAssertEqual(test, 43.0f, floorf(lab->l * 100), "Expect L to be equal to %f but got %f real value is %f", 43.0f, floorf(lab->l), lab->l);
+    CTAssertEqual(test, 2.0f,  floorf(lab->a), "Expect A to be equal to %f but got %f real value is %f", 2.0f, floorf(lab->a), lab->a);
+    CTAssertEqual(test, -7.0f, floorf(lab->b), "Expect B to be equal to %f but got %f real value is %f", -7.0f, floorf(lab->b), lab->b);
     
     free(lab);
 }
 
-ctest_return_t testBlackLabCreationFromXyz(ctest_t *test, void *arg) {
+ctest_return_t testBlackLabFromXyz(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 1;
     rgb->g = 1;
@@ -39,14 +39,14 @@ ctest_return_t testBlackLabCreationFromXyz(ctest_t *test, void *arg) {
     struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
     struct Lab *lab = getLabFromXyz(xyz);
     
-    CTAssertEqual(test, 0.27f, roundDigit(lab->l * 100, 100), "Expect L to be equal to 0.27f but got %f", roundDigit(lab->l * 100, 100));
-    CTAssertEqual(test, 0.0f, lab->a, "Expect A to be equal to 0.0f but got %f", lab->a);
-    CTAssertEqual(test, -0.0f, lab->b, "Expect B to be equal to 0.0f but got %f", lab->b);
+    CTAssertEqual(test, 0.27f, roundDigit(lab->l * 100, 100), "Expect L to be equal to %f but got %f", 0.27f, roundDigit(lab->l * 100, 100));
+    CTAssertEqual(test, 0.0f, lab->a, "Expect A to be equal to %f but got %f", 0.0f, lab->a);
+    CTAssertEqual(test, -0.0f, lab->b, "Expect B to be equal to %f but got %f", 0.0f, lab->b);
     
     free(lab);
 }
 
-ctest_return_t testWhiteLabCreation(ctest_t *test, void *arg) {
+ctest_return_t testWhiteLab(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 255;
     rgb->g = 255;
@@ -55,21 +55,21 @@ ctest_return_t testWhiteLabCreation(ctest_t *test, void *arg) {
     struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
     struct Lab *lab = getLabFromXyz(xyz);
     
-    CTAssertEqual(test, 8.99f,  roundDigit(lab->l * 1, 1000), "Expect L to be equal to 0.899 but got %f", roundDigit(lab->l * 1, 1000));
-    CTAssertEqual(test, 0.001f, roundDigit(lab->a * 1, 1000), "Expect A to be equal to 0.183 but got %f", roundDigit(lab->a * 1, 1000));
-    CTAssertEqual(test, 1.202f, roundDigit(lab->b * 1, 1000), "Expect B to be equal to 0.120 but got %f", roundDigit(lab->b * 1, 1000));
+    CTAssertEqual(test, 8.99f,  roundDigit(lab->l * 1, 1000), "Expect L to be equal to %f but got %f", 0.899f, roundDigit(lab->l * 1, 1000));
+    CTAssertEqual(test, 0.001f, roundDigit(lab->a * 1, 1000), "Expect A to be equal to %f but got %f", 0.183f, roundDigit(lab->a * 1, 1000));
+    CTAssertEqual(test, 1.202f, roundDigit(lab->b * 1, 1000), "Expect B to be equal to %f but got %f", 0.120f, roundDigit(lab->b * 1, 1000));
     
     free(lab);
 }
 
-ctest_return_t testNullLabCreation(ctest_t *test, void *arg) {
+ctest_return_t testNullLab(ctest_t *test, void *arg) {
     struct Lab *lab = getLabFromXyz(NULL);
     CTAssertNull(test, lab, "Expect Lab to be null");
     
     free(lab);
 }
 
-ctest_return_t testXyzCreationFromLab(ctest_t *test, void *arg) {
+ctest_return_t testXyzFromLab(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 50;
     rgb->g = 10;
@@ -86,21 +86,21 @@ ctest_return_t testXyzCreationFromLab(ctest_t *test, void *arg) {
     free(xyz);
 }
 
-ctest_return_t testXyzCreationFromSmallLab(ctest_t *test, void *arg) {
+ctest_return_t testXyzFromSmallLab(ctest_t *test, void *arg) {
     struct Lab *lab = malloc(sizeof(struct Lab));
     lab->l = 0.274187f;
     lab->a = 0.000021f;
     lab->b = -0.00006f;
     
     struct Xyz *xyz = getXyzFromLab(lab);
-    CTAssertEqual(test, 0.0289f, roundDigit(xyz->x * 1, 10000), "Expect X to be equal to 0.0289 but got %f", roundDigit(xyz->x * 1, 10000));
-    CTAssertEqual(test, 0.03f,   roundDigit(xyz->y * 1, 1000), "Expect Y to be equal to 0.030 but got %f", roundDigit(xyz->y * 1, 1000));
-    CTAssertEqual(test, 0.033f,  roundDigit(xyz->z * 1, 1000), "Expect Z to be equal to 0.033 but got %f", roundDigit(xyz->z * 1, 1000));
+    CTAssertEqual(test, 0.0289f, roundDigit(xyz->x * 1, 10000), "Expect X to be equal to %f but got %f", 0.0289f, roundDigit(xyz->x * 1, 10000));
+    CTAssertEqual(test, 0.03f,   roundDigit(xyz->y * 1, 1000), "Expect Y to be equal to %f but got %f",  0.030f, roundDigit(xyz->y * 1, 1000));
+    CTAssertEqual(test, 0.033f,  roundDigit(xyz->z * 1, 1000), "Expect Z to be equal to %f but got %f",  0.033f, roundDigit(xyz->z * 1, 1000));
 
     free(xyz);
 }
 
-ctest_return_t testXyzCreationFromLargeLab(ctest_t *test, void *arg) {
+ctest_return_t testXyzFromLargeLab(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 255;
     rgb->g = 255;
@@ -124,7 +124,7 @@ ctest_return_t testXyzNullCreation(ctest_t *test, void *arg) {
     free(xyz);
 }
 
-ctest_return_t testHunterLabCreationFromXyz(ctest_t *test, void *arg) {
+ctest_return_t testHunterLabFromXyz(ctest_t *test, void *arg) {
     struct Rgb *rgb = malloc(sizeof(struct Rgb));
     rgb->r = 239;
     rgb->g = 130;
@@ -141,7 +141,7 @@ ctest_return_t testHunterLabCreationFromXyz(ctest_t *test, void *arg) {
     free(hunterLab);
 }
 
-ctest_return_t testNullHunterCreation(ctest_t *test, void *arg) {
+ctest_return_t testNullHunter(ctest_t *test, void *arg) {
     struct Lab *hunterLab = getHunterLabFromXyz(NULL);
     CTAssertNull(test, hunterLab, "Expect hunter lab to be NULL");
     
@@ -154,18 +154,18 @@ ctest_return_t testNullHunterCreation(ctest_t *test, void *arg) {
 ctcase_t *wrapLabCreationTest() {
     ctcase_t *labCase = ctcase("Lab creation test");
     
-    ctest_t *labCreation = ctest("Lab test creation from Xyz", testLabCreationFromXyz, NULL);
-    ctest_t *labBlackCreation = ctest("Lab Black color creation from Xyz", testBlackLabCreationFromXyz, NULL);
-    ctest_t *labWhiteCreation = ctest("Lab White color creation from Xyz", testWhiteLabCreation, NULL);
-    ctest_t *labNull = ctest("Lab null creation", testNullLabCreation, NULL);
+    ctest_t *labCreation      = ctest("Creation of an Lab from Xyz struct", testLabFromXyz, NULL);
+    ctest_t *labBlackCreation = ctest("Creation of an Lab Black color from Xyz struct", testBlackLabFromXyz, NULL);
+    ctest_t *labWhiteCreation = ctest("Creation of an Lab White color from Xyz struct", testWhiteLab, NULL);
+    ctest_t *labNull          = ctest("Creation of an NULL Lab from empty Xyz struct", testNullLab, NULL);
     
-    ctest_t *xyzCreation = ctest("Xyz test creation from Lab", testXyzCreationFromLab, NULL);
-    ctest_t *xyzSmallCreation = ctest("Xyz test creation from small Lab", testXyzCreationFromSmallLab, NULL);
-    ctest_t *xyzBigCreation = ctest("Xyz test from big lab", testXyzCreationFromLargeLab, NULL);
-    ctest_t *xyzNull = ctest("Xyz test NULL", testXyzNullCreation, NULL);
+    ctest_t *xyzCreation      = ctest("Creation of an Xyz from Lab struct", testXyzFromLab, NULL);
+    ctest_t *xyzSmallCreation = ctest("Creation of an Xyz from low value Lab struct", testXyzFromSmallLab, NULL);
+    ctest_t *xyzBigCreation   = ctest("Creation of an Xyz from high value Lab struct", testXyzFromLargeLab, NULL);
+    ctest_t *xyzNull          = ctest("Creation of an NULL Xyz from NULL Lab struct", testXyzNullCreation, NULL);
     
-    ctest_t *hunterCreation = ctest("Hunter Lab creation from Xyz", testHunterLabCreationFromXyz, NULL);
-    ctest_t *hunterNull = ctest("NULL Hunter Lab", testNullHunterCreation, NULL);
+    ctest_t *hunterCreation = ctest("Creation of an Hunter Lab from Xyz struct", testHunterLabFromXyz, NULL);
+    ctest_t *hunterNull     = ctest("Creation of an NULL Hunter Lab from NULL Xyz struct", testNullHunter, NULL);
     
     ctctestadd(labCase, labCreation);
     ctctestadd(labCase, labBlackCreation);

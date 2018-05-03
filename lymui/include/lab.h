@@ -15,11 +15,6 @@
 #define epsilon 0.008856f
 #define kameah 903.3f
 
-// Illuminant for D65
-#define Xn 95.047f
-#define Yn 100.0f
-#define Zn 108.883
-
 /**
  * @brief Lab struct representing the Lab color space
  */

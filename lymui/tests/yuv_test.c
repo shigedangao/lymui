@@ -57,18 +57,18 @@ ctcase_t *wrapYuvCreationTest() {
     ctcase_t *yuvCase = ctcase("Yuv test case");
     
     // Yuv test case
-    ctest_t *testCreationYuv = ctest("getYuvFromRgb -> YUV", testCaseCreationYuv, NULL);
-    ctest_t *testCreationYuvNull = ctest("getYuvFromRgb -> NULL", testCaseCreationNullYuv, NULL);
+    ctest_t *testYuv = ctest("Creation of a Yuv from RGB", testCaseCreationYuv, NULL);
+    ctest_t *testYuvNull = ctest("Creation of a NULL Yuv from NULL RGB", testCaseCreationNullYuv, NULL);
     
     // Rgb test case
-    ctest_t *testCreationRGB = ctest("testCreationRgb -> RGB", testCreationRgb, NULL);
-    ctest_t *testCreationRGBNull = ctest("testCreationRgb -> NULL", testCreationRgbNULL, NULL);
+    ctest_t *testRGB = ctest("Creation of a RGB from Yuv", testCreationRgb, NULL);
+    ctest_t *testRGBNull = ctest("Creation of a NULL Rgb from a NULL Yuv", testCreationRgbNULL, NULL);
     
     // add test case
-    ctctestadd(yuvCase, testCreationYuv);
-    ctctestadd(yuvCase, testCreationYuvNull);
-    ctctestadd(yuvCase, testCreationRGB);
-    ctctestadd(yuvCase, testCreationRGBNull);
+    ctctestadd(yuvCase, testYuv);
+    ctctestadd(yuvCase, testYuvNull);
+    ctctestadd(yuvCase, testRGB);
+    ctctestadd(yuvCase, testRGBNull);
     
     return yuvCase;
 }
