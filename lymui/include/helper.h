@@ -50,5 +50,12 @@ float * updateConstraintValue(float *value, uint8_t size);
  */
 float getSaturation(float min, float max, float l);
 
+/**
+ * @discussion Get degree from radian value
+ * @param r float
+ * @return d float
+ */
+float getDegFromRad(float r);
+
 
 #endif /* helper_h */

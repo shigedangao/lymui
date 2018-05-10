@@ -60,4 +60,8 @@ float *updateConstraintValue(float *value, uint8_t size) {
     return value;
 }
 
+float getDegFromRad(float r) {
+    return r * (180.0f / M_PI);
+}
+
 
