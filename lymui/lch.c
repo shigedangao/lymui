@@ -24,13 +24,12 @@ struct Lch * getLchFromXyz(struct Xyz *xyz) {
     }
     
     struct Lch *lch = malloc(sizeof(struct Lch));
+    float H = getDegFromRad(atan2f(luv->v, luv->u));
     lch->l = luv->l;
     lch->c = sqrtf(powf(luv->u, 2.0f) + powf(luv->v, 2.0f));
-    lch->h = atan2f(luv->v, luv->u) >= 0.0f ?
-             atan2f(luv->v, luv->u) : atan2f(luv->v, luv->u) + 360.0f;
+    lch->h = H >= 0.0f ? H : H + 360.0f;
     
     free(luv);
-    free(xyz);
     
     return lch;
 }

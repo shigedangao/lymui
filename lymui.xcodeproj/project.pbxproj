@@ -14,6 +14,7 @@
 		9F05AC0D2029208B00734C15 /* rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F05AC0C2029208B00734C15 /* rgb.c */; };
 		9F10A9BD20605C7F00692EA8 /* lab.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F10A9BC20605C7F00692EA8 /* lab.c */; };
 		9F3A07B22028891300CB2311 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F3A07B12028891300CB2311 /* main.c */; };
+		9F4186EE20A62B3000CD500A /* lch_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F4186ED20A62B3000CD500A /* lch_test.c */; };
 		9F41ED57207CD80E00B8B644 /* luv_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F41ED56207CD80E00B8B644 /* luv_test.c */; };
 		9F4D411B20599A590031CDA5 /* argb.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F4D411A20599A590031CDA5 /* argb.c */; };
 		9F4D411D20599E020031CDA5 /* argb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F4D411C20599E020031CDA5 /* argb_test.c */; };
@@ -65,6 +66,7 @@
 		9F3A07B12028891300CB2311 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		9F3E797C2033369900152E72 /* cunit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = cunit; path = lib/cunit; sourceTree = "<group>"; };
 		9F3E797E203336B600152E72 /* libcunit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcunit.a; path = lib/cunit/libcunit.a; sourceTree = "<group>"; };
+		9F4186ED20A62B3000CD500A /* lch_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lch_test.c; sourceTree = "<group>"; };
 		9F41ED56207CD80E00B8B644 /* luv_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = luv_test.c; sourceTree = "<group>"; };
 		9F4D411920599A590031CDA5 /* argb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argb.h; sourceTree = "<group>"; };
 		9F4D411A20599A590031CDA5 /* argb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = argb.c; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				9F4D411C20599E020031CDA5 /* argb_test.c */,
 				9FECCB442061BA6200725C97 /* lab_test.c */,
 				9F41ED56207CD80E00B8B644 /* luv_test.c */,
+				9F4186ED20A62B3000CD500A /* lch_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				9FB09146203DE0B000249EEB /* hsl.c in Sources */,
 				9FFE46FE20568E4900EA68D5 /* yuv_test.c in Sources */,
 				9F6F0FD0203F6FDE00113349 /* hsl_test.c in Sources */,
+				9F4186EE20A62B3000CD500A /* lch_test.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
