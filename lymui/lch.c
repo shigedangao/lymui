@@ -39,9 +39,10 @@ struct Xyz * getXyzFromLch(struct Lch *lch) {
         return NULL;
     
     struct Luv *luv = malloc(sizeof(struct Luv));
+    float H = getRadFromDeg(lch->h);
     luv->l = lch->l;
-    luv->u = lch->c * getDegFromRad(cosf(lch->h));
-    luv->v = lch->c * getDegFromRad(sinf(lch->h));
+    luv->u = lch->c * cosf(H);
+    luv->v = lch->c * sinf(H);
     
     struct Xyz *xyz = getXyzFromLuv(luv);
     
@@ -50,7 +51,6 @@ struct Xyz * getXyzFromLch(struct Lch *lch) {
         return NULL;
     }
     
-    free(luv);
     free(lch);
     
     return xyz;

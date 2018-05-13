@@ -13,7 +13,7 @@
 #include "xyz.h"
 
 /**
- * @brief struct representing the Lch color. Note that for converting an RGB -> LCH color we need to get the Luv value
+ * @brief struct representing the Lch color. Note that for converting an RGB -> LCH(uv) color we need to get the Luv value
  */
 struct Lch {
     float l;

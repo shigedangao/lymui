@@ -63,6 +63,30 @@ ctest_return_t testNullLch(ctest_t *test, void *arg) {
     free(lch);
 }
 
+ctest_return_t testLchToXyz(ctest_t *test, void *arg) {
+    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    xyz->x = 0.51f;
+    xyz->y = 0.52f;
+    xyz->z = 0.510f;
+    
+    struct Lch *lch  = getLchFromXyz(xyz);
+    struct Xyz *nXyz = getXyzFromLch(lch);
+    
+    CTAssertDecimalEqual(test, nXyz->x, 0.51f, 0.01f, "Expect X to be equal to 0.51 but got %f", nXyz->x);
+    CTAssertDecimalEqual(test, nXyz->y, 0.52f, 0.01f, "Expect Y to be equal to 0.52 but got %f", nXyz->y);
+    CTAssertDecimalEqual(test, nXyz->z, 0.510f, 0.001f, "Expect Z to be equal to 0.501f but got %f", nXyz->z);
+    
+    free(nXyz);
+}
+
+ctest_return_t testEmptyXyz(ctest_t *test, void *arg) {
+    struct Xyz *xyz = getXyzFromLch(NULL);
+    
+    CTAssertNull(test, xyz, "Expect Xyz to be NULL");
+    
+    free(xyz);
+}
+
 
 ctcase_t * wrapLchCreationTest() {
     ctcase_t *lchCase = ctcase("Lch test case");
@@ -74,11 +98,17 @@ ctcase_t * wrapLchCreationTest() {
     
     // Null assertion
     ctest_t *testLchNull = ctest("Creation of a NULL Lch from a NULL Xyz", testNullLch, NULL);
+    ctest_t *testXyzNull = ctest("Creation of a NULL Xyz from a NULL Lch", testEmptyXyz, NULL);
+    
+    // Creation of Xyz
+    ctest_t *testXyz = ctest("Creation of a Xyz from an Lch struct", testLchToXyz, NULL);
     
     ctctestadd(lchCase, testLch);
     ctctestadd(lchCase, testMaxLch);
     ctctestadd(lchCase, testMinLch);
     ctctestadd(lchCase, testLchNull);
+    ctctestadd(lchCase, testXyz);
+    ctctestadd(lchCase, testXyzNull);
     
     return lchCase;
 }

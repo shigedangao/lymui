@@ -64,4 +64,7 @@ float getDegFromRad(float r) {
     return r * (180.0f / M_PI);
 }
 
+float getRadFromDeg(float d) {
+    return d * M_PI / 180.0f;
+}
 
