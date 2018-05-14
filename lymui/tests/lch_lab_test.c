@@ -23,11 +23,6 @@ ctest_return_t testLchFromLab(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, lch->c, 0.68f, 0.01f, "Expect C to be equal to %f but got %f", 0.68f, lch->c);
     CTAssertDecimalEqual(test, lch->h, 19.73f, 0.01f, "Expect H to be equal to %f but got %f", 19.73f, lch->h);
     
-    printf("Value of L %f \n ", lch->l);
-    printf("Value of C %f \n ", lch->c);
-    printf("Value of H %f \n ", lch->h);
-
-
     free(lch);
 }
 
