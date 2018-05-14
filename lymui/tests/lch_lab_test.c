@@ -75,7 +75,6 @@ ctcase_t * wrapLchLabCreationTest() {
     ctest_t *testLablchNull    = ctest("Creation of a NULL Lch from a NULL Xyz", testLabLchNull, NULL);
     ctest_t *testXyzLchlabNull = ctest("Creation of a NULL Lch from a NULL Xyz", testLabLchNull, NULL);
 
-    
     ctctestadd(lchLabCase, testLchLab);
     ctctestadd(lchLabCase, testXyzLchlab);
     ctctestadd(lchLabCase, testLablchNull);

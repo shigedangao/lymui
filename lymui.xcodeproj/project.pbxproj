@@ -26,6 +26,7 @@
 		9F87675620333B1C00578E08 /* libcunit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E797E203336B600152E72 /* libcunit.a */; };
 		9F8ABE4120A982270001F811 /* lchlab.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8ABE4020A982270001F811 /* lchlab.c */; };
 		9F8ABE4320A9925A0001F811 /* lch_lab_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8ABE4220A9925A0001F811 /* lch_lab_test.c */; };
+		9F8ABE4620A9BAE10001F811 /* xyy.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8ABE4520A9BAE10001F811 /* xyy.c */; };
 		9F8BC44A203CC9EE001709CA /* hue.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BC449203CC9EE001709CA /* hue.c */; };
 		9F8BC44C203CD17F001709CA /* hue_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BC44B203CD17F001709CA /* hue_test.c */; };
 		9F9AA8A72029DE74008A28B8 /* helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AA8A62029DE74008A28B8 /* helper.c */; };
@@ -83,6 +84,8 @@
 		9F8ABE3F20A982270001F811 /* lchlab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lchlab.h; sourceTree = "<group>"; };
 		9F8ABE4020A982270001F811 /* lchlab.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lchlab.c; sourceTree = "<group>"; };
 		9F8ABE4220A9925A0001F811 /* lch_lab_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lch_lab_test.c; sourceTree = "<group>"; };
+		9F8ABE4420A9BAE10001F811 /* xyy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xyy.h; sourceTree = "<group>"; };
+		9F8ABE4520A9BAE10001F811 /* xyy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xyy.c; sourceTree = "<group>"; };
 		9F8BC448203CC9EE001709CA /* hue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hue.h; sourceTree = "<group>"; };
 		9F8BC449203CC9EE001709CA /* hue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hue.c; sourceTree = "<group>"; };
 		9F8BC44B203CD17F001709CA /* hue_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hue_test.c; sourceTree = "<group>"; };
@@ -185,6 +188,7 @@
 				9FA29B5720757F6B009DC625 /* luv.c */,
 				9FC5E6F720A4ED4B00667C61 /* lch.c */,
 				9F8ABE4020A982270001F811 /* lchlab.c */,
+				9F8ABE4520A9BAE10001F811 /* xyy.c */,
 			);
 			path = lymui;
 			sourceTree = "<group>";
@@ -201,6 +205,7 @@
 		9F70D72F2032EB1D0002E3F3 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				9F8ABE4420A9BAE10001F811 /* xyy.h */,
 				9F8ABE3F20A982270001F811 /* lchlab.h */,
 				9FC5E6F620A4ED4B00667C61 /* lch.h */,
 				9FA29B5620757F6B009DC625 /* luv.h */,
@@ -278,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F8ABE4620A9BAE10001F811 /* xyy.c in Sources */,
 				9F4D411B20599A590031CDA5 /* argb.c in Sources */,
 				9F8BC44A203CC9EE001709CA /* hue.c in Sources */,
 				9FFE470B20572EE800EA68D5 /* xyz.c in Sources */,
