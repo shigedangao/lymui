@@ -40,9 +40,20 @@ struct Xyz * getXyzFromXyy(struct Xyy *xyy) {
         return NULL;
     
     struct Xyz *xyz = malloc(sizeof(struct Xyz));
-    xyz->x = (xyy->x * xyy->Y) / xyz->y;
-    xyz->y = xyy->y;
-    xyz->z = ((1.0f - xyy->x - xyy->y) * xyy->Y) / xyz->y;
     
+    if (!xyy->y) {
+        xyz->x = 0.0f;
+        xyz->y = 0.0f;
+        xyz->y = 0.0f;
+        free(xyy);
+        
+        return xyz;
+    }
+    
+    xyz->x = (xyy->x * xyy->Y) / xyy->y;
+    xyz->y = xyy->Y;
+    xyz->z = ((1.0f - xyy->x - xyy->y) * xyy->Y) / xyy->y;
+    
+    free(xyy);
     return xyz;
 }
