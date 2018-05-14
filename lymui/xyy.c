@@ -44,7 +44,7 @@ struct Xyz * getXyzFromXyy(struct Xyy *xyy) {
     if (!xyy->y) {
         xyz->x = 0.0f;
         xyz->y = 0.0f;
-        xyz->y = 0.0f;
+        xyz->z = 0.0f;
         free(xyy);
         
         return xyz;
