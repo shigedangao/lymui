@@ -40,4 +40,6 @@ ctcase_t *wrapLuvCreationTest(void);
 
 ctcase_t *wrapLchCreationTest(void);
 
+ctcase_t *wrapLchLabCreationTest(void);
+
 #endif /* rgb_test_h */

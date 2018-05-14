@@ -33,14 +33,19 @@ struct Lchlab * getLchFromLab(struct Xyz *xyz) {
     return lch;
 }
 
-struct Xyz * getXyzFromLch(struct Lchlab *lch) {
+struct Xyz * getXyzFromLchlab(struct Lchlab *lch) {
     if (lch == NULL)
         return NULL;
     
     // Get the lab first
     struct Lab *lab = malloc(sizeof(struct Lab));
-    float H = getRadFromDeg(lch->h);
     
+    if (lab == NULL) {
+        printf("Can not get Xyz as Lab struct is empty");
+        return NULL;
+    }
+    
+    float H = getRadFromDeg(lch->h);
     lab->l = lch->l;
     lab->a = lch->c * cosf(H);
     lab->b = lch->c * sinf(H);

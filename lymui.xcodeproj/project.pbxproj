@@ -25,6 +25,7 @@
 		9F83F4422035922A00F16CF6 /* cymk_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F83F4412035922A00F16CF6 /* cymk_test.c */; };
 		9F87675620333B1C00578E08 /* libcunit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E797E203336B600152E72 /* libcunit.a */; };
 		9F8ABE4120A982270001F811 /* lchlab.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8ABE4020A982270001F811 /* lchlab.c */; };
+		9F8ABE4320A9925A0001F811 /* lch_lab_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8ABE4220A9925A0001F811 /* lch_lab_test.c */; };
 		9F8BC44A203CC9EE001709CA /* hue.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BC449203CC9EE001709CA /* hue.c */; };
 		9F8BC44C203CD17F001709CA /* hue_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8BC44B203CD17F001709CA /* hue_test.c */; };
 		9F9AA8A72029DE74008A28B8 /* helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AA8A62029DE74008A28B8 /* helper.c */; };
@@ -81,6 +82,7 @@
 		9F83F4412035922A00F16CF6 /* cymk_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cymk_test.c; sourceTree = "<group>"; };
 		9F8ABE3F20A982270001F811 /* lchlab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lchlab.h; sourceTree = "<group>"; };
 		9F8ABE4020A982270001F811 /* lchlab.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lchlab.c; sourceTree = "<group>"; };
+		9F8ABE4220A9925A0001F811 /* lch_lab_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = lch_lab_test.c; sourceTree = "<group>"; };
 		9F8BC448203CC9EE001709CA /* hue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hue.h; sourceTree = "<group>"; };
 		9F8BC449203CC9EE001709CA /* hue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hue.c; sourceTree = "<group>"; };
 		9F8BC44B203CD17F001709CA /* hue_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hue_test.c; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				9FECCB442061BA6200725C97 /* lab_test.c */,
 				9F41ED56207CD80E00B8B644 /* luv_test.c */,
 				9F4186ED20A62B3000CD500A /* lch_test.c */,
+				9F8ABE4220A9925A0001F811 /* lch_lab_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				9F4D411B20599A590031CDA5 /* argb.c in Sources */,
 				9F8BC44A203CC9EE001709CA /* hue.c in Sources */,
 				9FFE470B20572EE800EA68D5 /* xyz.c in Sources */,
+				9F8ABE4320A9925A0001F811 /* lch_lab_test.c in Sources */,
 				9F3A07B22028891300CB2311 /* main.c in Sources */,
 				9F04726F203476D1000639EA /* rgb_test.c in Sources */,
 				9F04727120347861000639EA /* hex_test.c in Sources */,

@@ -33,7 +33,7 @@ struct Lchlab * getLchFromLab(struct Xyz *xyz);
  * @param lch Lchlab struct pointer
  * @return xyz Xyz struct pointer
  */
-struct Xyz * getXyzFromLch(struct Lchlab *lch);
+struct Xyz * getXyzFromLchlab(struct Lchlab *lch);
 
 
 #endif /* lchlab_h */
