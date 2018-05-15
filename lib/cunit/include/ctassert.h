@@ -11,6 +11,7 @@
 
 #include "ctest.h"
 #include <string.h>
+#include <math.h>
 
 /*!
  * @define _CTFailure(test, ...)
@@ -71,6 +72,30 @@
  */
 
 #define CTAssertStringNotEqual(test, str1, str2, ...) if (strcmp(str1, str2) == 0) { _CTFailure(test, #str1, "string is equal to string", #str2, __VA_ARGS__) }
+
+/*!
+ * @define CTAssertDecimalEqual(test, dec1, dec2, precision, ...)
+ * Generates a failure when dec1 is not equal to dec2.
+ * @param test The test
+ * @param dec1 A decimal value.
+ * @param dec2 A decimal value.
+ * @param precision The precision used for the comparison.
+ * @param ... An optional supplementary description of the failure. A literal string, optionally with format specifiers. This parameter can be completely omitted.
+ */
+
+#define CTAssertDecimalEqual(test, dec1, dec2, precision, ...) if (fabs(dec1 - dec2) > precision) { _CTFailure(test, #dec1, "is not equal to", #dec2, __VA_ARGS__) }
+
+/*!
+ * @define CTAssertDecimalNotEqual(test, dec1, dec2, precision, ...)
+ * Generates a failure when dec1 is equal to dec2.
+ * @param test The test
+ * @param dec1 A decimal value.
+ * @param dec2 A decimal value.
+ * @param precision The precision used for the comparison.
+ * @param ... An optional supplementary description of the failure. A literal string, optionally with format specifiers. This parameter can be completely omitted.
+ */
+
+#define CTAssertDecimalNotEqual(test, dec1, dec2, precision, ...) if (fabs(dec1 - dec2) <= precision) { _CTFailure(test, #dec1, "is equal to", #dec2, __VA_ARGS__) }
 
 /*!
  * @define CTAssertArrayEqual(test, arr1, arr2, asize, atsize, aeltcmp_fct, ...)
