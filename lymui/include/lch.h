@@ -15,24 +15,24 @@
 /**
  * @brief struct representing the Lch color. Note that for converting an RGB -> LCH(uv) color we need to get the Luv value
  */
-struct Lch {
+typedef struct Lch {
     float l;
     float c;
     float h;
-};
+} Lch;
 
 /**
  * @discussion Get Lch From Xyz return an Lch struct from an Xyz value
  * @param xyz pointer struct of Xyz
  * @return Lch struct pointer
  */
-struct Lch * getLchFromXyz(struct Xyz *xyz);
+Lch * getLchFromXyz(Xyz *xyz);
 
 /**
  * @discussion Get Xyz struct from Lch pointer struct
  * @param lch pointer struct of Lch
  * @return Xyz struct pointer
  */
-struct Xyz * getXyzFromLch(struct Lch *lch);
+Xyz * getXyzFromLch(Lch *lch);
 
 #endif /* lch_h */

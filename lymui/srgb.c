@@ -24,7 +24,7 @@ static float gammaCorrection(float c) {
     return 1.055f * powf(c, 1 / 2.4) - 0.055f;
 }
 
-struct sRgb *getSRgbFromXyz(struct Xyz *xyz) {
+SRgb *getSRgbFromXyz(Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
@@ -32,7 +32,7 @@ struct sRgb *getSRgbFromXyz(struct Xyz *xyz) {
     float g = xyz->x * gr + xyz->y * gg + xyz->z * gb;
     float b = xyz->x * br + xyz->y * bg + xyz->z * bb;
     
-    struct sRgb *srgb = malloc(sizeof(struct sRgb));
+    SRgb *srgb = malloc(sizeof(SRgb));
     srgb->r = gammaCorrection(r);
     srgb->g = gammaCorrection(g);
     srgb->b = gammaCorrection(b);

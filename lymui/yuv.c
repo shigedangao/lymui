@@ -10,11 +10,11 @@
 #include "helper.h"
 #include "yuv.h"
 
-struct Yuv *getYuvFromRgb(struct Rgb *rgb) {
+Yuv *getYuvFromRgb(Rgb *rgb) {
     if (rgb == NULL)
         return NULL;
     
-    struct Yuv *yuv = malloc(sizeof(struct Yuv));
+    Yuv *yuv = malloc(sizeof(Yuv));
     
     float _r = (float) rgb->r / 255;
     float _g = (float) rgb->g / 255;
@@ -30,7 +30,7 @@ struct Yuv *getYuvFromRgb(struct Rgb *rgb) {
     return yuv;
 }
 
-struct Rgb *getRgbFromYuv(struct Yuv *yuv) {
+Rgb *getRgbFromYuv(Yuv *yuv) {
     if (yuv == NULL)
         return NULL;
     
@@ -38,7 +38,7 @@ struct Rgb *getRgbFromYuv(struct Yuv *yuv) {
     float _g = yuv->y - 0.39465f * yuv->u - 0.58060f * yuv->v;
     float _b = yuv->y + 2.03211f * yuv->u;
     
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = floatToUint(_r * 255);
     rgb->g = floatToUint(_g * 255);
     rgb->b = floatToUint(_b * 255);

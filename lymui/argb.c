@@ -25,7 +25,7 @@ static float adobeGammaCorrection(float c) {
     return powf(c, 1 / 2.19921875f);
 }
 
-struct aRgb *getARgbFromXyz(struct Xyz *xyz) {
+ARgb *getARgbFromXyz( Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
@@ -33,7 +33,7 @@ struct aRgb *getARgbFromXyz(struct Xyz *xyz) {
     float g = xyz->x * gr + xyz->y * gg + xyz->z * gb;
     float b = xyz->x * br + xyz->y * bg + xyz->z * bb;
     
-    struct aRgb *argb = malloc(sizeof(struct aRgb));
+    ARgb *argb = malloc(sizeof(ARgb));
     
     argb->r = adobeGammaCorrection(r);
     argb->g = adobeGammaCorrection(g);

@@ -12,18 +12,18 @@
 #include "lab.h"
 #include "lchlab.h"
 
-struct Lchlab * getLchFromLab(struct Xyz *xyz) {
+LchLab * getLchFromLab(Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
-    struct Lab *lab = getLabFromXyz(xyz);
+     Lab *lab = getLabFromXyz(xyz);
     
     if (lab == NULL) {
         printf("Can not get Lch as Lab struct is empty");
         return NULL;
     }
     
-    struct Lchlab *lch = malloc(sizeof(struct Lchlab));
+    LchLab *lch = malloc(sizeof(LchLab));
     lch->l = lab->l;
     lch->c = sqrtf(powf(lab->a, 2.0f) + powf(lab->b, 2.0f));
     lch->h = getDegFromRad(atanf(lab->b / lab->a));
@@ -33,12 +33,12 @@ struct Lchlab * getLchFromLab(struct Xyz *xyz) {
     return lch;
 }
 
-struct Xyz * getXyzFromLchlab(struct Lchlab *lch) {
+Xyz * getXyzFromLchlab(LchLab *lch) {
     if (lch == NULL)
         return NULL;
     
     // Get the lab first
-    struct Lab *lab = malloc(sizeof(struct Lab));
+    Lab *lab = malloc(sizeof(Lab));
     
     if (lab == NULL) {
         printf("Can not get Xyz as Lab struct is empty");
@@ -50,8 +50,8 @@ struct Xyz * getXyzFromLchlab(struct Lchlab *lch) {
     lab->a = lch->c * cosf(H);
     lab->b = lch->c * sinf(H);
     
-    // get the xyz struct
-    struct Xyz *xyz = getXyzFromLab(lab);
+    // get the xyz
+    Xyz *xyz = getXyzFromLab(lab);
     
     return xyz;
 }

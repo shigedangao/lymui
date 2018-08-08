@@ -11,7 +11,7 @@
 #include "hue.h"
 #include "helper.h"
 
-float getHueFromRgb(struct Rgb *rgb) {
+Hue getHueFromRgb(Rgb *rgb) {
     if (rgb == NULL)
         return 0.0f;
     
@@ -24,7 +24,7 @@ float getHueFromRgb(struct Rgb *rgb) {
         return 0.0f;
     
     // Create the hue variable here
-    float hue = 0.0f;
+    Hue hue = 0.0f;
     // cast the value to a float no repetition..
     float _r = (float) rgb->r;
     float _g = (float) rgb->g;

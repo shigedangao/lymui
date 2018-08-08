@@ -1,5 +1,5 @@
 //
-//  argb_test.c
+//  ARgb_test.c
 //  lymui
 //
 //  Created by Marc on 14/03/2018.
@@ -13,77 +13,77 @@
 #include "helper.h"
 #include "rgb.h"
 #include "xyz.h"
-#include "argb.h"
+#include "ARgb.h"
 
-ctest_return_t testArgbCreation(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+ctest_return_t testARgbCreation(ctest_t *test, void *arg) {
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 50;
     rgb->g = 10;
     rgb->b = 95;
     
-    struct Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
-    struct aRgb *argb = getARgbFromXyz(xyz);
+    Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
+    ARgb *ARgb = getARgbFromXyz(xyz);
     
     // These test are a bit falsy as i didn't find any converter of XYZ -> Adobe RGB so take it with grain of salt
-    CTAssertEqual(test, 19.6f, roundDigit(argb->r * 100, 100), "Expect R to be equal to %f but got %f", 19.6f, roundDigit(argb->r * 100, 100));
-    CTAssertEqual(test, 3.89f, roundDigit(argb->g * 100, 100), "Expect G to be equal to %f but got %f", 3.89f, roundDigit(argb->g * 100, 100));
-    CTAssertEqual(test, 37.25f, roundDigit(argb->b * 100, 100), "Expect B to be equal to %f but got %f", 37.25f, roundDigit(argb->b * 100, 100));
+    CTAssertEqual(test, 19.6f, roundDigit(ARgb->r * 100, 100), "Expect R to be equal to %f but got %f", 19.6f, roundDigit(ARgb->r * 100, 100));
+    CTAssertEqual(test, 3.89f, roundDigit(ARgb->g * 100, 100), "Expect G to be equal to %f but got %f", 3.89f, roundDigit(ARgb->g * 100, 100));
+    CTAssertEqual(test, 37.25f, roundDigit(ARgb->b * 100, 100), "Expect B to be equal to %f but got %f", 37.25f, roundDigit(ARgb->b * 100, 100));
     
-    free(argb);
+    free(ARgb);
 }
 
-ctest_return_t testArgbEmpty(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+ctest_return_t testARgbEmpty(ctest_t *test, void *arg) {
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 0;
     rgb->g = 0;
     rgb->b = 0;
     
-    struct Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
-    struct aRgb *argb = getARgbFromXyz(xyz);
+    Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
+    ARgb *ARgb = getARgbFromXyz(xyz);
     
-    CTAssertEqual(test, 0.0f, argb->r, "Expect R to be equal to 0.0 but got %f", argb->r);
-    CTAssertEqual(test, 0.0f, argb->g, "Expect G to be equal to 0.0 but got %f", argb->g);
-    CTAssertEqual(test, 0.0f, argb->b, "Expect B to be equal to 0.0 but got %f", argb->b);
+    CTAssertEqual(test, 0.0f, ARgb->r, "Expect R to be equal to 0.0 but got %f", ARgb->r);
+    CTAssertEqual(test, 0.0f, ARgb->g, "Expect G to be equal to 0.0 but got %f", ARgb->g);
+    CTAssertEqual(test, 0.0f, ARgb->b, "Expect B to be equal to 0.0 but got %f", ARgb->b);
     
-    free(argb);
+    free(ARgb);
 }
 
-ctest_return_t testMaxArgb(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+ctest_return_t testMaxARgb(ctest_t *test, void *arg) {
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 255;
     rgb->g = 255;
     rgb->b = 255;
     
-    struct Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
-    struct aRgb *argb = getARgbFromXyz(xyz);
+    Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
+    ARgb *ARgb = getARgbFromXyz(xyz);
     
     // Value are equal to 0.999... so round it to 1.0f
-    CTAssertEqual(test, 1.0f, roundf(argb->r), "Expect R to be equal to %f but got %f", 1.0f, argb->r);
-    CTAssertEqual(test, 1.0f, roundf(argb->g), "Expect G to be equal to %f but got %f", 1.0f, argb->g);
-    CTAssertEqual(test, 1.0f, roundf(argb->b), "Expect B to be equal to %f but got %f", 1.0f, argb->b);
+    CTAssertEqual(test, 1.0f, roundf(ARgb->r), "Expect R to be equal to %f but got %f", 1.0f, ARgb->r);
+    CTAssertEqual(test, 1.0f, roundf(ARgb->g), "Expect G to be equal to %f but got %f", 1.0f, ARgb->g);
+    CTAssertEqual(test, 1.0f, roundf(ARgb->b), "Expect B to be equal to %f but got %f", 1.0f, ARgb->b);
     
-    free(argb);
+    free(ARgb);
 }
 
-ctest_return_t testNullArgb(ctest_t *test, void *arg) {
-    struct aRgb *argb = getARgbFromXyz(NULL);
-    CTAssertNull(test, argb, "Expect argb to be NULL");
+ctest_return_t testNullARgb(ctest_t *test, void *arg) {
+    ARgb *ARgb = getARgbFromXyz(NULL);
+    CTAssertNull(test, ARgb, "Expect ARgb to be NULL");
     
-    free(argb);
+    free(ARgb);
 }
 
 ctcase_t *wrapARgbCreationTest() {
-    ctcase_t *aRgbCase = ctcase("Adobe RGB test case");
+    ctcase_t *ARgbCase = ctcase("Adobe RGB test case");
     
-    ctest_t *testArgb      = ctest("Creation of an Adobe RGB struct from Rgb struct", testArgbCreation, NULL);
-    ctest_t *testArgbNull  = ctest("Creation of an NULL Adobe RGB", testNullArgb, NULL);
-    ctest_t *testEmptyArgb = ctest("Creation of an Adobe RGB struct from Rgb struct black color", testArgbEmpty, NULL);
-    ctest_t *testArgbMax   = ctest("Creation of an Adobe RGB struct from Rgb struct with with white color", testMaxArgb, NULL);
+    ctest_t *testARgb      = ctest("Creation of an Adobe RGB from Rgb struct", testARgbCreation, NULL);
+    ctest_t *testARgbNull  = ctest("Creation of an NULL Adobe RGB", testNullARgb, NULL);
+    ctest_t *testEmptyARgb = ctest("Creation of an Adobe RGB from Rgb black color", testARgbEmpty, NULL);
+    ctest_t *testARgbMax   = ctest("Creation of an Adobe RGB from Rgb with with white color", testMaxARgb, NULL);
     
-    ctctestadd(aRgbCase, testArgb);
-    ctctestadd(aRgbCase, testArgbNull);
-    ctctestadd(aRgbCase, testEmptyArgb);
-    ctctestadd(aRgbCase, testArgbMax);
+    ctctestadd(ARgbCase, testARgb);
+    ctctestadd(ARgbCase, testARgbNull);
+    ctctestadd(ARgbCase, testEmptyARgb);
+    ctctestadd(ARgbCase, testARgbMax);
     
-    return aRgbCase;
+    return ARgbCase;
 }

@@ -48,17 +48,17 @@
 /**
  * @brief Xyz struct
  */
-struct Xyz {
+typedef struct Xyz {
     float x;
     float y;
     float z;
-};
+} Xyz;
 
 /**
  * @brief enum which define the value of the matrix for converting the matrix
  */
 typedef enum Matrix {
-    sRgb,
+    srgb,
     adobeRgb
 } Matrix;
 
@@ -68,6 +68,6 @@ typedef enum Matrix {
  * @param m Matrix
  * @return an Xyz struct
  */
-struct Xyz * generateXyzFromRgb(struct Rgb *rgb, enum Matrix m);
+Xyz * generateXyzFromRgb(Rgb *rgb, Matrix m);
 
 #endif /* xyz_h */

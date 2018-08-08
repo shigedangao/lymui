@@ -13,18 +13,18 @@
 #include "rgb.h"
 
 // Struct Ycbcr
-struct Ycbcr {
+typedef struct Ycbcr {
     uint8_t y;
     uint8_t cb;
     uint8_t cr;
-};
+} Ycbcr;
 
 /*!
  * @discussion Create a Ycbcr struct pointer from an Rgb struct
  * @param rgb a RGB structure
  * @return a Ycbcr struct pointer
  */
-struct Ycbcr *makeYcbcr(struct Rgb *rgb);
+Ycbcr *makeYcbcr(Rgb *rgb);
 
 /*!
  * @discussion Create a uint_8t array which describe the colors
@@ -32,6 +32,6 @@ struct Ycbcr *makeYcbcr(struct Rgb *rgb);
  * @return a uint8_t array
  * @TODO return RGB struct instead
  */
-struct Rgb * getRawRGBValueFromYcbcr(struct Ycbcr *yc);
+Rgb * getRawRGBValueFromYcbcr(Ycbcr *yc);
 
 #endif /* ycbcr_h */

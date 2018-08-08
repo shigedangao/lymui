@@ -12,19 +12,20 @@
 #include "helper.h"
 #include "hsv.h"
 #include "hue.h"
+#include "hue.h"
 
-struct Hsv *getHsvFromRgb(struct Rgb *rgb) {
+Hsv *getHsvFromRgb(Rgb *rgb) {
     if (rgb == NULL)
         return NULL;
     
-    float hue = getHueFromRgb(rgb);
+    Hue hue = getHueFromRgb(rgb);
     float min = fminf(fminf(rgb->r, rgb->g), rgb->b) / 255;
     float max = fmaxf(fmaxf(rgb->r, rgb->g), rgb->b) / 255;
     
     // delta
     float _delta = max - min;
     
-    struct Hsv *hsv = malloc(sizeof(struct Hsv));
+    Hsv *hsv = malloc(sizeof( Hsv));
     hsv->h = hue;
     hsv->v = roundDigit(max * 100, 10);
     
@@ -40,13 +41,13 @@ struct Hsv *getHsvFromRgb(struct Rgb *rgb) {
 
 /**
  * @discussion Return an RGB based only on Value
- * @param hsv a pointer to the Hsv structure
- * @return Rgb struct pointer
+ * @param hsv a pointer to the Hsv ure
+ * @return Rgb  pointer
  */
-static struct Rgb *getValueRGB(struct Hsv *hsv) {
+static  Rgb *getValueRGB(Hsv *hsv) {
     float v = floatToUint((hsv->v / 100) * 255);
     
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+     Rgb *rgb = malloc(sizeof( Rgb));
     rgb->r = v;
     rgb->g = v;
     rgb->b = v;
@@ -57,19 +58,19 @@ static struct Rgb *getValueRGB(struct Hsv *hsv) {
 }
 
 /**
- * @discussion assign value to an rgb struct
+ * @discussion assign value to an rgb
  * @param r uint8_t
  * @param g uint8_t
  * @param b uint8_t
- * @param rgb struct Rgb pointer
+ * @param rgb  Rgb pointer
  */
-static void putRgb(uint8_t r, uint8_t g, uint8_t b, struct Rgb *rgb) {
+static void putRgb(uint8_t r, uint8_t g, uint8_t b, Rgb *rgb) {
     rgb->r = r;
     rgb->g = g;
     rgb->b = b;
 }
 
-struct Rgb *getRgbValueFromHsv(struct Hsv *hsv) {
+Rgb *getRgbValueFromHsv(Hsv *hsv) {
     if (hsv == NULL)
         return NULL;
     
@@ -93,7 +94,7 @@ struct Rgb *getRgbValueFromHsv(struct Hsv *hsv) {
     uint8_t ut = floatToUint(_t * 255);
     uint8_t uv = floatToUint(_v * 255);
     
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     
     switch(i) {
         case 0:

@@ -22,7 +22,7 @@ const float YConst    = 1.164;
  * @param rgb an Rgb struct
  * @return **v a multidimensonal array
  */
-static float ** makeValue(struct Rgb *rgb) {
+static float ** makeValue( Rgb *rgb) {
     float **v = malloc(3 * 3 * sizeof(float));
     
     // init the multi dimensional array
@@ -49,11 +49,11 @@ static float ** makeValue(struct Rgb *rgb) {
 }
 
 // Make Ycbcr
-struct Ycbcr *makeYcbcr(struct Rgb *rgb) {
+Ycbcr *makeYcbcr(Rgb *rgb) {
     if (rgb == NULL)
         return NULL;
     
-    struct Ycbcr *v = malloc(sizeof (struct Ycbcr));
+    Ycbcr *v = malloc(sizeof (Ycbcr));
     float **colors = makeValue(rgb);
     uint8_t y  = floatToUint(16  + (colors[0][0] + colors[0][1] + colors[0][2]));
     uint8_t cb = floatToUint(128 + (- colors[1][0] - colors[1][1] + colors[1][2]));
@@ -69,7 +69,7 @@ struct Ycbcr *makeYcbcr(struct Rgb *rgb) {
 }
 
 // Get Raw RGB Array Value From Ycbcr
-struct Rgb * getRawRGBValueFromYcbcr(struct Ycbcr *cb) {
+Rgb * getRawRGBValueFromYcbcr(Ycbcr *cb) {
     if (cb == NULL)
         return NULL;
     
@@ -82,7 +82,7 @@ struct Rgb * getRawRGBValueFromYcbcr(struct Ycbcr *cb) {
     cArr[1] = g;
     cArr[2] = b;
     
-    struct Rgb *rgb = makeRGB(cArr, 3);
+    Rgb *rgb = makeRGB(cArr, 3);
     free(cArr);
     
     // don't forget to free when not needed anymore

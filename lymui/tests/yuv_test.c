@@ -12,12 +12,12 @@
 #include "yuv.h"
 
 ctest_return_t testCaseCreationYuv(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 50;
     rgb->g = 10;
     rgb->b = 95;
     
-    struct Yuv *yuv = getYuvFromRgb(rgb);
+    Yuv *yuv = getYuvFromRgb(rgb);
     
     CTAssertEqual(test, 0.124f, yuv->y, "Expect Y to be equal to 0.124 but got %f", yuv->y);
     CTAssertEqual(test, 0.122f, yuv->u, "Expect U to be equal to 0.122 but got %f", yuv->u);
@@ -27,17 +27,17 @@ ctest_return_t testCaseCreationYuv(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testCaseCreationNullYuv(ctest_t *test, void *arg) {
-    struct Yuv *yuv = getYuvFromRgb(NULL);
+    Yuv *yuv = getYuvFromRgb(NULL);
     CTAssertNull(test, yuv, "Expect Yuv to be NULL");
 }
 
 ctest_return_t testCreationRgb(ctest_t *test, void *arg) {
-    struct Yuv *yuv = malloc(sizeof(struct Yuv));
+    Yuv *yuv = malloc(sizeof(Yuv));
     yuv->y = 0.124f;
     yuv->u = 0.122f;
     yuv->v = 0.063f;
     
-    struct Rgb *rgb = getRgbFromYuv(yuv);
+    Rgb *rgb = getRgbFromYuv(yuv);
     
     CTAssertEqual(test, 50, rgb->r, "Expect R to be equa to 50 but got %i", rgb->r);
     CTAssertEqual(test, 10, rgb->g, "Expect G to be equa to 10 but got %i", rgb->g);
@@ -47,7 +47,7 @@ ctest_return_t testCreationRgb(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testCreationRgbNULL(ctest_t *test, void *arg) {
-    struct Rgb *rgb = getRgbFromYuv(NULL);
+    Rgb *rgb = getRgbFromYuv(NULL);
     
     CTAssertNull(test, rgb, "Expect RGB to be NULL");
     free(rgb);

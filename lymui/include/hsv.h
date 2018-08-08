@@ -15,25 +15,25 @@
 /**
  * @brief Hsv data structure
  */
-struct Hsv {
+typedef struct Hsv {
     float h;
     float s;
     float v;
-};
+} Hsv;
 
 /*!
  * @discussion Create an Hsv struct from an Rgb Struct
  * @param rgb an Rgb struct pointer
  * @return a struct Hsv pointer
  */
-struct Hsv *getHsvFromRgb(struct Rgb *rgb);
+Hsv *getHsvFromRgb(Rgb *rgb);
 
 /**
  * @discussion Get an RGB value from an HSV struct pointer
  * @param hsv an Hsv struct pointer
  * @return rgb a struct Rgb pointer
  */
-struct Rgb *getRgbValueFromHsv(struct Hsv *hsv);
+Rgb *getRgbValueFromHsv(Hsv *hsv);
 
 #endif /* hsv_h */
 

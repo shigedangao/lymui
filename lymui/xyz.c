@@ -73,7 +73,7 @@ static void calculateXyzAdobeRgb(float r, float g, float b, float *arr) {
     arr[2] = azr * r + azg * g + azb * b;
 }
 
-struct Xyz * generateXyzFromRgb(struct Rgb *rgb, enum Matrix m) {
+Xyz * generateXyzFromRgb(Rgb *rgb, enum Matrix m) {
     if (rgb == NULL)
         return NULL;
     
@@ -84,7 +84,7 @@ struct Xyz * generateXyzFromRgb(struct Rgb *rgb, enum Matrix m) {
     float *value = malloc(sizeof(float) * 3);
     
     switch(m) {
-        case sRgb:
+        case srgb:
             calculateXyzRgb(_r, _g, _b, value);
             break;
         case adobeRgb:
@@ -95,7 +95,7 @@ struct Xyz * generateXyzFromRgb(struct Rgb *rgb, enum Matrix m) {
             return NULL;
     }
     
-    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = value[0];
     xyz->y = value[1];
     xyz->z = value[2];

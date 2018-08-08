@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "xyy.h"
 
-static float calculateXyyValue(float v, struct Xyz *xyz, uint8_t x) {
+static float calculateXyyValue(float v, Xyz *xyz, uint8_t x) {
     uint8_t cond = !xyz->x && !xyz->y && !xyz->z;
     
     if (!cond)
@@ -21,11 +21,11 @@ static float calculateXyyValue(float v, struct Xyz *xyz, uint8_t x) {
     return chromaY;
 }
 
-struct Xyy * getXyyFromXyz(struct Xyz *xyz) {
+Xyy * getXyyFromXyz(Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
-    struct Xyy * xyy = malloc(sizeof(struct Xyy));
+    Xyy * xyy = malloc(sizeof(Xyy));
     xyy->x = calculateXyyValue(xyz->x, xyz, 1);
     xyy->y = calculateXyyValue(xyz->y, xyz, 0);
     xyy->Y = xyz->y;
@@ -35,11 +35,11 @@ struct Xyy * getXyyFromXyz(struct Xyz *xyz) {
     return xyy;
 }
 
-struct Xyz * getXyzFromXyy(struct Xyy *xyy) {
+Xyz * getXyzFromXyy(Xyy *xyy) {
     if (xyy == NULL)
         return NULL;
     
-    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    Xyz *xyz = malloc(sizeof(Xyz));
     
     if (!xyy->y) {
         xyz->x = 0.0f;

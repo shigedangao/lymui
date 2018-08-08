@@ -15,7 +15,7 @@
 /*!
  * @brief Cymk structure Object
  */
-struct Cymk {
+typedef struct Cymk {
     // C value
     float c;
     // Y value
@@ -24,14 +24,14 @@ struct Cymk {
     float m;
     // K value
     float k;
-};
+} Cymk;
 
 /*!
  * @discussion Create a Cymk struct pointer from an Rgb struct
  * @param rgb a RGB structure
  * @return a uint8_t array
  */
-struct Cymk *getCymkFromRgb(struct Rgb *rgb);
+Cymk *getCymkFromRgb(Rgb *rgb);
 
 /*!
  * @discussion Creates a uint8_t array from a Cymk struct pointer
@@ -39,6 +39,6 @@ struct Cymk *getCymkFromRgb(struct Rgb *rgb);
  * @return a uint8_t array
  * @TODO return RGB struct instead
  */
-struct Rgb * getRawRGBValueFromCymk(struct Cymk *cymk);
+Rgb * getRawRGBValueFromCymk(Cymk *cymk);
 
 #endif /* cymk_h */

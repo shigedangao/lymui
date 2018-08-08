@@ -12,12 +12,12 @@
 #include "lch.h"
 
 ctest_return_t testLchFromXyz(ctest_t *test, void *arg) {
-    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 0.51f;
     xyz->y = 0.52f;
     xyz->z = 0.510f;
     
-    struct Lch *lch = getLchFromXyz(xyz);
+    Lch *lch = getLchFromXyz(xyz);
     
     CTAssertDecimalEqual(test, lch->l, 4.69f, 0.01f, "Expect L to be equal to %f but got %f", 4.69f, lch->l);
     CTAssertDecimalEqual(test, lch->c, 0.72f, 0.01f, "Expect C to be equal to %f but got %f", 0.72f, lch->c);
@@ -27,12 +27,12 @@ ctest_return_t testLchFromXyz(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testLchFromMaxXyz(ctest_t *test, void *arg) {
-    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 1.0f;
     xyz->y = 1.0f;
     xyz->z = 1.0f;
     
-    struct Lch *lch = getLchFromXyz(xyz);
+    Lch *lch = getLchFromXyz(xyz);
     
     CTAssertDecimalEqual(test, lch->l, 8.99f, 0.01f, "Expect L to be equal to %f but got %f", 8.99f, lch->l);
     CTAssertDecimalEqual(test, lch->c, 1.60f, 0.01f, "Expect C to be equal to %f but got %f", 1.60f, lch->c);
@@ -42,12 +42,12 @@ ctest_return_t testLchFromMaxXyz(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testLchFromMinXyz(ctest_t *test, void *arg) {
-    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 0.0f;
     xyz->y = 0.0f;
     xyz->z = 0.0f;
     
-    struct Lch *lch = getLchFromXyz(xyz);
+    Lch *lch = getLchFromXyz(xyz);
     
     CTAssertDecimalEqual(test, lch->l, 0.0f, 0.1f, "Expect L to be equal to 0 but got %f", lch->l);
     CTAssertDecimalEqual(test, lch->c, 0.0f, 0.1f, "Expect C to be equal to 0 but got %f", lch->c);
@@ -57,20 +57,20 @@ ctest_return_t testLchFromMinXyz(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testNullLch(ctest_t *test, void *arg) {
-    struct Lch *lch = getLchFromXyz(NULL);
+    Lch *lch = getLchFromXyz(NULL);
     
     CTAssertNull(test, lch, "Expect lch to be NULL");
     free(lch);
 }
 
 ctest_return_t testLchToXyz(ctest_t *test, void *arg) {
-    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 0.51f;
     xyz->y = 0.52f;
     xyz->z = 0.510f;
     
-    struct Lch *lch  = getLchFromXyz(xyz);
-    struct Xyz *nXyz = getXyzFromLch(lch);
+    Lch *lch  = getLchFromXyz(xyz);
+    Xyz *nXyz = getXyzFromLch(lch);
     
     CTAssertDecimalEqual(test, nXyz->x, 0.51f, 0.01f, "Expect X to be equal to 0.51 but got %f", nXyz->x);
     CTAssertDecimalEqual(test, nXyz->y, 0.52f, 0.01f, "Expect Y to be equal to 0.52 but got %f", nXyz->y);
@@ -80,7 +80,7 @@ ctest_return_t testLchToXyz(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testEmptyXyz(ctest_t *test, void *arg) {
-    struct Xyz *xyz = getXyzFromLch(NULL);
+    Xyz *xyz = getXyzFromLch(NULL);
     
     CTAssertNull(test, xyz, "Expect Xyz to be NULL");
     

@@ -18,24 +18,24 @@
 /**
  * @brief Xyy struct color format
  */
-struct Xyy {
+typedef struct Xyy {
     float x;
     float y;
     float Y;
-};
+} Xyy;
 
 /**
  * @description Get an Xyy struct from an Xyz struct
  * @param xyz struct Xyz pointer
  * @return xyy
  */
-struct Xyy * getXyyFromXyz(struct Xyz *xyz);
+Xyy * getXyyFromXyz(Xyz *xyz);
 
 /**
  * @description Get an Xyz struct from an Xyy struct
  * @param xyy struct from Xyy pointer
  * @return xyz
  */
-struct Xyz * getXyzFromXyy(struct Xyy *xyy);
+Xyz * getXyzFromXyy(Xyy *xyy);
 
 #endif /* xyy_h */
