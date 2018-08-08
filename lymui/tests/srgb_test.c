@@ -15,13 +15,13 @@
 #include "helper.h"
 
 ctest_return_t testSRgbCreation(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 50;
     rgb->g = 10;
     rgb->b = 95;
     
-    struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
-    struct sRgb *srgb = getSRgbFromXyz(xyz);
+    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    SRgb *srgb = getSRgbFromXyz(xyz);
     
     CTAssertEqual(test, 1.9f, roundDigit(srgb->r * 10, 10), "Expect r to be equal to be equal to 1.8 but got %f", roundDigit(srgb->r * 10, 10));
     CTAssertEqual(test, 0.3f, roundDigit(srgb->g * 10, 10), "Expect g to be equal to be equal to 0.3 but got %f", roundDigit(srgb->g * 10, 10));
@@ -29,7 +29,7 @@ ctest_return_t testSRgbCreation(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testNullSRgbCreation(ctest_t *test, void *arg) {
-    struct sRgb *srgb = getSRgbFromXyz(NULL);
+    SRgb *srgb = getSRgbFromXyz(NULL);
     CTAssertNull(test, srgb, "Expect sRgb to be NULL");
     
     free(srgb);

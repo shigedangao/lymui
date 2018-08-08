@@ -16,7 +16,7 @@
 // Test Rgb Creation
 ctest_return_t testRgbCreationFromArr(ctest_t *test, void *arg) {
     uint8_t uc[] = {0, 100, 200};
-    struct Rgb *rgb = makeRGB(uc, sizeof(uc));
+    Rgb *rgb = makeRGB(uc, sizeof(uc));
     
     CTAssertEqual(test, 0, rgb->r, "Expect R to be equal to %i but got %i", 0, rgb->r);
     CTAssertEqual(test, 100, rgb->g, "Expect G to be equal to %i but got %i", 100, rgb->g);
@@ -28,7 +28,7 @@ ctest_return_t testRgbCreationFromArr(ctest_t *test, void *arg) {
 // Test fail Rgb Creation
 ctest_return_t testFailRgbCreation(ctest_t *test, void *arg) {
     uint8_t uc[] = {0, 100};
-    struct Rgb *rgb = makeRGB(uc, sizeof(uc));
+    Rgb *rgb = makeRGB(uc, sizeof(uc));
     
     CTAssertNull(test, rgb, "Expect RGB to be NULL");
     free(rgb);
@@ -40,7 +40,7 @@ ctest_return_t testCreationRgbFromPtrArr(ctest_t *test, void *arg) {
     uc[1] = 152;
     uc[2] = 200;
     
-    struct Rgb *rgb = makeRGB(uc, 3);
+    Rgb *rgb = makeRGB(uc, 3);
     CTAssertEqual(test, 100, rgb->r, "Expect R to be equal to %i but got %i", 100, rgb->r);
     CTAssertEqual(test, 152, rgb->g, "Expect G to be equal to %i but got %i", 152, rgb->g);
     CTAssertEqual(test, 200, rgb->b, "Expect B to be equal to %i but got %i", 100, rgb->b);

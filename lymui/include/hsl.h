@@ -15,24 +15,24 @@
 /*!
  * @brief Hsl structure
  */
-struct Hsl {
+typedef struct Hsl {
     float h;
     float s;
     float l;
-};
+} Hsl;
 
 /*!
  * @discussion Create an Hsl struct from an Rgb Struct
  * @param rgb an rgb struct pointer
  * @return a struct Hsl pointer
  */
-struct Hsl *getHslFromRgb(struct Rgb *rgb);
+Hsl *getHslFromRgb(Rgb *rgb);
 
 /*!
  * @discussion Get Rgb Value From Hsl
  * @param hsl an Hsl structure
  * @return rgb structure
  */
-struct Rgb *getRgbValueFromHsl(struct Hsl *hsl);
+Rgb *getRgbValueFromHsl(Hsl *hsl);
 
 #endif /* hsl_h */

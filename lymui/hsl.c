@@ -11,18 +11,19 @@
 #include "helper.h"
 #include "hue.h"
 #include "rgb.h"
+#include "hue.h"
 #include "hsl.h"
 
-struct Hsl *getHslFromRgb(struct Rgb *rgb) {
+ Hsl *getHslFromRgb(Rgb *rgb) {
     if (rgb == NULL)
         return NULL;
     
-    float hue = getHueFromRgb(rgb);
+    Hue hue = getHueFromRgb(rgb);
     float min = fminf(fminf(rgb->r, rgb->g), rgb->b) / 255;
     float max = fmaxf(fmaxf(rgb->r, rgb->g), rgb->b) / 255;
     float _l = (min + max) / 2;
     
-    struct Hsl *hsl = malloc(sizeof(struct Hsl));
+     Hsl *hsl = malloc(sizeof( Hsl));
     hsl->h = hue;
     hsl->s = roundDigit(getSaturation(min, max, _l) * 100, 10);
     hsl->l = roundDigit(_l * 100, 10);
@@ -35,12 +36,12 @@ struct Hsl *getHslFromRgb(struct Rgb *rgb) {
 /*!
  * @discussion Get the shade of grey from an HSL
  * @param hsl representing the Luminance
- * @return struct Rgb an rgb struct describing the shade of grey
+ * @return  Rgb an rgb  describing the shade of grey
  */
-static struct Rgb *getShadeOfGray(struct Hsl *hsl) {
+static  Rgb *getShadeOfGray(Hsl *hsl) {
     uint8_t v = hsl->l / 100 * 255;
     
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+     Rgb *rgb = malloc(sizeof( Rgb));
     rgb->r = v;
     rgb->g = v;
     rgb->b = v;
@@ -55,7 +56,7 @@ static struct Rgb *getShadeOfGray(struct Hsl *hsl) {
  * @param hue a float describing the hue
  * @return an array of float rgb color
  */
-static float *getTempRgbValue(float hue) {
+static float *getTempRgbValue(Hue hue) {
     float * _rgb = malloc(sizeof(float) * 3);
     float _hue  = hue / 360;
     
@@ -91,18 +92,18 @@ static uint8_t calculateEachColoralue(float c, float temp_m, float temp_l) {
     return floatToUint(roundf(fv * 255));
 }
 
-struct Rgb *getRgbValueFromHsl(struct Hsl *hsl) {
+Rgb *getRgbValueFromHsl(Hsl *hsl) {
     if (hsl == NULL) {
         return NULL;
     }
     
     if (!hsl->h && !hsl->s) {
-        // return a gray shade rgb struct
+        // return a gray shade rgb
         return getShadeOfGray(hsl);
     }
     
-    // Create a new RGB struct
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    // Create a new RGB
+    Rgb *rgb = malloc(sizeof(Rgb));
     
     float _l = hsl->l / 100;
     float _s = hsl->s / 100;

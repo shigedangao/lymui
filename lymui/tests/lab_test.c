@@ -15,13 +15,13 @@
 #include "lab.h"
 
 ctest_return_t testLabFromXyz(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 50;
     rgb->g = 10;
     rgb->b = 195;
     
-    struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
-    struct Lab *lab = getLabFromXyz(xyz);
+    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Lab *lab = getLabFromXyz(xyz);
     
     CTAssertEqual(test, 43.0f, floorf(lab->l * 100), "Expect L to be equal to %f but got %f real value is %f", 43.0f, floorf(lab->l), lab->l);
     CTAssertEqual(test, 2.0f,  floorf(lab->a), "Expect A to be equal to %f but got %f real value is %f", 2.0f, floorf(lab->a), lab->a);
@@ -31,13 +31,13 @@ ctest_return_t testLabFromXyz(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testBlackLabFromXyz(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 1;
     rgb->g = 1;
     rgb->b = 1;
     
-    struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
-    struct Lab *lab = getLabFromXyz(xyz);
+    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Lab *lab = getLabFromXyz(xyz);
     
     CTAssertEqual(test, 0.27f, roundDigit(lab->l * 100, 100), "Expect L to be equal to %f but got %f", 0.27f, roundDigit(lab->l * 100, 100));
     CTAssertEqual(test, 0.0f, lab->a, "Expect A to be equal to %f but got %f", 0.0f, lab->a);
@@ -47,13 +47,13 @@ ctest_return_t testBlackLabFromXyz(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testWhiteLab(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 255;
     rgb->g = 255;
     rgb->b = 255;
     
-    struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
-    struct Lab *lab = getLabFromXyz(xyz);
+    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Lab *lab = getLabFromXyz(xyz);
     
     CTAssertEqual(test, 8.99f,  roundDigit(lab->l * 1, 1000), "Expect L to be equal to %f but got %f", 0.899f, roundDigit(lab->l * 1, 1000));
     CTAssertEqual(test, 0.001f, roundDigit(lab->a * 1, 1000), "Expect A to be equal to %f but got %f", 0.183f, roundDigit(lab->a * 1, 1000));
@@ -63,21 +63,21 @@ ctest_return_t testWhiteLab(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testNullLab(ctest_t *test, void *arg) {
-    struct Lab *lab = getLabFromXyz(NULL);
+    Lab *lab = getLabFromXyz(NULL);
     CTAssertNull(test, lab, "Expect Lab to be null");
     
     free(lab);
 }
 
 ctest_return_t testXyzFromLab(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 50;
     rgb->g = 10;
     rgb->b = 195;
     
-    struct Xyz *xyz  = generateXyzFromRgb(rgb, sRgb);
-    struct Lab *lab  = getLabFromXyz(xyz);
-    struct Xyz *nXyz = getXyzFromLab(lab);
+    Xyz *xyz  = generateXyzFromRgb(rgb, srgb);
+    Lab *lab  = getLabFromXyz(xyz);
+    Xyz *nXyz = getXyzFromLab(lab);
     
     CTAssertEqual(test, xyz->x, nXyz->x, "Expect X to be equal to %f but got %f", xyz->x, nXyz->x);
     CTAssertEqual(test, xyz->y, nXyz->y, "Expect Y to be equal to %f but got %f", xyz->y, nXyz->y);
@@ -87,12 +87,12 @@ ctest_return_t testXyzFromLab(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testXyzFromSmallLab(ctest_t *test, void *arg) {
-    struct Lab *lab = malloc(sizeof(struct Lab));
+    Lab *lab = malloc(sizeof(Lab));
     lab->l = 0.274187f;
     lab->a = 0.000021f;
     lab->b = -0.00006f;
     
-    struct Xyz *xyz = getXyzFromLab(lab);
+    Xyz *xyz = getXyzFromLab(lab);
     CTAssertEqual(test, 0.0289f, roundDigit(xyz->x * 1, 10000), "Expect X to be equal to %f but got %f", 0.0289f, roundDigit(xyz->x * 1, 10000));
     CTAssertEqual(test, 0.03f,   roundDigit(xyz->y * 1, 1000), "Expect Y to be equal to %f but got %f",  0.030f, roundDigit(xyz->y * 1, 1000));
     CTAssertEqual(test, 0.033f,  roundDigit(xyz->z * 1, 1000), "Expect Z to be equal to %f but got %f",  0.033f, roundDigit(xyz->z * 1, 1000));
@@ -101,14 +101,14 @@ ctest_return_t testXyzFromSmallLab(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testXyzFromLargeLab(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 255;
     rgb->g = 255;
     rgb->b = 255;
     
-    struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
-    struct Lab *lab = getLabFromXyz(xyz);
-    struct Xyz *nXyz = getXyzFromLab(lab);
+    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Lab *lab = getLabFromXyz(xyz);
+    Xyz *nXyz = getXyzFromLab(lab);
     
     CTAssertEqual(test, xyz->x, nXyz->x, "Expect X to be equal to current xyz %f but got %f", xyz->x, nXyz->x);
     CTAssertEqual(test, xyz->x, nXyz->x, "Expect Y to be equal to current xyz %f but got %f", xyz->y, nXyz->y);
@@ -118,20 +118,20 @@ ctest_return_t testXyzFromLargeLab(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testXyzNullCreation(ctest_t *test, void *arg) {
-    struct Xyz *xyz = getXyzFromLab(NULL);
+    Xyz *xyz = getXyzFromLab(NULL);
     CTAssertNull(test, xyz, "Expect XYZ to be NULL");
     
     free(xyz);
 }
 
 ctest_return_t testHunterLabFromXyz(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 239;
     rgb->g = 130;
     rgb->b = 54;
     
-    struct Xyz *xyz  = generateXyzFromRgb(rgb, sRgb);
-    struct Lab *hunterLab = getHunterLabFromXyz(xyz);
+    Xyz *xyz  = generateXyzFromRgb(rgb, srgb);
+    Lab *hunterLab = getHunterLabFromXyz(xyz);
     
     // test undergoing using colormine lib.. but there are some strange differences...
     CTAssertEqual(test, 588.0f, roundf(hunterLab->l * 100), "Expect L to be equal to %f but got %f", 588.0f, roundf(hunterLab->l * 100));
@@ -142,7 +142,7 @@ ctest_return_t testHunterLabFromXyz(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testNullHunter(ctest_t *test, void *arg) {
-    struct Lab *hunterLab = getHunterLabFromXyz(NULL);
+    Lab *hunterLab = getHunterLabFromXyz(NULL);
     CTAssertNull(test, hunterLab, "Expect hunter lab to be NULL");
     
     free(hunterLab);

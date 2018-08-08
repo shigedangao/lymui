@@ -13,7 +13,7 @@
 #include "helper.h"
 
 // Get Cymk From Rgb
-struct Cymk *getCymkFromRgb(struct Rgb *rgb) {
+Cymk *getCymkFromRgb(Rgb *rgb) {
     if (rgb == NULL)
         return NULL;
     
@@ -27,7 +27,7 @@ struct Cymk *getCymkFromRgb(struct Rgb *rgb) {
     // Calculate the K value
     float _k = 1 - _m;
     
-    struct Cymk *cymk = malloc(sizeof(struct Cymk));
+    Cymk *cymk = malloc(sizeof(Cymk));
     
     cymk->k = _k;
     cymk->c = (1.0f - _r - _k) / (1.0f - _k);
@@ -37,7 +37,7 @@ struct Cymk *getCymkFromRgb(struct Rgb *rgb) {
     return cymk;
 }
 
-struct Rgb * getRawRGBValueFromCymk(struct Cymk *cymk) {
+Rgb * getRawRGBValueFromCymk(Cymk *cymk) {
     if (cymk == NULL)
         return NULL;
     
@@ -48,7 +48,7 @@ struct Rgb * getRawRGBValueFromCymk(struct Cymk *cymk) {
     value[1] = 255 * (1 - cymk->m) * _kv;
     value[2] = 255 * (1 - cymk->y) * _kv;
     
-    struct Rgb *rgb = makeRGB(value, 3);
+     Rgb *rgb = makeRGB(value, 3);
     free(value);
     return rgb;
 }

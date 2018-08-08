@@ -25,11 +25,11 @@ static float calculateDomain(float c) {
     return (c * kameah + 16.0f) / 116.0f;
 }
 
-struct Lab *getLabFromXyz(struct Xyz *xyz) {
+Lab *getLabFromXyz(Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
-    struct Lab *lab = malloc(sizeof(struct Lab));
+    Lab *lab = malloc(sizeof(Lab));
     lab->l = 116.0f * calculateDomain(xyz->y / Yn) - 16.0f;
     lab->a = 500.0f * (calculateDomain(xyz->x / Xn) - calculateDomain(xyz->y / Yn));
     lab->b = 200.0f * (calculateDomain(xyz->y / Yn) - calculateDomain(xyz->z / Zn));
@@ -53,12 +53,12 @@ static float *getKaKb() {
     return kAkB;
 }
 
-struct Lab *getHunterLabFromXyz(struct Xyz *xyz) {
+Lab *getHunterLabFromXyz(Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
     float * kAkB = getKaKb();
-    struct Lab *lab = malloc(sizeof(struct Lab));
+    Lab *lab = malloc(sizeof(Lab));
     
     lab->l = 100 * sqrtf(xyz->y / Yn);
     lab->a = kAkB[0] * ((xyz->x / Xn - xyz->y / Yn) / sqrtf(xyz->y / Yn));
@@ -84,11 +84,11 @@ static float calculateReverseDomain(float c) {
     return (116.0f * c - 16.0f) / kameah;
 }
 
-struct Xyz *getXyzFromLab(struct Lab *lab) {
+Xyz *getXyzFromLab(Lab *lab) {
     if (lab == NULL)
         return NULL;
     
-    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    Xyz *xyz = malloc(sizeof(Xyz));
     
     float labL = (lab->l + 16.0f) / 116.0f;
     xyz->x = Xn * calculateReverseDomain(labL + lab->a / 500.0f);

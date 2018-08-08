@@ -13,7 +13,7 @@
 #include "helper.h"
 
 // Get Hex From RGB
-char * getHexFromRGB(struct Rgb *c) {
+char * getHexFromRGB(Rgb *c) {
     char *r = uintToHex(c->r);
     char *g = uintToHex(c->g);
     char *b = uintToHex(c->b);
@@ -25,7 +25,7 @@ char * getHexFromRGB(struct Rgb *c) {
 }
 
 // Get RGB Value From Hex
-struct Rgb * getRawRGBValueFromHex(char *hex) {
+Rgb * getRawRGBValueFromHex(char *hex) {
     if (hex == NULL)
         return NULL;
     
@@ -44,7 +44,7 @@ struct Rgb * getRawRGBValueFromHex(char *hex) {
     
     // remove the pointer as we don't need it anymore
     free(hex);
-    struct Rgb *rgb = makeRGB(rgbArr, 3);
+    Rgb *rgb = makeRGB(rgbArr, 3);
     free(rgbArr);
     // Don't forget to free it after it's usage
     return rgb;

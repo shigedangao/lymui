@@ -14,11 +14,11 @@
 /*!
  * @brief Rgb structure Object
  */
-struct Rgb {
+typedef struct Rgb {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-};
+} Rgb;
 
 /*!
  * @discussion Create an RGB structure from an uint8_t array
@@ -26,6 +26,6 @@ struct Rgb {
  * @param length the length of the array
  * @return a Rgb struct
  */
-struct Rgb* makeRGB(uint8_t c[], uint8_t length);
+Rgb* makeRGB(uint8_t c[], uint8_t length);
 
 #endif /* rgb_h */

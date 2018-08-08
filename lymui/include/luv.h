@@ -18,27 +18,27 @@
 /**
  * @brief struct representing the Luv format
  */
-struct Luv {
+typedef struct Luv {
     // Range from 0 > L > 100
     float l;
     // Range from +-100
     float u;
     // Range from +-100
     float v;
-};
+} Luv;
 
 /**
  * @description Get Luv From Rgb calculate a Luv struct based on the RGB struct
  * @param xyz struct Rgb pointer
  * @return Luv struct
  */
-struct Luv * getLuvFromXyz(struct Xyz *xyz);
+Luv * getLuvFromXyz(Xyz *xyz);
 
 /**
  * @description Get Xyz From Luv calculate the Xyz struct based on the Luv struct
  * @param luv struct Luv pointer
  * @return Xyz struct
  */
-struct Xyz * getXyzFromLuv(struct Luv *luv);
+Xyz * getXyzFromLuv(Luv *luv);
 
 #endif /* luv_h */

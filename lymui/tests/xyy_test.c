@@ -13,12 +13,12 @@
 #include "xyy.h"
 
 ctest_return_t testXyyFromXyz(ctest_t *test, void *arg) {
-    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 0.9f;
     xyz->y = 0.8f;
     xyz->z = 0.7f;
     
-    struct Xyy *xyy = getXyyFromXyz(xyz);
+    Xyy *xyy = getXyyFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 0.375f, xyy->x, 0.001f, "Expect x to be equal to 0.375 but got %f", xyy->x);
     CTAssertDecimalEqual(test, 0.333f, xyy->y, 0.001f, "Expect y to be equal to 0.333 but got %f", xyy->y);
@@ -28,12 +28,12 @@ ctest_return_t testXyyFromXyz(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testXyyFromZeroXyz(ctest_t *test, void *arg) {
-    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+    Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 0.0f;
     xyz->y = 0.0f;
     xyz->z = 0.0f;
     
-    struct Xyy *xyy = getXyyFromXyz(xyz);
+    Xyy *xyy = getXyyFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 0.312f, xyy->x, 0.001f, "Expect x to be equal to 0.312 but got %f", xyy->x);
     CTAssertDecimalEqual(test, 0.329f, xyy->y, 0.001f, "Expect y to be equal to 0.329 but got %f", xyy->y);
@@ -43,12 +43,12 @@ ctest_return_t testXyyFromZeroXyz(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testXyzFromXyy(ctest_t *test, void *arg) {
-    struct Xyy *xyy = malloc(sizeof(struct Xyy));
+    Xyy *xyy = malloc(sizeof(Xyy));
     xyy->x = 0.375f;
     xyy->y = 0.333f;
     xyy->Y = 0.8f;
     
-    struct Xyz *xyz = getXyzFromXyy(xyy);
+    Xyz *xyz = getXyzFromXyy(xyy);
     
     CTAssertDecimalEqual(test, 0.9f, xyz->x, 0.1f, "Expect X to be equal to %f but got %f", 0.9f, xyz->x);
     CTAssertDecimalEqual(test, 0.8f, xyz->y, 0.1f, "Expect Y to be equal to %f but got %f", 0.8f, xyz->y);
@@ -58,12 +58,12 @@ ctest_return_t testXyzFromXyy(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testXyzFromXyyZero(ctest_t *test, void *arg) {
-    struct Xyy *xyy = malloc(sizeof(struct Xyy));
+    Xyy *xyy = malloc(sizeof(Xyy));
     xyy->x = 1.0f;
     xyy->y = 0.0f;
     xyy->Y = 0.9f;
     
-    struct Xyz *xyz = getXyzFromXyy(xyy);
+    Xyz *xyz = getXyzFromXyy(xyy);
     
     CTAssertDecimalEqual(test, 0.0f, xyz->x, 0.1f, "Expect X to be equal to %f but got %f", 0.0f, xyz->x);
     CTAssertDecimalEqual(test, 0.0f, xyz->y, 0.1f, "Expect Y to be equal to %f but got %f", 0.0f, xyz->y);
@@ -73,13 +73,13 @@ ctest_return_t testXyzFromXyyZero(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testNullXyzXyy(ctest_t *test, void *arg) {
-    struct Xyy *xyy = getXyyFromXyz(NULL);
+    Xyy *xyy = getXyyFromXyz(NULL);
     
     CTAssertNull(test, xyy, "Expect Xyy to be NULL");
 }
 
 ctest_return_t testNullXyyXyz(ctest_t *test, void *arg) {
-    struct Xyz *xyz = getXyzFromXyy(NULL);
+    Xyz *xyz = getXyzFromXyy(NULL);
     
     CTAssertNull(test, xyz, "Expect Xyz to be NULL");
 }
@@ -88,12 +88,12 @@ ctcase_t * wrapXyyCreationTest() {
     ctcase_t * xyyCase = ctcase("Xyy test case");
     
     // Creation of Xyy
-    ctest_t *testXyzXyy  = ctest("Creation of a Xyy struct from a Xyz struct", testXyyFromXyz, NULL);
-    ctest_t *testZeroXyy = ctest("Creation of a Xyy struct from a zero value Xyz struct", testXyyFromZeroXyz, NULL);
+    ctest_t *testXyzXyy  = ctest("Creation of a Xyy from a Xyz struct", testXyyFromXyz, NULL);
+    ctest_t *testZeroXyy = ctest("Creation of a Xyy from a zero value Xyz struct", testXyyFromZeroXyz, NULL);
     
     // Creation of Xyz
-    ctest_t *testXyz     = ctest("Creation of a Xyz struct from a Xyy struct", testXyzFromXyy, NULL);
-    ctest_t *testZeroXyz = ctest("Creation of a Xyz struct from a zero Y Xyy struct", testXyzFromXyyZero, NULL);
+    ctest_t *testXyz     = ctest("Creation of a Xyz from a Xyy struct", testXyzFromXyy, NULL);
+    ctest_t *testZeroXyz = ctest("Creation of a Xyz from a zero Y Xyy struct", testXyzFromXyyZero, NULL);
     
     // Nullability
     ctest_t *testXyyXyzNull = ctest("Creation of a NULL Xyy", testNullXyzXyy, NULL);

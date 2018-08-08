@@ -16,8 +16,8 @@
 
 ctest_return_t testCymkCreation(ctest_t *test, void *arg) {
     uint8_t uc[] = {255, 55, 102};
-    struct Rgb *rgb = makeRGB(uc, 3);
-    struct Cymk *cymk = getCymkFromRgb(rgb);
+    Rgb *rgb = makeRGB(uc, 3);
+    Cymk *cymk = getCymkFromRgb(rgb);
     
     // Check the value of the cymk
     CTAssertEqual(test, 0.0f, cymk->c, "Expect C to be equal to %f but got %f", 0.0f, cymk->c);
@@ -29,20 +29,20 @@ ctest_return_t testCymkCreation(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testCymkNullCreation(ctest_t *test, void *arg) {
-    struct Cymk *cymk = getCymkFromRgb(NULL);
+    Cymk *cymk = getCymkFromRgb(NULL);
     CTAssertNull(test, cymk, "Expected CYMK to be NULL");
     
     free(cymk);
 }
 
 ctest_return_t testCymkToRgb(ctest_t *test, void *arg) {
-    struct Cymk *cymk = malloc(sizeof(struct Cymk));
+    Cymk *cymk = malloc(sizeof(Cymk));
     cymk->c = 0.0f;
     cymk->y = 0.0f;
     cymk->m = 0.0f;
     cymk->k = 1.0f;
     
-    struct Rgb *color = getRawRGBValueFromCymk(cymk);
+    Rgb *color = getRawRGBValueFromCymk(cymk);
     
     CTAssertEqual(test, 0, color->r, "Expect R to be equal to %i but got %i", 0, color->r);
     CTAssertEqual(test, 0, color->g, "Expect G to be equal to %i but got %i", 0, color->g);
@@ -53,7 +53,7 @@ ctest_return_t testCymkToRgb(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testCymkToUintNull(ctest_t *test, void *arg) {
-    struct Rgb *colors = getRawRGBValueFromCymk(NULL);
+    Rgb *colors = getRawRGBValueFromCymk(NULL);
     
     CTAssertNull(test, colors, "Expected RGB to be NULL");
     free(colors);

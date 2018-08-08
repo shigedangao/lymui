@@ -16,7 +16,7 @@
 // Make RGB
 // Return RGB struct pointer
 // Params : Array of ushort length 3
-struct Rgb *makeRGB(uint8_t c[], uint8_t length) {
+Rgb *makeRGB(uint8_t c[], uint8_t length) {
     struct Rgb *color = malloc (sizeof (struct Rgb));
     
     if (color == NULL)

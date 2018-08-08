@@ -14,12 +14,12 @@
 #include "helper.h"
 
 ctest_return_t testXyzRgb(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 50;
     rgb->g = 10;
     rgb->b = 95;
     
-    struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
+    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
     
     CTAssertEqual(test, 3.49f, roundDigit(xyz->x * 100, 100), "Expect X to be equal to %f but got %f", 3.49f, roundDigit(xyz->x * 100, 100));
     CTAssertEqual(test, 1.72f, roundDigit(xyz->y * 100, 100), "Expect Y to be equal to %f but got %f", 1.72f, roundDigit(xyz->y * 100, 100));
@@ -29,12 +29,12 @@ ctest_return_t testXyzRgb(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testXyzAdobeRgb(ctest_t *test, void *arg) {
-    struct Rgb *rgb = malloc(sizeof(struct Rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 50;
     rgb->g = 10;
     rgb->b = 95;
     
-    struct Xyz *xyz = generateXyzFromRgb(rgb, adobeRgb);
+    Xyz *xyz = generateXyzFromRgb(rgb, adobeRgb);
     
     // Though this test are kinda falsy as i didn't find any XYZ converter with the adobe RGB format online... so take it with grain of salt
     CTAssertEqual(test, 3.76f, roundDigit(xyz->x * 100, 100), "Expect X to be equal to %f but got %f", 3.76f, roundDigit(xyz->x * 100, 100));
@@ -45,7 +45,7 @@ ctest_return_t testXyzAdobeRgb(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testXyzRgbNull(ctest_t *test, void *arg) {
-    struct Xyz *xyz = generateXyzFromRgb(NULL, sRgb);
+    Xyz *xyz = generateXyzFromRgb(NULL, srgb);
     CTAssertNull(test, xyz, "Expect Xyz to be NULL");
     
     free(xyz);

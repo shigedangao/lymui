@@ -28,7 +28,7 @@ static float * calculateParams(float x, float y, float z) {
     return params;
 }
 
-struct Luv * getLuvFromXyz(struct Xyz *xyz) {
+Luv * getLuvFromXyz(Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
@@ -39,7 +39,7 @@ struct Luv * getLuvFromXyz(struct Xyz *xyz) {
     float *uv  = calculateParams(xyz->x, xyz->y, xyz->z);
     float *urv = calculateParams(Xn, Yn, Zn);
     
-    struct Luv *luv = malloc(sizeof(struct Luv));
+     Luv *luv = malloc(sizeof( Luv));
     if (y > e)
         l = 116.0f * powf(y, 1.0f / 3.0f) - 16.0f;
     else
@@ -70,10 +70,10 @@ static float calculateYValue(float l) {
 
 /**
  * @discussion Calculate Xyz Params Calculate the required params for converting a luv to an xyz
- * @param luv struct Luv pointer
+ * @param luv  Luv pointer
  * @return *float params
  */
-static float * calculateXyzParams(struct Luv *luv) {
+static float * calculateXyzParams(Luv *luv) {
     // calculate the u0 and v0 value
     float *ur = calculateParams(Xn, Yn, Zn);
     
@@ -95,13 +95,13 @@ static float * calculateXyzParams(struct Luv *luv) {
     return params;
 }
 
-struct Xyz * getXyzFromLuv(struct Luv *luv) {
+Xyz * getXyzFromLuv(Luv *luv) {
     if (luv == NULL)
         return NULL;
     
     // Calculate the Y value use by other formula...
     float *params = calculateXyzParams(luv);
-    struct Xyz *xyz = malloc(sizeof(struct Xyz));
+     Xyz *xyz = malloc(sizeof(Xyz));
     
     float tempX = (params[3] - params[1]) / (params[0] - params[2]);
     xyz->x = tempX * 100.0f;

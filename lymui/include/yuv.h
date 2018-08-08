@@ -15,24 +15,24 @@
 /**
  * @disuccsion Yuv structure
  */
-struct Yuv {
+typedef struct Yuv {
     float y;
     float u;
     float v;
-};
+} Yuv;
 
 /**
  * @discussion GetYuvFromRgb return a pointer yuv struct from an RGB pointer
  * @param rgb a pointer struct rgb
  * @return an Yuv pointer struct
  */
-struct Yuv * getYuvFromRgb(struct Rgb *rgb);
+Yuv * getYuvFromRgb(Rgb *rgb);
 
 /**
  * @disucssion GetRgbFromYuv return a Rgb pointer struct from a Yuv
  * @param yuv a pointer Yuv struct
  * @return rgb a pointer Rgb struct
  */
-struct Rgb * getRgbFromYuv(struct Yuv *yuv);
+Rgb * getRgbFromYuv(Yuv *yuv);
 
 #endif /* yuv_h */

@@ -26,7 +26,7 @@ char * getHexFromRGB(struct Rgb *rgb);
  * @param hex a Hex char array
  * @return a uint8_t value
  */
-struct Rgb * getRawRGBValueFromHex(char *hex);
+Rgb * getRawRGBValueFromHex(char *hex);
 
 /*!
  * @discussion Get the uint8_t value based on each character of the Hex

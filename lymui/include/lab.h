@@ -18,29 +18,29 @@
 /**
  * @brief Lab struct representing the Lab color space
  */
-struct Lab {
+typedef struct Lab {
     float l;
     float a;
     float b;
-};
+} Lab;
 
 /**
  * @discussion Get Lab From Xyz return a new Lab struct based on Xyz struct
  * @param xyz Xyz struct
  * @return Lab struct
  */
-struct Lab * getLabFromXyz(struct Xyz *xyz);
+Lab * getLabFromXyz(Xyz *xyz);
 
 /**
  * @discussion Get Huntere Lab From Xyz return a new Lab struct based on HunterLab calculation..
  * @param xyz Xyz struct
  * @return Lab struct
  */
-struct Lab * getHunterLabFromXyz(struct Xyz *xyz);
+Lab * getHunterLabFromXyz(Xyz *xyz);
 
 /**
  * @discussion Get Xyz From Lab return a new Xyz struct from a Lab struct
  */
-struct Xyz * getXyzFromLab(struct Lab *lab);
+Xyz * getXyzFromLab(Lab *lab);
 
 #endif /* lab_h */

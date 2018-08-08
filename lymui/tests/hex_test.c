@@ -16,7 +16,7 @@
 
 ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     uint8_t uc[]    = {5, 10, 95};
-    struct Rgb *lym = makeRGB(uc, sizeof(uc));
+    Rgb *lym = makeRGB(uc, sizeof(uc));
     
     char *hex = getHexFromRGB(lym);
     char *value = malloc(sizeof(char) * 6);
@@ -44,7 +44,7 @@ ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
     hex[4] = '5';
     hex[5] = 'F';
     
-    struct Rgb *uc = getRawRGBValueFromHex(hex);
+    Rgb *uc = getRawRGBValueFromHex(hex);
 
     CTAssertEqual(test, 5, uc->r, "R value is %d where as it should be 5", 5);
     CTAssertEqual(test, 10, uc->g, "G value is %d where as it should be 10", 10);
@@ -62,7 +62,7 @@ ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
     hex[4] = 'E';
     hex[5] = 'F';
     
-    struct Rgb *uc = getRawRGBValueFromHex(hex);
+    Rgb *uc = getRawRGBValueFromHex(hex);
     
     CTAssertEqual(test, 171, uc->r, "R value expected: 171, value: %ui", 171);
     CTAssertEqual(test, 205, uc->g, "G value expected: 205, value: %ui", 205);
@@ -73,7 +73,7 @@ ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
 
 ctest_return_t testUintNullCreationFromHex(ctest_t *test, void *arg) {
     char *hex = NULL;
-    struct Rgb *uc = getRawRGBValueFromHex(hex);
+    Rgb *uc = getRawRGBValueFromHex(hex);
     
     CTAssertNull(test, uc, "Test uint null creation, value is not NULL");
 }

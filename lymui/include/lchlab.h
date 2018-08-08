@@ -15,25 +15,25 @@
 /**
  * @brief Lchlab structure of the lch(lab) lch based on the lab struct
  */
-struct Lchlab {
+typedef struct Lchlab {
     float l;
     float c;
     float h;
-};
+} LchLab;
 
 /**
  * @description Get an Lch struct from a Lab struct
  * @param xyz Xyz struct pointer
  * @return Lchlab struct pointer
  */
-struct Lchlab * getLchFromLab(struct Xyz *xyz);
+LchLab * getLchFromLab(Xyz *xyz);
 
 /**
  * @description Get an Xyz struct from a Lchlab
  * @param lch Lchlab struct pointer
  * @return xyz Xyz struct pointer
  */
-struct Xyz * getXyzFromLchlab(struct Lchlab *lch);
+Xyz * getXyzFromLchlab(LchLab *lch);
 
 
 #endif /* lchlab_h */

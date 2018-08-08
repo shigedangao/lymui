@@ -28,17 +28,17 @@
 /**
  * @brief a structure defining the sRgb value. It's store float as the sRGB color space value use decimal
  */
-struct sRgb {
+typedef struct sRgb {
     float r;
     float g;
     float b;
-};
+} SRgb;
 
 /**
  * @discussion get SRgb From Xyz return a new sRgb structure pointer
  * @param xyz a struct pointer Xyz
  * @return sRgb a struct pointer of type sRgb
  */
-struct sRgb *getSRgbFromXyz(struct Xyz *xyz);
+SRgb *getSRgbFromXyz(Xyz *xyz);
 
 #endif /* srgb_h */

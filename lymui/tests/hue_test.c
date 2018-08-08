@@ -14,7 +14,7 @@
 
 ctest_return_t testSimpleHueCreation(ctest_t *test, void *arg) {
     uint8_t cvalue[3] = {255, 255, 255};
-    struct Rgb *rgb  = makeRGB(cvalue, 3);
+    Rgb *rgb  = makeRGB(cvalue, 3);
     // get the hue from the rgb
     float hue = getHueFromRgb(rgb);
     
@@ -25,7 +25,7 @@ ctest_return_t testSimpleHueCreation(ctest_t *test, void *arg) {
 
 ctest_return_t testPurpleHueCreation(ctest_t *test, void *arg) {
     uint8_t cvalue[3] = {255, 100, 255};
-    struct Rgb *rgb = makeRGB(cvalue, 3);
+    Rgb *rgb = makeRGB(cvalue, 3);
     // get the hue
     float hue = getHueFromRgb(rgb);
     
@@ -36,7 +36,7 @@ ctest_return_t testPurpleHueCreation(ctest_t *test, void *arg) {
 
 ctest_return_t testB(ctest_t *test, void *arg) {
     uint8_t cvalue[3] = {50, 10, 232};
-    struct Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
+    Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     
     float hue = getHueFromRgb(rgb);
     
@@ -47,7 +47,7 @@ ctest_return_t testB(ctest_t *test, void *arg) {
 
 ctest_return_t testG(ctest_t *test, void *arg) {
     uint8_t cvalue[3] = {222, 102, 30};
-    struct Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
+    Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     
     float hue = getHueFromRgb(rgb);
     
@@ -58,7 +58,7 @@ ctest_return_t testG(ctest_t *test, void *arg) {
 
 ctest_return_t testR(ctest_t *test, void *arg) {
     uint8_t cvalue[3] = {244, 100, 200};
-    struct Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
+    Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     
     float hue = getHueFromRgb(rgb);
     CTAssertEqual(test, 318.0f, hue, "Expect hue to be equal to 318 but got %f", hue);

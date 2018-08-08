@@ -15,8 +15,8 @@
 
 ctest_return_t testYcbcrCreation(ctest_t *test, void *arg) {
     uint8_t uc[] = {0, 100, 200};
-    struct Rgb *rgb     = makeRGB(uc, 3);
-    struct Ycbcr *ycbcr = makeYcbcr(rgb);
+    Rgb *rgb     = makeRGB(uc, 3);
+    Ycbcr *ycbcr = makeYcbcr(rgb);
     
     CTAssertEqual(test, 86, ycbcr->y, "Expect Y to be equal to %i but got %i", ycbcr->y, 86);
     CTAssertEqual(test, 187, ycbcr->cb, "Expect Cb to be equal to %i but got %i", ycbcr->cb, 186);
@@ -27,8 +27,8 @@ ctest_return_t testYcbcrCreation(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testYcbcrNullCreation(ctest_t *test, void *arg) {
-    struct Rgb *rgb = NULL;
-    struct Ycbcr *ycbcr = makeYcbcr(rgb);
+    Rgb *rgb = NULL;
+    Ycbcr *ycbcr = makeYcbcr(rgb);
     
     CTAssertNull(test, ycbcr, "Expect YCbCr to be NULL");
     
@@ -37,13 +37,13 @@ ctest_return_t testYcbcrNullCreation(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testUintCreationFromYcbcr(ctest_t *test, void *arg) {
-    struct Ycbcr *ycbcr = malloc(sizeof(struct Ycbcr));
+    Ycbcr *ycbcr = malloc(sizeof( Ycbcr));
     
     ycbcr->y  = 86;
     ycbcr->cb = 186;
     ycbcr->cr = 77;
     
-    struct Rgb *rgb = getRawRGBValueFromYcbcr(ycbcr);
+    Rgb *rgb = getRawRGBValueFromYcbcr(ycbcr);
     CTAssertEqual(test, 0, rgb->r, "Expect R to be equal to %i but got %i", 0, rgb->r);
     CTAssertEqual(test, 100, rgb->g, "Expect G to be equal to %i but got %i", 100, rgb->g);
     CTAssertEqual(test, 199, rgb->b, "Expect B to be equal to %i but got %i", 198, rgb->b);
@@ -53,7 +53,7 @@ ctest_return_t testUintCreationFromYcbcr(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testUintNullCreationFromYcbcr(ctest_t *test, void *arg) {
-    struct Rgb *rgb = getRawRGBValueFromYcbcr(NULL);
+    Rgb *rgb = getRawRGBValueFromYcbcr(NULL);
     CTAssertNull(test, rgb, "Expect RGB to be NULL");
     
     free(rgb);

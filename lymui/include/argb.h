@@ -27,17 +27,17 @@
 /**
  * @brief aRgb is a struct which is use for representing the adobe RGB
  */
-struct aRgb {
+typedef struct aRgb {
     float r;
     float g;
     float b;
-};
+} ARgb;
 
 /**
  * @discussion Get ARgb From Xyz return a aRgb structure from a Xyz structure
  * @param xyz Xyz struct
  * @return aRgb struct
  */
-struct aRgb * getARgbFromXyz(struct Xyz *xyz);
+ARgb * getARgbFromXyz(Xyz *xyz);
 
 #endif /* argb_h */
