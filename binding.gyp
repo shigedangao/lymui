@@ -1,16 +1,18 @@
 
 {
   "targets": [
-    "target_name": "lymuilm",
-    "sources": [
-      "lymui/binding/bootstrap.c"
-      "lymui/binding/node_rgb.c"
-    ],
-    "include_dirs": [
-      "bin/include",
-    ],
-    "librairies": [
-      "<module_root_dir)/bin/liblymui.a"
-    ]
+    {
+      "target_name": "lymuilm",
+      "sources": [
+        "lymui/binding/bootstrap.c"
+      ],
+      "include_dirs": [
+        "bin/include",
+        "lymui/binding/include"
+      ],
+      "librairies": [
+        "<module_root_dir)/bin/liblymui.a"
+      ]
+    }
   ]
 }

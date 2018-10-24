@@ -1,0 +1,26 @@
+{
+  "name": "lymui",
+  "version": "1.0.0",
+  "description": "Lymui is a small color conversion library. It's my first project in C !.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node-gyp build",
+    "install": "node-gyp rebuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcInthaamnouay/lymui.git"
+  },
+  "author": "marc intha-amnouay",
+  "license": "MIT",
+  "gypfile": true,
+  "bugs": {
+    "url": "https://github.com/MarcInthaamnouay/lymui/issues"
+  },
+  "homepage": "https://github.com/MarcInthaamnouay/lymui#readme"
+}

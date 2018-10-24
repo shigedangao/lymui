@@ -13,7 +13,7 @@
 #include "helper.h"
 #include "rgb.h"
 #include "xyz.h"
-#include "ARgb.h"
+#include "argb.h"
 
 ctest_return_t testARgbCreation(ctest_t *test, void *arg) {
     Rgb *rgb = malloc(sizeof(Rgb));
