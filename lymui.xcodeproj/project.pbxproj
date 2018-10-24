@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F61F933218065F100F61E22 /* bootstrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F932218065F100F61E22 /* bootstrap.c */; };
+		2F61F9372180684200F61E22 /* node_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F9362180684200F61E22 /* node_rgb.c */; };
 		9F04726F203476D1000639EA /* rgb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04726E203476D1000639EA /* rgb_test.c */; };
 		9F04727120347861000639EA /* hex_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727020347861000639EA /* hex_test.c */; };
 		9F04727320348E67000639EA /* ycbcr_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727220348E67000639EA /* ycbcr_test.c */; };
@@ -57,6 +59,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2F61F932218065F100F61E22 /* bootstrap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bootstrap.c; sourceTree = "<group>"; };
+		2F61F9352180684200F61E22 /* node_rgb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_rgb.h; sourceTree = "<group>"; };
+		2F61F9362180684200F61E22 /* node_rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_rgb.c; sourceTree = "<group>"; };
+		2F61F9382180688100F61E22 /* binding.gyp */ = {isa = PBXFileReference; lastKnownFileType = text; path = binding.gyp; sourceTree = "<group>"; };
 		9F04726D203476D1000639EA /* test_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test_header.h; sourceTree = "<group>"; };
 		9F04726E203476D1000639EA /* rgb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb_test.c; sourceTree = "<group>"; };
 		9F04727020347861000639EA /* hex_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hex_test.c; sourceTree = "<group>"; };
@@ -127,6 +133,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F61F931218065C700F61E22 /* binding */ = {
+			isa = PBXGroup;
+			children = (
+				2F61F9342180681300F61E22 /* include */,
+				2F61F932218065F100F61E22 /* bootstrap.c */,
+				2F61F9362180684200F61E22 /* node_rgb.c */,
+			);
+			path = binding;
+			sourceTree = "<group>";
+		};
+		2F61F9342180681300F61E22 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				2F61F9352180684200F61E22 /* node_rgb.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		9F04726920347692000639EA /* tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +178,7 @@
 		9F3A07A52028891300CB2311 = {
 			isa = PBXGroup;
 			children = (
+				2F61F9382180688100F61E22 /* binding.gyp */,
 				9F6C2320202E632000804575 /* README.md */,
 				9F3A07B02028891300CB2311 /* lymui */,
 				9F3A07AF2028891300CB2311 /* Products */,
@@ -172,6 +197,7 @@
 		9F3A07B02028891300CB2311 /* lymui */ = {
 			isa = PBXGroup;
 			children = (
+				2F61F931218065C700F61E22 /* binding */,
 				9F04726920347692000639EA /* tests */,
 				9F70D72F2032EB1D0002E3F3 /* include */,
 				9F3A07B12028891300CB2311 /* main.c */,
@@ -293,6 +319,8 @@
 				9F8ABE4320A9925A0001F811 /* lch_lab_test.c in Sources */,
 				9F3A07B22028891300CB2311 /* main.c in Sources */,
 				9F04726F203476D1000639EA /* rgb_test.c in Sources */,
+				2F61F9372180684200F61E22 /* node_rgb.c in Sources */,
+				2F61F933218065F100F61E22 /* bootstrap.c in Sources */,
 				9F04727120347861000639EA /* hex_test.c in Sources */,
 				9F8ABE4820AA22630001F811 /* xyy_test.c in Sources */,
 				9FFE470E20573A7A00EA68D5 /* srgb.c in Sources */,
@@ -437,7 +465,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				"HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/lib/cunit/include";
+				"HEADER_SEARCH_PATHS[arch=*]" = (
+					"$(SRCROOT)/lib/cunit/include",
+					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/cunit",
@@ -445,7 +476,7 @@
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/lib/cunit";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include";
-				"USER_HEADER_SEARCH_PATHS[arch=*]" = "";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = /Users/marcintha/.nvm/versions/node/v8.11.3/include/node;
 			};
 			name = Debug;
 		};
