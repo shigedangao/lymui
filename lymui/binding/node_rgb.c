@@ -18,17 +18,20 @@ napi_value GenerateRGB(napi_env env, napi_callback_info info) {
     size_t argc = 3;
     napi_value argv[3];
     napi_value object;
-    napi_value undefined;
-    
-    status = napi_get_undefined(env, &undefined);
-    
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, "can not get undefined");
-    }
     
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
-        napi_throw_error(env, (char *) deserializeErrNo, DESERIALIZE_ERR);
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    if (argc < 3) {
+        napi_throw_type_error(env, NULL, ARG_NB_ERR);
+    }
+    
+    if (!isTypeOf(env, argv[0], numberInt) ||
+        !isTypeOf(env, argv[1], numberInt) ||
+        !isTypeOf(env, argv[2], numberInt)) {
+        napi_throw_error(env, NULL, ARG_TYPE_ERR);
     }
     
     uint32_t r = 0;
@@ -37,17 +40,17 @@ napi_value GenerateRGB(napi_env env, napi_callback_info info) {
     
     status = napi_get_value_uint32(env, argv[0], &r);
     if (status != napi_ok) {
-        napi_throw_type_error(env, (char *) parseErrNo , PARSE_ERR);
+        napi_throw_type_error(env, NULL, PARSE_ERR);
     }
     
     status = napi_get_value_uint32(env, argv[1], &g);
     if (status != napi_ok) {
-        napi_throw_type_error(env, (char *) parseErrNo, PARSE_ERR);
+        napi_throw_type_error(env, NULL, PARSE_ERR);
     }
     
     status = napi_get_value_uint32(env, argv[2], &b);
     if (status != napi_ok) {
-        napi_throw_type_error(env, (char *) parseErrNo, PARSE_ERR);
+        napi_throw_type_error(env, NULL, PARSE_ERR);
     }
     
     // creation of the RGB struct

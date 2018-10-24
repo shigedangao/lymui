@@ -31,4 +31,12 @@ typedef enum JSType {
  */
 void assignPropToJSObj(napi_value *jsObj, napi_env env, JSType t, char * name, void * arg);
 
+/**
+ *  @brief validate the type of the value
+ *  @param env napi_env
+ *  @param v napi_value
+ *  @param t JSType
+ */
+uint8_t isTypeOf(napi_env env, napi_value v, JSType t);
+
 #endif /* binding_util_h */

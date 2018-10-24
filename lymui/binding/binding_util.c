@@ -24,12 +24,36 @@ void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char * name, 
     }
     
     if (status != napi_ok) {
-        napi_throw_error(env, (char *) convertErrNo, CONVERT_ERR);
+        napi_throw_error(env, NULL, CONVERT_ERR);
     }
 
     status = napi_set_named_property(env, *jsObj, name, value);
 
     if (status != napi_ok) {
-        napi_throw_error(env, (char *) assignErrNo, ASSIGN_ERR);
+        napi_throw_error(env, NULL, ASSIGN_ERR);
     }
+}
+
+uint8_t isTypeOf(napi_env env, napi_value v, JSType t) {
+    napi_valuetype type;
+    napi_status status;
+    
+    status = napi_typeof(env, v, &type);
+    
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, PARSE_ERR);
+    }
+    
+    // might not be super performant...
+    if (type == napi_number &&
+        (t == numberInt ||
+        t == numberFloat)) {
+        return 1;
+    }
+    
+    if (type == napi_string && t == string) {
+        return 1;
+    }
+    
+    return 0;
 }

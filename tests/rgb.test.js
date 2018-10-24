@@ -9,4 +9,12 @@ describe('RGB test case', () => {
     expect(rgb.g).to.be.equal(10);
     expect(rgb.b).to.be.equal(95);
   });
+
+  it('Expect to throw an error when argument less than required are pass', () => {
+    expect(() => lib.MakeRGB(10, 20)).to.throw('Missing arguments');
+  });
+
+  it('Expect to throw an error when wrong argument type is passed', () => {
+    expect(() => lib.MakeRGB('hello', 'i am', 'a bug')).to.throw('Wrong argument(s) type');
+  });
 });

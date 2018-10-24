@@ -29,7 +29,7 @@ napi_value Init(napi_env env, napi_value exports) {
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);
     
     if (status != napi_ok) {
-        napi_throw_error(env, (char *) bindErrNo, BINDING_ERR);
+        napi_throw_error(env, NULL, BINDING_ERR);
     }
     
     return exports;
