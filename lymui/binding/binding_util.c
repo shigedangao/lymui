@@ -7,30 +7,29 @@
 //
 
 #include "binding_util.h"
-#include "binding_error.h"
 #include <node_api.h>
 #include <string.h>
+#include "binding_error.h"
 
-void assignPropToJSObj(napi_value *jsObj, napi_env env, JSType t, char * name, void *value) {
-    napi_value jsVal;
-    napi_status s;
+void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char * name, void * arg) {
+    napi_value value;
+    napi_status status;
     
     if (t == numberInt) {
-        uint8_t v = (uintptr_t) value;
-        s = napi_create_uint32(env, v, &jsVal);
-    } else if (t == string) {
-        char * v = (char *) value;
-        s = napi_create_string_utf8(env, v, strlen(v), &jsVal);
+        uint8_t v = *(uint8_t *) arg;
+        status = napi_create_uint32(env, v, &value);
+    } else {
+        char * v = (char *) arg;
+        status = napi_create_string_utf8(env, v, strlen(v), &value);
     }
     
-    
-    if (s != napi_ok) {
+    if (status != napi_ok) {
         napi_throw_error(env, (char *) convertErrNo, CONVERT_ERR);
     }
-    
-    s = napi_set_named_property(env, *jsObj, name, jsVal);
-    
-    if (s != napi_ok) {
+
+    status = napi_set_named_property(env, *jsObj, name, value);
+
+    if (status != napi_ok) {
         napi_throw_error(env, (char *) assignErrNo, ASSIGN_ERR);
     }
 }

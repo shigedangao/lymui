@@ -27,8 +27,8 @@ typedef enum JSType {
  *  @param env napi_env
  *  @param t JSType
  *  @param name pointer char
- *  @param value any
+ *  @param arg any
  */
-void assignPropToJSObj(napi_value *jsObj, napi_env env, JSType t, char * name, void *value);
+void assignPropToJSObj(napi_value *jsObj, napi_env env, JSType t, char * name, void * arg);
 
 #endif /* binding_util_h */

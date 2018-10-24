@@ -23,7 +23,7 @@ napi_value Init(napi_env env, napi_value exports) {
     
     // define the methods here
     napi_property_descriptor desc[] = {
-        DECLARE_NAPI_METHOD("GenerateRGB", GenerateRGB)
+        DECLARE_NAPI_METHOD("MakeRGB", GenerateRGB)
     };
     
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);
@@ -34,3 +34,5 @@ napi_value Init(napi_env env, napi_value exports) {
     
     return exports;
 }
+
+NAPI_MODULE(NODE_GYP_MODULE_NAME, Init);

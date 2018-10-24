@@ -8,9 +8,12 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/mocha/bin/mocha tests/*.test.js",
+    "build:dev": "node-gyp build --debug",
     "build": "node-gyp build",
-    "install": "node-gyp rebuild"
+    "rebuild:dev": "node-gyp rebuild",
+    "rebuild": "node-gyp rebuild --debug",
+    "clean": "node-gyp clean"
   },
   "repository": {
     "type": "git",
@@ -22,5 +25,9 @@
   "bugs": {
     "url": "https://github.com/MarcInthaamnouay/lymui/issues"
   },
-  "homepage": "https://github.com/MarcInthaamnouay/lymui#readme"
+  "homepage": "https://github.com/MarcInthaamnouay/lymui#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
 }
