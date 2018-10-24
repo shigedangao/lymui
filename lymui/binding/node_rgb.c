@@ -7,6 +7,7 @@
 //
 
 #include <node_api.h>
+#include <stdlib.h>
 #include "rgb.h"
 #include "binding_error.h"
 #include "binding_util.h"
@@ -41,13 +42,17 @@ napi_value GenerateRGB(napi_env env, napi_callback_info info) {
         napi_throw_type_error(env, (char *) parseErrNo, PARSE_ERR);
     }
     
-    // @TODO add malloc
+    uint8_t * arr = malloc(sizeof(uint8_t) * 3);
+    arr[0] = r;
+    arr[1] = g;
+    arr[2] = b;
+    
     Rgb * rgbStruct = makeRGB(arr, 3);
     napi_value JSObj;
     
-    assignPropToJSObj(&JSObj, env, numberInt, "R", r);
-    assignPropToJSObj(&JSObj, env, numberInt, "G", g);
-    assignPropToJSObj(&JSObj, env, numberInt, "B", b);
+    assignPropToJSObj(&JSObj, env, numberInt, "R", rgbStruct->r);
+    assignPropToJSObj(&JSObj, env, numberInt, "G", rgbStruct->g);
+    assignPropToJSObj(&JSObj, env, numberInt, "B", rgbStruct->b);
 
     return JSObj;
 }

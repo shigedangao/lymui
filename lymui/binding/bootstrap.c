@@ -12,6 +12,9 @@
 #include "binding_error.h"
 #include "node_rgb.h"
 
+
+#define DECLARE_NAPI_METHOD(name, func) { name, 0, func, 0, 0, 0, napi_default, 0 }
+
 /**
  *  Initialization of our NodeJS module
  */
@@ -20,7 +23,7 @@ napi_value Init(napi_env env, napi_value exports) {
     
     // define the methods here
     napi_property_descriptor desc[] = {
-        
+        DECLARE_NAPI_METHOD("GenerateRGB", GenerateRGB)
     };
     
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);
