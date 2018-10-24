@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const lib = require('../build/Debug/lymuilm');
 
-describe('RGB test case', () => {
+describe('Creating RGB test case', () => {
   it('Expect to create an RGB object', () => {
     const rgb = lib.MakeRGB(5, 10, 95);
 
@@ -16,5 +16,32 @@ describe('RGB test case', () => {
 
   it('Expect to throw an error when wrong argument type is passed', () => {
     expect(() => lib.MakeRGB('hello', 'i am', 'a bug')).to.throw('Wrong argument(s) type');
+  });
+
+  it('Expect to not throw when passing float value', () => {
+    const rgb = lib.MakeRGB(5.0, 10.0, 98.0);
+    expect(rgb).to.be.deep.equal({
+      r: 5,
+      g: 10,
+      b: 98
+    });
+  });
+
+  it('Expect to throw an error when multiple wrong type is pass', () => {
+    expect(() => lib.MakeRGB('someone', 1.0, 'pokemon')).to.throw('Wrong argument(s) type');
+  });
+
+  it('Expect to create object even with more args than 3', () => {
+    const rgb = lib.MakeRGB(10.0, 5.0, 98, 95, 10);
+
+    expect(rgb).to.be.deep.equal({
+      r: 10,
+      g: 5,
+      b: 98
+    });
+  });
+
+  it('Expect to not throw when a value > 255 is pass', () => {
+    expect(() => lib.MakeRGB(300, 400, 500)).to.not.throw();
   });
 });
