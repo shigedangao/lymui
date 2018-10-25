@@ -62,6 +62,10 @@ napi_value GenerateRGB(napi_env env, napi_callback_info info) {
     
     // create a new js object
     status = napi_create_object(env, &object);
+    
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, OBJ_MAKE_ERR);
+    }
     // assign the value
     assignPropToJSObj(&object, env, numberInt, "r", &rgb->r);
     assignPropToJSObj(&object, env, numberInt, "g", &rgb->g);

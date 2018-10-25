@@ -16,5 +16,6 @@
 #define ASSIGN_ERR "Unable to assign value to JS Object"
 #define ARG_NB_ERR "Missing arguments"
 #define ARG_TYPE_ERR "Wrong argument(s) type"
+#define OBJ_MAKE_ERR "Error while creating JS object"
 
 #endif /* binding_error_h */
