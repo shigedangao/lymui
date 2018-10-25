@@ -44,4 +44,8 @@ describe('Creating RGB test case', () => {
   it('Expect to not throw when a value > 255 is pass', () => {
     expect(() => lib.makeRGB(300, 400, 500)).to.not.throw();
   });
+
+  it('Expect to throw when no param is pass', () => {
+    expect(() => lib.makeRGB()).to.throw('Missing arguments');
+  });
 });
