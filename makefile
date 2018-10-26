@@ -48,7 +48,7 @@ cleanTest:
 
 # Rules for other tasks
 
-all: clean lib
+all: cleanTest clean lib
 
 obj:
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)
