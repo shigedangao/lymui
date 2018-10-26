@@ -20,6 +20,8 @@ napi_value GetHexFromRGB(napi_env env, napi_callback_info info) {
     size_t argc = 1;
     napi_value argv[1];
     napi_value hex;
+    char * prefix = "#";
+    char dest[8];
     
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
@@ -36,8 +38,11 @@ napi_value GetHexFromRGB(napi_env env, napi_callback_info info) {
     // we don't need the RGB struct anymore
     free(rgb);
     
+    strcpy(dest, prefix);
+    strncat(dest, hexValue, (sizeof(dest) - strlen(dest) - 1));
+
     // create the hex
-    status = napi_create_string_utf8(env, hexValue, strlen(hexValue), &hex);
+    status = napi_create_string_utf8(env, dest, strlen(dest), &hex);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, CREATE_VALUE_ERR);
     }
