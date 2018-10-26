@@ -57,3 +57,15 @@ uint8_t isTypeOf(napi_env env, napi_value v, JSType t) {
     
     return 0;
 }
+
+uint8_t getUintValue(napi_env env, napi_value v) {
+    napi_status status;
+    uint32_t res = 0;
+    
+    status = napi_get_value_uint32(env, v, &res);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, CREATE_TYPE_ERR);
+    }
+    
+    return (uint8_t) res;
+}

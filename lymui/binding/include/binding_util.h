@@ -39,4 +39,12 @@ void assignPropToJSObj(napi_value *jsObj, napi_env env, JSType t, char * name, v
  */
 uint8_t isTypeOf(napi_env env, napi_value v, JSType t);
 
+/**
+ * @brief convert a napi_value to an uint8_t type
+ * @param env napi_env
+ * @param v napi_value
+ * @return uint8_t
+ */
+uint8_t getUintValue(napi_env, napi_value v);
+
 #endif /* binding_util_h */

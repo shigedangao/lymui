@@ -11,6 +11,7 @@
 #include <node_api.h>
 #include "binding_error.h"
 #include "node_rgb.h"
+#include "node_hex.h"
 
 
 #define DECLARE_NAPI_METHOD(name, func) { name, 0, func, 0, 0, 0, napi_default, 0 }
@@ -23,7 +24,8 @@ napi_value Init(napi_env env, napi_value exports) {
     
     // define the methods here
     napi_property_descriptor desc[] = {
-        DECLARE_NAPI_METHOD("makeRGB", GenerateRGB)
+        DECLARE_NAPI_METHOD("makeRGB", GenerateRGB),
+        DECLARE_NAPI_METHOD("getHEX", GetHexFromRGB)
     };
     
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);
