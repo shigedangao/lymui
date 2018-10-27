@@ -10,6 +10,8 @@
 		2F61F933218065F100F61E22 /* bootstrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F932218065F100F61E22 /* bootstrap.c */; };
 		2F61F9372180684200F61E22 /* node_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F9362180684200F61E22 /* node_rgb.c */; };
 		2F61F93C2180725900F61E22 /* binding_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F93B2180725900F61E22 /* binding_util.c */; };
+		2F737C3C2183716600C6BFA8 /* node_hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F737C3B2183716600C6BFA8 /* node_hex.c */; };
+		2F737C3F2183734600C6BFA8 /* bridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F737C3E2183734600C6BFA8 /* bridge.c */; };
 		9F04726F203476D1000639EA /* rgb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04726E203476D1000639EA /* rgb_test.c */; };
 		9F04727120347861000639EA /* hex_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727020347861000639EA /* hex_test.c */; };
 		9F04727320348E67000639EA /* ycbcr_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727220348E67000639EA /* ycbcr_test.c */; };
@@ -67,6 +69,10 @@
 		2F61F93921806D0E00F61E22 /* binding_error.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = binding_error.h; sourceTree = "<group>"; };
 		2F61F93A2180725900F61E22 /* binding_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = binding_util.h; sourceTree = "<group>"; };
 		2F61F93B2180725900F61E22 /* binding_util.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = binding_util.c; sourceTree = "<group>"; };
+		2F737C3A2183716600C6BFA8 /* node_hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_hex.h; sourceTree = "<group>"; };
+		2F737C3B2183716600C6BFA8 /* node_hex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_hex.c; sourceTree = "<group>"; };
+		2F737C3D2183734600C6BFA8 /* bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bridge.h; sourceTree = "<group>"; };
+		2F737C3E2183734600C6BFA8 /* bridge.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bridge.c; sourceTree = "<group>"; };
 		9F04726D203476D1000639EA /* test_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test_header.h; sourceTree = "<group>"; };
 		9F04726E203476D1000639EA /* rgb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb_test.c; sourceTree = "<group>"; };
 		9F04727020347861000639EA /* hex_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hex_test.c; sourceTree = "<group>"; };
@@ -144,6 +150,8 @@
 				2F61F932218065F100F61E22 /* bootstrap.c */,
 				2F61F9362180684200F61E22 /* node_rgb.c */,
 				2F61F93B2180725900F61E22 /* binding_util.c */,
+				2F737C3B2183716600C6BFA8 /* node_hex.c */,
+				2F737C3E2183734600C6BFA8 /* bridge.c */,
 			);
 			path = binding;
 			sourceTree = "<group>";
@@ -151,6 +159,8 @@
 		2F61F9342180681300F61E22 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				2F737C3D2183734600C6BFA8 /* bridge.h */,
+				2F737C3A2183716600C6BFA8 /* node_hex.h */,
 				2F61F93A2180725900F61E22 /* binding_util.h */,
 				2F61F9352180684200F61E22 /* node_rgb.h */,
 				2F61F93921806D0E00F61E22 /* binding_error.h */,
@@ -320,8 +330,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F8ABE4620A9BAE10001F811 /* xyy.c in Sources */,
+				2F737C3C2183716600C6BFA8 /* node_hex.c in Sources */,
 				9F4D411B20599A590031CDA5 /* argb.c in Sources */,
 				9F8BC44A203CC9EE001709CA /* hue.c in Sources */,
+				2F737C3F2183734600C6BFA8 /* bridge.c in Sources */,
 				9FFE470B20572EE800EA68D5 /* xyz.c in Sources */,
 				9F8ABE4320A9925A0001F811 /* lch_lab_test.c in Sources */,
 				9F3A07B22028891300CB2311 /* main.c in Sources */,

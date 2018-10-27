@@ -39,4 +39,22 @@ void assignPropToJSObj(napi_value *jsObj, napi_env env, JSType t, char * name, v
  */
 uint8_t isTypeOf(napi_env env, napi_value v, JSType t);
 
+/**
+ * @brief convert a napi_value to an uint8_t type
+ * @param env napi_env
+ * @param v napi_value
+ * @return uint8_t
+ */
+uint8_t getUintValue(napi_env env, napi_value v);
+
+/**
+ * @brief check if the args has the property within the JS Object
+ * @param env napi_env
+ * @param v napi_value
+ * @param name * char
+ * @param len size_t
+ * @return uint8_t (0|1) Boolean
+ */
+uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len);
+
 #endif /* binding_util_h */
