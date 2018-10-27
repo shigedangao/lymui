@@ -48,7 +48,21 @@ describe('Creating HEX test case', () => {
     expect(() => lib.getHEX()).to.throw('Missing arguments');
   });
 
-  // it('Expect to throw when the property is not founded', () => {
-  //   expect(() => lib.getHEX('lol')).to.throw('Property not found in JS Object');
-  // });
+  it('Expect to throw when the property is not founded', () => {
+    expect(() => lib.getHEX('lol')).to.throw('Property not found in JS Object');
+  });
+
+  it('Expect to throw when one of the property is missing', () => {
+    const rgb = {
+      r: 10,
+      b: 20
+    };
+
+    expect(() => lib.getHEX(rgb)).to.throw('Property not found in JS Object');
+  });
+
+  it('Expect to throw default V8 error when null is pass', () => {
+    expect(() => lib.getHEX(null)).to.throw('Cannot convert undefined or null to object');
+  });
+  
 });

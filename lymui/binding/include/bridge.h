@@ -13,6 +13,8 @@
 #include <node_api.h>
 #include "rgb.h"
 
+#define RgbPropLen 3
+
 /**
  * @brief Extract an RGB Object from a JS Object
  * @param env napi_env

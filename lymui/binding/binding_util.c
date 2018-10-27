@@ -69,3 +69,27 @@ uint8_t getUintValue(napi_env env, napi_value v) {
     
     return (uint8_t) res;
 }
+
+uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
+    napi_status status;
+    uint8_t idx = 0;
+    uint8_t res = 1;
+    
+    while(idx < len) {
+        bool present;
+        // convert a char to a string...
+        char str[2];
+        str[0] = name[idx];
+        str[1] = '\0';
+        
+        status = napi_has_named_property(env, v, str, &present);
+        if (status != napi_ok || !present) {
+            res = 0;
+            idx = len + 1;
+        }
+        
+        idx++;
+    }
+    
+    return res;
+}

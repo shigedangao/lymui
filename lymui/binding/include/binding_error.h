@@ -10,7 +10,7 @@
 #define binding_error_h
 
 #define BINDING_ERR "Unable to bind lib methods"
-#define DESERIALIZE_ERR "Unable to deserialize the value"
+#define DESERIALIZE_ERR "Unable to deserializing the value"
 #define PARSE_ERR "Unable to parse the value"
 #define CONVERT_ERR "Error while converting value to an other type"
 #define ASSIGN_ERR "Unable to assign value to JS Object"

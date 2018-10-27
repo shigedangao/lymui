@@ -13,6 +13,8 @@
 #include <node_api.h>
 #include "rgb.h"
 
+#define BUFFER_SIZE 8
+
 /**
  * @brief Generate a Hex from an RGB struct
  * @param env napi_env
