@@ -23,7 +23,6 @@ Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
     
     // check if the object has the property
     uint8_t hasProp = hasPropInJSObj(env, obj, prop, RgbPropLen);
-    
     if (!hasProp) {
         napi_throw_error(env, NULL, PROP_FOUND_ERR);
     }

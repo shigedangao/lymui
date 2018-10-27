@@ -7,6 +7,7 @@
 //
 
 #include "binding_util.h"
+#include <stdlib.h>
 #include <node_api.h>
 #include <string.h>
 #include "binding_error.h"
@@ -91,5 +92,6 @@ uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
         idx++;
     }
     
+    free(name);
     return res;
 }
