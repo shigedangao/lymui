@@ -1,4 +1,4 @@
-const { expect } = require('chai');
+const { expect } = require('chai');
 const lib = require('../build/Debug/lymuilm');
 
 describe('Creating HEX test case', () => {
