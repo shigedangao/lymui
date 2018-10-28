@@ -26,6 +26,8 @@ matrix:
         - coveralls-lcov  coverage.info
     
     - language: node_js
+      node_js:
+        - "lts/*"
       before_install:
         - npm install
         - npm install -g node-gyp
