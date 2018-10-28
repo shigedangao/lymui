@@ -23,4 +23,12 @@
  */
 napi_value GetHexFromRGB(napi_env env, napi_callback_info info);
 
+/**
+ * @brief Retrieve an RGB Object from a Hex value
+ * @param env napi_env
+ * @param info napi_callback_info
+ * @return napi_value
+ */
+napi_value GetRGBFromHex(napi_env env, napi_callback_info info);
+
 #endif /* node_hex_h */

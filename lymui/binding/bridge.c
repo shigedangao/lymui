@@ -8,10 +8,12 @@
 
 #include "bridge.h"
 #include <stdlib.h>
+#include <string.h>
 #include <node_api.h>
 #include "binding_error.h"
 #include "binding_util.h"
 #include "rgb.h"
+#include "hex.h"
 
 Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
     napi_status status;
@@ -52,4 +54,21 @@ Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
     Rgb * rgb = makeRGB(arr, sizeof(arr));
     
     return rgb;
+}
+
+char * getHEXFromJSObj(napi_env env, napi_value args) {
+    napi_status status;
+    size_t hexLen;
+    char * hex = malloc(sizeof(char) * HEX_SIZE + 1);
+    
+    status = napi_get_value_string_utf8(env, args, hex, HEX_SIZE + 1, &hexLen);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    char * unslashHex = malloc(sizeof(char) * HEX_SIZE);
+    strncpy(unslashHex, hex + 1, 7);
+    unslashHex[7] = '\0';
+    
+    return unslashHex;
 }
