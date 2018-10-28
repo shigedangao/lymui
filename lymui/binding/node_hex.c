@@ -80,5 +80,6 @@ napi_value GetRGBFromHex(napi_env env, napi_callback_info info) {
     assignPropToJSObj(&object, env, numberInt, "g", &rgb->g);
     assignPropToJSObj(&object, env, numberInt, "b", &rgb->b);
     
+    free(rgb);
     return object;
 }
