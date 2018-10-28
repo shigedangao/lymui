@@ -19,6 +19,7 @@ matrix:
         - lcov --directory . --zerocounters
       script: 
         - sh coverage.sh
+        - make lib
       after_success:
         - lcov --directory . --capture --output-file coverage.info
         - lcov --remove coverage.info 'tests/*' '/usr/*' 'test-library*' --output-file coverage.info
