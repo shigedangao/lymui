@@ -2,6 +2,14 @@
 
 Lymui is a small color conversion library. It's my first project in C !.
 
+## Tests
+
+This project used cunit @itzseven library as it's unit test lib.
+
+[![Coverage Status](https://coveralls.io/repos/github/MarcInthaamnouay/lymui/badge.svg)](https://coveralls.io/github/MarcInthaamnouay/lymui)
+
+[![Build Status](https://travis-ci.org/MarcInthaamnouay/lymui.svg?branch=master)](https://travis-ci.org/MarcInthaamnouay/lymui)
+
 ## Status
 
 Version: 1.0.1
@@ -25,7 +33,11 @@ Note that for any color space you have to pass by an Xyz color then to the wante
 
 Note that each time you convert a base color T to an other format Y, the **base color T will be free** (this might need improvement...)
 
-## Example
+## NodeJS
+
+A NodeJS compatibility is currently being in WIP by using N-API. You can check the code on the binding folder lymui/binding.
+
+## Example in C
 
 #### Converting an RGB to an XYZ to an Lch(uv)
 
@@ -61,10 +73,19 @@ char * hex = getHexFromRGB(rgb);
 printf("Value of the hex %s", hex);
 ```
 
-## Tests
+## Example in NodeJS
 
-This project used cunit @itzseven library as it's unit test lib.
+#### Converting an Rgb to an Hex
 
-[![Coverage Status](https://coveralls.io/repos/github/MarcInthaamnouay/lymui/badge.svg)](https://coveralls.io/github/MarcInthaamnouay/lymui)
+```js
+const lib = require('lymuilib')
 
-[![Build Status](https://travis-ci.org/MarcInthaamnouay/lymui.svg?branch=master)](https://travis-ci.org/MarcInthaamnouay/lymui)
+const rgb = {
+  r: 5,
+  g: 10,
+  b: 98
+};
+
+// note: This method can throw the list of the error can be found on the binding_error.h file
+const hex = lib.getHEX(rgb);
+```

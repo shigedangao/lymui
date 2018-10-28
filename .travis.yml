@@ -25,7 +25,7 @@ matrix:
         - lcov --list coverage.info
         - coveralls-lcov  coverage.info
     
-    - language: js
+    - language: node_js
       before_install:
         - npm install
       before_script:
