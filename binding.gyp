@@ -2,7 +2,7 @@
 {
   "targets": [
     {
-      "target_name": "lymuilm",
+      "target_name": "lymuilib",
       "sources": [
         "lymui/binding/bootstrap.c",
         "lymui/binding/node_rgb.c",

@@ -23,4 +23,12 @@
  */
 Rgb * getRGBFromJSObj(napi_env env, napi_value args);
 
+/**
+ * @brief Extract a char array representing the Hex value from JS
+ * @param env napi_env
+ * @param args napi_value
+ * @return char array
+ */
+char * getHEXFromJSObj(napi_env env, napi_value args);
+
 #endif /* bridge_h */

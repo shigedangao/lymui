@@ -11,6 +11,7 @@
 #include <string.h>
 #include <node_api.h>
 #include "binding_error.h"
+#include "binding_util.h"
 #include "bridge.h"
 #include "rgb.h"
 #include "hex.h"
@@ -49,4 +50,36 @@ napi_value GetHexFromRGB(napi_env env, napi_callback_info info) {
     
     free(hexValue);
     return hex;
+}
+
+napi_value GetRGBFromHex(napi_env env, napi_callback_info info) {
+    napi_status status;
+    size_t argc = 1;
+    napi_value argv[1];
+    napi_value object;
+    
+    status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    if (argc < 1) {
+        napi_throw_error(env, NULL, ARG_NB_ERR);
+    }
+    
+    char * hex = getHEXFromJSObj(env, argv[0]);
+    Rgb * rgb = getRawRGBValueFromHex(hex);
+    
+    // create a new js object
+    status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, OBJ_MAKE_ERR);
+    }
+    // assign the value
+    assignPropToJSObj(&object, env, numberInt, "r", &rgb->r);
+    assignPropToJSObj(&object, env, numberInt, "g", &rgb->g);
+    assignPropToJSObj(&object, env, numberInt, "b", &rgb->b);
+    
+    free(rgb);
+    return object;
 }

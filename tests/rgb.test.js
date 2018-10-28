@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const lib = require('../build/Debug/lymuilm');
+const lib = require('../build/Debug/lymuilib');
 
 describe('Creating RGB test case', () => {
   it('Expect to create an RGB object', () => {
