@@ -12,6 +12,7 @@
 #include "binding_error.h"
 #include "node_rgb.h"
 #include "node_hex.h"
+#include "node_cymk.h"
 
 
 #define DECLARE_NAPI_METHOD(name, func) { name, 0, func, 0, 0, 0, napi_default, 0 }
@@ -26,7 +27,8 @@ napi_value Init(napi_env env, napi_value exports) {
     napi_property_descriptor desc[] = {
         DECLARE_NAPI_METHOD("makeRGB", GenerateRGB),
         DECLARE_NAPI_METHOD("getHEX", GetHexFromRGB),
-        DECLARE_NAPI_METHOD("getRgbFromHex", GetRGBFromHex)
+        DECLARE_NAPI_METHOD("getRgbFromHex", GetRGBFromHex),
+        DECLARE_NAPI_METHOD("getCymkFromRgb", GetCymkFromRgb)
     };
     
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);

@@ -19,6 +19,9 @@ void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char * name, 
     if (t == numberInt) {
         uint8_t v = *(uint8_t *) arg;
         status = napi_create_uint32(env, v, &value);
+    } else if (t == numberFloat) {
+        float v = *(float *) arg;
+        status = napi_create_double(env, (double) v, &value);
     } else {
         char * v = (char *) arg;
         status = napi_create_string_utf8(env, v, strlen(v), &value);

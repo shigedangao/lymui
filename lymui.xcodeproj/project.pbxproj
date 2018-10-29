@@ -12,6 +12,7 @@
 		2F61F93C2180725900F61E22 /* binding_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F93B2180725900F61E22 /* binding_util.c */; };
 		2F737C3C2183716600C6BFA8 /* node_hex.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F737C3B2183716600C6BFA8 /* node_hex.c */; };
 		2F737C3F2183734600C6BFA8 /* bridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F737C3E2183734600C6BFA8 /* bridge.c */; };
+		2F80306221877F6200792234 /* node_cymk.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F80306121877F6200792234 /* node_cymk.c */; };
 		9F04726F203476D1000639EA /* rgb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04726E203476D1000639EA /* rgb_test.c */; };
 		9F04727120347861000639EA /* hex_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727020347861000639EA /* hex_test.c */; };
 		9F04727320348E67000639EA /* ycbcr_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727220348E67000639EA /* ycbcr_test.c */; };
@@ -73,6 +74,8 @@
 		2F737C3B2183716600C6BFA8 /* node_hex.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_hex.c; sourceTree = "<group>"; };
 		2F737C3D2183734600C6BFA8 /* bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bridge.h; sourceTree = "<group>"; };
 		2F737C3E2183734600C6BFA8 /* bridge.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bridge.c; sourceTree = "<group>"; };
+		2F80306021877F6200792234 /* node_cymk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_cymk.h; sourceTree = "<group>"; };
+		2F80306121877F6200792234 /* node_cymk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_cymk.c; sourceTree = "<group>"; };
 		9F04726D203476D1000639EA /* test_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test_header.h; sourceTree = "<group>"; };
 		9F04726E203476D1000639EA /* rgb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb_test.c; sourceTree = "<group>"; };
 		9F04727020347861000639EA /* hex_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hex_test.c; sourceTree = "<group>"; };
@@ -152,6 +155,7 @@
 				2F61F93B2180725900F61E22 /* binding_util.c */,
 				2F737C3B2183716600C6BFA8 /* node_hex.c */,
 				2F737C3E2183734600C6BFA8 /* bridge.c */,
+				2F80306121877F6200792234 /* node_cymk.c */,
 			);
 			path = binding;
 			sourceTree = "<group>";
@@ -159,6 +163,7 @@
 		2F61F9342180681300F61E22 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				2F80306021877F6200792234 /* node_cymk.h */,
 				2F737C3D2183734600C6BFA8 /* bridge.h */,
 				2F737C3A2183716600C6BFA8 /* node_hex.h */,
 				2F61F93A2180725900F61E22 /* binding_util.h */,
@@ -358,6 +363,7 @@
 				9F10A9BD20605C7F00692EA8 /* lab.c in Sources */,
 				9FA29B5820757F6B009DC625 /* luv.c in Sources */,
 				9F9AA8AB202A546B008A28B8 /* hex.c in Sources */,
+				2F80306221877F6200792234 /* node_cymk.c in Sources */,
 				9F04727320348E67000639EA /* ycbcr_test.c in Sources */,
 				9F41ED57207CD80E00B8B644 /* luv_test.c in Sources */,
 				9F04979C204D485200173243 /* hsv_test.c in Sources */,
