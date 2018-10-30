@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const lib = require('../build/Debug/lymuilib');
 
-describe('Creating HEX test case', () => {
+describe('Creating HEX from RGB', () => {
   it('Expect to create an HEX from an RGB object', () => {
     const rgb = {
       r: 5,

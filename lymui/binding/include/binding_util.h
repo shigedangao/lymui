@@ -57,4 +57,12 @@ uint8_t getUintValue(napi_env env, napi_value v);
  */
 uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len);
 
+/**
+ * @brief convert a float to a double by taking into account the clamp value
+ * @param value float
+ * @param clamp int
+ * @return double
+ */
+double floatToDouble(float value, int clamp);
+
 #endif /* binding_util_h */

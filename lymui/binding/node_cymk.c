@@ -17,9 +17,10 @@
 
 napi_value GetCymkFromRgb(napi_env env, napi_callback_info info) {
     napi_status status;
-    size_t argc = 1;
-    napi_value argv[1];
+    size_t argc = 2;
+    napi_value argv[2];
     napi_value jsObj;
+    int clampValue = 1000;
     
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
@@ -30,9 +31,12 @@ napi_value GetCymkFromRgb(napi_env env, napi_callback_info info) {
         napi_throw_error(env, NULL, ARG_NB_ERR);
     }
     
+    // we don't check the status as the value is optional
+    napi_get_value_int32(env, argv[1], &clampValue);
+
     // @TODO if rgb is NULL then return a black RGB Object
     Rgb * rgb = getRGBFromJSObj(env, argv[0]);
-    Cymk * cymk = getCymkFromRgb(rgb);
+    Cymk * cymk = getCymkFromRgb(rgb, clampValue);
     
     if (cymk == NULL) {
         napi_throw_error(env, NULL, CONVERSION_ERR);
@@ -43,11 +47,15 @@ napi_value GetCymkFromRgb(napi_env env, napi_callback_info info) {
         napi_throw_error(env, NULL, OBJ_MAKE_ERR);
     }
     
+    double c = floatToDouble(cymk->c, clampValue);
+    double y = floatToDouble(cymk->y, clampValue);
+    double m = floatToDouble(cymk->m, clampValue);
+    double k = floatToDouble(cymk->k, clampValue);
     // assign the cymk object
-    assignPropToJSObj(&jsObj, env, numberFloat, "c", &cymk->c);
-    assignPropToJSObj(&jsObj, env, numberFloat, "y", &cymk->y);
-    assignPropToJSObj(&jsObj, env, numberFloat, "m", &cymk->m);
-    assignPropToJSObj(&jsObj, env, numberFloat, "k", &cymk->k);
+    assignPropToJSObj(&jsObj, env, numberFloat, "c", &c);
+    assignPropToJSObj(&jsObj, env, numberFloat, "y", &y);
+    assignPropToJSObj(&jsObj, env, numberFloat, "m", &m);
+    assignPropToJSObj(&jsObj, env, numberFloat, "k", &k);
     
     free(rgb);
     return jsObj;
