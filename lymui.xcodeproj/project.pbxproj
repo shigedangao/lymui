@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F27686A2188D44F00C88C42 /* node_hue.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F2768692188D44F00C88C42 /* node_hue.c */; };
 		2F61F933218065F100F61E22 /* bootstrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F932218065F100F61E22 /* bootstrap.c */; };
 		2F61F9372180684200F61E22 /* node_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F9362180684200F61E22 /* node_rgb.c */; };
 		2F61F93C2180725900F61E22 /* binding_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F93B2180725900F61E22 /* binding_util.c */; };
@@ -63,6 +64,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2F2768682188D44F00C88C42 /* node_hue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_hue.h; sourceTree = "<group>"; };
+		2F2768692188D44F00C88C42 /* node_hue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_hue.c; sourceTree = "<group>"; };
 		2F61F932218065F100F61E22 /* bootstrap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bootstrap.c; sourceTree = "<group>"; };
 		2F61F9352180684200F61E22 /* node_rgb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_rgb.h; sourceTree = "<group>"; };
 		2F61F9362180684200F61E22 /* node_rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_rgb.c; sourceTree = "<group>"; };
@@ -156,6 +159,7 @@
 				2F737C3B2183716600C6BFA8 /* node_hex.c */,
 				2F737C3E2183734600C6BFA8 /* bridge.c */,
 				2F80306121877F6200792234 /* node_cymk.c */,
+				2F2768692188D44F00C88C42 /* node_hue.c */,
 			);
 			path = binding;
 			sourceTree = "<group>";
@@ -163,6 +167,7 @@
 		2F61F9342180681300F61E22 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				2F2768682188D44F00C88C42 /* node_hue.h */,
 				2F80306021877F6200792234 /* node_cymk.h */,
 				2F737C3D2183734600C6BFA8 /* bridge.h */,
 				2F737C3A2183716600C6BFA8 /* node_hex.h */,
@@ -337,6 +342,7 @@
 				9F8ABE4620A9BAE10001F811 /* xyy.c in Sources */,
 				2F737C3C2183716600C6BFA8 /* node_hex.c in Sources */,
 				9F4D411B20599A590031CDA5 /* argb.c in Sources */,
+				2F27686A2188D44F00C88C42 /* node_hue.c in Sources */,
 				9F8BC44A203CC9EE001709CA /* hue.c in Sources */,
 				2F737C3F2183734600C6BFA8 /* bridge.c in Sources */,
 				9FFE470B20572EE800EA68D5 /* xyz.c in Sources */,
