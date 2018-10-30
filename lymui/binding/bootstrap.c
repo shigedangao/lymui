@@ -26,9 +26,12 @@ napi_value Init(napi_env env, napi_value exports) {
     // define the methods here
     napi_property_descriptor desc[] = {
         DECLARE_NAPI_METHOD("makeRGB", GenerateRGB),
+        // Hex
         DECLARE_NAPI_METHOD("getHEX", GetHexFromRGB),
         DECLARE_NAPI_METHOD("getRgbFromHex", GetRGBFromHex),
-        DECLARE_NAPI_METHOD("getCymkFromRgb", GetCymkFromRgb)
+        // Cymk
+        DECLARE_NAPI_METHOD("getCymkFromRgb", GetCymkFromRgb),
+        DECLARE_NAPI_METHOD("getRgbFromCymk", GetRgbFromCymk)
     };
     
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);

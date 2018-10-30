@@ -60,3 +60,43 @@ napi_value GetCymkFromRgb(napi_env env, napi_callback_info info) {
     free(rgb);
     return jsObj;
 }
+
+napi_value GetRgbFromCymk(napi_env env, napi_callback_info info) {
+    napi_status status;
+    size_t argc = 1;
+    napi_value argv[1];
+    napi_value object;
+    
+    status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    if (argc < 1) {
+        napi_throw_error(env, NULL, ARG_NB_ERR);
+    }
+    
+    // retrieve the Cymk object
+    Cymk * cymk = getCymkFromJSObj(env, argv[0]);
+    
+    if (cymk == NULL) {
+        napi_throw_error(env, NULL, CONVERSION_ERR);
+        return NULL;
+    }
+    
+    Rgb * rgb = getRawRGBValueFromCymk(cymk);
+    
+    status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, OBJ_MAKE_ERR);
+        return NULL;
+    }
+    // assign the value
+    assignPropToJSObj(&object, env, numberInt, "r", &rgb->r);
+    assignPropToJSObj(&object, env, numberInt, "g", &rgb->g);
+    assignPropToJSObj(&object, env, numberInt, "b", &rgb->b);
+    
+    free(cymk);
+    free(rgb);
+    return object;
+}

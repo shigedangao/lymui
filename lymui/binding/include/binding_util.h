@@ -48,6 +48,14 @@ uint8_t isTypeOf(napi_env env, napi_value v, JSType t);
 uint8_t getUintValue(napi_env env, napi_value v);
 
 /**
+ * @brief retrive the float from a napi_value
+ * @param env napi_env
+ * @param v napi_value
+ * @return float
+ */
+float getFloatValue(napi_env env, napi_value v);
+
+/**
  * @brief check if the args has the property within the JS Object
  * @param env napi_env
  * @param v napi_value

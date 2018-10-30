@@ -61,6 +61,14 @@ describe('Creating HEX from RGB', () => {
     expect(() => lib.getHEX(rgb)).to.throw('Property not found in JS Object');
   });
 
+  it('Expect to throw when two of the property is missing', () => {
+    const rgb = {
+      r: 10,
+    };
+
+    expect(() => lib.getHEX(rgb)).to.throw('Property not found in JS Object');
+  });
+
   it('Expect to throw default V8 error when null is pass', () => {
     expect(() => lib.getHEX(null)).to.throw('Cannot convert undefined or null to object');
   });

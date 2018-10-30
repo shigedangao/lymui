@@ -75,6 +75,18 @@ uint8_t getUintValue(napi_env env, napi_value v) {
     return (uint8_t) res;
 }
 
+float getFloatValue(napi_env env, napi_value v) {
+    napi_status status;
+    double res = 0;
+    
+    status = napi_get_value_double(env, v, &res);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, CREATE_TYPE_ERR);
+    }
+    
+    return (float) res;
+}
+
 uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
     napi_status status;
     uint8_t idx = 0;

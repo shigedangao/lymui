@@ -51,6 +51,23 @@ ctest_return_t testCymkNullCreation(ctest_t *test, void *arg) {
     free(cymk);
 }
 
+ctest_return_t testCymkToRgbColor(ctest_t *test, void *arg) {
+    Cymk *cymk = malloc(sizeof(Cymk));
+    cymk->c = 0.973f;
+    cymk->y = 0.0f;
+    cymk->m = 0.949f;
+    cymk->k = 0.223f;
+    
+    Rgb * rgb = getRawRGBValueFromCymk(cymk);
+    
+    CTAssertEqual(test, 5, rgb->r, "Expect R to be equal to %i but got %i", 5, rgb->r);
+    CTAssertEqual(test, 10, rgb->g, "Expect G to be equal to %i but got %i", 10, rgb->g);
+    CTAssertEqual(test, 198, rgb->b, "Expect B to be equal to %i but got %i", 198, rgb->b);
+    
+    free(cymk);
+    free(rgb);
+}
+
 ctest_return_t testCymkToRgb(ctest_t *test, void *arg) {
     Cymk *cymk = malloc(sizeof(Cymk));
     cymk->c = 0.0f;
@@ -83,7 +100,8 @@ ctcase_t *wrapCymkCreationTest() {
     ctest_t *testCymk     = ctest("Creation of a Cymk From RGB", testCymkCreation, NULL);
     ctest_t *testBlack    = ctest("Creation of a Cymk from RGB Black value", testCymkBlackCreation, NULL);
     ctest_t *testCymkNull = ctest("Creation of a NULL Cymk from a RGB NULL", testCymkNullCreation, NULL);
-    ctest_t *testRgbCymk  = ctest("Creation of a RGB from a CYMK", testCymkToRgb, NULL);
+    ctest_t *testRgbCymk  = ctest("Creation of a RGB from a black CYMK", testCymkToRgb, NULL);
+    ctest_t *testRgbCymkC = ctest("Creation of a RGB from a normal CYMK", testCymkToRgbColor, NULL);
     ctest_t *testRgbNull  = ctest("Creation of a NULL RGB from a NULL Cymk", testCymkToUintNull, NULL);
 
     
@@ -92,6 +110,7 @@ ctcase_t *wrapCymkCreationTest() {
     ctctestadd(cymkCase, testBlack);
     ctctestadd(cymkCase, testCymkNull);
     ctctestadd(cymkCase, testRgbCymk);
+    ctctestadd(cymkCase, testRgbCymkC);
     ctctestadd(cymkCase, testRgbNull);
     
     return cymkCase;
