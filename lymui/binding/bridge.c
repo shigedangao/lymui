@@ -28,7 +28,6 @@ Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
     if (!hasProp) {
         napi_throw_error(env, NULL, PROP_FOUND_ERR);
     }
-    
     // trying to retreive the value
     status = napi_get_named_property(env, obj, "r", &r);
     if (status != napi_ok) {
@@ -56,12 +55,12 @@ Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
     return rgb;
 }
 
-char * getHEXFromJSObj(napi_env env, napi_value args) {
+char * getHEXFromJSObj(napi_env env, napi_value obj) {
     napi_status status;
     size_t hexLen;
     char * hex = malloc(sizeof(char) * HEX_SIZE + 1);
     
-    status = napi_get_value_string_utf8(env, args, hex, HEX_SIZE + 1, &hexLen);
+    status = napi_get_value_string_utf8(env, obj, hex, HEX_SIZE + 1, &hexLen);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, DESERIALIZE_ERR);
     }
@@ -72,4 +71,51 @@ char * getHEXFromJSObj(napi_env env, napi_value args) {
     
     free(hex);
     return unslashHex;
+}
+
+Cymk * getCymkFromJSObj(napi_env env, napi_value obj) {
+    napi_status status;
+    napi_value c, y, m, k;
+    char * prop = malloc(sizeof(char) * CymkPropLen);
+    prop[0] = 'c';
+    prop[1] = 'y';
+    prop[2] = 'm';
+    prop[3] = 'k';
+    
+    uint8_t hasProp = hasPropInJSObj(env, obj, prop, CymkPropLen);
+    if (!hasProp) {
+        napi_throw_error(env, NULL, PROP_FOUND_ERR);
+        // usually it's not necessary to return NULL but in this case idk why it is needed...
+        // The napi_throw_error throw but does not stop the execution which is strange...
+        return NULL;
+    }
+    
+    status = napi_get_named_property(env, obj, "c", &c);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    status = napi_get_named_property(env, obj, "y", &y);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    status = napi_get_named_property(env, obj, "m", &m);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    status = napi_get_named_property(env, obj, "k", &k);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    
+    Cymk * cymkSt = malloc(sizeof(Cymk));
+    cymkSt->c = getFloatValue(env, c);
+    cymkSt->y = getFloatValue(env, y);
+    cymkSt->m = getFloatValue(env, m);
+    cymkSt->k = getFloatValue(env, k);
+    
+    return cymkSt;
 }

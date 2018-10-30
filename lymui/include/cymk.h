@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "rgb.h"
 
-/*!
+/**
  * @brief Cymk structure Object
  */
 typedef struct Cymk {
@@ -26,15 +26,16 @@ typedef struct Cymk {
     float k;
 } Cymk;
 
-/*!
- * @discussion Create a Cymk struct pointer from an Rgb struct
+/**
+ * @brief Create a Cymk struct pointer from an Rgb struct
  * @param rgb a RGB structure
+ * @param clamp int
  * @return a uint8_t array
  */
-Cymk *getCymkFromRgb(Rgb *rgb);
+Cymk *getCymkFromRgb(Rgb *rgb, int clamp);
 
-/*!
- * @discussion Creates a uint8_t array from a Cymk struct pointer
+/**
+ * @brief Creates a uint8_t array from a Cymk struct pointer
  * @param cymk a Cymk structure
  * @return a uint8_t array
  * @TODO return RGB struct instead

@@ -8,6 +8,7 @@
 
 #include "binding_util.h"
 #include <stdlib.h>
+#include <math.h>
 #include <node_api.h>
 #include <string.h>
 #include "binding_error.h"
@@ -19,6 +20,9 @@ void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char * name, 
     if (t == numberInt) {
         uint8_t v = *(uint8_t *) arg;
         status = napi_create_uint32(env, v, &value);
+    } else if (t == numberFloat) {
+        double v = *(double *) arg;
+        status = napi_create_double(env, (double) v, &value);
     } else {
         char * v = (char *) arg;
         status = napi_create_string_utf8(env, v, strlen(v), &value);
@@ -71,6 +75,18 @@ uint8_t getUintValue(napi_env env, napi_value v) {
     return (uint8_t) res;
 }
 
+float getFloatValue(napi_env env, napi_value v) {
+    napi_status status;
+    double res = 0;
+    
+    status = napi_get_value_double(env, v, &res);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, CREATE_TYPE_ERR);
+    }
+    
+    return (float) res;
+}
+
 uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
     napi_status status;
     uint8_t idx = 0;
@@ -94,4 +110,10 @@ uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
     
     free(name);
     return res;
+}
+
+double floatToDouble(float value, int clamp) {
+    double v = (double) value;
+    
+    return floor(v * clamp) / clamp;
 }

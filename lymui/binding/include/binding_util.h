@@ -48,6 +48,14 @@ uint8_t isTypeOf(napi_env env, napi_value v, JSType t);
 uint8_t getUintValue(napi_env env, napi_value v);
 
 /**
+ * @brief retrive the float from a napi_value
+ * @param env napi_env
+ * @param v napi_value
+ * @return float
+ */
+float getFloatValue(napi_env env, napi_value v);
+
+/**
  * @brief check if the args has the property within the JS Object
  * @param env napi_env
  * @param v napi_value
@@ -56,5 +64,13 @@ uint8_t getUintValue(napi_env env, napi_value v);
  * @return uint8_t (0|1) Boolean
  */
 uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len);
+
+/**
+ * @brief convert a float to a double by taking into account the clamp value
+ * @param value float
+ * @param clamp int
+ * @return double
+ */
+double floatToDouble(float value, int clamp);
 
 #endif /* binding_util_h */

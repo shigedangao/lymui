@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const lib = require('../build/Debug/lymuilib');
 
-describe('Creating HEX test case', () => {
+describe('Creating HEX from RGB', () => {
   it('Expect to create an HEX from an RGB object', () => {
     const rgb = {
       r: 5,
@@ -56,6 +56,14 @@ describe('Creating HEX test case', () => {
     const rgb = {
       r: 10,
       b: 20
+    };
+
+    expect(() => lib.getHEX(rgb)).to.throw('Property not found in JS Object');
+  });
+
+  it('Expect to throw when two of the property is missing', () => {
+    const rgb = {
+      r: 10,
     };
 
     expect(() => lib.getHEX(rgb)).to.throw('Property not found in JS Object');

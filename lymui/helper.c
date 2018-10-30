@@ -40,6 +40,10 @@ float roundDigit(float value, int factor) {
     return roundf(value * factor) / factor;
 }
 
+float roundDecimal(float value, int decimal) {
+    return floorf(value * decimal) / decimal;
+}
+
 float getSaturation(float min, float max, float l) {
     if (l > 0.5f)
         return (max - min) / (2.0f - max - min);

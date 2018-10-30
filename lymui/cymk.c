@@ -13,7 +13,7 @@
 #include "helper.h"
 
 // Get Cymk From Rgb
-Cymk *getCymkFromRgb(Rgb *rgb) {
+Cymk *getCymkFromRgb(Rgb *rgb, int clamp) {
     if (rgb == NULL)
         return NULL;
     
@@ -29,10 +29,16 @@ Cymk *getCymkFromRgb(Rgb *rgb) {
     
     Cymk *cymk = malloc(sizeof(Cymk));
     
-    cymk->k = _k;
-    cymk->c = (1.0f - _r - _k) / (1.0f - _k);
-    cymk->m = (1.0f - _g - _k) / (1.0f - _k);
-    cymk->y = (1.0f - _b - _k) / (1.0f - _k);
+    cymk->k = roundDecimal(_k, clamp);
+    if (_k != 1.0f) {
+        cymk->c = roundDecimal((1.0f - _r - _k) / (1.0f - _k), clamp);
+        cymk->m = roundDecimal((1.0f - _g - _k) / (1.0f - _k), clamp);
+        cymk->y = roundDecimal((1.0f - _b - _k) / (1.0f - _k), clamp);
+    } else {
+        cymk->c = 0.0f;
+        cymk->m = 0.0f;
+        cymk->y = 0.0f;
+    }
     
     return cymk;
 }
@@ -42,13 +48,17 @@ Rgb * getRawRGBValueFromCymk(Cymk *cymk) {
         return NULL;
     
     uint8_t *value = malloc(sizeof(uint8_t) * 3);
-    const uint8_t _kv = 1 - cymk->k;
     
-    value[0] = 255 * (1 - cymk->c) * _kv;
-    value[1] = 255 * (1 - cymk->m) * _kv;
-    value[2] = 255 * (1 - cymk->y) * _kv;
+    float _kv = 1 - cymk->k;
+    float r = 255 * (1 - cymk->c) * _kv;
+    float g = 255 * (1 - cymk->m) * _kv;
+    float b = 255 * (1 - cymk->y) * _kv;
     
-     Rgb *rgb = makeRGB(value, 3);
+    value[0] = floatToUint(r);
+    value[1] = floatToUint(g);
+    value[2] = floatToUint(b);
+    
+    Rgb *rgb = makeRGB(value, 3);
     free(value);
     return rgb;
 }

@@ -7,6 +7,7 @@
         "lymui/binding/bootstrap.c",
         "lymui/binding/node_rgb.c",
         "lymui/binding/node_hex.c",
+        "lymui/binding/node_cymk.c",
         "lymui/binding/binding_util.c",
         "lymui/binding/bridge.c"
       ],

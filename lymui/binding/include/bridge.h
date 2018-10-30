@@ -12,8 +12,10 @@
 #include <stdio.h>
 #include <node_api.h>
 #include "rgb.h"
+#include "cymk.h"
 
 #define RgbPropLen 3
+#define CymkPropLen 4
 
 /**
  * @brief Extract an RGB Object from a JS Object
@@ -30,5 +32,13 @@ Rgb * getRGBFromJSObj(napi_env env, napi_value args);
  * @return char array
  */
 char * getHEXFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract a CYMK Object from a JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return cymk pointer Cymk struct
+ */
+Cymk * getCymkFromJSObj(napi_env env, napi_value args);
 
 #endif /* bridge_h */

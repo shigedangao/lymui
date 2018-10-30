@@ -33,7 +33,14 @@ uint8_t floatToUint(float value);
  */
 float roundDigit(float value, int factor);
 
-/*!
+/**
+ * @brief round the decimal value
+ * @param value float
+ * @param decimal int
+ */
+float roundDecimal(float value, int decimal);
+
+/*
  * @discussion Update Constraint Value
  * @TODO This method need to be redone
  * @param value the float array

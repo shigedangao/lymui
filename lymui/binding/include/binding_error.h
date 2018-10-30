@@ -20,5 +20,6 @@
 #define PROP_FOUND_ERR "Property not found in JS Object"
 #define CREATE_TYPE_ERR "Error while creating C type"
 #define CREATE_VALUE_ERR "Error while creating JS Value"
+#define CONVERSION_ERR "Error while converting from Type T to an other type"
 
 #endif /* binding_error_h */
