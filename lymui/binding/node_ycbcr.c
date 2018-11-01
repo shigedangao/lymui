@@ -7,6 +7,7 @@
 //
 
 #include "node_ycbcr.h"
+#include <stdlib.h>
 #include <node_api.h>
 #include "binding_error.h"
 #include "binding_util.h"
@@ -39,5 +40,6 @@ napi_value GetYcbcrFromRGB(napi_env env, napi_callback_info info) {
     assignPropToJSObj(&object, env, numberInt, "cb", &ycb->cb);
     assignPropToJSObj(&object, env, numberInt, "cr", &ycb->cr);
     
+    free(ycb);
     return object;
 }
