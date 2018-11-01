@@ -11,6 +11,7 @@
 #include <node_api.h>
 #include "binding_error.h"
 #include "binding_util.h"
+#include "factory.h"
 #include "bridge.h"
 
 napi_value GetYcbcrFromRGB(napi_env env, napi_callback_info info) {
@@ -63,14 +64,9 @@ napi_value GetRgbFromYcbcr(napi_env env, napi_callback_info info) {
     Rgb * rgb = getRawRGBValueFromYcbcr(ycb);
     
     // @TODO create a RGB JS Object factory
-    status = napi_create_object(env, &object);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, OBJ_MAKE_ERR);
-    }
-    // assign the value
-    assignPropToJSObj(&object, env, numberInt, "r", &rgb->r);
-    assignPropToJSObj(&object, env, numberInt, "g", &rgb->g);
-    assignPropToJSObj(&object, env, numberInt, "b", &rgb->b);
+    object = RgbJSObjFactory(env, rgb);
     
+    free(rgb);
+    free(ycb);
     return object;
 }
