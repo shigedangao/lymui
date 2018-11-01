@@ -13,9 +13,11 @@
 #include <node_api.h>
 #include "rgb.h"
 #include "cymk.h"
+#include "ycbcr.h"
 
 #define RgbPropLen 3
 #define CymkPropLen 4
+#define MIN_CLAMP_VALUE 1000
 
 /**
  * @brief Extract an RGB Object from a JS Object

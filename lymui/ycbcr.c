@@ -49,7 +49,7 @@ static float ** makeValue( Rgb *rgb) {
 }
 
 // Make Ycbcr
-Ycbcr *makeYcbcr(Rgb *rgb) {
+Ycbcr * getYcbcrFromRgb(Rgb *rgb) {
     if (rgb == NULL)
         return NULL;
     

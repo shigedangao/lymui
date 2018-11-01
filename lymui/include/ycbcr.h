@@ -19,15 +19,15 @@ typedef struct Ycbcr {
     uint8_t cr;
 } Ycbcr;
 
-/*!
- * @discussion Create a Ycbcr struct pointer from an Rgb struct
+/**
+ * @brief Create a Ycbcr struct pointer from an Rgb struct
  * @param rgb a RGB structure
  * @return a Ycbcr struct pointer
  */
-Ycbcr *makeYcbcr(Rgb *rgb);
+Ycbcr * getYcbcrFromRgb(Rgb *rgb);
 
-/*!
- * @discussion Create a uint_8t array which describe the colors
+/**
+ * @brief Create a uint_8t array which describe the colors
  * @param yc Ycbcr struct
  * @return a uint8_t array
  * @TODO return RGB struct instead

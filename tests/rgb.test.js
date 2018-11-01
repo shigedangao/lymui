@@ -1,5 +1,8 @@
 const { expect } = require('chai');
+const SegfaultHandler = require('segfault-handler');
 const lib = require('../build/Debug/lymuilib');
+
+SegfaultHandler.registerHandler('rgb_crash.log');
 
 describe('Creating RGB test case', () => {
   it('Expect to create an RGB object', () => {
