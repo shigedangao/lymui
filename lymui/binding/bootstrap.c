@@ -14,6 +14,7 @@
 #include "node_hex.h"
 #include "node_cymk.h"
 #include "node_hue.h"
+#include "node_ycbcr.h"
 
 
 #define DECLARE_NAPI_METHOD(name, func) { name, 0, func, 0, 0, 0, napi_default, 0 }
@@ -34,7 +35,10 @@ napi_value Init(napi_env env, napi_value exports) {
         DECLARE_NAPI_METHOD("getCymkFromRgb", GetCymkFromRgb),
         DECLARE_NAPI_METHOD("getRgbFromCymk", GetRgbFromCymk),
         // Hue
-        DECLARE_NAPI_METHOD("getHueFromRgb", GetHueFromRgb)
+        DECLARE_NAPI_METHOD("getHueFromRgb", GetHueFromRgb),
+        // Ycbcr
+        DECLARE_NAPI_METHOD("getYcbcrFromRgb", GetYcbcrFromRGB),
+        DECLARE_NAPI_METHOD("getRgbFromYcbcr", GetRgbFromYcbcr)
     };
     
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);

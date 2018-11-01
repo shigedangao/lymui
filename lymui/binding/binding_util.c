@@ -91,15 +91,15 @@ uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
     napi_status status;
     uint8_t idx = 0;
     uint8_t res = 1;
+    const char delimiter[] = ":";
+    char * running = strdup(name);
+    char * string;
     
     while(idx < len) {
         bool present;
         // convert a char to a string...
-        char str[2];
-        str[0] = name[idx];
-        str[1] = '\0';
-        
-        status = napi_has_named_property(env, v, str, &present);
+        string = strsep(&running, delimiter);
+        status = napi_has_named_property(env, v, string, &present);
         if (status != napi_ok || !present) {
             res = 0;
             idx = len + 1;
@@ -108,7 +108,6 @@ uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
         idx++;
     }
     
-    free(name);
     return res;
 }
 

@@ -16,7 +16,7 @@
 ctest_return_t testYcbcrCreation(ctest_t *test, void *arg) {
     uint8_t uc[] = {0, 100, 200};
     Rgb *rgb     = makeRGB(uc, 3);
-    Ycbcr *ycbcr = makeYcbcr(rgb);
+    Ycbcr *ycbcr = getYcbcrFromRgb(rgb);
     
     CTAssertEqual(test, 86, ycbcr->y, "Expect Y to be equal to %i but got %i", ycbcr->y, 86);
     CTAssertEqual(test, 187, ycbcr->cb, "Expect Cb to be equal to %i but got %i", ycbcr->cb, 186);
@@ -28,7 +28,7 @@ ctest_return_t testYcbcrCreation(ctest_t *test, void *arg) {
 
 ctest_return_t testYcbcrNullCreation(ctest_t *test, void *arg) {
     Rgb *rgb = NULL;
-    Ycbcr *ycbcr = makeYcbcr(rgb);
+    Ycbcr *ycbcr = getYcbcrFromRgb(rgb);
     
     CTAssertNull(test, ycbcr, "Expect YCbCr to be NULL");
     

@@ -1,8 +1,8 @@
-const SegfaultHandler = require('segfault-handler');
 const { expect } = require('chai');
+const SegfaultHandler = require('segfault-handler');
 const lib = require('../build/Debug/lymuilib');
 
-SegfaultHandler.registerHandler("crash.log");
+SegfaultHandler.registerHandler('cymk_crash.log');
 
 describe('Creating Cymk from RGB', () => {
   it('Expect to create a Cymk object from a RGB object', () => {

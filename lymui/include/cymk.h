@@ -32,7 +32,7 @@ typedef struct Cymk {
  * @param clamp int
  * @return a uint8_t array
  */
-Cymk *getCymkFromRgb(Rgb *rgb, int clamp);
+Cymk * getCymkFromRgb(Rgb *rgb, int clamp);
 
 /**
  * @brief Creates a uint8_t array from a Cymk struct pointer

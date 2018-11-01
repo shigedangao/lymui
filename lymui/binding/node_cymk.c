@@ -12,6 +12,7 @@
 #include "binding_error.h"
 #include "binding_util.h"
 #include "bridge.h"
+#include "factory.h"
 #include "rgb.h"
 #include "cymk.h"
 
@@ -85,16 +86,7 @@ napi_value GetRgbFromCymk(napi_env env, napi_callback_info info) {
     }
     
     Rgb * rgb = getRawRGBValueFromCymk(cymk);
-    
-    status = napi_create_object(env, &object);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, OBJ_MAKE_ERR);
-        return NULL;
-    }
-    // assign the value
-    assignPropToJSObj(&object, env, numberInt, "r", &rgb->r);
-    assignPropToJSObj(&object, env, numberInt, "g", &rgb->g);
-    assignPropToJSObj(&object, env, numberInt, "b", &rgb->b);
+    object = RgbJSObjFactory(env, rgb);
     
     free(cymk);
     free(rgb);

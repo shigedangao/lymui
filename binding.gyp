@@ -9,8 +9,10 @@
         "lymui/binding/node_hex.c",
         "lymui/binding/node_cymk.c",
         "lymui/binding/node_hue.c",
+        "lymui/binding/node_ycbcr.c",
         "lymui/binding/binding_util.c",
-        "lymui/binding/bridge.c"
+        "lymui/binding/bridge.c",
+        "lymui/binding/factory.c"
       ],
       "include_dirs": [
         "bin/include",
