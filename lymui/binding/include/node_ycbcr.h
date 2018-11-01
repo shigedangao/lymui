@@ -20,4 +20,12 @@
  */
 napi_value GetYcbcrFromRGB(napi_env env, napi_callback_info info);
 
+/**
+ * @brief get a rgb js object from a ycbcr object
+ * @param env napi_env
+ * @param info napi_callback_info
+ * @return napi_value
+ */
+napi_value GetRgbFromYcbcr(napi_env env, napi_callback_info info);
+
 #endif /* node_ycbcr_h */

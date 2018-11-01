@@ -17,6 +17,7 @@
 
 #define RgbPropLen 3
 #define CymkPropLen 4
+#define YCbCrLen 3
 #define MIN_CLAMP_VALUE 1000
 
 /**
@@ -42,5 +43,13 @@ char * getHEXFromJSObj(napi_env env, napi_value args);
  * @return cymk pointer Cymk struct
  */
 Cymk * getCymkFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extrat a Ycbcr struct from a JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return ycbcr pointer struct
+ */
+Ycbcr * getYcbcrFromJSObj(napi_env env, napi_value args);
 
 #endif /* bridge_h */

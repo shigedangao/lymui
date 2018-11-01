@@ -37,7 +37,8 @@ napi_value Init(napi_env env, napi_value exports) {
         // Hue
         DECLARE_NAPI_METHOD("getHueFromRgb", GetHueFromRgb),
         // Ycbcr
-        DECLARE_NAPI_METHOD("getYcbcrFromRgb", GetYcbcrFromRGB)
+        DECLARE_NAPI_METHOD("getYcbcrFromRgb", GetYcbcrFromRGB),
+        DECLARE_NAPI_METHOD("getRgbFromYcbcr", GetRgbFromYcbcr)
     };
     
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);

@@ -18,10 +18,7 @@
 Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
     napi_status status;
     napi_value r, g, b;
-    char * prop = malloc(sizeof(char) * RgbPropLen);
-    prop[0] = 'r';
-    prop[1] = 'g';
-    prop[2] = 'b';
+    char * prop = "r:g:b";
     
     // check if the object has the property
     uint8_t hasProp = hasPropInJSObj(env, obj, prop, RgbPropLen);
@@ -76,11 +73,7 @@ char * getHEXFromJSObj(napi_env env, napi_value obj) {
 Cymk * getCymkFromJSObj(napi_env env, napi_value obj) {
     napi_status status;
     napi_value c, y, m, k;
-    char * prop = malloc(sizeof(char) * CymkPropLen);
-    prop[0] = 'c';
-    prop[1] = 'y';
-    prop[2] = 'm';
-    prop[3] = 'k';
+    char * prop = "c:y:m:k";
     
     uint8_t hasProp = hasPropInJSObj(env, obj, prop, CymkPropLen);
     if (!hasProp) {
@@ -118,4 +111,37 @@ Cymk * getCymkFromJSObj(napi_env env, napi_value obj) {
     cymkSt->k = getFloatValue(env, k);
     
     return cymkSt;
+}
+
+Ycbcr * getYcbcrFromJSObj(napi_env env, napi_value obj) {
+    napi_status status;
+    napi_value y, cb, cr;
+    char * prop = "y:cb:cr";
+    
+    uint8_t hasProp = hasPropInJSObj(env, obj, prop, YCbCrLen);
+    if (!hasProp) {
+        napi_throw_error(env, NULL, PROP_FOUND_ERR);
+    }
+    
+    status = napi_get_named_property(env, obj, "y", &y);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    };
+    
+    status = napi_get_named_property(env, obj, "cb", &cb);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    };
+    
+    status = napi_get_named_property(env, obj, "cr", &cr);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    Ycbcr * ycb = malloc(sizeof(Ycbcr));
+    ycb->y = getUintValue(env, y);
+    ycb->cb = getUintValue(env, cb);
+    ycb->cr = getUintValue(env, cr);
+    
+    return ycb;
 }
