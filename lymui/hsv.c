@@ -30,7 +30,7 @@ Hsv *getHsvFromRgb(Rgb *rgb) {
     hsv->v = roundDigit(max * 100, 10);
     
     if (max > 0.0f) {
-        hsv->s = roundDigit(_delta / max, 10) * 100;
+        hsv->s = roundDigit((_delta / max) * 100, 10);
     } else {
         hsv->s = 0.0f;
     }

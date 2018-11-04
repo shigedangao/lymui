@@ -80,7 +80,7 @@ describe('Creating HSL from RGB', () => {
 
   it('Expect to throw when wrong kind of argument is passed', () => {
     expect(() => lib.getHslFromRgb('lol')).to.throw('Property not found in JS Object');
-  })
+  });
 });
 
 describe('Creating RGB from HSL', () => {
