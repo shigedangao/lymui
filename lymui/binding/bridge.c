@@ -15,6 +15,7 @@
 #include "rgb.h"
 #include "hex.h"
 #include "hsl.h"
+#include "hsv.h"
 
 Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
     napi_status status;
@@ -149,7 +150,7 @@ Hsl * getHslFromJSObj(napi_env env, napi_value obj) {
     napi_value h, s, l;
     char * prop = "h:s:l";
     
-    if (!hasPropInJSObj(env, obj, prop, HslLen)) {
+    if (!hasPropInJSObj(env, obj, prop, HslHsvLen)) {
         napi_throw_error(env, NULL, PROP_FOUND_ERR);
     }
     
@@ -174,4 +175,38 @@ Hsl * getHslFromJSObj(napi_env env, napi_value obj) {
     hsl->l = getFloatValue(env, l);
     
     return hsl;
+}
+
+Hsv * getHsvFromJSObj(napi_env env, napi_value obj) {
+    napi_status status;
+    napi_value h, s, v;
+    char * prop = "h:s:v";
+    
+    if (!hasPropInJSObj(env, obj, prop, HslHsvLen)) {
+        // @TODO should rename the error to NOTFOUND.. or smthg else
+        napi_throw_error(env, NULL, PROP_FOUND_ERR);
+    }
+    
+    status = napi_get_named_property(env, obj, "h", &h);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    status = napi_get_named_property(env, obj, "s", &s);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    status = napi_get_named_property(env, obj, "v", &v);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+    }
+    
+    Hsv * hsv = malloc(sizeof(Hsv));
+    hsv->h = getFloatValue(env, h);
+    hsv->s = getFloatValue(env, s);
+    hsv->v = getFloatValue(env, v);
+    
+    free(prop);
+    return hsv;
 }

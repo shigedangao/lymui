@@ -14,6 +14,7 @@
 #include "cymk.h"
 #include "ycbcr.h"
 #include "hsl.h"
+#include "hsv.h"
 
 napi_value RgbJSObjFactory(napi_env env, Rgb * rgb) {
     napi_status status;
@@ -86,6 +87,26 @@ napi_value HslJSObjFactory(napi_env env, Hsl * hsl, int clamp) {
     assignPropToJSObj(&object, env, numberFloat, "h", &h);
     assignPropToJSObj(&object, env, numberFloat, "s", &s);
     assignPropToJSObj(&object, env, numberFloat, "l", &l);
+    
+    return object;
+}
+
+napi_value HsvJSObjFactory(napi_env env, Hsv * hsv, int clamp) {
+    napi_status status;
+    napi_value object;
+    
+    status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, OBJ_MAKE_ERR);
+    }
+    
+    double h = floatToDouble(hsv->h, clamp);
+    double s = floatToDouble(hsv->s, clamp);
+    double v = floatToDouble(hsv->v, clamp);
+    
+    assignPropToJSObj(&object, env, numberFloat, "h", &h);
+    assignPropToJSObj(&object, env, numberFloat, "s", &s);
+    assignPropToJSObj(&object, env, numberFloat, "v", &v);
     
     return object;
 }
