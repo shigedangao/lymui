@@ -207,6 +207,5 @@ Hsv * getHsvFromJSObj(napi_env env, napi_value obj) {
     hsv->s = getFloatValue(env, s);
     hsv->v = getFloatValue(env, v);
     
-    free(prop);
     return hsv;
 }

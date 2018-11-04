@@ -55,8 +55,8 @@ ctest_return_t testComplexHsvCreation(ctest_t *test, void *arg) {
     
     Hsv *hsv = getHsvFromRgb(rgb);
     CTAssertEqual(test, 81.0f, hsv->h, "Expect hue to be equal to 81 but got %f", hsv->h);
-    CTAssertEqual(test, 100.0f, hsv->s, "Expect s to be euqla to 99.6 but got %f", hsv->s);
-    CTAssertEqual(test, 93.3f,  hsv->v, "Expect v to be equal to 93.3 but got %f", hsv->v);
+    CTAssertEqual(test, 99.6f, hsv->s, "Expect S to be equal to 99.6 but got %f", hsv->s);
+    CTAssertEqual(test, 93.3f,  hsv->v, "Expect V to be equal to 93.3 but got %f", hsv->v);
     
     free(hsv);
 }
