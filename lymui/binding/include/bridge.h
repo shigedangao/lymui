@@ -21,6 +21,7 @@
 #define YCbCrLen 3
 #define HslLen 3
 #define MIN_CLAMP_VALUE 1000
+#define PERCENT_CLAMP_VALUE 100
 
 /**
  * @brief Extract an RGB Object from a JS Object

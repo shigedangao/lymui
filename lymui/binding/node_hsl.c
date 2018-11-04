@@ -17,10 +17,9 @@
 
 napi_value GetHslFromRGB(napi_env env, napi_callback_info info) {
     napi_status status;
-    size_t argc = 2;
-    napi_value argv[2];
+    size_t argc = 1;
+    napi_value argv[1];
     napi_value object;
-    int clamp = MIN_CLAMP_VALUE;
     
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
@@ -31,11 +30,11 @@ napi_value GetHslFromRGB(napi_env env, napi_callback_info info) {
         napi_throw_error(env, NULL, ARG_NB_ERR);
     }
     
-    clamp = napi_get_value_int32(env, argv[1], &clamp);
     Rgb * rgb = getRGBFromJSObj(env, argv[0]);
     Hsl * hsl = getHslFromRgb(rgb);
     
-    object = HslJSObjFactory(env, hsl, clamp);
+    // percentage
+    object = HslJSObjFactory(env, hsl, PERCENT_CLAMP_VALUE);
     free(hsl);
     
     return object;
