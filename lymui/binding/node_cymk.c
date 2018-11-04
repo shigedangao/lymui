@@ -43,22 +43,9 @@ napi_value GetCymkFromRgb(napi_env env, napi_callback_info info) {
         napi_throw_error(env, NULL, CONVERSION_ERR);
     }
     
-    status = napi_create_object(env, &jsObj);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, OBJ_MAKE_ERR);
-    }
-    
-    double c = floatToDouble(cymk->c, clampValue);
-    double y = floatToDouble(cymk->y, clampValue);
-    double m = floatToDouble(cymk->m, clampValue);
-    double k = floatToDouble(cymk->k, clampValue);
-    // assign the cymk object
-    assignPropToJSObj(&jsObj, env, numberFloat, "c", &c);
-    assignPropToJSObj(&jsObj, env, numberFloat, "y", &y);
-    assignPropToJSObj(&jsObj, env, numberFloat, "m", &m);
-    assignPropToJSObj(&jsObj, env, numberFloat, "k", &k);
-    
+    jsObj = CymkJSObjFactory(env, cymk, clampValue);
     free(rgb);
+    
     return jsObj;
 }
 

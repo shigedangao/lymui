@@ -32,15 +32,7 @@ napi_value GetYcbcrFromRGB(napi_env env, napi_callback_info info) {
     Rgb * rgb = getRGBFromJSObj(env, argv[0]);
     Ycbcr * ycb = getYcbcrFromRgb(rgb);
     
-    status = napi_create_object(env, &object);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, OBJ_MAKE_ERR);
-    }
-    
-    assignPropToJSObj(&object, env, numberInt, "y", &ycb->y);
-    assignPropToJSObj(&object, env, numberInt, "cb", &ycb->cb);
-    assignPropToJSObj(&object, env, numberInt, "cr", &ycb->cr);
-    
+    object = YcbcrJSObjFactory(env, ycb);
     free(ycb);
     return object;
 }
