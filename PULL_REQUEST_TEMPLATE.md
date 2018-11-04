@@ -7,6 +7,7 @@
 ### What does this PR accomplish
 
 - [ ] Add a new feature supporting a new color type
+- [ ] Add a new binding supporting for a type color
 - [ ] Provide a fix to the current project
 - [ ] Add new test
 
