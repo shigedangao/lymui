@@ -45,9 +45,15 @@ float roundDecimal(float value, int decimal) {
 }
 
 float getSaturation(float min, float max, float l) {
-    if (l > 0.5f)
+    // big condition... we also check if max and min is not equal to 1 in order to avoid dividing by 0...
+    if (l > 0.5f && (max != 1.0f || min != 1.0f))
         return (max - min) / (2.0f - max - min);
     
+    // prevent dividing by 0
+    if (!max && !min) {
+        return 0;
+    }
+
     return (max - min) / (max + min);
 }
 

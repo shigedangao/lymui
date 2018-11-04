@@ -14,10 +14,12 @@
 #include "rgb.h"
 #include "cymk.h"
 #include "ycbcr.h"
+#include "hsl.h"
 
 #define RgbPropLen 3
 #define CymkPropLen 4
 #define YCbCrLen 3
+#define HslLen 3
 #define MIN_CLAMP_VALUE 1000
 
 /**
@@ -51,5 +53,13 @@ Cymk * getCymkFromJSObj(napi_env env, napi_value args);
  * @return ycbcr pointer struct
  */
 Ycbcr * getYcbcrFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract a Hsl struct from a JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return hsl
+ */
+Hsl * getHslFromJSObj(napi_env env, napi_value args);
 
 #endif /* bridge_h */

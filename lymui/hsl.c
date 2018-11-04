@@ -23,7 +23,7 @@
     float max = fmaxf(fmaxf(rgb->r, rgb->g), rgb->b) / 255;
     float _l = (min + max) / 2;
     
-     Hsl *hsl = malloc(sizeof( Hsl));
+    Hsl *hsl = malloc(sizeof(Hsl));
     hsl->h = hue;
     hsl->s = roundDigit(getSaturation(min, max, _l) * 100, 10);
     hsl->l = roundDigit(_l * 100, 10);
