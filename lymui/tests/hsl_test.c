@@ -29,6 +29,8 @@ ctest_return_t testHighSaturationHsl(ctest_t *test, void *arg) {
     CTAssertEqual(test, 221.0f, hsl->h, "Expect Hue to be equal to 237 but got %f", hsl->h);
     CTAssertEqual(test, 100.0f, hsl->s, "Expect Saturation to be equal to 100 but got %f", hsl->s);
     CTAssertEqual(test, 69.6f,  hsl->l, "Expect Luminance to be equal to 69.6 but got %f", hsl->l);
+    
+    free(hsl);
 }
 
 ctest_return_t testLowSaturationHsl(ctest_t *test, void *arg) {
@@ -39,6 +41,30 @@ ctest_return_t testLowSaturationHsl(ctest_t *test, void *arg) {
     CTAssertEqual(test, 270.0f, hsl->h, "Expect Hue to be equal to 270 but got %f", hsl->h);
     CTAssertEqual(test, 80.0f,  hsl->s, "Expect Saturation to be equal to 80.0 but got %f", hsl->s);
     CTAssertEqual(test, 2.0f,   hsl->l, "Expect Luminance to be equal to 2.0 but got %f", hsl->l);
+    
+    free(hsl);
+}
+
+ctest_return_t testBlackHsl(ctest_t *test, void *arg) {
+    uint8_t cvalue[] = {0, 0, 0};
+    Rgb * rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
+    Hsl * hsl = getHslFromRgb(rgb);
+    
+    CTAssertEqual(test, 0.0f, hsl->h, "Expect H to be equal to 0 but got %f", hsl->h);
+    CTAssertEqual(test, 0.0f, hsl->s, "Expect S to be equal to 0 but got %f", hsl->s);
+    CTAssertEqual(test, 0.0f, hsl->l, "Expect L to be equal to 0 but got %f", hsl->l);
+    
+    free(hsl);
+}
+
+ctest_return_t testWhiteHsl(ctest_t *test, void *arg) {
+    uint8_t cvalue[] = {255, 255, 255};
+    Rgb * rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
+    Hsl * hsl = getHslFromRgb(rgb);
+        
+    CTAssertEqual(test, 0.0f, hsl->h, "Expect H to be equal to 0 but got %f", hsl->h);
+    CTAssertEqual(test, 0.0f, hsl->s, "Expect S to be equal to 0 but got %f", hsl->s);
+    CTAssertEqual(test, 100.0f, hsl->l, "Expect L to be equal to 100 but got %f", hsl->l);
 }
 
 ctest_return_t testRgbGrayCreationFromHsv(ctest_t *test, void *arg) {
@@ -47,7 +73,7 @@ ctest_return_t testRgbGrayCreationFromHsv(ctest_t *test, void *arg) {
     hsl->s = 0;
     hsl->l = 59;
     
-     Rgb *rgb = getRgbValueFromHsl(hsl);
+    Rgb *rgb = getRgbValueFromHsl(hsl);
     
     CTAssertEqual(test, 150, rgb->r, "Expect r to be equal to 150 but got %ui", rgb->r);
     CTAssertEqual(test, 150, rgb->g, "Expect g to be equal to 150 but got %ui", rgb->g);
@@ -144,6 +170,8 @@ ctcase_t *wrapHslCreationTest() {
     ctest_t *simpleHslCreation  = ctest("Simple HSL creation", testHslCreation, NULL);
     ctest_t *highSatHslCreation = ctest("High saturation HSL creation", testHighSaturationHsl, NULL);
     ctest_t *lowSatHslCreation  = ctest("Low saturation HSL creation", testLowSaturationHsl, NULL);
+    ctest_t *blackHslCreation   = ctest("Create Black value HSL", testBlackHsl, NULL);
+    ctest_t *whiteHslCreation   = ctest("Create White value HSL", testWhiteHsl, NULL);
     
     // RGB creation
     ctest_t *grayShadeCreation  = ctest("Shade of gray creation RGB", testRgbGrayCreationFromHsv, NULL);
@@ -161,6 +189,8 @@ ctcase_t *wrapHslCreationTest() {
     ctctestadd(hslCase, highSatHslCreation);
     ctctestadd(hslCase, lowSatHslCreation);
     ctctestadd(hslCase, grayShadeCreation);
+    ctctestadd(hslCase, blackHslCreation);
+    ctctestadd(hslCase, whiteHslCreation);
     
     ctctestadd(hslCase, colorShadeCreation);
     ctctestadd(hslCase, colorCmplCreation);

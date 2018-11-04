@@ -23,11 +23,10 @@
     float max = fmaxf(fmaxf(rgb->r, rgb->g), rgb->b) / 255;
     float _l = (min + max) / 2;
     
-     Hsl *hsl = malloc(sizeof( Hsl));
+    Hsl *hsl = malloc(sizeof(Hsl));
     hsl->h = hue;
     hsl->s = roundDigit(getSaturation(min, max, _l) * 100, 10);
     hsl->l = roundDigit(_l * 100, 10);
-    
     free(rgb);
     
     return hsl;
@@ -110,7 +109,7 @@ Rgb *getRgbValueFromHsl(Hsl *hsl) {
     
     // choose the luminace formula
     float temp_lum = 0.0f;
-    if (round(_l)) {
+    if (roundf(_l)) {
         temp_lum = (_l + _s) - (_l * _s);
     } else {
         temp_lum = _l * (1.0f + _s);

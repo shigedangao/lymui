@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "rgb.h"
 
-/*!
+/**
  * @brief Hsl structure
  */
 typedef struct Hsl {
@@ -21,18 +21,18 @@ typedef struct Hsl {
     float l;
 } Hsl;
 
-/*!
- * @discussion Create an Hsl struct from an Rgb Struct
+/**
+ * @brief Create an Hsl struct from an Rgb Struct
  * @param rgb an rgb struct pointer
  * @return a struct Hsl pointer
  */
-Hsl *getHslFromRgb(Rgb *rgb);
+Hsl * getHslFromRgb(Rgb *rgb);
 
-/*!
- * @discussion Get Rgb Value From Hsl
+/**
+ * @brief Get Rgb Value From Hsl
  * @param hsl an Hsl structure
  * @return rgb structure
  */
-Rgb *getRgbValueFromHsl(Hsl *hsl);
+Rgb * getRgbValueFromHsl(Hsl *hsl);
 
 #endif /* hsl_h */
