@@ -23,13 +23,20 @@ napi_value GetYcbcrFromRGB(napi_env env, napi_callback_info info) {
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
         napi_throw_type_error(env, NULL, DESERIALIZE_ERR);
+        return NULL;
     }
     
     if (argc < 1) {
         napi_throw_error(env, NULL, ARG_NB_ERR);
+        return NULL;
     }
     
     Rgb * rgb = getRGBFromJSObj(env, argv[0]);
+    if (rgb == NULL) {
+        napi_throw_error(env, NULL, PROP_NOT_FOUND_ERR);
+        return NULL;
+    }
+    
     Ycbcr * ycb = getYcbcrFromRgb(rgb);
     
     object = YcbcrJSObjFactory(env, ycb);
@@ -46,13 +53,20 @@ napi_value GetRgbFromYcbcr(napi_env env, napi_callback_info info) {
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        return NULL;
     }
     
     if (argc < 1) {
         napi_throw_error(env, NULL, ARG_NB_ERR);
+        return NULL;
     }
     
     Ycbcr * ycb = getYcbcrFromJSObj(env, argv[0]);
+    if (ycb == NULL) {
+        napi_throw_error(env, NULL, PROP_NOT_FOUND_ERR);
+        return NULL;
+    }
+    
     Rgb * rgb = getRawRGBValueFromYcbcr(ycb);
     
     // @TODO create a RGB JS Object factory

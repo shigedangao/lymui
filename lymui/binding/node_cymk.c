@@ -26,10 +26,12 @@ napi_value GetCymkFromRgb(napi_env env, napi_callback_info info) {
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        return NULL;
     }
     
     if (argc < 1) {
         napi_throw_error(env, NULL, ARG_NB_ERR);
+        return NULL;
     }
     
     // we don't check the status as the value is optional
@@ -37,8 +39,12 @@ napi_value GetCymkFromRgb(napi_env env, napi_callback_info info) {
 
     // @TODO if rgb is NULL then return a black RGB Object
     Rgb * rgb = getRGBFromJSObj(env, argv[0]);
-    Cymk * cymk = getCymkFromRgb(rgb, clampValue);
+    if (rgb == NULL) {
+        napi_throw_error(env, NULL, PROP_NOT_FOUND_ERR);
+        return NULL;
+    }
     
+    Cymk * cymk = getCymkFromRgb(rgb, clampValue);
     if (cymk == NULL) {
         napi_throw_error(env, NULL, CONVERSION_ERR);
     }
@@ -58,17 +64,18 @@ napi_value GetRgbFromCymk(napi_env env, napi_callback_info info) {
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        return NULL;
     }
     
     if (argc < 1) {
         napi_throw_error(env, NULL, ARG_NB_ERR);
+        return NULL;
     }
     
     // retrieve the Cymk object
     Cymk * cymk = getCymkFromJSObj(env, argv[0]);
-    
     if (cymk == NULL) {
-        napi_throw_error(env, NULL, CONVERSION_ERR);
+        napi_throw_error(env, NULL, PROP_NOT_FOUND_ERR);
         return NULL;
     }
     

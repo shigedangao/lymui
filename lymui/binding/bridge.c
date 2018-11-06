@@ -16,36 +16,51 @@
 #include "hex.h"
 #include "hsl.h"
 #include "hsv.h"
+#include "yuv.h"
+
+/**
+ * @brief bind value of properties to node_value array
+ * @param env napi_env
+ * @param name char * array
+ * @param obj napi_value
+ * @param len size_t
+ * @param res napi_vlue * array
+ * @void
+ */
+static void getNamedPropArray(napi_env env, char * name, napi_value obj, size_t len, napi_value * res) {
+    uint8_t idx = 0;
+    napi_status status;
+    const char delimiter[] = ":";
+    char * running = strdup(name);
+    char * string;
+    
+    while(idx < len) {
+        string = strsep(&running, delimiter);
+        status = napi_get_named_property(env, obj, string, &res[idx]);
+        if (status != napi_ok) {
+            idx = len + 1;
+            napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        }
+        
+        idx++;
+    }
+}
 
 Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
-    napi_status status;
-    napi_value r, g, b;
+    napi_value value[3];
     char * prop = "r:g:b";
     
     // check if the object has the property
     if (!hasPropInJSObj(env, obj, prop, RgbPropLen)) {
-        napi_throw_error(env, NULL, PROP_FOUND_ERR);
-    }
-    // trying to retreive the value
-    status = napi_get_named_property(env, obj, "r", &r);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        return NULL;
     }
     
-    status = napi_get_named_property(env, obj, "g", &g);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
-    status = napi_get_named_property(env, obj, "b", &b);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
+    getNamedPropArray(env, prop, obj, RgbPropLen, value);
     
     // convert the data to the wanted type
-    uint8_t red = getUintValue(env, r);
-    uint8_t green = getUintValue(env, g);
-    uint8_t blue = getUintValue(env, b);
+    uint8_t red = getUintValue(env, value[0]);
+    uint8_t green = getUintValue(env, value[1]);
+    uint8_t blue = getUintValue(env, value[2]);
     uint8_t arr[] = {red, green, blue};
     
     Rgb * rgb = makeRGB(arr, sizeof(arr));
@@ -72,140 +87,97 @@ char * getHEXFromJSObj(napi_env env, napi_value obj) {
 }
 
 Cymk * getCymkFromJSObj(napi_env env, napi_value obj) {
-    napi_status status;
-    napi_value c, y, m, k;
+    napi_value value[4];
     char * prop = "c:y:m:k";
     
     if (!hasPropInJSObj(env, obj, prop, CymkPropLen)) {
-        napi_throw_error(env, NULL, PROP_FOUND_ERR);
-        // usually it's not necessary to return NULL but in this case idk why it is needed...
-        // The napi_throw_error throw but does not stop the execution which is strange...
         return NULL;
     }
     
-    status = napi_get_named_property(env, obj, "c", &c);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
-    status = napi_get_named_property(env, obj, "y", &y);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
-    status = napi_get_named_property(env, obj, "m", &m);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
-    status = napi_get_named_property(env, obj, "k", &k);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
-    
+    getNamedPropArray(env, prop, obj, CymkPropLen, value);
     Cymk * cymkSt = malloc(sizeof(Cymk));
-    cymkSt->c = getFloatValue(env, c);
-    cymkSt->y = getFloatValue(env, y);
-    cymkSt->m = getFloatValue(env, m);
-    cymkSt->k = getFloatValue(env, k);
+    cymkSt->c = getFloatValue(env, value[0]);
+    cymkSt->y = getFloatValue(env, value[1]);
+    cymkSt->m = getFloatValue(env, value[2]);
+    cymkSt->k = getFloatValue(env, value[3]);
     
     return cymkSt;
 }
 
 Ycbcr * getYcbcrFromJSObj(napi_env env, napi_value obj) {
-    napi_status status;
-    napi_value y, cb, cr;
+    napi_value value[3];
     char * prop = "y:cb:cr";
     
     if (!hasPropInJSObj(env, obj, prop, YCbCrLen)) {
-        napi_throw_error(env, NULL, PROP_FOUND_ERR);
+        return NULL;
     }
     
-    status = napi_get_named_property(env, obj, "y", &y);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    };
-    
-    status = napi_get_named_property(env, obj, "cb", &cb);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    };
-    
-    status = napi_get_named_property(env, obj, "cr", &cr);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
+    getNamedPropArray(env, prop, obj, YCbCrLen, value);
     
     Ycbcr * ycb = malloc(sizeof(Ycbcr));
-    ycb->y = getUintValue(env, y);
-    ycb->cb = getUintValue(env, cb);
-    ycb->cr = getUintValue(env, cr);
+    ycb->y = getUintValue(env, value[0]);
+    ycb->cb = getUintValue(env, value[1]);
+    ycb->cr = getUintValue(env, value[2]);
     
     return ycb;
 }
 
 Hsl * getHslFromJSObj(napi_env env, napi_value obj) {
-    napi_status status;
-    napi_value h, s, l;
+    napi_value value[3];
     char * prop = "h:s:l";
     
     if (!hasPropInJSObj(env, obj, prop, HslHsvLen)) {
-        napi_throw_error(env, NULL, PROP_FOUND_ERR);
+        return NULL;
     }
     
-    status = napi_get_named_property(env, obj, "h", &h);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
-    status = napi_get_named_property(env, obj, "s", &s);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
-    status = napi_get_named_property(env, obj, "l", &l);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
+    getNamedPropArray(env, prop, obj, HslHsvLen, value);
     Hsl * hsl = malloc(sizeof(Hsl));
-    hsl->h = getFloatValue(env, h);
-    hsl->s = getFloatValue(env, s);
-    hsl->l = getFloatValue(env, l);
+    hsl->h = getFloatValue(env, value[0]);
+    hsl->s = getFloatValue(env, value[1]);
+    hsl->l = getFloatValue(env, value[2]);
     
     return hsl;
 }
 
 Hsv * getHsvFromJSObj(napi_env env, napi_value obj) {
-    napi_status status;
-    napi_value h, s, v;
+    napi_value value[3];
     char * prop = "h:s:v";
     
     if (!hasPropInJSObj(env, obj, prop, HslHsvLen)) {
-        // @TODO should rename the error to NOTFOUND.. or smthg else
-        napi_throw_error(env, NULL, PROP_FOUND_ERR);
+        return NULL;
     }
     
-    status = napi_get_named_property(env, obj, "h", &h);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
-    status = napi_get_named_property(env, obj, "s", &s);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
-    status = napi_get_named_property(env, obj, "v", &v);
-    if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-    }
-    
+    getNamedPropArray(env, prop, obj, 3, value);
     Hsv * hsv = malloc(sizeof(Hsv));
-    hsv->h = getFloatValue(env, h);
-    hsv->s = getFloatValue(env, s);
-    hsv->v = getFloatValue(env, v);
+    hsv->h = getFloatValue(env, value[0]);
+    hsv->s = getFloatValue(env, value[1]);
+    hsv->v = getFloatValue(env, value[2]);
     
     return hsv;
+}
+
+Yuv * getYuvFromJSObj(napi_env env, napi_value obj) {
+    char * prop = "y:u:v";
+    napi_value value[3];
+    
+    if (!hasPropInJSObj(env, obj, prop, YUVLen)) {
+        return NULL;
+    }
+    
+    // retrieve the property in an array of values
+    getNamedPropArray(env, prop, obj, 3, value);
+    float yv = getFloatValue(env, value[0]);
+    float uv = getFloatValue(env, value[1]);
+    float vv = getFloatValue(env, value[2]);
+    
+    Yuv * yuv = malloc(sizeof(Yuv));
+    if (yuv == NULL) {
+        napi_throw_error(env, NULL, ALLOCATION_ERR);
+    }
+    
+    yuv->y = yv;
+    yuv->u = uv;
+    yuv->v = vv;
+    
+    return yuv;
 }

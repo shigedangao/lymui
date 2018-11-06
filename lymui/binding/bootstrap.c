@@ -17,6 +17,7 @@
 #include "node_ycbcr.h"
 #include "node_hsl.h"
 #include "node_hsv.h"
+#include "node_yuv.h"
 
 
 #define DECLARE_NAPI_METHOD(name, func) { name, 0, func, 0, 0, 0, napi_default, 0 }
@@ -46,7 +47,10 @@ napi_value Init(napi_env env, napi_value exports) {
         DECLARE_NAPI_METHOD("getRgbFromHsl", GetRGBFromHsl),
         // Hsv
         DECLARE_NAPI_METHOD("getHsvFromRgb", GetHsvFromRGB),
-        DECLARE_NAPI_METHOD("getRgbFromHsv", GetRGBFromHsv)
+        DECLARE_NAPI_METHOD("getRgbFromHsv", GetRGBFromHsv),
+        // Yuv
+        DECLARE_NAPI_METHOD("getYuvFromRgb", GetYuvFromRGB),
+        DECLARE_NAPI_METHOD("getRgbFromYuv", GetRGBFromYuv)
     };
     
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);
