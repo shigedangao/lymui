@@ -78,3 +78,67 @@ describe('Creating YUV from RGB', () => {
     });
   });
 });
+
+describe('Creating RGB from YUV', () => {
+  it('Expect to create RGB from YUV value', () => {
+    const yuv = {
+      y: 0.123,
+      u: 0.122,
+      v: 0.063
+    };
+
+    const rgb = lib.getRgbFromYuv(yuv);
+    expect(rgb).to.be.deep.equal({
+      r: 50,
+      g: 10,
+      b: 95
+    });
+  });
+
+  it('Expect to create black RGB from dark YUV value', () => {
+    const yuv = {
+      y: 0,
+      u: 0,
+      v: 0
+    };
+
+    const rgb = lib.getRgbFromYuv(yuv);
+    expect(rgb).to.be.deep.equal({
+      r: 0,
+      g: 0,
+      b: 0
+    });
+  });
+
+  it('Expect to create white RGB from bright YUV value', () => {
+    const yuv = {
+      y: 1,
+      u: 0,
+      v: 0
+    };
+
+    const rgb = lib.getRgbFromYuv(yuv);
+    expect(rgb).to.be.deep.equal({
+      r: 255,
+      g: 255,
+      b: 255
+    });
+  });
+
+  it('Expect to throw when no param is passed', () => {
+    expect(() => lib.getRgbFromYuv()).to.throw('Missing arguments');
+  });
+
+  it('Expect to throw when missing property in the YUV object is pass', () => {
+    const yuv = {
+      u: 0,
+      v: 0
+    };
+    
+    expect(() => lib.getRgbFromYuv(yuv)).to.throw('Property not found in JS Object');
+  });
+
+  it('Expect to throw when wrong kind of object is passed', () => {    
+    expect(() => lib.getRgbFromYuv('lol')).to.throw('Property not found in JS Object');
+  });
+});

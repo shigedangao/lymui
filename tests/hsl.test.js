@@ -65,7 +65,7 @@ describe('Creating HSL from RGB', () => {
     });
   });
 
-  it('Expect to throw when no param is pass', () => {
+  it('Expect to throw when no param is passed', () => {
     expect(() => lib.getHslFromRgb()).to.throw('Missing arguments');
   });
 

@@ -58,10 +58,14 @@ napi_value GetRGBFromYuv(napi_env env, napi_callback_info info) {
     }
     
     Yuv * yuv = getYuvFromJSObj(env, argv[0]);
-    Rgb * rgb = getRgbFromYuv(yuv);
+    if (yuv == NULL) {
+        napi_throw_error(env, NULL, PROP_FOUND_ERR);
+        return NULL;
+    }
     
+    Rgb * rgb = getRgbFromYuv(yuv);
     object = RgbJSObjFactory(env, rgb);
-    free(yuv);
+    free(rgb);
     
     return object;
 }

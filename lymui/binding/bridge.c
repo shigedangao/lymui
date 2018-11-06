@@ -18,7 +18,7 @@
 #include "hsv.h"
 #include "yuv.h"
 
-static napi_value * getNamedPropArray(napi_env env, char * name, napi_value obj, size_t len, napi_value * res) {
+static void getNamedPropArray(napi_env env, char * name, napi_value obj, size_t len, napi_value * res) {
     uint8_t idx = 0;
     napi_status status;
     const char delimiter[] = ":";
@@ -27,15 +27,14 @@ static napi_value * getNamedPropArray(napi_env env, char * name, napi_value obj,
     
     while(idx < len) {
         string = strsep(&running, delimiter);
-        
         status = napi_get_named_property(env, obj, string, &res[idx]);
         if (status != napi_ok) {
             idx = len + 1;
             napi_throw_error(env, NULL, DESERIALIZE_ERR);
         }
+        
+        idx++;
     }
-    
-    return res;
 }
 
 Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
@@ -204,7 +203,6 @@ Hsv * getHsvFromJSObj(napi_env env, napi_value obj) {
     char * prop = "h:s:v";
     
     if (!hasPropInJSObj(env, obj, prop, HslHsvLen)) {
-        // @TODO should rename the error to NOTFOUND.. or smthg else
         napi_throw_error(env, NULL, PROP_FOUND_ERR);
     }
     
@@ -233,28 +231,15 @@ Hsv * getHsvFromJSObj(napi_env env, napi_value obj) {
 
 Yuv * getYuvFromJSObj(napi_env env, napi_value obj) {
     char * prop = "y:u:v";
-    
-//    if (!hasPropInJSObj(env, obj, prop, YUVLen)) {
-//        napi_throw_error(env, NULL, PROP_FOUND_ERR);
-//    }
-//
-//    status = napi_get_named_property(env, obj, "y", &y);
-//    if (status != napi_ok) {
-//        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-//    }
-//
-//    status = napi_get_named_property(env, obj, prop, &u);
-//    if (status != napi_ok) {
-//        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-//    }
-//
-//    status = napi_get_named_property(env, obj, "u", &v);
-//    if (status != napi_ok) {
-//        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-//    }
     napi_value value[3];
-    getNamedPropArray(env, prop, obj, 3, value);
     
+    if (!hasPropInJSObj(env, obj, prop, YUVLen)) {
+        napi_throw_error(env, NULL, PROP_FOUND_ERR);
+        return NULL;
+    }
+    
+    // retrieve the property in an array of values
+    getNamedPropArray(env, prop, obj, 3, value);
     float yv = getFloatValue(env, value[0]);
     float uv = getFloatValue(env, value[1]);
     float vv = getFloatValue(env, value[2]);
