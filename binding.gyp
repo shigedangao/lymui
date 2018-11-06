@@ -12,6 +12,7 @@
         "lymui/binding/node_ycbcr.c",
         "lymui/binding/node_hsl.c",
         "lymui/binding/node_hsv.c",
+        "lymui/binding/node_yuv.c",
         "lymui/binding/binding_util.c",
         "lymui/binding/bridge.c",
         "lymui/binding/factory.c"

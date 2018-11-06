@@ -16,6 +16,27 @@
 #include "hex.h"
 #include "hsl.h"
 #include "hsv.h"
+#include "yuv.h"
+
+static napi_value * getNamedPropArray(napi_env env, char * name, napi_value obj, size_t len, napi_value * res) {
+    uint8_t idx = 0;
+    napi_status status;
+    const char delimiter[] = ":";
+    char * running = strdup(name);
+    char * string;
+    
+    while(idx < len) {
+        string = strsep(&running, delimiter);
+        
+        status = napi_get_named_property(env, obj, string, &res[idx]);
+        if (status != napi_ok) {
+            idx = len + 1;
+            napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        }
+    }
+    
+    return res;
+}
 
 Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
     napi_status status;
@@ -208,4 +229,44 @@ Hsv * getHsvFromJSObj(napi_env env, napi_value obj) {
     hsv->v = getFloatValue(env, v);
     
     return hsv;
+}
+
+Yuv * getYuvFromJSObj(napi_env env, napi_value obj) {
+    char * prop = "y:u:v";
+    
+//    if (!hasPropInJSObj(env, obj, prop, YUVLen)) {
+//        napi_throw_error(env, NULL, PROP_FOUND_ERR);
+//    }
+//
+//    status = napi_get_named_property(env, obj, "y", &y);
+//    if (status != napi_ok) {
+//        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+//    }
+//
+//    status = napi_get_named_property(env, obj, prop, &u);
+//    if (status != napi_ok) {
+//        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+//    }
+//
+//    status = napi_get_named_property(env, obj, "u", &v);
+//    if (status != napi_ok) {
+//        napi_throw_error(env, NULL, DESERIALIZE_ERR);
+//    }
+    napi_value value[3];
+    getNamedPropArray(env, prop, obj, 3, value);
+    
+    float yv = getFloatValue(env, value[0]);
+    float uv = getFloatValue(env, value[1]);
+    float vv = getFloatValue(env, value[2]);
+    
+    Yuv * yuv = malloc(sizeof(Yuv));
+    if (yuv == NULL) {
+        napi_throw_error(env, NULL, ALLOCATION_ERR);
+    }
+    
+    yuv->y = yv;
+    yuv->u = uv;
+    yuv->v = vv;
+    
+    return yuv;
 }

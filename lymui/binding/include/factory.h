@@ -16,6 +16,7 @@
 #include "ycbcr.h"
 #include "hsl.h"
 #include "hsv.h"
+#include "yuv.h"
 
 /**
  * @brief Factory creating Rgb Object on the fly
@@ -58,5 +59,14 @@ napi_value HslJSObjFactory(napi_env env, Hsl * hsl, int clamp);
  * @return napi_value
  */
 napi_value HsvJSObjFactory(napi_env env, Hsv * hsv, int clamp);
+
+/**
+ * @brief Creating YUV JS Object
+ * @param env napi_env
+ * @param yuv * yuv
+ * @param clamp int
+ * @return napi_value
+ */
+napi_value YuvJSObjFactory(napi_env env, Yuv * yuv, int clamp);
 
 #endif /* factory_h */

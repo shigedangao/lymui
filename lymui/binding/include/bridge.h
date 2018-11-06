@@ -16,11 +16,13 @@
 #include "ycbcr.h"
 #include "hsl.h"
 #include "hsv.h"
+#include "yuv.h"
 
 #define RgbPropLen 3
 #define CymkPropLen 4
 #define YCbCrLen 3
 #define HslHsvLen 3
+#define YUVLen 3
 #define MIN_CLAMP_VALUE 1000
 #define PERCENT_CLAMP_VALUE 100
 
@@ -71,5 +73,13 @@ Hsl * getHslFromJSObj(napi_env env, napi_value args);
  * @return hsv
  */
 Hsv * getHsvFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract a YUV struct from a JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return yuv
+ */
+Yuv * getYuvFromJSObj(napi_env env, napi_value args);
 
 #endif /* bridge_h */
