@@ -24,16 +24,23 @@ napi_value GetYuvFromRGB(napi_env env, napi_callback_info info) {
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        return NULL;
     }
     
     if (argc < 1) {
         napi_throw_error(env, NULL, ARG_NB_ERR);
+        return NULL;
     }
     
     // retrieve the min value for clamping the float...
     napi_get_value_int32(env, argv[1], &clamp);
     
     Rgb * rgb = getRGBFromJSObj(env, argv[0]);
+    if (rgb == NULL) {
+        napi_throw_error(env, NULL, PROP_NOT_FOUND_ERR);
+        return NULL;
+    }
+    
     Yuv * yuv = getYuvFromRgb(rgb);
     
     object = YuvJSObjFactory(env, yuv, clamp);
@@ -51,15 +58,17 @@ napi_value GetRGBFromYuv(napi_env env, napi_callback_info info) {
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        return NULL;
     }
     
     if (argc < 1) {
         napi_throw_error(env, NULL, ARG_NB_ERR);
+        return NULL;
     }
     
     Yuv * yuv = getYuvFromJSObj(env, argv[0]);
     if (yuv == NULL) {
-        napi_throw_error(env, NULL, PROP_FOUND_ERR);
+        napi_throw_error(env, NULL, PROP_NOT_FOUND_ERR);
         return NULL;
     }
     

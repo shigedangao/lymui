@@ -24,13 +24,20 @@ napi_value GetHslFromRGB(napi_env env, napi_callback_info info) {
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        return NULL;
     }
     
     if (argc < 1) {
         napi_throw_error(env, NULL, ARG_NB_ERR);
+        return NULL;
     }
     
     Rgb * rgb = getRGBFromJSObj(env, argv[0]);
+    if (rgb == NULL) {
+        napi_throw_error(env, NULL, PROP_NOT_FOUND_ERR);
+        return NULL;
+    }
+    
     Hsl * hsl = getHslFromRgb(rgb);
     
     // percentage
@@ -49,13 +56,20 @@ napi_value GetRGBFromHsl(napi_env env, napi_callback_info info) {
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        return NULL;
     }
     
     if (argc < 1) {
         napi_throw_error(env, NULL, ARG_NB_ERR);
+        return NULL;
     }
     
     Hsl * hsl = getHslFromJSObj(env, argv[0]);
+    if (hsl == NULL) {
+        napi_throw_error(env, NULL, PROP_NOT_FOUND_ERR);
+        return NULL;
+    }
+    
     Rgb * rgb = getRgbValueFromHsl(hsl);
     
     object = RgbJSObjFactory(env, rgb);
