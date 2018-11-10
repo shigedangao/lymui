@@ -57,6 +57,11 @@ napi_value GetXyzFromRGB(napi_env env, napi_callback_info info) {
     status = napi_get_value_int32(env, argv[2], &clamp);
     
     Rgb * rgb = getRGBFromJSObj(env, argv[0]);
+    if (rgb == NULL) {
+        napi_throw_error(env, NULL, PROP_NOT_FOUND_ERR);
+        return NULL;
+    }
+    
     Matrix m = getEnumFromStr(matrix);
     Xyz * xyz = generateXyzFromRgb(rgb, m);
     
