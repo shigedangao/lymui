@@ -118,3 +118,119 @@ describe('Creating Xyz from RGB', () => {
     expect(() => lib.getXyzFromRgb(rgb, "adobeRgb")).to.throw('Property not found in JS Object');
   });
 });
+
+describe('Creating RGB from XYZ', () => {
+  it('Expect to create RGB from XYZ sRGB', () => {
+    const xyz = {
+      x: 0.0348,
+      y: 0.0172,
+      z: 0.1097
+    };
+
+    const rgb = lib.getRgbFromXyz(xyz, "srgb");
+    expect(rgb).to.be.deep.equal({
+      r: 50,
+      g: 10,
+      b: 95
+    });
+  });
+
+  it('Expect to create RGB from XYZ ARGB', () => {
+    const xyz = {
+      x: 0.0376,
+      y: 0.0173,
+      z: 0.1138
+    };
+
+    const rgb = lib.getRgbFromXyz(xyz, "adobeRgb");
+    expect(rgb).to.be.deep.equal({
+      r: 50,
+      g: 10,
+      b: 95
+    });
+  });
+
+  it('Expect to create dark RGB from XYZ Object of type SRGB', () => {
+    const xyz = {
+      x: 0,
+      y: 0,
+      z: 0
+    };
+
+    const rgb = lib.getRgbFromXyz(xyz, "srgb");
+    expect(rgb).to.be.deep.equal({
+      r: 0,
+      g: 0,
+      b: 0
+    });
+  });
+
+  it('Expect to create dark RGB from Xyz Object of type adobe RGB', () => {
+    const xyz = {
+      x: 0,
+      y: 0,
+      z: 0
+    };
+
+    const rgb = lib.getRgbFromXyz(xyz, "adobeRgb");
+    expect(rgb).to.be.deep.equal({
+      r: 0,
+      g: 0,
+      b: 0
+    });
+  });
+
+  // it('Expect to create bright RGB from XYZ Object of type SRGB', () => {
+  //   const xyz = {
+  //     x: 0.9502,
+  //     y: 0.9997,
+  //     z: 1
+  //   };
+
+  //   const rgb = lib.getRgbFromXyz(xyz, "srgb");
+  //   expect(rgb).to.be.deep.equal({
+  //     r: 255,
+  //     g: 255,
+  //     b: 255
+  //   });
+  // });
+
+  it('Expect to create bright RGB from Xyz Object of type adobe RGB', () => {
+    const xyz = {
+      x: 0.9502,
+      y: 0.9998,
+      z: 1.0887
+    };
+
+    const rgb = lib.getRgbFromXyz(xyz, "adobeRgb");
+    expect(rgb).to.be.deep.equal({
+      r: 255,
+      g: 255,
+      b: 255
+    });
+  });
+
+  it('Expect to throw an error when the matrix param is missing', () => {
+    const xyz = {
+      x: 0.9502,
+      y: 0.9998,
+      z: 1.0887
+    };
+    
+    expect(() => lib.getRgbFromXyz(xyz)).to.throw('Missing arguments');
+  });
+
+  it('Expect to throw an error when nothing is pass', () => {   
+    expect(() => lib.getRgbFromXyz()).to.throw('Missing arguments');
+  });
+
+  it('Expect to throw an error when the the xyz object is missing a value', () => {
+    const xyz = {
+      x: 0.9502,
+      z: 1.0887
+    };
+    
+    expect(() => lib.getRgbFromXyz(xyz, "srgb")).to.throw('Property not found in JS Object');
+  });
+
+});

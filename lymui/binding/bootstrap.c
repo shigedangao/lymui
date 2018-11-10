@@ -53,7 +53,8 @@ napi_value Init(napi_env env, napi_value exports) {
         DECLARE_NAPI_METHOD("getYuvFromRgb", GetYuvFromRGB),
         DECLARE_NAPI_METHOD("getRgbFromYuv", GetRGBFromYuv),
         // Xyz
-        DECLARE_NAPI_METHOD("getXyzFromRgb", GetXyzFromRGB)
+        DECLARE_NAPI_METHOD("getXyzFromRgb", GetXyzFromRGB),
+        DECLARE_NAPI_METHOD("getRgbFromXyz", GetRGBFromXyz)
     };
     
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);

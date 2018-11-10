@@ -142,6 +142,13 @@ ctest_return_t testXyzToARgb(ctest_t *test, void *arg) {
     free(iamtired);
 }
 
+ctest_return_t testRgbXyzNull(ctest_t *test, void *arg) {
+    Rgb *rgb = generateRgbFromXyz(NULL, srgb);
+    CTAssertNull(test, rgb, "Expect RGB to be NULL");
+    
+    free(rgb);
+}
+
 ctcase_t *wrapXyzCreationTest() {
     ctcase_t *xyzCase = ctcase("Xyz test case");
     
@@ -157,6 +164,7 @@ ctcase_t *wrapXyzCreationTest() {
     // xyz to rgb
     ctest_t *testXyzRgbCase  = ctest("Creation of an RGB from an XYZ srgb", testXyzToRgb, NULL);
     ctest_t *testXyzARgbCase = ctest("Creation of an RGB from an XYZ argb", testXyzToARgb, NULL);
+    ctest_t *testXyzRgbNull  = ctest("Creation of an RGB with NULL value should return NULL", testRgbXyzNull, NULL);
     
     
     // add cases
@@ -169,6 +177,7 @@ ctcase_t *wrapXyzCreationTest() {
     ctctestadd(xyzCase, testBrightArgb);
     ctctestadd(xyzCase, testXyzRgbCase);
     ctctestadd(xyzCase, testXyzARgbCase);
+    ctctestadd(xyzCase, testXyzRgbNull);
     
     return xyzCase;
 }

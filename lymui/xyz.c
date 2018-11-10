@@ -43,7 +43,7 @@ static float pivotAdobeRGB(float c) {
  * @param c float
  * @return float
  */
-static float unpivotsRGB(float c) {
+static float unpivotRGB(float c) {
     if (c <= 0.0031308f) {
         return c * 12.92f;
     }
@@ -149,9 +149,9 @@ static float * calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
         sg = xyz->x * yx + xyz->y * yy + xyz->z * yz;
         sb = xyz->x * zx + xyz->y * zy + xyz->z * zz;
         
-        linearRGB[0] = unpivotsRGB(sr);
-        linearRGB[1] = unpivotsRGB(sg);
-        linearRGB[2] = unpivotsRGB(sb);
+        linearRGB[0] = unpivotRGB(sr);
+        linearRGB[1] = unpivotRGB(sg);
+        linearRGB[2] = unpivotRGB(sb);
     } else {
         sr = xyz->x * axx + xyz->y * axy + xyz->z * axz;
         sg = xyz->x * ayx + xyz->y * ayy + xyz->z * ayz;
@@ -182,6 +182,7 @@ Rgb * generateRgbFromXyz(Xyz * xyz, Matrix m) {
     rgb->r = floatToUint(matrixValue[0] * 255);
     rgb->g = floatToUint(matrixValue[1] * 255);
     rgb->b = floatToUint(matrixValue[2] * 255);
+    free(matrixValue);
     
     return rgb;
 }
