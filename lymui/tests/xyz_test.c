@@ -21,9 +21,9 @@ ctest_return_t testXyzRgb(ctest_t *test, void *arg) {
     
     Xyz *xyz = generateXyzFromRgb(rgb, srgb);
     
-    CTAssertEqual(test, 3.49f, roundDigit(xyz->x * 100, 100), "Expect X to be equal to %f but got %f", 3.49f, roundDigit(xyz->x * 100, 100));
-    CTAssertEqual(test, 1.72f, roundDigit(xyz->y * 100, 100), "Expect Y to be equal to %f but got %f", 1.72f, roundDigit(xyz->y * 100, 100));
-    CTAssertEqual(test, 10.97f, roundDigit(xyz->z * 100, 100), "Expect Z to be equal to %f but got %f", 10.97f, roundDigit(xyz->z * 100, 100));
+    CTAssertDecimalEqual(test, 0.0349f, xyz->x, 0.01f, "Expect X to be equal to %f but got %f", 0.0349f, xyz->x);
+    CTAssertDecimalEqual(test, 0.0172f, xyz->y, 0.01f, "Expect Y to be equal to %f but got %f", 0.0172f, xyz->y);
+    CTAssertDecimalEqual(test, 0.1097f, xyz->z, 0.01f, "Expect Z to be equal to %f but got %f", 0.1097f, xyz->z);
     
     free(xyz);
 }
@@ -36,10 +36,9 @@ ctest_return_t testXyzAdobeRgb(ctest_t *test, void *arg) {
     
     Xyz *xyz = generateXyzFromRgb(rgb, adobeRgb);
     
-    // Though this test are kinda falsy as i didn't find any XYZ converter with the adobe RGB format online... so take it with grain of salt
-    CTAssertEqual(test, 3.76f, roundDigit(xyz->x * 100, 100), "Expect X to be equal to %f but got %f", 3.76f, roundDigit(xyz->x * 100, 100));
-    CTAssertEqual(test, 1.73f, roundDigit(xyz->y * 100, 100), "Expect Y to be equal to %f but got %f", 1.73f, roundDigit(xyz->y * 100, 100));
-    CTAssertEqual(test, 11.38f, roundDigit(xyz->z * 100, 100), "Expect Z to be equal to %f but got %f", 11.38f, roundDigit(xyz->z * 100, 100));
+    CTAssertDecimalEqual(test, 0.0376f, xyz->x, 0.01f, "Expect X to be equal to %f but got %f", 0.0376f, xyz->x);
+    CTAssertDecimalEqual(test, 0.0173f, xyz->y, 0.01f, "Expect Y to be equal to %f but got %f", 0.0173f, xyz->y);
+    CTAssertDecimalEqual(test, 0.1138f, xyz->z, 0.01f, "Expect Z to be equal to %f but got %f", 0.1138f, xyz->z);
     
     free(xyz);
 }
@@ -111,6 +110,38 @@ ctest_return_t testXyzRgbNull(ctest_t *test, void *arg) {
     free(xyz);
 }
 
+ctest_return_t testXyzToRgb(ctest_t *test, void *arg) {
+    Rgb * rgb = malloc(sizeof(Rgb));
+    rgb->r = 50;
+    rgb->g = 10;
+    rgb->b = 95;
+    
+    Xyz * xyz = generateXyzFromRgb(rgb, srgb);
+    Rgb * iamtired = generateRgbFromXyz(xyz, srgb);
+    
+    CTAssertEqual(test, iamtired->r, 50, "Expect R to be equal to 50 but got %i", iamtired->r);
+    CTAssertEqual(test, iamtired->g, 10, "Expect G to be equal to 10 but got %i", iamtired->g);
+    CTAssertEqual(test, iamtired->b, 95, "Expect R to be equal to 95 but got %i", iamtired->b);
+
+    free(iamtired);
+}
+
+ctest_return_t testXyzToARgb(ctest_t *test, void *arg) {
+    Rgb * rgb = malloc(sizeof(Rgb));
+    rgb->r = 5;
+    rgb->g = 10;
+    rgb->b = 98;
+    
+    Xyz * xyz = generateXyzFromRgb(rgb, adobeRgb);
+    Rgb * iamtired = generateRgbFromXyz(xyz, adobeRgb);
+    
+    CTAssertEqual(test, iamtired->r, 5, "Expect R to be equal to 50 but got %i", iamtired->r);
+    CTAssertEqual(test, iamtired->g, 10, "Expect G to be equal to 10 but got %i", iamtired->g);
+    CTAssertEqual(test, iamtired->b, 98, "Expect B to be equal to 95 but got %i", iamtired->b);
+    
+    free(iamtired);
+}
+
 ctcase_t *wrapXyzCreationTest() {
     ctcase_t *xyzCase = ctcase("Xyz test case");
     
@@ -123,6 +154,11 @@ ctcase_t *wrapXyzCreationTest() {
     ctest_t *testBrightSrgb = ctest("Creation of a bright Xyz value with SRGB case", testXyzSRgbBright, NULL);
     ctest_t *testBrightArgb = ctest("Creation of a bright Xyz value with ARGB case", testXyzArgbBright, NULL);
     
+    // xyz to rgb
+    ctest_t *testXyzRgbCase  = ctest("Creation of an RGB from an XYZ srgb", testXyzToRgb, NULL);
+    ctest_t *testXyzARgbCase = ctest("Creation of an RGB from an XYZ argb", testXyzToARgb, NULL);
+    
+    
     // add cases
     ctctestadd(xyzCase, testRgbCase);
     ctctestadd(xyzCase, testNRgbCase);
@@ -131,6 +167,8 @@ ctcase_t *wrapXyzCreationTest() {
     ctctestadd(xyzCase, testDarkArgb);
     ctctestadd(xyzCase, testBrightSrgb);
     ctctestadd(xyzCase, testBrightArgb);
+    ctctestadd(xyzCase, testXyzRgbCase);
+    ctctestadd(xyzCase, testXyzARgbCase);
     
     return xyzCase;
 }

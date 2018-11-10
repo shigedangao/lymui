@@ -533,6 +533,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				"EXCLUDED_SOURCE_FILE_NAMES[arch=*]" = "lymui/binding/*";
 				"HEADER_SEARCH_PATHS[arch=*]" = (
 					"$(SRCROOT)/lib/cunit/include",
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
@@ -543,8 +544,10 @@
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/lib/cunit";
+				NEW_SETTING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include /Users/marcintha/.nvm/versions/node/v8.11.3/include/node";
+				lol = "";
 			};
 			name = Debug;
 		};
@@ -560,9 +563,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/cunit",
 				);
+				NEW_SETTING = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include /Users/marcintha/.nvm/versions/node/v8.11.3/include/node";
+				lol = "";
 			};
 			name = Release;
 		};
