@@ -44,6 +44,36 @@ ctest_return_t testXyzAdobeRgb(ctest_t *test, void *arg) {
     free(xyz);
 }
 
+ctest_return_t testXyzSrgbDark(ctest_t *test, void *arg) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 0;
+    rgb->g = 0;
+    rgb->b = 0;
+    
+    Xyz * xyz = generateXyzFromRgb(rgb, srgb);
+    
+    CTAssertEqual(test, 0.0f, xyz->x, "Expect X to be equal to 0 but got %f", xyz->x);
+    CTAssertEqual(test, 0.0f, xyz->y, "Expect Y to be equal to 0 but got %f", xyz->y);
+    CTAssertEqual(test, 0.0f, xyz->z, "Expect Z to be equal to 0 but got %f", xyz->z);
+    
+    free(xyz);
+}
+
+ctest_return_t testXyzArgbDark(ctest_t *test, void *arg) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 0;
+    rgb->g = 0;
+    rgb->b = 0;
+    
+    Xyz * xyz = generateXyzFromRgb(rgb, adobeRgb);
+    
+    CTAssertEqual(test, 0.0f, xyz->x, "Expect X to be equal to 0 but got %f", xyz->x);
+    CTAssertEqual(test, 0.0f, xyz->y, "Expect Y to be equal to 0 but got %f", xyz->y);
+    CTAssertEqual(test, 0.0f, xyz->z, "Expect Z to be equal to 0 but got %f", xyz->z);
+    
+    free(xyz);
+}
+
 ctest_return_t testXyzRgbNull(ctest_t *test, void *arg) {
     Xyz *xyz = generateXyzFromRgb(NULL, srgb);
     CTAssertNull(test, xyz, "Expect Xyz to be NULL");
@@ -58,11 +88,15 @@ ctcase_t *wrapXyzCreationTest() {
     ctest_t *testRgbCase   = ctest("Creation of an Xyz with RGB case", testXyzRgb, NULL);
     ctest_t *testAdobeCase = ctest("Creation of an Xyz with Adobe value", testXyzRgbNull, NULL);
     ctest_t *testNRgbCase  = ctest("Creation of an NULL Xyz value with RGB case", testXyzAdobeRgb, NULL);
+    ctest_t *testDarkSrgb  = ctest("Creation of a dark Xyz value with RGB case", testXyzSrgbDark, NULL);
+    ctest_t *testDarkArgb  = ctest("Creation of a dark Xyz value with ARGB case", testXyzArgbDark, NULL);
     
     // add cases
     ctctestadd(xyzCase, testRgbCase);
     ctctestadd(xyzCase, testNRgbCase);
     ctctestadd(xyzCase, testAdobeCase);
+    ctctestadd(xyzCase, testDarkSrgb);
+    ctctestadd(xyzCase, testDarkArgb);
     
     return xyzCase;
 }
