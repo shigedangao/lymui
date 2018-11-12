@@ -23,7 +23,15 @@ Contributions are always welcomed. Open issue if you want to add an other kind o
 The project is shipped with a makefile. Below is the command that you can use in order to generate different type of build
 
 - Output lib: ```make lib```
-- CLI app: ```make lym```
+- Test app: ```make lym```
+
+### Note
+
+If you want to test this project with Xcode you will need to add the **binding** folder to the excluded source file names property of xcode
+
+```bash
+EXCLUDED_SOURCE_FILE_NAMES = lymui/binding/*
+```
 
 ## Usage
 

@@ -76,7 +76,7 @@ describe('Creating Xyz from RGB', () => {
     expect(xyz).to.be.deep.equal({
       x: 0.9502,
       y: 0.9997,
-      z: 1
+      z: 1.0886
     });
   });
 
@@ -180,20 +180,20 @@ describe('Creating RGB from XYZ', () => {
     });
   });
 
-  // it('Expect to create bright RGB from XYZ Object of type SRGB', () => {
-  //   const xyz = {
-  //     x: 0.9502,
-  //     y: 0.9997,
-  //     z: 1
-  //   };
+  it('Expect to create bright RGB from XYZ Object of type SRGB', () => {
+    const xyz = {
+      x: 0.9505,
+      y: 1.0,
+      z: 1.0887
+    };
 
-  //   const rgb = lib.getRgbFromXyz(xyz, "srgb");
-  //   expect(rgb).to.be.deep.equal({
-  //     r: 255,
-  //     g: 255,
-  //     b: 255
-  //   });
-  // });
+    const rgb = lib.getRgbFromXyz(xyz, "srgb");
+    expect(rgb).to.be.deep.equal({
+      r: 255,
+      g: 255,
+      b: 255
+    });
+  });
 
   it('Expect to create bright RGB from Xyz Object of type adobe RGB', () => {
     const xyz = {

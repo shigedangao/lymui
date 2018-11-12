@@ -80,9 +80,9 @@ static void calculateXyzRgb(float r, float g, float b, float *arr) {
     float y = yr * r + yg * g + yb * b;
     float z = zr * r + zg * g + zb * b;
     
-    arr[0] = x > 1.0f ? 1.0f : x;
-    arr[1] = y > 1.0f ? 1.0f : y;
-    arr[2] = z > 1.0f ? 1.0f : z;
+    arr[0] = x;
+    arr[1] = y;
+    arr[2] = z;
 }
 
 /**
