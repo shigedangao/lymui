@@ -78,3 +78,10 @@ float getRadFromDeg(float d) {
     return d * M_PI / 180.0f;
 }
 
+float clampXyz(float v) {
+    if (v > 1.0f) {
+        return 1.0f;
+    }
+    
+    return v;
+}

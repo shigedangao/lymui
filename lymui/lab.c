@@ -8,6 +8,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include "helper.h"
 #include "lab.h"
 
 /////// Lab calculation
@@ -30,9 +31,9 @@ Lab *getLabFromXyz(Xyz *xyz) {
         return NULL;
     
     Lab *lab = malloc(sizeof(Lab));
-    lab->l = 116.0f * calculateDomain(xyz->y / Yn) - 16.0f;
-    lab->a = 500.0f * (calculateDomain(xyz->x / Xn) - calculateDomain(xyz->y / Yn));
-    lab->b = 200.0f * (calculateDomain(xyz->y / Yn) - calculateDomain(xyz->z / Zn));
+    lab->l = 116.0f * calculateDomain(clampXyz(xyz->y) / Yn) - 16.0f;
+    lab->a = 500.0f * (calculateDomain(clampXyz(xyz->x) / Xn) - calculateDomain(clampXyz(xyz->y) / Yn));
+    lab->b = 200.0f * (calculateDomain(clampXyz(xyz->y) / Yn) - calculateDomain(clampXyz(xyz->z) / Zn));
     
     free(xyz);
     
