@@ -7,9 +7,9 @@ SegfaultHandler.registerHandler('xyz_crash.log');
 describe('Creating Xyz from RGB', () => {
   it('Expect to create XYZ from RGB Object', () => {
     const rgb = {
-      r: 1,
-      g: 1,
-      b: 1
+      r: 50,
+      g: 10,
+      b: 95
     };
 
     const xyz = lib.getXyzFromRgb(rgb, "srgb", 10000);
