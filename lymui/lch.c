@@ -19,7 +19,6 @@ Lch * getLchFromXyz(Xyz *xyz) {
      Luv *luv = getLuvFromXyz(xyz);
     
     if (luv == NULL) {
-        printf("Unable to convert a Xyz to an Luv");
         return NULL;
     }
     
@@ -47,7 +46,6 @@ Xyz * getXyzFromLch(Lch *lch) {
     Xyz *xyz = getXyzFromLuv(luv);
     
     if (xyz == NULL) {
-        printf("Unable to convert a Luv to an Xyz");
         return NULL;
     }
     
