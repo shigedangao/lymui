@@ -19,7 +19,6 @@ LchLab * getLchFromLab(Xyz *xyz) {
      Lab *lab = getLabFromXyz(xyz);
     
     if (lab == NULL) {
-        printf("Can not get Lch as Lab struct is empty");
         return NULL;
     }
     
@@ -41,7 +40,6 @@ Xyz * getXyzFromLchlab(LchLab *lch) {
     Lab *lab = malloc(sizeof(Lab));
     
     if (lab == NULL) {
-        printf("Can not get Xyz as Lab struct is empty");
         return NULL;
     }
     

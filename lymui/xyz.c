@@ -4,10 +4,13 @@
 //
 //  Created by Marc on 12/03/2018.
 //  Copyright © 2018 Marc. All rights reserved.
+//  Big credits to Bruce Lindbloom for all the formulas on the XYZ and other types using XYZ
+//  Please visit his website for more information regarding the process (http://www.brucelindbloom.com)
 //
 
 #include <stdlib.h>
 #include <math.h>
+#include "helper.h"
 #include "rgb.h"
 #include "xyz.h"
 
@@ -32,7 +35,33 @@ static float pivotAdobeRGB(float c) {
     if (c <= 0.0f)
         return 0.0f;
         
-    return powf(c, 2.19921875f);
+    return powf(c, ADOBE_RGB_COMPOUND);
+}
+
+/**
+ * @brief Unpivot SRGB unpivot the calculated SRGB value
+ * @param c float
+ * @return float
+ */
+static float unpivotRGB(float c) {
+    if (c <= 0.0031308f) {
+        return c * 12.92f;
+    }
+    
+    return 1.055f * powf(c, 1 / 2.4f) - 0.055;
+}
+
+/**
+ * @brief Unpivot ARGB unpivot the calculated Adobe RGB value
+ * @param c float
+ * @return float
+ */
+static float unpivotARGB(float c) {
+    if (c <= 0.0f) {
+        return 0.0f;
+    }
+    
+    return powf(c, 1 / ADOBE_RGB_COMPOUND);
 }
 
 /**
@@ -51,9 +80,9 @@ static void calculateXyzRgb(float r, float g, float b, float *arr) {
     float y = yr * r + yg * g + yb * b;
     float z = zr * r + zg * g + zb * b;
     
-    arr[0] = x > 1.0f ? 1.0f : x;
-    arr[1] = y > 1.0f ? 1.0f : y;
-    arr[2] = z > 1.0f ? 1.0f : z;
+    arr[0] = x;
+    arr[1] = y;
+    arr[2] = z;
 }
 
 /**
@@ -104,4 +133,56 @@ Xyz * generateXyzFromRgb(Rgb *rgb, enum Matrix m) {
     free(value);
     
     return xyz;
+}
+
+/**
+ * @brief calculate the linear rgb to xyz based on the matrix
+ * @param xyz * Xyz
+ * @param m Matrix
+ */
+static float * calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
+    float * linearRGB = malloc(sizeof(float) * 3);
+    float sr, sg, sb;
+    
+    if (m == srgb) {
+        sr = xyz->x * xx + xyz->y * xy + xyz->z * xz;
+        sg = xyz->x * yx + xyz->y * yy + xyz->z * yz;
+        sb = xyz->x * zx + xyz->y * zy + xyz->z * zz;
+        
+        linearRGB[0] = unpivotRGB(sr);
+        linearRGB[1] = unpivotRGB(sg);
+        linearRGB[2] = unpivotRGB(sb);
+    } else {
+        sr = xyz->x * axx + xyz->y * axy + xyz->z * axz;
+        sg = xyz->x * ayx + xyz->y * ayy + xyz->z * ayz;
+        sb = xyz->x * azx + xyz->y * azy + xyz->z * azz;
+        
+        linearRGB[0] = unpivotARGB(sr);
+        linearRGB[1] = unpivotARGB(sg);
+        linearRGB[2] = unpivotARGB(sb);
+    }
+    
+    
+    free(xyz);
+    return linearRGB;
+}
+
+Rgb * generateRgbFromXyz(Xyz * xyz, Matrix m) {
+    if (xyz == NULL) {
+        return NULL;
+    }
+    
+    float * matrixValue = calculateLinearRgbToXyz(xyz, m);
+    
+    Rgb * rgb = malloc(sizeof(rgb));
+    if (rgb == NULL) {
+        return NULL;
+    }
+    
+    rgb->r = floatToUint(matrixValue[0] * 255);
+    rgb->g = floatToUint(matrixValue[1] * 255);
+    rgb->b = floatToUint(matrixValue[2] * 255);
+    free(matrixValue);
+    
+    return rgb;
 }

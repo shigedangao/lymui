@@ -71,5 +71,12 @@ float getDegFromRad(float r);
  */
 float getRadFromDeg(float d);
 
+/**
+ * @brief Clamp the value
+ * @param v float
+ * @return float
+ */
+float clampXyz(float v);
+
 
 #endif /* helper_h */

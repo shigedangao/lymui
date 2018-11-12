@@ -181,3 +181,28 @@ Yuv * getYuvFromJSObj(napi_env env, napi_value obj) {
     
     return yuv;
 }
+
+Xyz * getXyzFromJSObj(napi_env env, napi_value args) {
+    char * prop = "x:y:z";
+    napi_value value[3];
+    
+    if (!hasPropInJSObj(env, args, prop, XYZLen)) {
+        return NULL;
+    }
+    
+    getNamedPropArray(env, prop, args, XYZLen, value);
+    float x = getFloatValue(env, value[0]);
+    float y = getFloatValue(env, value[1]);
+    float z = getFloatValue(env, value[2]);
+    
+    Xyz * xyz = malloc(sizeof(Xyz));
+    if (xyz == NULL) {
+        return NULL;
+    }
+    
+    xyz->x = x;
+    xyz->y = y;
+    xyz->z = z;
+    
+    return xyz;
+}

@@ -19,6 +19,7 @@
 		2F970C5C218EF70400F6FDA7 /* node_hsl.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F970C5B218EF70400F6FDA7 /* node_hsl.c */; };
 		2F970C5F218F648B00F6FDA7 /* node_hsv.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F970C5E218F648B00F6FDA7 /* node_hsv.c */; };
 		2FDE4CDD2189C3D100C1479F /* node_ycbcr.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FDE4CDC2189C3D100C1479F /* node_ycbcr.c */; };
+		2FF199A02195780400636FEA /* node_xyz.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1999F2195780400636FEA /* node_xyz.c */; };
 		9F04726F203476D1000639EA /* rgb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04726E203476D1000639EA /* rgb_test.c */; };
 		9F04727120347861000639EA /* hex_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727020347861000639EA /* hex_test.c */; };
 		9F04727320348E67000639EA /* ycbcr_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727220348E67000639EA /* ycbcr_test.c */; };
@@ -94,6 +95,8 @@
 		2F970C5E218F648B00F6FDA7 /* node_hsv.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_hsv.c; sourceTree = "<group>"; };
 		2FDE4CDB2189C3D100C1479F /* node_ycbcr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_ycbcr.h; sourceTree = "<group>"; };
 		2FDE4CDC2189C3D100C1479F /* node_ycbcr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_ycbcr.c; sourceTree = "<group>"; };
+		2FF1999E2195780400636FEA /* node_xyz.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_xyz.h; sourceTree = "<group>"; };
+		2FF1999F2195780400636FEA /* node_xyz.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_xyz.c; sourceTree = "<group>"; };
 		9F04726D203476D1000639EA /* test_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test_header.h; sourceTree = "<group>"; };
 		9F04726E203476D1000639EA /* rgb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb_test.c; sourceTree = "<group>"; };
 		9F04727020347861000639EA /* hex_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hex_test.c; sourceTree = "<group>"; };
@@ -180,6 +183,7 @@
 				2F970C5B218EF70400F6FDA7 /* node_hsl.c */,
 				2F970C5E218F648B00F6FDA7 /* node_hsv.c */,
 				2F6E092F2191DAD700520106 /* node_yuv.c */,
+				2FF1999F2195780400636FEA /* node_xyz.c */,
 			);
 			path = binding;
 			sourceTree = "<group>";
@@ -187,6 +191,7 @@
 		2F61F9342180681300F61E22 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				2FF1999E2195780400636FEA /* node_xyz.h */,
 				2F6E092E2191DAD700520106 /* node_yuv.h */,
 				2F970C5D218F648B00F6FDA7 /* node_hsv.h */,
 				2F970C5A218EF70400F6FDA7 /* node_hsl.h */,
@@ -397,6 +402,7 @@
 				9F10A9BD20605C7F00692EA8 /* lab.c in Sources */,
 				9FA29B5820757F6B009DC625 /* luv.c in Sources */,
 				9F9AA8AB202A546B008A28B8 /* hex.c in Sources */,
+				2FF199A02195780400636FEA /* node_xyz.c in Sources */,
 				2F80306221877F6200792234 /* node_cymk.c in Sources */,
 				9F04727320348E67000639EA /* ycbcr_test.c in Sources */,
 				9F41ED57207CD80E00B8B644 /* luv_test.c in Sources */,
@@ -527,6 +533,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				"EXCLUDED_SOURCE_FILE_NAMES[arch=*]" = "lymui/binding/*";
 				"HEADER_SEARCH_PATHS[arch=*]" = (
 					"$(SRCROOT)/lib/cunit/include",
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
@@ -537,8 +544,10 @@
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/lib/cunit";
+				NEW_SETTING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include /Users/marcintha/.nvm/versions/node/v8.11.3/include/node";
+				lol = "";
 			};
 			name = Debug;
 		};
@@ -554,9 +563,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/cunit",
 				);
+				NEW_SETTING = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include /Users/marcintha/.nvm/versions/node/v8.11.3/include/node";
+				lol = "";
 			};
 			name = Release;
 		};
