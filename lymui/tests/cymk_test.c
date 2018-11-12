@@ -32,12 +32,7 @@ ctest_return_t testCymkBlackCreation(ctest_t *test, void *arg) {
     uint8_t uc[] = {0, 0, 0};
     Rgb *rgb = makeRGB(uc, 3);
     Cymk * cymk = getCymkFromRgb(rgb, 1000);
-    
-    printf("Value of c %f \n", cymk->c);
-    printf("Value of y %f \n", cymk->y);
-    printf("Value of m %f \n", cymk->m);
-
-    
+        
     CTAssertEqual(test, 0.0f, cymk->c, "Expect C to be equal to %f but got %f", 0.0f, cymk->c);
     CTAssertEqual(test, 0.0f, cymk->m, "Expect M to be equal to %f but got %f", 0.0f, cymk->m);
     CTAssertEqual(test, 0.0f, cymk->y, "Expect Y to be equal to %f but got %f", 0.0f, cymk->y);
