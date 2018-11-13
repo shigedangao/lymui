@@ -87,6 +87,20 @@ float getFloatValue(napi_env env, napi_value v) {
     return (float) res;
 }
 
+char * getStringValue(napi_env env, napi_value v, size_t strLen) {
+    napi_status status;
+    char * str = malloc(sizeof(char) * strLen);
+    size_t len;
+    
+    status = napi_get_value_string_utf8(env, v, str, strLen + 1, &len);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, PARSE_ERR);
+        return NULL;
+    }
+    
+    return str;
+}
+
 uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
     napi_status status;
     uint8_t idx = 0;
@@ -115,4 +129,13 @@ double floatToDouble(float value, int clamp) {
     double v = (double) value;
     
     return floor(v * clamp) / clamp;
+}
+
+
+Matrix getEnumFromStr(char * enumStr) {
+    if (!strcmp(enumStr, "srgb")) {
+        return srgb;
+    }
+    
+    return adobeRgb;
 }

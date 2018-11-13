@@ -25,8 +25,33 @@
 #define HslHsvLen 3
 #define YUVLen 3
 #define XYZLen 3
+#define LABLen 3
+#define LCHLen 3
 #define MIN_CLAMP_VALUE 1000
 #define PERCENT_CLAMP_VALUE 100
+#define COLOR_SPACE_INPUT 4
+
+/**
+ * @brief enum use by the bridge to identify which kind of i/o is used by the convert object
+ */
+typedef enum LymuiColorSpace {
+    iRgb,
+    iXyz,
+    nLab,
+    nLch,
+    nLuv,
+    nArgb,
+    nRgb
+} LymuiColorSpace;
+
+/**
+ * @brief struct use as a transational state for passing to the factory
+ */
+typedef struct ColorSpaceBridge {
+    Xyz * color;
+    LymuiColorSpace c;
+    char * error;
+} ColorBridge;
 
 /**
  * @brief Extract an RGB Object from a JS Object
@@ -91,5 +116,22 @@ Yuv * getYuvFromJSObj(napi_env env, napi_value args);
  * @return xyz
  */
 Xyz * getXyzFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Get Color Space From JS Obj
+ * @param env napi_env
+ * @param args napi_args
+ * @return args
+ *
+ * //// JS Actual usage (promise method)
+ * lymui.convert({
+ *   data: <Object>,
+ *   iType: <String> RGB, XYZ ?
+ *   oType: <String> LAB, LCH...
+ *   cType: <EnumString> SRGB | AdobeRGB
+ * })
+ *
+ */
+ColorBridge * getColorSpaceData(napi_env env, napi_value args);
 
 #endif /* bridge_h */

@@ -6,17 +6,18 @@
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
-#include "bridge.h"
 #include <stdlib.h>
 #include <string.h>
 #include <node_api.h>
 #include "binding_error.h"
 #include "binding_util.h"
+#include "bridge.h"
 #include "rgb.h"
 #include "hex.h"
 #include "hsl.h"
 #include "hsv.h"
 #include "yuv.h"
+#include "xyz.h"
 
 /**
  * @brief bind value of properties to node_value array
@@ -44,6 +45,28 @@ static void getNamedPropArray(napi_env env, char * name, napi_value obj, size_t 
         
         idx++;
     }
+}
+
+/**
+ * @brief get the enum for the kind of color space
+ * @param str char array
+ */
+static LymuiColorSpace getColorSpaceEnum(char * str) {
+    char * list[] = {"iRgb", "iXyz","nLab", "nLch", "nLuv", "nArgb", "nRgb"};
+    uint8_t idx = 0;
+    size_t size = 5;
+    LymuiColorSpace type = nLab;
+    
+    while(idx < size) {
+        if (!strcmp(str, list[idx])) {
+            type = idx;
+            idx = size + 1;
+        }
+        
+        idx++;
+    }
+    
+    return type;
 }
 
 Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
@@ -205,4 +228,52 @@ Xyz * getXyzFromJSObj(napi_env env, napi_value args) {
     xyz->z = z;
     
     return xyz;
+}
+
+
+ColorBridge * getColorSpaceData(napi_env env, napi_value args) {
+    char * prop = "data:iType:oType:cType";
+    // 0 -> Data napi_value
+    // 1 -> input type String
+    // 2 -> output type String
+    // 3 -> color type (optional) String
+    napi_value funcParams[4];
+    
+    if (!hasPropInJSObj(env, args, prop, COLOR_SPACE_INPUT)) {
+        return NULL;
+    }
+    
+    // Get the props from the object and put it in an array of napi_value
+    getNamedPropArray(env, prop, args, COLOR_SPACE_INPUT, funcParams);
+    // Retrieve the string value of the passed object
+    char * iType = getStringValue(env, funcParams[1], 4);
+    char * oType = getStringValue(env, funcParams[2], 4);
+    char * cType = getStringValue(env, funcParams[3], 4);
+    
+    // Get the enum type
+    LymuiColorSpace input = getColorSpaceEnum(iType);
+    // @TODO should rename this method
+    Matrix m = getEnumFromStr(cType);
+    Xyz * xyz;
+    
+    if (input == iRgb) {
+        Rgb * rgb = getRGBFromJSObj(env, funcParams[0]);
+        xyz = generateXyzFromRgb(rgb, m);
+    } else {
+        xyz = getXyzFromJSObj(env, funcParams[0]);
+    }
+    
+    if (xyz == NULL) {
+        return NULL;
+    }
+    
+    LymuiColorSpace output = getColorSpaceEnum(oType);
+    ColorBridge *b = malloc(sizeof(ColorBridge));
+    b->color = xyz;
+    b->c = output;
+    
+    free(iType);
+    free(cType);
+    
+    return b;
 }
