@@ -13,7 +13,7 @@
 #include "xyz.h"
 
 #define e 0.008856f
-#define k 903.3f
+#define ko 903.3f
 
 /**
  * @brief struct representing the Luv format

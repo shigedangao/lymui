@@ -10,25 +10,24 @@
 #include <node_api.h>
 #include "binding_error.h"
 #include "bridge.h"
+#include "factory.h"
 
-static napi_value getColorSpaceJSObj(ColorBridge * b) {
-    napi_value object;
-    
+static napi_value getColorSpaceJSObj(napi_env env, ColorBridge * b) {
     // Create the Object for each type
     switch(b->c) {
-        case nLch:
-            break;
-        case nLab:
-            break;
-        case nArgb:
-            break;
-        case nRgb:
-            break;
-        case nLuv:
-            break;
+        case lab:
+            return LabJSObjFactory(env, b->color);
+        case lch:
+            return LchJSObjFactory(env, b->color);
+        case argb:
+            return ArgbJSObjFactory(env, b->color);
+        case spaceRgb:
+            return SrgbJSObjFactory(env, b->color);
+        case luv:
+            return LuvJSObjFactory(env, b->color);
+        default:
+            return LabJSObjFactory(env, b->color);
     }
-    
-    return object;
 }
 
 napi_value convert(napi_env env, napi_callback_info info) {
@@ -54,6 +53,6 @@ napi_value convert(napi_env env, napi_callback_info info) {
     }
     
     // Make a switch where it output a napi_value
-    
+    object = getColorSpaceJSObj(env, b);
     return object;
 }

@@ -27,9 +27,11 @@
 #define XYZLen 3
 #define LABLen 3
 #define LCHLen 3
+#define SPACELen 4
 #define MIN_CLAMP_VALUE 1000
 #define PERCENT_CLAMP_VALUE 100
-#define COLOR_SPACE_INPUT 4
+#define COLOR_SPACE_INPUT 3
+#define COLOR_SPACE_INPUT_VALIDATION 2
 
 /**
  * @brief enum use by the bridge to identify which kind of i/o is used by the convert object
@@ -37,11 +39,11 @@
 typedef enum LymuiColorSpace {
     iRgb,
     iXyz,
-    nLab,
-    nLch,
-    nLuv,
-    nArgb,
-    nRgb
+    lab,
+    lch,
+    luv,
+    argb,
+    spaceRgb
 } LymuiColorSpace;
 
 /**
@@ -121,14 +123,13 @@ Xyz * getXyzFromJSObj(napi_env env, napi_value args);
  * @brief Get Color Space From JS Obj
  * @param env napi_env
  * @param args napi_args
- * @return args
+ * @return colorbridge struct pointer
  *
  * //// JS Actual usage (promise method)
  * lymui.convert({
  *   data: <Object>,
- *   iType: <String> RGB, XYZ ?
- *   oType: <String> LAB, LCH...
- *   cType: <EnumString> SRGB | AdobeRGB
+ *   output: <String> LAB, LCH...
+ *   colorType: <EnumString> SRGB | AdobeRGB
  * })
  *
  */

@@ -43,7 +43,7 @@ Luv * getLuvFromXyz(Xyz *xyz) {
     if (y > e)
         l = 116.0f * powf(y, 1.0f / 3.0f) - 16.0f;
     else
-        l = k * y;
+        l = ko * y;
     
     luv->l = l;
     luv->u = 13.0f * l * (uv[0] - urv[0]);
@@ -62,10 +62,10 @@ Luv * getLuvFromXyz(Xyz *xyz) {
  * @return float
  */
 static float calculateYValue(float l) {
-    if (l > (k * e))
+    if (l > (ko * e))
         return powf((l + 16.0f) / 116.0f, 3.0f);
     
-    return l / k;
+    return l / ko;
 }
 
 /**

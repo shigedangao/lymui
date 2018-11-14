@@ -28,9 +28,9 @@ SRgb *getSRgbFromXyz(Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
-    float r = xyz->x * rr + xyz->y * rg + xyz->z * rb;
-    float g = xyz->x * gr + xyz->y * gg + xyz->z * gb;
-    float b = xyz->x * br + xyz->y * bg + xyz->z * bb;
+    float r = xyz->x * srr + xyz->y * srg + xyz->z * srb;
+    float g = xyz->x * sgr + xyz->y * sgg + xyz->z * sgb;
+    float b = xyz->x * sbr + xyz->y * sbg + xyz->z * sbb;
     
     SRgb *srgb = malloc(sizeof(SRgb));
     srgb->r = gammaCorrection(r);
