@@ -52,7 +52,6 @@ typedef enum LymuiColorSpace {
 typedef struct ColorSpaceBridge {
     Xyz * color;
     LymuiColorSpace c;
-    char * error;
 } ColorBridge;
 
 /**

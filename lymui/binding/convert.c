@@ -34,25 +34,45 @@ napi_value convert(napi_env env, napi_callback_info info) {
     napi_status status;
     size_t argc = 1;
     napi_value argv[1];
-    napi_value object;
+    napi_value promise;
+    napi_deferred def;
+    
+    status = napi_create_promise(env, &def, &promise);
+    if (status != napi_ok) {
+        napi_throw_error(env, NULL, PROMISE_ERR);
+        return NULL;
+    }
     
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, DESERIALIZE_ERR);
-        return NULL;
+        napi_reject_deferred(env, def, BuildPromiseError(env, DESERIALIZE_ERR));
+        return promise;
     }
     
     if (argc < 1) {
-        napi_throw_error(env, NULL, ARG_NB_ERR);
-        return NULL;
+        napi_reject_deferred(env, def, BuildPromiseError(env, ARG_NB_ERR));
+        return promise;
     }
     
     ColorBridge * b = getColorSpaceData(env, argv[0]);
+    if (b == NULL) {
+        napi_reject_deferred(env, def, BuildPromiseError(env, PROP_NOT_FOUND_ERR));
+        return promise;
+    }
+    
     if (b->color == NULL) {
-        return NULL;
+        napi_reject_deferred(env, def, BuildPromiseError(env, CREATE_TYPE_ERR));
+        return promise;
     }
     
     // Make a switch where it output a napi_value
-    object = getColorSpaceJSObj(env, b);
-    return object;
+    napi_value object = getColorSpaceJSObj(env, b);
+    if (object == NULL) {
+        napi_reject_deferred(env, def, BuildPromiseError(env, OBJ_MAKE_ERR));
+        return  promise;
+    }
+    
+    napi_resolve_deferred(env, def, object);
+    
+    return promise;
 }

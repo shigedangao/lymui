@@ -27,6 +27,14 @@
 #define COLOR_SPACE_CLAMP 10000
 
 /**
+ * @brief struct use for handling promise error
+ */
+typedef struct JSError {
+    char * error;
+} JSError;
+
+
+/**
  * @brief Factory creating Rgb Object on the fly
  * @param env napi_env
  * @param rgb Rgb struct pointer
@@ -125,5 +133,13 @@ napi_value ArgbJSObjFactory(napi_env env, Xyz * xyz);
  * @return napi_value
  */
 napi_value SrgbJSObjFactory(napi_env env, Xyz * xyz);
+
+/**
+ * @brief Build Promise Error
+ * @param env napi_env
+ * @param error * char
+ * @return napi_value
+ */
+napi_value BuildPromiseError(napi_env env, char * error);
 
 #endif /* factory_h */
