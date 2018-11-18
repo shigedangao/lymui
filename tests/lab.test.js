@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const SegfaultHandler = require('segfault-handler');
 const lib = require('../build/Debug/lymuilib');
 
-SegfaultHandler.registerHandler('convert.log');
+SegfaultHandler.registerHandler('lab_convert.log');
 
 
 describe('Creating LAB from RGB', () => {
@@ -108,5 +108,4 @@ describe('Creating LAB from RGB', () => {
       b: -1.3013
     });
   });
-
 });

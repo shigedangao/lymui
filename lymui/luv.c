@@ -39,7 +39,7 @@ Luv * getLuvFromXyz(Xyz *xyz) {
     float *uv  = calculateParams(xyz->x, xyz->y, xyz->z);
     float *urv = calculateParams(Xn, Yn, Zn);
     
-     Luv *luv = malloc(sizeof( Luv));
+    Luv *luv = malloc(sizeof(Luv));
     if (y > e)
         l = 116.0f * powf(y, 1.0f / 3.0f) - 16.0f;
     else

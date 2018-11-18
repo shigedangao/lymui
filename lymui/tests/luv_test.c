@@ -38,7 +38,7 @@ ctest_return_t testSuperiorYLuvFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz = generateXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 8.218f, luv->l, 0.001f, "Expect L to be equal to %f but got %f", 8.128f, luv->l);
+    CTAssertDecimalEqual(test, 8.219f, luv->l, 0.001f, "Expect L to be equal to %f but got %f", 8.219f, luv->l);
     CTAssertDecimalEqual(test, -2.364f, luv->u, 0.001f, "Expect U to be equal to %f but got %f", -2.364f, luv->u);
     CTAssertDecimalEqual(test, -0.510f, luv->v, 0.001f, "Expect V to be equal to %f but got %f", -0.510f, luv->v);
     

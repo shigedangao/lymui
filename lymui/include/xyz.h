@@ -13,17 +13,17 @@
 #include "rgb.h"
 
 // Constant for the sRGB value to from RGB to XYZ
-#define xr 0.4124f
-#define xg 0.3575f
-#define xb 0.1804f
+#define xr 0.4124564f
+#define xg 0.3575761f
+#define xb 0.1804375f
 
-#define yr 0.2126f
-#define yg 0.7151f
-#define yb 0.0721f
+#define yr 0.2126729f
+#define yg 0.7151522f
+#define yb 0.0721750f
 
-#define zr 0.0193f
-#define zg 0.1191f
-#define zb 0.9503f
+#define zr 0.0193339f
+#define zg 0.1191920f
+#define zb 0.9503041f
 
 // Constant for Adobe RGB value from RGB to XYZ
 #define axr 0.5767f
@@ -42,7 +42,7 @@
 
 // Illuminant for D65
 #define Xn 95.047f
-#define Yn 100.0f
+#define Yn 100.000f
 #define Zn 108.883f
 
 // Constant for the sRgb value from XYZ to RGB

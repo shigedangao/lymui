@@ -13,15 +13,15 @@
 
 ctest_return_t testLchFromLab(ctest_t *test, void *arg) {
     Xyz *xyz = malloc(sizeof(Xyz));
-    xyz->x = 0.51f;
-    xyz->y = 0.52f;
-    xyz->z = 0.55f;
+    xyz->x = 0.1161f;
+    xyz->y = 0.0497f;
+    xyz->z = 0.5376f;
     
     LchLab *lch = getLchFromLab(xyz);
     
-    CTAssertDecimalEqual(test, lch->l, 4.69f, 0.01f, "Expect L to be equal to %f but got %f", 4.69f, lch->l);
-    CTAssertDecimalEqual(test, lch->c, 0.68f, 0.01f, "Expect C to be equal to %f but got %f", 0.68f, lch->c);
-    CTAssertDecimalEqual(test, lch->h, 19.73f, 0.01f, "Expect H to be equal to %f but got %f", 19.73f, lch->h);
+    CTAssertDecimalEqual(test, lch->l, 26.64f, 0.01f, "Expect L to be equal to %f but got %f", 26.64f, lch->l);
+    CTAssertDecimalEqual(test, lch->c, 106.18f, 0.01f, "Expect C to be equal to %f but got %f", 106.18f, lch->c);
+    CTAssertDecimalEqual(test, lch->h, 359.9f, 0.1f, "Expect H to be equal to %f but got %f", 359.9f, lch->h);
     
     free(lch);
 }

@@ -16,7 +16,7 @@ Lch * getLchFromXyz(Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
-     Luv *luv = getLuvFromXyz(xyz);
+    Luv *luv = getLuvFromXyz(xyz);
     
     if (luv == NULL) {
         return NULL;

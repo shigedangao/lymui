@@ -23,9 +23,9 @@ ctest_return_t testLabFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz = generateXyzFromRgb(rgb, srgb);
     Lab *lab = getLabFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 0.436f, lab->l, 0.001f, "Expect L to be equal to %f but got %f real value is %f", 0.436f, lab->l);
-    CTAssertDecimalEqual(test, 2.735f, lab->a, 0.001f, "Expect A to be equal to %f but got %f real value is %f", 2.735f, lab->a);
-    CTAssertDecimalEqual(test, -6.679f, lab->b, 0.001f, "Expect B to be equal to %f but got %f real value is %f", -6.679f, lab->b);
+    CTAssertDecimalEqual(test, 26.25, lab->l, 0.01f, "Expect L to be equal to %f but got %f real value is %f", 26.25f, lab->l);
+    CTAssertDecimalEqual(test, 63.50f, lab->a, 0.01f, "Expect A to be equal to %f but got %f real value is %f", 63.50f, lab->a);
+    CTAssertDecimalEqual(test, -83.43f, lab->b, 0.01f, "Expect B to be equal to %f but got %f real value is %f", -83.43f, lab->b);
 
     free(lab);
 }
@@ -39,7 +39,7 @@ ctest_return_t testBlackLabFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz = generateXyzFromRgb(rgb, srgb);
     Lab *lab = getLabFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 0.00274f, lab->l, 0.00001f, "Expect L to be equal to %f but got %f", 0.00274f, lab->l);
+    CTAssertDecimalEqual(test, 0.27f, lab->l, 0.01f, "Expect L to be equal to %f but got %f", 0.27f, lab->l);
     CTAssertDecimalEqual(test, 0.0f, lab->a, 0.01f, "Expect A to be equal to %f but got %f", 0.0f, lab->a);
     CTAssertDecimalEqual(test, 0.0f, lab->b, 0.01f, "Expect B to be equal to %f but got %f", 0.0f, lab->b);
 
@@ -55,9 +55,9 @@ ctest_return_t testWhiteLab(ctest_t *test, void *arg) {
     Xyz *xyz = generateXyzFromRgb(rgb, srgb);
     Lab *lab = getLabFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 8.989f, lab->l, 0.001f, "Expect L to be equal to %f but got %f", 8.989f, lab->l);
-    CTAssertDecimalEqual(test, 0.0007f, lab->a, 0.0001f, "Expect A to be equal to %f but got %f", 0.0007f, lab->a);
-    CTAssertDecimalEqual(test, 1.202f, lab->b, 0.001f, "Expect B to be equal to %f but got %f", 1.202f, lab->b);
+    CTAssertDecimalEqual(test, 100.0f, lab->l, 0.001f, "Expect L to be equal to %f but got %f", 100.0f, lab->l);
+    CTAssertDecimalEqual(test, 0.0f, lab->a, 0.0001f, "Expect A to be equal to %f but got %f", 0.000f, lab->a);
+    CTAssertDecimalEqual(test, 0.0f, lab->b, 0.001f, "Expect B to be equal to %f but got %f", 0.0f, lab->b);
 
     free(lab);
 }
@@ -88,14 +88,14 @@ ctest_return_t testXyzFromLab(ctest_t *test, void *arg) {
 
 ctest_return_t testXyzFromSmallLab(ctest_t *test, void *arg) {
     Lab *lab = malloc(sizeof(Lab));
-    lab->l = 0.274187f;
-    lab->a = 0.000021f;
-    lab->b = -0.00006f;
+    lab->l = 26.65f;
+    lab->a = 64.26f;
+    lab->b = -84.54f;
     
     Xyz *xyz = getXyzFromLab(lab);
-    CTAssertDecimalEqual(test, 0.0288f, xyz->x, 0.0001f, "Expect X to be equal to %f but got %f", 0.0288f, xyz->x);
-    CTAssertDecimalEqual(test, 0.0303f, xyz->y, 0.0001f, "Expect Y to be equal to %f but got %f", 0.0303f, xyz->y);
-    CTAssertDecimalEqual(test, 0.0330f, xyz->z, 0.0001f, "Expect Z to be equal to %f but got %f", 0.0330f, xyz->z);
+    CTAssertDecimalEqual(test, 0.1161f, xyz->x, 0.0001f, "Expect X to be equal to %f but got %f", 0.1161f, xyz->x);
+    CTAssertDecimalEqual(test, 0.0497f, xyz->y, 0.0001f, "Expect Y to be equal to %f but got %f", 0.0497f, xyz->y);
+    CTAssertDecimalEqual(test, 0.5376f, xyz->z, 0.0001f, "Expect Z to be equal to %f but got %f", 0.5376f, xyz->z);
 
     free(xyz);
 }
@@ -133,7 +133,7 @@ ctest_return_t testHunterLabFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz  = generateXyzFromRgb(rgb, srgb);
     Lab *hunterLab = getHunterLabFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 5.880f, hunterLab->l, 0.001f, "Expect L to be equal to %f but got %f", 5.880f, hunterLab->l);
+    CTAssertDecimalEqual(test, 5.881f, hunterLab->l, 0.001f, "Expect L to be equal to %f but got %f", 5.881f, hunterLab->l);
     CTAssertDecimalEqual(test, 3.507f, hunterLab->a, 0.001f, "Expect A to be equal to %f but got %f", 3.507f, hunterLab->a);
     CTAssertDecimalEqual(test, 3.122f, hunterLab->b, 0.001f, "Expect B to be equal to %f but got %f", 3.122f, hunterLab->b);
 
