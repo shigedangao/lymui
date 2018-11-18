@@ -62,9 +62,9 @@ Lab *getHunterLabFromXyz(Xyz *xyz) {
     float * kAkB = getKaKb();
     Lab *lab = malloc(sizeof(Lab));
     
-    lab->l = 100 * sqrtf(xyz->y / Yn);
-    lab->a = kAkB[0] * ((xyz->x / Xn - xyz->y / Yn) / sqrtf(xyz->y / Yn));
-    lab->b = kAkB[1] * ((xyz->y / Yn - xyz->z / Zn) / sqrtf(xyz->y / Yn));
+    lab->l = 100.0f * sqrtf(xyz->y / Yn);
+    lab->a = 100.0f * kAkB[0] * ((xyz->x / Xn - xyz->y / Yn) / sqrtf(xyz->y / Yn));
+    lab->b = 100.0f * kAkB[1] * ((xyz->y / Yn - xyz->z / Zn) / sqrtf(xyz->y / Yn));
     
     free(xyz);
     free(kAkB);

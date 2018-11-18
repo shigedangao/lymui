@@ -53,6 +53,7 @@ Xyz * getXyzFromLchlab(LchLab *lch) {
     lab->a = lch->c * cosf(H);
     lab->b = lch->c * sinf(H);
     
+    
     // get the xyz
     Xyz *xyz = getXyzFromLab(lab);
     

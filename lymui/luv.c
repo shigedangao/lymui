@@ -104,9 +104,9 @@ Xyz * getXyzFromLuv(Luv *luv) {
      Xyz *xyz = malloc(sizeof(Xyz));
     
     float tempX = (params[3] - params[1]) / (params[0] - params[2]);
-    xyz->x = tempX * 100.0f;
-    xyz->y = params[4] * 100.0f;
-    xyz->z = (tempX * params[0] + params[1]) * 100.0f;
+    xyz->x = tempX;
+    xyz->y = params[4];
+    xyz->z = (tempX * params[0] + params[1]);
     
     free(luv);
     free(params);

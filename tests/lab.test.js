@@ -20,9 +20,9 @@ describe('Creating LAB from RGB', () => {
     });
 
     expect(lab).to.be.deep.equal({
-      l: 0.1553,
-      a: 0.7591,
-      b: -1.3016
+      l: 13.9447,
+      a: 37.0887,
+      b: -41.4416
     });
   });
 
@@ -40,9 +40,9 @@ describe('Creating LAB from RGB', () => {
     });
 
     expect(lab).to.be.deep.equal({
-      l: 0.1566,
-      a: 0.8659,
-      b: -1.3577
+      l: 14.0253,
+      a: 40.9803,
+      b: -42.4412
     });
   });
 
@@ -103,9 +103,9 @@ describe('Creating LAB from RGB', () => {
     // Note there are some precision difference as the output xyz is less precise
     // Than the one calculate by the rgb
     expect(lab).to.be.deep.equal({
-      l: 0.1553,
-      a: 0.7558,
-      b: -1.3013
+      l: 13.9433,
+      a: 36.9625,
+      b: -41.4369
     });
   });
 });

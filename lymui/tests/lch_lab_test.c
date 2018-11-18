@@ -32,16 +32,12 @@ ctest_return_t testXyzFromLchLab(ctest_t *test, void *arg) {
     xyz->y = 0.52f;
     xyz->z = 0.55f;
     
-    LchLab *lch = malloc(sizeof(LchLab));
-    lch->l = 4.697159f;
-    lch->c = 0.685722f;
-    lch->h = 19.739084f;
-    
+    LchLab *lch = getLchFromLab(xyz);
     Xyz *nXyz = getXyzFromLchlab(lch);
     
-    CTAssertDecimalEqual(test, xyz->x, nXyz->x, 0.01f, "Expect X to be equal to %f but got %f", xyz->x, nXyz->x);
-    CTAssertDecimalEqual(test, xyz->y, nXyz->y, 0.01f, "Expect Y to be equal to %f but got %f", xyz->y, nXyz->y);
-    CTAssertDecimalEqual(test, xyz->z, nXyz->z, 0.01f, "Expect Z to be equal to %f but got %f", xyz->z, nXyz->z);
+    CTAssertDecimalEqual(test, 0.51f, nXyz->x, 0.01f, "Expect X to be equal to %f but got %f", 0.51f, nXyz->x);
+    CTAssertDecimalEqual(test, 0.52f, nXyz->y, 0.01f, "Expect Y to be equal to %f but got %f", 0.52f, nXyz->y);
+    CTAssertDecimalEqual(test, 0.56f, nXyz->z, 0.01f, "Expect Z to be equal to %f but got %f", 0.56f, nXyz->z);
 
     free(nXyz);
     free(xyz);

@@ -133,9 +133,9 @@ ctest_return_t testHunterLabFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz  = generateXyzFromRgb(rgb, srgb);
     Lab *hunterLab = getHunterLabFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 5.881f, hunterLab->l, 0.001f, "Expect L to be equal to %f but got %f", 5.881f, hunterLab->l);
-    CTAssertDecimalEqual(test, 3.507f, hunterLab->a, 0.001f, "Expect A to be equal to %f but got %f", 3.507f, hunterLab->a);
-    CTAssertDecimalEqual(test, 3.122f, hunterLab->b, 0.001f, "Expect B to be equal to %f but got %f", 3.122f, hunterLab->b);
+    CTAssertDecimalEqual(test, 58.811f, hunterLab->l, 0.01f, "Expect L to be equal to %f but got %f", 58.811f, hunterLab->l);
+    CTAssertDecimalEqual(test, 35.07f, hunterLab->a, 0.01f, "Expect A to be equal to %f but got %f", 35.07f, hunterLab->a);
+    CTAssertDecimalEqual(test, 31.22f, hunterLab->b, 0.01f, "Expect B to be equal to %f but got %f", 31.22f, hunterLab->b);
 
     free(hunterLab);
 }

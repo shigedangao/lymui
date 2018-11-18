@@ -41,9 +41,9 @@
 // Illuminant for White D65
 
 // Illuminant for D65
-#define Xn 95.047f
-#define Yn 100.000f
-#define Zn 108.883f
+#define Xn 0.95047f
+#define Yn 1.000f
+#define Zn 1.08883f
 
 // Constant for the sRgb value from XYZ to RGB
 #define xx 3.2404f
