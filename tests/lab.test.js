@@ -20,9 +20,9 @@ describe('Creating LAB from RGB', () => {
     });
 
     expect(lab).to.be.deep.equal({
-      l: 13.9447,
-      a: 37.0887,
-      b: -41.4416
+      l: 13.9511,
+      a: 37.0711,
+      b: -41.431
     });
   });
 
