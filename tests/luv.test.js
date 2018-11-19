@@ -98,7 +98,7 @@ describe('Creating LUV from RGB', () => {
     }
   });
 
-  it('Expect to throw when a params is missing on the Rgb object', async () => {
+  it('Expect to return a valid luv from an xyz value', async () => {
     const xyz = {
       x: 0.03628,
       y: 0.01777,
@@ -114,6 +114,25 @@ describe('Creating LUV from RGB', () => {
       l: 14.2705,
       u: 4.4641,
       v: -41.5165
+    });
+  });
+
+  it('Expect to return a valid white luv from a white xyz value', async () => {
+    const xyz = {
+      x: 0.9504,
+      y: 1,
+      z: 1.0888
+    };
+
+    const luv = await lib.convert({
+      data: xyz,
+      output: 'luv'
+    });
+
+    expect(luv).to.be.deep.equal({
+      l: 100,
+      u: 0,
+      v: 0
     });
   });
 });
