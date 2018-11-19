@@ -19,9 +19,9 @@ describe('Creating LUV from RGB', () => {
     });
 
     expect(luv).to.be.deep.equal({
-      l: 10.0301,
-      u: -2.9729,
-      v: -36.6297
+      l: 10.0373,
+      u: -2.9766,
+      v: -36.6424
     });
   });
 
@@ -59,9 +59,9 @@ describe('Creating LUV from RGB', () => {
     });
 
     expect(luv).to.be.deep.equal({
-      l: 99.9922,
-      u: 0.0016,
-      v: -0.009
+      l: 100,
+      u: 0,
+      v: 0
     });
   });
 
