@@ -45,7 +45,7 @@ describe('Creating LUV from RGB', () => {
     });
   });
 
-  it('Expect to create a valid LUV from a white RGB', async () => {
+  it('Expect to create a valid LUV from a white SRGB', async () => {
     const rgb = {
       r: 255,
       g: 255,
@@ -59,13 +59,13 @@ describe('Creating LUV from RGB', () => {
     });
 
     expect(luv).to.be.deep.equal({
-      l: 99.9922,
-      u: 0.0016,
-      v: -0.009
+      l: 100,
+      u: 0,
+      v: 0
     });
   });
 
-  it('Expect to create a valid LUV from a white RGB', async () => {
+  it('Expect to create a valid LUV from a white ARGB', async () => {
     const rgb = {
       r: 255,
       g: 255,
@@ -79,9 +79,9 @@ describe('Creating LUV from RGB', () => {
     });
 
     expect(luv).to.be.deep.equal({
-      l: 99.9922,
-      u: 0.0016,
-      v: -0.009
+      l: 100,
+      u: 0,
+      v: 0
     });
   });
 
