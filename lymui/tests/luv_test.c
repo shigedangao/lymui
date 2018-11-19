@@ -45,6 +45,22 @@ ctest_return_t testSuperiorYLuvFromXyz(ctest_t *test, void *arg) {
     free(luv);
 }
 
+ctest_return_t testWhiteLuvFromXyz(ctest_t *test, void *arg) {
+    Rgb * rgb = malloc(sizeof(Rgb));
+    rgb->r = 255;
+    rgb->g = 255;
+    rgb->b = 255;
+    
+    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Luv *luv = getLuvFromXyz(xyz);
+    
+    CTAssertDecimalEqual(test, 100.0f, luv->l, 0.01f, "Expect L to be equal to %f but got %f", 100.0f, luv->l);
+    CTAssertDecimalEqual(test, 0.0f, luv->u, 0.01f, "Expect U to be equal to %f but got %f", 0.0f, luv->u);
+    CTAssertDecimalEqual(test, 0.0f, luv->v, 0.01f, "Expect V to be equal to %f but got %f", 0.0f, luv->v);
+
+    free(luv);
+}
+
 ctest_return_t testInferiorYLuvFromXyz(ctest_t *test, void *arg) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 5;
@@ -113,10 +129,11 @@ ctcase_t * wrapLuvCreationTest() {
     ctcase_t *luvCase = ctcase("Luv creation test");
     
     // test case Xyz -> Luv
-    ctest_t *testLuv     = ctest("Creation of a Luv from Xyz", testLuvFromXyz, NULL);
-    ctest_t *testSupLuv  = ctest("Creation of an Superior Y Luv from Xyz", testSuperiorYLuvFromXyz, NULL);
-    ctest_t *testInfLuv  = ctest("Creation of an Inferior Y Luv from Xyz", testInferiorYLuvFromXyz, NULL);
-    ctest_t *testEmptyLuv= ctest("Creation of an NULL Luv from an empty Xyz", testNullLuv, NULL);
+    ctest_t *testLuv      = ctest("Creation of a Luv from Xyz", testLuvFromXyz, NULL);
+    ctest_t *testSupLuv   = ctest("Creation of an Superior Y Luv from Xyz", testSuperiorYLuvFromXyz, NULL);
+    ctest_t *testInfLuv   = ctest("Creation of an Inferior Y Luv from Xyz", testInferiorYLuvFromXyz, NULL);
+    ctest_t *testEmptyLuv = ctest("Creation of an NULL Luv from an empty Xyz", testNullLuv, NULL);
+    ctest_t *testWhiteLuv = ctest("Creation of a White Luv from a White RGB", testWhiteLuvFromXyz, NULL);
     
     // test case Luv -> Xyz
     ctest_t *testXyz     = ctest("Creation of an Xyz from a Luv", testXyzFromLuv, NULL);
@@ -128,6 +145,7 @@ ctcase_t * wrapLuvCreationTest() {
     ctctestadd(luvCase, testSupLuv);
     ctctestadd(luvCase, testInfLuv);
     ctctestadd(luvCase, testEmptyLuv);
+    ctctestadd(luvCase, testWhiteLuv);
     
     ctctestadd(luvCase, testXyz);
     ctctestadd(luvCase, testHighXyz);
