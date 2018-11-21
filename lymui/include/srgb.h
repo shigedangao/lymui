@@ -13,22 +13,22 @@
 #include "xyz.h"
 #include "rgb.h"
 
-#define rr 3.2406f
-#define rg -1.5732f
-#define rb -0.4986f
+#define srr 3.2406f
+#define srg -1.5732f
+#define srb -0.4986f
 
-#define gr -0.9789f
-#define gg 1.8758f
-#define gb 0.0415f
+#define sgr -0.9789f
+#define sgg 1.8758f
+#define sgb 0.0415f
 
-#define br 0.0557f
-#define bg -0.2040f
-#define bb 1.0570f
+#define sbr 0.0557f
+#define sbg -0.2040f
+#define sbb 1.0570f
 
 /**
  * @brief a structure defining the sRgb value. It's store float as the sRGB color space value use decimal
  */
-typedef struct sRgb {
+typedef struct SRgb {
     float r;
     float g;
     float b;

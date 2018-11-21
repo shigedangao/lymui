@@ -20,20 +20,21 @@
  * @return float
  */
 static float calculateDomain(float c) {
-    if (c > epsilon)
-        return powf(c, (1.0f / 3.0f));
+    if (c > 0.008856f)
+        return cbrtf(c);
     
-    return (c * kameah + 16.0f) / 116.0f;
+    return (c * 7.787f) + (16.0f / 116.0f);
 }
+
 
 Lab *getLabFromXyz(Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
     Lab *lab = malloc(sizeof(Lab));
-    lab->l = 116.0f * calculateDomain(clampXyz(xyz->y) / Yn) - 16.0f;
-    lab->a = 500.0f * (calculateDomain(clampXyz(xyz->x) / Xn) - calculateDomain(clampXyz(xyz->y) / Yn));
-    lab->b = 200.0f * (calculateDomain(clampXyz(xyz->y) / Yn) - calculateDomain(clampXyz(xyz->z) / Zn));
+    lab->l = 116.0f * calculateDomain(xyz->y / refY) - 16.0f;
+    lab->a = 500.0f * (calculateDomain(xyz->x / refX) - calculateDomain(xyz->y / refY));
+    lab->b = 200.0f * (calculateDomain(xyz->y / refY) - calculateDomain(xyz->z / refZ));
     
     free(xyz);
     
@@ -61,9 +62,9 @@ Lab *getHunterLabFromXyz(Xyz *xyz) {
     float * kAkB = getKaKb();
     Lab *lab = malloc(sizeof(Lab));
     
-    lab->l = 100 * sqrtf(xyz->y / Yn);
-    lab->a = kAkB[0] * ((xyz->x / Xn - xyz->y / Yn) / sqrtf(xyz->y / Yn));
-    lab->b = kAkB[1] * ((xyz->y / Yn - xyz->z / Zn) / sqrtf(xyz->y / Yn));
+    lab->l = 100.0f * sqrtf(xyz->y / Yn);
+    lab->a = 100.0f * kAkB[0] * ((xyz->x / Xn - xyz->y / Yn) / sqrtf(xyz->y / Yn));
+    lab->b = 100.0f * kAkB[1] * ((xyz->y / Yn - xyz->z / Zn) / sqrtf(xyz->y / Yn));
     
     free(xyz);
     free(kAkB);
@@ -92,14 +93,14 @@ Xyz *getXyzFromLab(Lab *lab) {
     Xyz *xyz = malloc(sizeof(Xyz));
     
     float labL = (lab->l + 16.0f) / 116.0f;
-    xyz->x = Xn * calculateReverseDomain(labL + lab->a / 500.0f);
-    xyz->z = Zn * calculateReverseDomain(labL - lab->b / 200.0f);
+    xyz->x = refX * calculateReverseDomain(labL + lab->a / 500.0f);
+    xyz->z = refZ * calculateReverseDomain(labL - lab->b / 200.0f);
     
     // special case for y value
     if (lab->l > epsilon * kameah)
-        xyz->y = Yn * powf(labL, 3);
+        xyz->y = refY * powf(labL, 3);
     else
-        xyz->y = Yn * (lab->l / kameah);
+        xyz->y = refY * (lab->l / kameah);
     
     free(lab);
     

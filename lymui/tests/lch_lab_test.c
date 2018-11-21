@@ -13,15 +13,15 @@
 
 ctest_return_t testLchFromLab(ctest_t *test, void *arg) {
     Xyz *xyz = malloc(sizeof(Xyz));
-    xyz->x = 0.51f;
-    xyz->y = 0.52f;
-    xyz->z = 0.55f;
+    xyz->x = 0.1161f;
+    xyz->y = 0.0497f;
+    xyz->z = 0.5376f;
     
     LchLab *lch = getLchFromLab(xyz);
     
-    CTAssertDecimalEqual(test, lch->l, 4.69f, 0.01f, "Expect L to be equal to %f but got %f", 4.69f, lch->l);
-    CTAssertDecimalEqual(test, lch->c, 0.68f, 0.01f, "Expect C to be equal to %f but got %f", 0.68f, lch->c);
-    CTAssertDecimalEqual(test, lch->h, 19.73f, 0.01f, "Expect H to be equal to %f but got %f", 19.73f, lch->h);
+    CTAssertDecimalEqual(test, lch->l, 26.64f, 0.01f, "Expect L to be equal to %f but got %f", 26.64f, lch->l);
+    CTAssertDecimalEqual(test, lch->c, 106.18f, 0.01f, "Expect C to be equal to %f but got %f", 106.18f, lch->c);
+    CTAssertDecimalEqual(test, lch->h, 359.9f, 0.1f, "Expect H to be equal to %f but got %f", 359.9f, lch->h);
     
     free(lch);
 }
@@ -32,16 +32,12 @@ ctest_return_t testXyzFromLchLab(ctest_t *test, void *arg) {
     xyz->y = 0.52f;
     xyz->z = 0.55f;
     
-    LchLab *lch = malloc(sizeof(LchLab));
-    lch->l = 4.697159f;
-    lch->c = 0.685722f;
-    lch->h = 19.739084f;
-    
+    LchLab *lch = getLchFromLab(xyz);
     Xyz *nXyz = getXyzFromLchlab(lch);
     
-    CTAssertDecimalEqual(test, xyz->x, nXyz->x, 0.01f, "Expect X to be equal to %f but got %f", xyz->x, nXyz->x);
-    CTAssertDecimalEqual(test, xyz->y, nXyz->y, 0.01f, "Expect Y to be equal to %f but got %f", xyz->y, nXyz->y);
-    CTAssertDecimalEqual(test, xyz->z, nXyz->z, 0.01f, "Expect Z to be equal to %f but got %f", xyz->z, nXyz->z);
+    CTAssertDecimalEqual(test, 0.51f, nXyz->x, 0.01f, "Expect X to be equal to %f but got %f", 0.51f, nXyz->x);
+    CTAssertDecimalEqual(test, 0.52f, nXyz->y, 0.01f, "Expect Y to be equal to %f but got %f", 0.52f, nXyz->y);
+    CTAssertDecimalEqual(test, 0.56f, nXyz->z, 0.01f, "Expect Z to be equal to %f but got %f", 0.56f, nXyz->z);
 
     free(nXyz);
     free(xyz);

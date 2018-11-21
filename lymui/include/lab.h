@@ -13,7 +13,11 @@
 #include "xyz.h"
 
 #define epsilon 0.008856f
-#define kameah 903.3f
+#define kameah 24389.0f / 27.0f
+
+#define refX 0.95047f
+#define refY 1.000f
+#define refZ 1.08883f
 
 /**
  * @brief Lab struct representing the Lab color space

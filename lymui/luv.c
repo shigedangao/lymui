@@ -39,11 +39,11 @@ Luv * getLuvFromXyz(Xyz *xyz) {
     float *uv  = calculateParams(xyz->x, xyz->y, xyz->z);
     float *urv = calculateParams(Xn, Yn, Zn);
     
-     Luv *luv = malloc(sizeof( Luv));
+    Luv *luv = malloc(sizeof(Luv));
     if (y > e)
         l = 116.0f * powf(y, 1.0f / 3.0f) - 16.0f;
     else
-        l = k * y;
+        l = ko * y;
     
     luv->l = l;
     luv->u = 13.0f * l * (uv[0] - urv[0]);
@@ -62,10 +62,10 @@ Luv * getLuvFromXyz(Xyz *xyz) {
  * @return float
  */
 static float calculateYValue(float l) {
-    if (l > (k * e))
+    if (l > (ko * e))
         return powf((l + 16.0f) / 116.0f, 3.0f);
     
-    return l / k;
+    return l / ko;
 }
 
 /**
@@ -104,9 +104,9 @@ Xyz * getXyzFromLuv(Luv *luv) {
      Xyz *xyz = malloc(sizeof(Xyz));
     
     float tempX = (params[3] - params[1]) / (params[0] - params[2]);
-    xyz->x = tempX * 100.0f;
-    xyz->y = params[4] * 100.0f;
-    xyz->z = (tempX * params[0] + params[1]) * 100.0f;
+    xyz->x = tempX;
+    xyz->y = params[4];
+    xyz->z = (tempX * params[0] + params[1]);
     
     free(luv);
     free(params);

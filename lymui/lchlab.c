@@ -16,8 +16,7 @@ LchLab * getLchFromLab(Xyz *xyz) {
     if (xyz == NULL)
         return NULL;
     
-     Lab *lab = getLabFromXyz(xyz);
-    
+    Lab *lab = getLabFromXyz(xyz);
     if (lab == NULL) {
         return NULL;
     }
@@ -25,7 +24,13 @@ LchLab * getLchFromLab(Xyz *xyz) {
     LchLab *lch = malloc(sizeof(LchLab));
     lch->l = lab->l;
     lch->c = sqrtf(powf(lab->a, 2.0f) + powf(lab->b, 2.0f));
-    lch->h = getDegFromRad(atanf(lab->b / lab->a));
+    
+    float h = getRadFromDeg(atan2f(lab->b, lab->a));
+    if (h >= 0.0f) {
+        lch->h = h;
+    } else {
+        lch->h = h + 360.0f;
+    }
     
     free(lab);
     
@@ -47,6 +52,7 @@ Xyz * getXyzFromLchlab(LchLab *lch) {
     lab->l = lch->l;
     lab->a = lch->c * cosf(H);
     lab->b = lch->c * sinf(H);
+    
     
     // get the xyz
     Xyz *xyz = getXyzFromLab(lab);

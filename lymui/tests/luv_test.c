@@ -22,9 +22,9 @@ ctest_return_t testLuvFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz = generateXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 0.097f, luv->l, 0.001f, "Expect L to be equal to %f but got %f", 0.097f, luv->l);
-    CTAssertDecimalEqual(test, -0.029f, luv->u, 0.001f, "Expect u to be equal to %f but got %f", -0.029f, luv->u);
-    CTAssertDecimalEqual(test, -0.352f, luv->v, 0.001f, "Expect V to be equal to %f but got %f", -0.352f, luv->v);
+    CTAssertDecimalEqual(test, 9.603f, luv->l, 0.001f, "Expect L to be equal to %f but got %f", 9.603f, luv->l);
+    CTAssertDecimalEqual(test, -2.851f, luv->u, 0.001f, "Expect u to be equal to %f but got %f", -2.851f, luv->u);
+    CTAssertDecimalEqual(test, -34.829f, luv->v, 0.001f, "Expect V to be equal to %f but got %f", -34.829f, luv->v);
 
     free(luv);
 }
@@ -38,10 +38,26 @@ ctest_return_t testSuperiorYLuvFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz = generateXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 8.218f, luv->l, 0.001f, "Expect L to be equal to %f but got %f", 8.128f, luv->l);
-    CTAssertDecimalEqual(test, -2.364f, luv->u, 0.001f, "Expect U to be equal to %f but got %f", -2.364f, luv->u);
-    CTAssertDecimalEqual(test, -0.510f, luv->v, 0.001f, "Expect V to be equal to %f but got %f", -0.510f, luv->v);
+    CTAssertDecimalEqual(test, 96.417f, luv->l, 0.001f, "Expect L to be equal to %f but got %f", 96.417f, luv->l);
+    CTAssertDecimalEqual(test, -27.734f, luv->u, 0.001f, "Expect U to be equal to %f but got %f", -27.734f, luv->u);
+    CTAssertDecimalEqual(test, -5.983f, luv->v, 0.001f, "Expect V to be equal to %f but got %f", -5.983f, luv->v);
     
+    free(luv);
+}
+
+ctest_return_t testWhiteLuvFromXyz(ctest_t *test, void *arg) {
+    Rgb * rgb = malloc(sizeof(Rgb));
+    rgb->r = 255;
+    rgb->g = 255;
+    rgb->b = 255;
+    
+    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Luv *luv = getLuvFromXyz(xyz);
+    
+    CTAssertDecimalEqual(test, 100.0f, luv->l, 0.01f, "Expect L to be equal to %f but got %f", 100.0f, luv->l);
+    CTAssertDecimalEqual(test, 0.0f, luv->u, 0.01f, "Expect U to be equal to %f but got %f", 0.0f, luv->u);
+    CTAssertDecimalEqual(test, 0.0f, luv->v, 0.01f, "Expect V to be equal to %f but got %f", 0.0f, luv->v);
+
     free(luv);
 }
 
@@ -54,9 +70,9 @@ ctest_return_t testInferiorYLuvFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz = generateXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 0.00488f, luv->l, 0.00001f, "Expect L to be equal to %f but got %f", 0.00488f, luv->l);
-    CTAssertDecimalEqual(test, 0.00809f, luv->u, 0.00001f, "Expect U to be equal to %f but got %f", 0.00809f, luv->u);
-    CTAssertDecimalEqual(test, 0.00442f, luv->v, 0.00001f, "Expect V to be equal to %f but got %f", 0.00442f, luv->v);
+    CTAssertDecimalEqual(test, 0.487f, luv->l, 0.001f, "Expect L to be equal to %f but got %f", 0.487f, luv->l);
+    CTAssertDecimalEqual(test, 0.808f, luv->u, 0.001f, "Expect U to be equal to %f but got %f", 0.808f, luv->u);
+    CTAssertDecimalEqual(test, 0.442f, luv->v, 0.001f, "Expect V to be equal to %f but got %f", 0.442f, luv->v);
 
     free(luv);
 }
@@ -76,9 +92,9 @@ ctest_return_t testXyzFromLuv(ctest_t *test, void *arg) {
     
     Xyz *xyz = getXyzFromLuv(luv);
     
-    CTAssertDecimalEqual(test, 0.567f, xyz->x, 0.001f, "Expect X to be equal to %f but got %f", 0.567f, xyz->x);
-    CTAssertDecimalEqual(test, 0.554f, xyz->y, 0.001f, "Expect Y to be equal to %f but got %f", 0.554f, xyz->y);
-    CTAssertDecimalEqual(test, 0.589f, xyz->z, 0.001f, "Expect Z to be equal to %f but got %f", 0.589f, xyz->z);
+    CTAssertDecimalEqual(test, 0.00567f, xyz->x, 0.0001f, "Expect X to be equal to %f but got %f", 0.00567f, xyz->x);
+    CTAssertDecimalEqual(test, 0.00554f, xyz->y, 0.0001f, "Expect Y to be equal to %f but got %f", 0.00554f, xyz->y);
+    CTAssertDecimalEqual(test, 0.00589f, xyz->z, 0.0001f, "Expect Z to be equal to %f but got %f", 0.00589f, xyz->z);
     
     free(xyz);
 }
@@ -113,10 +129,11 @@ ctcase_t * wrapLuvCreationTest() {
     ctcase_t *luvCase = ctcase("Luv creation test");
     
     // test case Xyz -> Luv
-    ctest_t *testLuv     = ctest("Creation of a Luv from Xyz", testLuvFromXyz, NULL);
-    ctest_t *testSupLuv  = ctest("Creation of an Superior Y Luv from Xyz", testSuperiorYLuvFromXyz, NULL);
-    ctest_t *testInfLuv  = ctest("Creation of an Inferior Y Luv from Xyz", testInferiorYLuvFromXyz, NULL);
-    ctest_t *testEmptyLuv= ctest("Creation of an NULL Luv from an empty Xyz", testNullLuv, NULL);
+    ctest_t *testLuv      = ctest("Creation of a Luv from Xyz", testLuvFromXyz, NULL);
+    ctest_t *testSupLuv   = ctest("Creation of an Superior Y Luv from Xyz", testSuperiorYLuvFromXyz, NULL);
+    ctest_t *testInfLuv   = ctest("Creation of an Inferior Y Luv from Xyz", testInferiorYLuvFromXyz, NULL);
+    ctest_t *testEmptyLuv = ctest("Creation of an NULL Luv from an empty Xyz", testNullLuv, NULL);
+    ctest_t *testWhiteLuv = ctest("Creation of a White Luv from a White RGB", testWhiteLuvFromXyz, NULL);
     
     // test case Luv -> Xyz
     ctest_t *testXyz     = ctest("Creation of an Xyz from a Luv", testXyzFromLuv, NULL);
@@ -128,6 +145,7 @@ ctcase_t * wrapLuvCreationTest() {
     ctctestadd(luvCase, testSupLuv);
     ctctestadd(luvCase, testInfLuv);
     ctctestadd(luvCase, testEmptyLuv);
+    ctctestadd(luvCase, testWhiteLuv);
     
     ctctestadd(luvCase, testXyz);
     ctctestadd(luvCase, testHighXyz);

@@ -22,5 +22,6 @@
 #define CREATE_VALUE_ERR "Error while creating JS Value"
 #define CONVERSION_ERR "Error while converting from Type T to an other type"
 #define ALLOCATION_ERR "Error while creating new type T of color"
+#define PROMISE_ERR "Unable to create promise"
 
 #endif /* binding_error_h */

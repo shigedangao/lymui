@@ -19,8 +19,8 @@ ctest_return_t testLchFromXyz(ctest_t *test, void *arg) {
     
     Lch *lch = getLchFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, lch->l, 4.69f, 0.01f, "Expect L to be equal to %f but got %f", 4.69f, lch->l);
-    CTAssertDecimalEqual(test, lch->c, 0.72f, 0.01f, "Expect C to be equal to %f but got %f", 0.72f, lch->c);
+    CTAssertDecimalEqual(test, lch->l, 77.28f, 0.01f, "Expect L to be equal to %f but got %f", 77.28f, lch->l);
+    CTAssertDecimalEqual(test, lch->c, 12.0f, 0.1f, "Expect C to be equal to %f but got %f", 12.0f, lch->c);
     CTAssertDecimalEqual(test, lch->h, 37.5f, 0.01f, "Expect H to be equal to %f but got %f", 37.5f, lch->h);
     
     free(lch);
@@ -34,8 +34,8 @@ ctest_return_t testLchFromMaxXyz(ctest_t *test, void *arg) {
     
     Lch *lch = getLchFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, lch->l, 8.99f, 0.01f, "Expect L to be equal to %f but got %f", 8.99f, lch->l);
-    CTAssertDecimalEqual(test, lch->c, 1.60f, 0.01f, "Expect C to be equal to %f but got %f", 1.60f, lch->c);
+    CTAssertDecimalEqual(test, lch->l, 100.0f, 0.01f, "Expect L to be equal to %f but got %f", 100.0f, lch->l);
+    CTAssertDecimalEqual(test, lch->c, 17.89f, 0.01f, "Expect C to be equal to %f but got %f", 17.89f, lch->c);
     CTAssertDecimalEqual(test, lch->h, 22.85f, 0.01f, "Expect H to be equal to %f but got %f", 22.85f, lch->h);
 
     free(lch);

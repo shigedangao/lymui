@@ -79,9 +79,9 @@ float getRadFromDeg(float d) {
 }
 
 float clampXyz(float v) {
-    if (v > 1.0f) {
-        return 1.0f;
-    }
+//    if (v > 1.0f) {
+//        return 1.0f;
+//    }
     
     return v;
 }
