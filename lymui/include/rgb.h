@@ -18,14 +18,15 @@ typedef struct Rgb {
     uint8_t r;
     uint8_t g;
     uint8_t b;
+    char *error;
 } Rgb;
 
 /*!
  * @discussion Create an RGB structure from an uint8_t array
  * @param c a uint8_t array
- * @param length the length of the array
+ * @param length size_t
  * @return a Rgb struct
  */
-Rgb* makeRGB(uint8_t c[], uint8_t length);
+Rgb* makeRGB(uint8_t c[], size_t length);
 
 #endif /* rgb_h */
