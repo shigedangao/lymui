@@ -40,3 +40,13 @@ Rgb *makeRGB(uint8_t c[], size_t length) {
     
     return color;
 }
+
+Rgb *initRgb() {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    
+    if (rgb == NULL) {
+        return NULL;
+    }
+    
+    return rgb;
+}

@@ -84,7 +84,8 @@ ctest_return_t testCymkToRgb(ctest_t *test, void *arg) {
 ctest_return_t testCymkToUintNull(ctest_t *test, void *arg) {
     Rgb *colors = getRgbFromCymk(NULL);
     
-    CTAssertNull(test, colors, "Expected RGB to be NULL");
+    CTAssertEqual(test, colors->error, NULL_INPUT_PARAM, "Expect to return a string message error", NULL_INPUT_PARAM);
+    
     free(colors);
 }
 

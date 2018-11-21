@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 
-/*!
+/**
  * @brief Rgb structure Object
  */
 typedef struct Rgb {
@@ -21,12 +21,17 @@ typedef struct Rgb {
     char *error;
 } Rgb;
 
-/*!
- * @discussion Create an RGB structure from an uint8_t array
+/**
+ * @brief Create an RGB structure from an uint8_t array
  * @param c a uint8_t array
  * @param length size_t
  * @return a Rgb struct
  */
-Rgb* makeRGB(uint8_t c[], size_t length);
+Rgb *makeRGB(uint8_t c[], size_t length);
+
+/**
+ * @brief initialize an empty RGB struct
+ */
+Rgb *initRgb(void);
 
 #endif /* rgb_h */

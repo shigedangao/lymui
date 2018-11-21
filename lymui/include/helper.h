@@ -25,6 +25,13 @@ char * uintToHex(uint8_t v);
  */
 uint8_t floatToUint(float value);
 
+/**
+ * @brief convert a double to an uint8_t
+ * @param value doule
+ * @return uint8_t
+ */
+uint8_t doubleToUint(double value);
+
 /*!
  * @discussion round a float to 1 digit
  * @param value float

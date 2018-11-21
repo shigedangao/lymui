@@ -12,11 +12,14 @@
 #include <stdio.h>
 #include "rgb.h"
 
+#define YConst 1.164
+
 // Struct Ycbcr
 typedef struct Ycbcr {
     uint8_t y;
     uint8_t cb;
     uint8_t cr;
+    char *error;
 } Ycbcr;
 
 /**
@@ -32,6 +35,6 @@ Ycbcr * getYcbcrFromRgb(Rgb *rgb);
  * @return a uint8_t array
  * @TODO return RGB struct instead
  */
-Rgb * getRawRGBValueFromYcbcr(Ycbcr *yc);
+Rgb * getRGBFromYcbcr(Ycbcr *yc);
 
 #endif /* ycbcr_h */
