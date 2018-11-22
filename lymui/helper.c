@@ -51,10 +51,10 @@ float roundDecimal(float value, int decimal) {
     return floorf(value * decimal) / decimal;
 }
 
-float getSaturation(float min, float max, float l) {
+double getSaturation(double min, double max, double l) {
     // big condition... we also check if max and min is not equal to 1 in order to avoid dividing by 0...
-    if (l > 0.5f && (max != 1.0f || min != 1.0f))
-        return (max - min) / (2.0f - max - min);
+    if (l > 0.5 && (max != 1.0 || min != 1.0))
+        return (max - min) / (2.0 - max - min);
     
     // prevent dividing by 0
     if (!max && !min) {
@@ -64,16 +64,19 @@ float getSaturation(float min, float max, float l) {
     return (max - min) / (max + min);
 }
 
-float *updateConstraintValue(float *value, uint8_t size) {
-    for (uint8_t idx = size; idx > 0; idx--) {
-        float temp = value[idx - 1];
-        if (temp < 0.0f) {
-            value[idx - 1] = temp + 1.0f;
-        } else if (temp > 1.0f) {
-            value[idx - 1] = temp - 1.0f;
-        }
-    }
+double *updateConstraintValue(double *value, uint8_t size) {
+    size_t idx = size;
     
+    while(idx > 0) {
+        double tmp = value[idx - 1];
+        if (tmp < 0.0)
+            value[idx - 1] = tmp + 1.0f;
+        else if (tmp > 1.0)
+            value[idx - 1] = tmp - 1.0f;
+        
+        idx--;
+    }
+        
     return value;
 }
 
@@ -86,9 +89,13 @@ float getRadFromDeg(float d) {
 }
 
 float clampXyz(float v) {
-//    if (v > 1.0f) {
-//        return 1.0f;
-//    }
-    
     return v;
+}
+
+double getMinMax(double r, double g, double b, uint8_t op) {
+    if (op) {
+        return fmin(fmin(r, g), b);
+    }
+    
+    return fmax(fmax(r, g), b);
 }

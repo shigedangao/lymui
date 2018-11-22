@@ -32,11 +32,11 @@ uint8_t floatToUint(float value);
  */
 uint8_t doubleToUint(double value);
 
-/*!
- * @discussion round a float to 1 digit
- * @param value float
+/**
+ * @discussion round a double to 1 digit
+ * @param value double
  * @param factor int
- * @return a float
+ * @return a double
  */
 double roundDigit(double value, int factor);
 
@@ -53,16 +53,16 @@ float roundDecimal(float value, int decimal);
  * @param value the float array
  * @return an array of float
  */
-float * updateConstraintValue(float *value, uint8_t size);
+double *updateConstraintValue(double *value, uint8_t size);
 
-/*!
- * @discussion Get the saturation between 2 values
- * @param min float value of the rgb struct
- * @param max float value of the rgb struct
- * @param l   float representing the luminance
- * @return float saturation
+/**
+ * @brief Get the saturation between 2 values
+ * @param min double value of the rgb struct
+ * @param max double value of the rgb struct
+ * @param l   double representing the luminance
+ * @return double saturation
  */
-float getSaturation(float min, float max, float l);
+double getSaturation(double min, double max, double l);
 
 /**
  * @discussion Get degree from radian value
@@ -84,6 +84,16 @@ float getRadFromDeg(float d);
  * @return float
  */
 float clampXyz(float v);
+
+/**
+ * @brief Get minimum value of RGB
+ * @param r double
+ * @param g double
+ * @param b double
+ * @param operation uint
+ * @return double
+ */
+double getMinMax(double r, double g, double b, uint8_t operation);
 
 
 #endif /* helper_h */

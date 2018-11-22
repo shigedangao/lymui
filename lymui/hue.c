@@ -19,8 +19,8 @@ Hue getHueFromRgb(Rgb *rgb) {
     double _g = (double) rgb->g;
     double _b = (double) rgb->b;
 
-    double max = fmax(fmax(_r, _g), _b);
-    double min = fmin(fmin(_r, _g), _b);
+    double min = getMinMax(_r, _g, _b, 1);
+    double max = getMinMax(_r, _g, _b, 0);
     
     // in case of min == max then return 0
     if (max == min)

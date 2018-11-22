@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cunit.h>
+#include "errors.h"
 #include "hsl.h"
 
 ctest_return_t testHslCreation(ctest_t *test, void *arg) {
@@ -16,9 +17,11 @@ ctest_return_t testHslCreation(ctest_t *test, void *arg) {
     Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     Hsl *hsl = getHslFromRgb(rgb);
     
-    CTAssertEqual(test, 237.0f, hsl->h, "Expect Hue to be equal to 237 but got %f", hsl->h);
-    CTAssertEqual(test, 90.0f,  hsl->s, "Expect Saturation to be equal to 90.0 but got %f", hsl->s);
-    CTAssertEqual(test, 19.6f,  hsl->l, "Expect Luminance to be equal to 19.61 but got %f", hsl->l);
+    CTAssertDecimalEqual(test, 237.0, hsl->h, 0.1, "Expect H to be equal to 237 but got %d", hsl->h);
+    CTAssertDecimalEqual(test, 90.0, hsl->s, 0.1, "Expect S to be equal to 90 but got %d", hsl->s);
+    CTAssertDecimalEqual(test, 19.6, hsl->l, 0.1, "Expect L to be equal to 19.6 but got %d", hsl->l);
+
+    free(hsl);
 }
 
 ctest_return_t testHighSaturationHsl(ctest_t *test, void *arg) {
@@ -26,9 +29,9 @@ ctest_return_t testHighSaturationHsl(ctest_t *test, void *arg) {
     Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     Hsl *hsl = getHslFromRgb(rgb);
     
-    CTAssertEqual(test, 221.0f, hsl->h, "Expect Hue to be equal to 237 but got %f", hsl->h);
-    CTAssertEqual(test, 100.0f, hsl->s, "Expect Saturation to be equal to 100 but got %f", hsl->s);
-    CTAssertEqual(test, 69.6f,  hsl->l, "Expect Luminance to be equal to 69.6 but got %f", hsl->l);
+    CTAssertDecimalEqual(test, 221.0, hsl->h, 0.1, "Expect H to be equal to 221 but got %d", hsl->h);
+    CTAssertDecimalEqual(test, 100.0, hsl->s, 0.1, "Expect S to be equal to 100 but got %d", hsl->s);
+    CTAssertDecimalEqual(test, 69.6, hsl->l, 0.1, "Expect L to be equal to 69.6 but got %d", hsl->l);
     
     free(hsl);
 }
@@ -38,9 +41,9 @@ ctest_return_t testLowSaturationHsl(ctest_t *test, void *arg) {
     Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     Hsl *hsl = getHslFromRgb(rgb);
     
-    CTAssertEqual(test, 270.0f, hsl->h, "Expect Hue to be equal to 270 but got %f", hsl->h);
-    CTAssertEqual(test, 80.0f,  hsl->s, "Expect Saturation to be equal to 80.0 but got %f", hsl->s);
-    CTAssertEqual(test, 2.0f,   hsl->l, "Expect Luminance to be equal to 2.0 but got %f", hsl->l);
+    CTAssertDecimalEqual(test, 270.0, hsl->h, 0.1, "Expect H to be equal to 270 but got %d", hsl->h);
+    CTAssertDecimalEqual(test, 80.0, hsl->s, 0.1, "Expect S to be equal to 80 but got %d", hsl->s);
+    CTAssertDecimalEqual(test, 2.0, hsl->l, 0.1, "Expect L to be equal to 2.0 but got %d", hsl->l);
     
     free(hsl);
 }
@@ -50,9 +53,9 @@ ctest_return_t testBlackHsl(ctest_t *test, void *arg) {
     Rgb * rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     Hsl * hsl = getHslFromRgb(rgb);
     
-    CTAssertEqual(test, 0.0f, hsl->h, "Expect H to be equal to 0 but got %f", hsl->h);
-    CTAssertEqual(test, 0.0f, hsl->s, "Expect S to be equal to 0 but got %f", hsl->s);
-    CTAssertEqual(test, 0.0f, hsl->l, "Expect L to be equal to 0 but got %f", hsl->l);
+    CTAssertDecimalEqual(test, 0.0, hsl->h, 0.1, "Expect H to be equal to 0 but got %d", hsl->h);
+    CTAssertDecimalEqual(test, 0.0, hsl->s, 0.1, "Expect S to be equal to 0 but got %d", hsl->s);
+    CTAssertDecimalEqual(test, 0.0, hsl->l, 0.1, "Expect L to be equal to 0 but got %d", hsl->l);
     
     free(hsl);
 }
@@ -61,10 +64,12 @@ ctest_return_t testWhiteHsl(ctest_t *test, void *arg) {
     uint8_t cvalue[] = {255, 255, 255};
     Rgb * rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     Hsl * hsl = getHslFromRgb(rgb);
-        
-    CTAssertEqual(test, 0.0f, hsl->h, "Expect H to be equal to 0 but got %f", hsl->h);
-    CTAssertEqual(test, 0.0f, hsl->s, "Expect S to be equal to 0 but got %f", hsl->s);
-    CTAssertEqual(test, 100.0f, hsl->l, "Expect L to be equal to 100 but got %f", hsl->l);
+    
+    CTAssertDecimalEqual(test, 0.0, hsl->h, 0.1, "Expect H to be equal to 0 but got %d", hsl->h);
+    CTAssertDecimalEqual(test, 0.0, hsl->s, 0.1, "Expect S to be equal to 0 but got %d", hsl->s);
+    CTAssertDecimalEqual(test, 100.0, hsl->l, 0.1, "Expect L to be equal to 100.0 but got %d", hsl->l);
+    
+    free(hsl);
 }
 
 ctest_return_t testRgbGrayCreationFromHsv(ctest_t *test, void *arg) {
@@ -160,7 +165,15 @@ ctest_return_t testPositiveRgbValue(ctest_t *test, void *arg) {
 ctest_return_t testNullRgbFromHsl(ctest_t *test, void *arg) {
     Rgb *rgb = getRgbValueFromHsl(NULL);
     
-    CTAssertNull(test, rgb, "Expect RGB to be NULL");
+    CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
+    free(rgb);
+}
+
+ctest_return_t testErrorHslFromRgb(ctest_t *test, void *arg) {
+    Hsl *hsl = getHslFromRgb(NULL);
+    
+    CTAssertEqual(test, hsl->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
+    free(hsl);
 }
 
 ctcase_t *wrapHslCreationTest() {
@@ -181,8 +194,9 @@ ctcase_t *wrapHslCreationTest() {
     ctest_t *colorNegativeRGB   = ctest("Create an RGB based on small value", testNegativeRgbValue, NULL);
     ctest_t *colorPositiveRGB   = ctest("Create an RGB based on big value", testPositiveRgbValue, NULL);
     
-    // NULL Value test
-    ctest_t *colorNULL = ctest("Create NULL RGB  from NULL HSL", testNullRgbFromHsl, NULL);
+    // Error Value test
+    ctest_t *colorNULL = ctest("Create NULL RGB from NULL HSL", testNullRgbFromHsl, NULL);
+    ctest_t *errHslRgb = ctest("Create HSL which has Error", testErrorHslFromRgb, NULL);
     
     // Add the test to the test case
     ctctestadd(hslCase, simpleHslCreation);
@@ -200,6 +214,7 @@ ctcase_t *wrapHslCreationTest() {
     ctctestadd(hslCase, colorPositiveRGB);
     
     ctctestadd(hslCase, colorNULL);
+    ctctestadd(hslCase, errHslRgb);
     
     return hslCase;
 }
