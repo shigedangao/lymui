@@ -7,19 +7,25 @@
 //
 
 #include <stdlib.h>
+#include "errors.h"
 #include "helper.h"
 #include "yuv.h"
 
 Yuv *getYuvFromRgb(Rgb *rgb) {
-    if (rgb == NULL)
-        return NULL;
-    
     Yuv *yuv = malloc(sizeof(Yuv));
+    if (yuv == NULL) {
+        return NULL;
+    }
     
-    float _r = (float) rgb->r / 255;
-    float _g = (float) rgb->g / 255;
-    float _b = (float) rgb->b / 255;
-    float _y = 0.299f * _r + 0.587f * _g + 0.114f * _b;
+    if (rgb == NULL) {
+        yuv->error = NULL_INPUT_PARAM;
+        return yuv;
+    }
+    
+    double _r = (double) rgb->r / 255.0;
+    double _g = (double) rgb->g / 255.0;
+    double _b = (double) rgb->b / 255.0;
+    double _y = 0.299 * _r + 0.587 * _g + 0.114 * _b;
         
     yuv->y = roundDigit(_y, 1000);
     yuv->u = roundDigit(0.492f * (_b - _y), 1000);
@@ -31,17 +37,23 @@ Yuv *getYuvFromRgb(Rgb *rgb) {
 }
 
 Rgb *getRgbFromYuv(Yuv *yuv) {
-    if (yuv == NULL)
+    Rgb *rgb = initRgb();
+    if (rgb == NULL) {
         return NULL;
+    }
     
-    float _r = yuv->y + 1.13983f * yuv->v;
-    float _g = yuv->y - 0.39465f * yuv->u - 0.58060f * yuv->v;
-    float _b = yuv->y + 2.03211f * yuv->u;
+    if (yuv == NULL) {
+        rgb->error = NULL_INPUT_PARAM;
+        return rgb;
+    }
+
+    double _r = yuv->y + 1.13983 * yuv->v;
+    double _g = yuv->y - 0.39465 * yuv->u - 0.58060 * yuv->v;
+    double _b = yuv->y + 2.03211 * yuv->u;
     
-    Rgb *rgb = malloc(sizeof(Rgb));
-    rgb->r = floatToUint(_r * 255);
-    rgb->g = floatToUint(_g * 255);
-    rgb->b = floatToUint(_b * 255);
+    rgb->r = doubleToUint(_r * 255);
+    rgb->g = doubleToUint(_g * 255);
+    rgb->b = doubleToUint(_b * 255);
     
     free(yuv);
     

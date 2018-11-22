@@ -43,8 +43,8 @@ uint8_t doubleToUint(double value) {
     return 0;
 }
 
-float roundDigit(float value, int factor) {
-    return roundf(value * factor) / factor;
+double roundDigit(double value, int factor) {
+    return round(value * factor) / factor;
 }
 
 float roundDecimal(float value, int decimal) {

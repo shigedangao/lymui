@@ -13,35 +13,33 @@
 
 Hue getHueFromRgb(Rgb *rgb) {
     if (rgb == NULL)
-        return 0.0f;
+        return 0.0;
     
-    // might be better to have a getMinMax value for the uint directly
-    float max = fmaxf(fmaxf(rgb->r, rgb->g), rgb->b);
-    float min = fminf(fminf(rgb->r, rgb->g), rgb->b);
+    double _r = (double) rgb->r;
+    double _g = (double) rgb->g;
+    double _b = (double) rgb->b;
+
+    double max = fmax(fmax(_r, _g), _b);
+    double min = fmin(fmin(_r, _g), _b);
     
     // in case of min == max then return 0
     if (max == min)
-        return 0.0f;
+        return 0.0;
     
     // Create the hue variable here
-    Hue hue = 0.0f;
-    // cast the value to a float no repetition..
-    float _r = (float) rgb->r;
-    float _g = (float) rgb->g;
-    float _b = (float) rgb->b;
+    Hue hue = 0.0;
 
-    if (max == rgb->r) {
+    if (max == _r) {
         hue = (_g - _b) / (max - min);
-    } else if (max == rgb->g) {
-        hue = 2.0f + (_b - _r) / (max - min);
+    } else if (max == _g) {
+        hue = 2.0 + (_b - _r) / (max - min);
     } else {
-        hue = 4.0f + (_r - _g) / (max - min);
+        hue = 4.0 + (_r - _g) / (max - min);
     }
      
-    hue = hue * 60;
+    hue = hue * 60.0;
+    if (hue < 0.0)
+        hue = hue + 360.0;
     
-    if (hue < 0.0f)
-        hue = hue + 360.0f;
-    
-    return roundf(hue);
+    return round(hue);
 }

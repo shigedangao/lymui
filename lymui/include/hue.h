@@ -12,13 +12,13 @@
 #include <stdio.h>
 #include "rgb.h"
 
-typedef float Hue;
+typedef double Hue;
 
-/*!
- * @discussion Create a Hue from a struct Rgb pointer
+/**
+ * @brief Create a Hue from a struct Rgb pointer
  * @param rgb an rgb struct pointer
  * @return a float describing the Hue
  */
-Hue getHueFromRgb(struct Rgb *rgb);
+Hue getHueFromRgb(Rgb *rgb);
 
 #endif /* hue_h */

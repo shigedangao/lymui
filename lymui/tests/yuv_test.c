@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cunit.h>
+#include "errors.h"
 #include "yuv.h"
 
 ctest_return_t testCaseCreationYuv(ctest_t *test, void *arg) {
@@ -18,17 +19,17 @@ ctest_return_t testCaseCreationYuv(ctest_t *test, void *arg) {
     rgb->b = 95;
     
     Yuv *yuv = getYuvFromRgb(rgb);
-    
-    CTAssertEqual(test, 0.124f, yuv->y, "Expect Y to be equal to 0.124 but got %f", yuv->y);
-    CTAssertEqual(test, 0.122f, yuv->u, "Expect U to be equal to 0.122 but got %f", yuv->u);
-    CTAssertEqual(test, 0.063f, yuv->v, "Expect V to be equal to 0.063 but got %f", yuv->v);
-    
+
+    CTAssertDecimalEqual(test, 0.124, yuv->y, 0.001, "Expect Y to be equal to 0.124 but got %f", yuv->y);
+    CTAssertDecimalEqual(test, 0.122, yuv->u, 0.001, "Expect U to be equal to 0.122 but got %f", yuv->u);
+    CTAssertDecimalEqual(test, 0.063, yuv->v, 0.001, "Expect V to be equal to 0.124 but got %f", yuv->v);
+
     free(yuv);
 }
 
 ctest_return_t testCaseCreationNullYuv(ctest_t *test, void *arg) {
     Yuv *yuv = getYuvFromRgb(NULL);
-    CTAssertNull(test, yuv, "Expect Yuv to be NULL");
+    CTAssertEqual(test, yuv->error, NULL_INPUT_PARAM ,"Expect Yuv to be equal to %s", NULL_INPUT_PARAM);
 }
 
 ctest_return_t testCreationRgb(ctest_t *test, void *arg) {
@@ -49,7 +50,8 @@ ctest_return_t testCreationRgb(ctest_t *test, void *arg) {
 ctest_return_t testCreationRgbNULL(ctest_t *test, void *arg) {
     Rgb *rgb = getRgbFromYuv(NULL);
     
-    CTAssertNull(test, rgb, "Expect RGB to be NULL");
+    CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM ,"Expect RGB to be equal to %s", NULL_INPUT_PARAM);
+    
     free(rgb);
 }
 

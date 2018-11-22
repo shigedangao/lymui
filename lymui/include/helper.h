@@ -38,7 +38,7 @@ uint8_t doubleToUint(double value);
  * @param factor int
  * @return a float
  */
-float roundDigit(float value, int factor);
+double roundDigit(double value, int factor);
 
 /**
  * @brief round the decimal value
