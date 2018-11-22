@@ -27,14 +27,13 @@ typedef struct Ycbcr {
  * @param rgb a RGB structure
  * @return a Ycbcr struct pointer
  */
-Ycbcr * getYcbcrFromRgb(Rgb *rgb);
+Ycbcr *getYcbcrFromRgb(Rgb *rgb);
 
 /**
  * @brief Create a uint_8t array which describe the colors
  * @param yc Ycbcr struct
  * @return a uint8_t array
- * @TODO return RGB struct instead
  */
-Rgb * getRGBFromYcbcr(Ycbcr *yc);
+Rgb *getRGBFromYcbcr(Ycbcr *yc);
 
 #endif /* ycbcr_h */

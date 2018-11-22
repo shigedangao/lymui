@@ -19,14 +19,14 @@
  * @param rgb a RGB structure
  * @return a Char array pointer containing the HEX
  */
-char * getHexFromRGB(struct Rgb *rgb);
+char *getHexFromRGB(struct Rgb *rgb);
 
 /*!
  * @discussion Get a raw uint8_t array value
  * @param hex a Hex char array
  * @return a uint8_t value
  */
-Rgb * getRawRGBValueFromHex(char *hex);
+Rgb *getRawRGBValueFromHex(char *hex);
 
 /*!
  * @discussion Get the uint8_t value based on each character of the Hex

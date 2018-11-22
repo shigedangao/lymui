@@ -40,7 +40,6 @@ ctest_return_t testXyzFromLchLab(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.56f, nXyz->z, 0.01f, "Expect Z to be equal to %f but got %f", 0.56f, nXyz->z);
 
     free(nXyz);
-    free(xyz);
 }
 
 ctest_return_t testLabLchNull(ctest_t *test, void *arg) {
