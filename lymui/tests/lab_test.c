@@ -83,7 +83,7 @@ ctest_return_t testXyzFromLab(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, xyz->y, nXyz->y, 0.001f, "Expect Y to be equal to %f but got %f", xyz->y, nXyz->y);
     CTAssertDecimalEqual(test, xyz->x, nXyz->x, 0.001f,"Expect Z to be equal to %f but got %f", xyz->z, nXyz->z);
 
-    free(xyz);
+    free(nXyz);
 }
 
 ctest_return_t testXyzFromSmallLab(ctest_t *test, void *arg) {

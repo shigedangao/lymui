@@ -9,12 +9,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cunit.h>
+#include "errors.h"
 #include "rgb.h"
 #include "hsv.h"
 
 ctest_return_t testNullHsvCreation(ctest_t *test, void *arg) {
     Hsv *hsv = getHsvFromRgb(NULL);
-    CTAssertNull(test, hsv, "Expect HSV to be NULL");
+    CTAssertEqual(test, hsv->error, NULL_INPUT_PARAM, "Expect error to return a string %s", NULL_INPUT_PARAM);
     
     free(hsv);
 }
@@ -26,9 +27,9 @@ ctest_return_t testHsvCreation(ctest_t *test, void *arg) {
     rgb->b = 100;
     
     Hsv *hsv = getHsvFromRgb(rgb);
-    CTAssertEqual(test, 180, hsv->h, "Expect hue to be equal to 180 but got %f", hsv->h);
-    CTAssertEqual(test, 50.0f, hsv->s, "Expect s to be equal to 50 but got %f", hsv->s);
-    CTAssertEqual(test, 39.2f, hsv->v, "Expect v to be equal to 39 but got %f", hsv->v);
+    CTAssertDecimalEqual(test, 180.0, hsv->h, 0.1, "Expect H to be equal to 180 but got %d", hsv->h);
+    CTAssertDecimalEqual(test, 50.0, hsv->s, 0.1, "Expect S to be equal to 50 but got %d", hsv->s);
+    CTAssertDecimalEqual(test, 39.2, hsv->v, 0.1, "Expect V to be equal to 39.2 but got %d", hsv->v);
     
     free(hsv);
 }
@@ -40,9 +41,9 @@ ctest_return_t testBlackHsvCreation(ctest_t *test, void *arg) {
     rgb->b = 0;
     
     Hsv *hsv = getHsvFromRgb(rgb);
-    CTAssertEqual(test, 0.0f, hsv->h, "Expect hue to be equal to 0 but got %f", hsv->h);
-    CTAssertEqual(test, 0.0f, hsv->s, "Expect s to be equal to 0 but got %f", hsv->s);
-    CTAssertEqual(test, 0.0f, hsv->v, "Expect v to be equal to 0 but got %f", hsv->v);
+    CTAssertDecimalEqual(test, 0.0, hsv->h, 0.1, "Expect H to be equal to 0 but got %d", hsv->h);
+    CTAssertDecimalEqual(test, 0.0, hsv->s, 0.1, "Expect S to be equal to 0 but got %d", hsv->s);
+    CTAssertDecimalEqual(test, 0.0, hsv->v, 0.1, "Expect V to be equal to 0 but got %d", hsv->v);
     
     free(hsv);
 }
@@ -54,9 +55,9 @@ ctest_return_t testComplexHsvCreation(ctest_t *test, void *arg) {
     rgb->b = 1;
     
     Hsv *hsv = getHsvFromRgb(rgb);
-    CTAssertEqual(test, 81.0f, hsv->h, "Expect hue to be equal to 81 but got %f", hsv->h);
-    CTAssertEqual(test, 99.6f, hsv->s, "Expect S to be equal to 99.6 but got %f", hsv->s);
-    CTAssertEqual(test, 93.3f,  hsv->v, "Expect V to be equal to 93.3 but got %f", hsv->v);
+    CTAssertDecimalEqual(test, 81.0, hsv->h, 0.1, "Expect H to be equal to 81.0 but got %d", hsv->h);
+    CTAssertDecimalEqual(test, 99.6, hsv->s, 0.1, "Expect S to be equal to 99.6 but got %d", hsv->s);
+    CTAssertDecimalEqual(test, 93.3, hsv->v, 0.1, "Expect V to be equal to 93.3 but got %d", hsv->v);
     
     free(hsv);
 }
@@ -161,7 +162,7 @@ ctest_return_t testCaseRgb_Default(ctest_t *test, void *arg) {
 
 ctest_return_t testCaseRgb_NULL(ctest_t *test, void *arg) {
     Rgb *rgb = getRgbValueFromHsv(NULL);
-    CTAssertNull(test, rgb, "Expect rgb to be NULL from an Hue value over 360 deg");
+    CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect error to return a string %s", NULL_INPUT_PARAM);
     
     free(rgb);
 }
