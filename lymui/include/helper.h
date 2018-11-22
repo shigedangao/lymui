@@ -42,10 +42,10 @@ double roundDigit(double value, int factor);
 
 /**
  * @brief round the decimal value
- * @param value float
+ * @param value double
  * @param decimal int
  */
-float roundDecimal(float value, int decimal);
+double roundDecimal(double value, int decimal);
 
 /*
  * @discussion Update Constraint Value

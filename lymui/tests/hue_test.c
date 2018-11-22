@@ -17,7 +17,7 @@ ctest_return_t testSimpleHueCreation(ctest_t *test, void *arg) {
     Rgb *rgb  = makeRGB(cvalue, 3);
     
     Hue hue = getHueFromRgb(rgb);
-    CTAssertDecimalEqual(test, 0.0, hue, 0.1, "Expect hue to be equal to 0 but got %d", hue);
+    CTAssertDecimalEqual(test, 0.0, hue, 0.1, "Expect hue to be equal to 0 but got %f", hue);
     
     free(rgb);
 }
@@ -27,7 +27,7 @@ ctest_return_t testPurpleHueCreation(ctest_t *test, void *arg) {
     Rgb *rgb = makeRGB(cvalue, 3);
 
     Hue hue = getHueFromRgb(rgb);
-    CTAssertDecimalEqual(test, 300.0, hue, 0.1, "Expect hue to be equal to 300 but got %d", hue);
+    CTAssertDecimalEqual(test, 300.0, hue, 0.1, "Expect hue to be equal to 300 but got %f", hue);
     
     free(rgb);
 }
@@ -37,7 +37,7 @@ ctest_return_t testB(ctest_t *test, void *arg) {
     Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     
     Hue hue = getHueFromRgb(rgb);
-    CTAssertDecimalEqual(test, 251.0, hue, 0.1, "Expect hue to be equal to 251 but got %d", hue);
+    CTAssertDecimalEqual(test, 251.0, hue, 0.1, "Expect hue to be equal to 251 but got %f", hue);
     
     free(rgb);
 }
@@ -47,7 +47,7 @@ ctest_return_t testG(ctest_t *test, void *arg) {
     Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     
     Hue hue = getHueFromRgb(rgb);
-    CTAssertDecimalEqual(test, 23.0, hue, 0.1, "Expect hue to be equal to 23 but got %d", hue);
+    CTAssertDecimalEqual(test, 23.0, hue, 0.1, "Expect hue to be equal to 23 but got %f", hue);
 
     free(rgb);
 }
@@ -57,14 +57,14 @@ ctest_return_t testR(ctest_t *test, void *arg) {
     Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     
     Hue hue = getHueFromRgb(rgb);
-    CTAssertDecimalEqual(test, 318.0, hue, 0.1, "Expect hue to be equal to 318 but got %d", hue);
+    CTAssertDecimalEqual(test, 318.0, hue, 0.1, "Expect hue to be equal to 318 but got %f", hue);
     
     free(rgb);
 }
 
 ctest_return_t testNullHue(ctest_t *test, void *arg) {
     Hue hue = getHueFromRgb(NULL);
-    CTAssertDecimalEqual(test, 0.0, hue, 0.1, "Expect hue to be equal to 0 but got %d", hue);
+    CTAssertDecimalEqual(test, 0.0, hue, 0.1, "Expect hue to be equal to 0 but got %f", hue);
 }
 
 ctcase_t *wrapHueCreationTest() {

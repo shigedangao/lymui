@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <cunit.h>
 #include <math.h>
+#include "errors.h"
 #include "helper.h"
 #include "rgb.h"
 #include "xyz.h"
@@ -22,14 +23,13 @@ ctest_return_t testARgbCreation(ctest_t *test, void *arg) {
     rgb->b = 95;
     
     Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
-    ARgb *ARgb = getARgbFromXyz(xyz);
+    Argb *argb = getARgbFromXyz(xyz);
     
-    // These test are a bit falsy as i didn't find any converter of XYZ -> Adobe RGB so take it with grain of salt
-    CTAssertEqual(test, 19.6f, roundDigit(ARgb->r * 100, 100), "Expect R to be equal to %f but got %f", 19.6f, roundDigit(ARgb->r * 100, 100));
-    CTAssertEqual(test, 3.89f, roundDigit(ARgb->g * 100, 100), "Expect G to be equal to %f but got %f", 3.89f, roundDigit(ARgb->g * 100, 100));
-    CTAssertEqual(test, 37.25f, roundDigit(ARgb->b * 100, 100), "Expect B to be equal to %f but got %f", 37.25f, roundDigit(ARgb->b * 100, 100));
+    CTAssertDecimalEqual(test, 0.19, argb->r, 0.01, "Expect r to be equal to be equal to 0.19 but got %f", argb->r);
+    CTAssertDecimalEqual(test, 0.03, argb->g, 0.01, "Expect g to be equal to be equal to 0.03 but got %f", argb->g);
+    CTAssertDecimalEqual(test, 0.37, argb->b, 0.01, "Expect b to be equal to be equal to 0.37 but got %f", argb->b);
     
-    free(ARgb);
+    free(argb);
 }
 
 ctest_return_t testARgbEmpty(ctest_t *test, void *arg) {
@@ -39,13 +39,13 @@ ctest_return_t testARgbEmpty(ctest_t *test, void *arg) {
     rgb->b = 0;
     
     Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
-    ARgb *ARgb = getARgbFromXyz(xyz);
+    Argb *argb = getARgbFromXyz(xyz);
     
-    CTAssertEqual(test, 0.0f, ARgb->r, "Expect R to be equal to 0.0 but got %f", ARgb->r);
-    CTAssertEqual(test, 0.0f, ARgb->g, "Expect G to be equal to 0.0 but got %f", ARgb->g);
-    CTAssertEqual(test, 0.0f, ARgb->b, "Expect B to be equal to 0.0 but got %f", ARgb->b);
+    CTAssertDecimalEqual(test, 0.0, argb->r, 0.1, "Expect r to be equal to be equal to 0 but got %f", argb->r);
+    CTAssertDecimalEqual(test, 0.0, argb->g, 0.1, "Expect g to be equal to be equal to 0 but got %f", argb->g);
+    CTAssertDecimalEqual(test, 0.0, argb->b, 0.1, "Expect b to be equal to be equal to 0 but got %f", argb->b);
     
-    free(ARgb);
+    free(argb);
 }
 
 ctest_return_t testMaxARgb(ctest_t *test, void *arg) {
@@ -55,21 +55,20 @@ ctest_return_t testMaxARgb(ctest_t *test, void *arg) {
     rgb->b = 255;
     
     Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
-    ARgb *ARgb = getARgbFromXyz(xyz);
+    Argb *argb = getARgbFromXyz(xyz);
     
-    // Value are equal to 0.999... so round it to 1.0f
-    CTAssertEqual(test, 1.0f, roundf(ARgb->r), "Expect R to be equal to %f but got %f", 1.0f, ARgb->r);
-    CTAssertEqual(test, 1.0f, roundf(ARgb->g), "Expect G to be equal to %f but got %f", 1.0f, ARgb->g);
-    CTAssertEqual(test, 1.0f, roundf(ARgb->b), "Expect B to be equal to %f but got %f", 1.0f, ARgb->b);
+    CTAssertDecimalEqual(test, 1.0, argb->r, 0.1, "Expect r to be equal to be equal to 0 but got %f", argb->r);
+    CTAssertDecimalEqual(test, 1.0, argb->g, 0.1, "Expect g to be equal to be equal to 0 but got %f", argb->g);
+    CTAssertDecimalEqual(test, 1.0, argb->b, 0.1, "Expect b to be equal to be equal to 0 but got %f", argb->b);
     
-    free(ARgb);
+    free(argb);
 }
 
 ctest_return_t testNullARgb(ctest_t *test, void *arg) {
-    ARgb *ARgb = getARgbFromXyz(NULL);
-    CTAssertNull(test, ARgb, "Expect ARgb to be NULL");
+    Argb *argb = getARgbFromXyz(NULL);
+    CTAssertEqual(test, argb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
-    free(ARgb);
+    free(argb);
 }
 
 ctcase_t *wrapARgbCreationTest() {

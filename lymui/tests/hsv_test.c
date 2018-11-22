@@ -27,9 +27,9 @@ ctest_return_t testHsvCreation(ctest_t *test, void *arg) {
     rgb->b = 100;
     
     Hsv *hsv = getHsvFromRgb(rgb);
-    CTAssertDecimalEqual(test, 180.0, hsv->h, 0.1, "Expect H to be equal to 180 but got %d", hsv->h);
-    CTAssertDecimalEqual(test, 50.0, hsv->s, 0.1, "Expect S to be equal to 50 but got %d", hsv->s);
-    CTAssertDecimalEqual(test, 39.2, hsv->v, 0.1, "Expect V to be equal to 39.2 but got %d", hsv->v);
+    CTAssertDecimalEqual(test, 180.0, hsv->h, 0.1, "Expect H to be equal to 180 but got %f", hsv->h);
+    CTAssertDecimalEqual(test, 50.0, hsv->s, 0.1, "Expect S to be equal to 50 but got %f", hsv->s);
+    CTAssertDecimalEqual(test, 39.2, hsv->v, 0.1, "Expect V to be equal to 39.2 but got %f", hsv->v);
     
     free(hsv);
 }
@@ -41,9 +41,9 @@ ctest_return_t testBlackHsvCreation(ctest_t *test, void *arg) {
     rgb->b = 0;
     
     Hsv *hsv = getHsvFromRgb(rgb);
-    CTAssertDecimalEqual(test, 0.0, hsv->h, 0.1, "Expect H to be equal to 0 but got %d", hsv->h);
-    CTAssertDecimalEqual(test, 0.0, hsv->s, 0.1, "Expect S to be equal to 0 but got %d", hsv->s);
-    CTAssertDecimalEqual(test, 0.0, hsv->v, 0.1, "Expect V to be equal to 0 but got %d", hsv->v);
+    CTAssertDecimalEqual(test, 0.0, hsv->h, 0.1, "Expect H to be equal to 0 but got %f", hsv->h);
+    CTAssertDecimalEqual(test, 0.0, hsv->s, 0.1, "Expect S to be equal to 0 but got %f", hsv->s);
+    CTAssertDecimalEqual(test, 0.0, hsv->v, 0.1, "Expect V to be equal to 0 but got %f", hsv->v);
     
     free(hsv);
 }
@@ -55,9 +55,9 @@ ctest_return_t testComplexHsvCreation(ctest_t *test, void *arg) {
     rgb->b = 1;
     
     Hsv *hsv = getHsvFromRgb(rgb);
-    CTAssertDecimalEqual(test, 81.0, hsv->h, 0.1, "Expect H to be equal to 81.0 but got %d", hsv->h);
-    CTAssertDecimalEqual(test, 99.6, hsv->s, 0.1, "Expect S to be equal to 99.6 but got %d", hsv->s);
-    CTAssertDecimalEqual(test, 93.3, hsv->v, 0.1, "Expect V to be equal to 93.3 but got %d", hsv->v);
+    CTAssertDecimalEqual(test, 81.0, hsv->h, 0.1, "Expect H to be equal to 81.0 but got %f", hsv->h);
+    CTAssertDecimalEqual(test, 99.6, hsv->s, 0.1, "Expect S to be equal to 99.6 but got %f", hsv->s);
+    CTAssertDecimalEqual(test, 93.3, hsv->v, 0.1, "Expect V to be equal to 93.3 but got %f", hsv->v);
     
     free(hsv);
 }

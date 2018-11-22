@@ -8,32 +8,38 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include "errors.h"
 #include "argb.h"
 
 /**
- * @discussion Adobe Gamma Correction adjust the Float value to based generated
- * @param c float
- * @return c float
+ * @discussion Adobe Gamma Correction adjust the double value to based generated
+ * @param c double
+ * @return c double
  */
-static float adobeGammaCorrection(float c) {
-    if (c <= 0.0f)
-        return 0.0f;
+static double adobeGammaCorrection(double c) {
+    if (c <= 0.0)
+        return 0.0;
     
-    if (c >= 1.0f)
-        return 1.0f;
+    if (c >= 1.0)
+        return 1.0;
     
-    return powf(c, 1 / 2.19921875f);
+    return pow(c, 1 / 2.19921875);
 }
 
-ARgb *getARgbFromXyz( Xyz *xyz) {
-    if (xyz == NULL)
+Argb *getARgbFromXyz(Xyz *xyz) {
+    Argb *argb = malloc(sizeof(Argb));
+    if (argb == NULL) {
         return NULL;
+    }
     
-    float r = xyz->x * rr + xyz->y * rg + xyz->z * rb;
-    float g = xyz->x * gr + xyz->y * gg + xyz->z * gb;
-    float b = xyz->x * br + xyz->y * bg + xyz->z * bb;
+    if (xyz == NULL) {
+        argb->error = NULL_INPUT_STRUCT;
+        return argb;
+    }
     
-    ARgb *argb = malloc(sizeof(ARgb));
+    double r = xyz->x * rr + xyz->y * rg + xyz->z * rb;
+    double g = xyz->x * gr + xyz->y * gg + xyz->z * gb;
+    double b = xyz->x * br + xyz->y * bg + xyz->z * bb;
     
     argb->r = adobeGammaCorrection(r);
     argb->g = adobeGammaCorrection(g);

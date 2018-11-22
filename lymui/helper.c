@@ -47,8 +47,8 @@ double roundDigit(double value, int factor) {
     return round(value * factor) / factor;
 }
 
-float roundDecimal(float value, int decimal) {
-    return floorf(value * decimal) / decimal;
+double roundDecimal(double value, int decimal) {
+    return floor(value * decimal) / decimal;
 }
 
 double getSaturation(double min, double max, double l) {
