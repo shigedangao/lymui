@@ -10,75 +10,77 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include "xyz_constant.h"
+#include "errors.h"
 #include "helper.h"
 #include "rgb.h"
 #include "xyz.h"
 
 /**
- * @discussion Pivot RGB Convert the RGB value to a linear rgb value
- * @param c float
- * @retun c float
+ * @brief Pivot RGB Convert the RGB value to a linear rgb value
+ * @param c double
+ * @retun c double
  */
-static float pivotRGB(float c) {
-    if (c <= 0.04045f)
-        return c / 12.92f;
+static double pivotRGB(double c) {
+    if (c <= 0.04045)
+        return c / 12.92;
     
-    return powf((c + 0.055f) / 1.055f, 2.4f);
+    return pow((c + 0.055) / 1.055, 2.4);
 }
 
 /**
- * @discussion Pivot Adobe RGB Convert the RGB value to a linear Adobe RGB
- * @param c float
- * @return c float
+ * @brief Pivot Adobe RGB Convert the RGB value to a linear Adobe RGB
+ * @param c double
+ * @return c double
  */
-static float pivotAdobeRGB(float c) {
-    if (c <= 0.0f)
-        return 0.0f;
+static double pivotAdobeRGB(double c) {
+    if (c <= 0.0)
+        return 0.0;
         
-    return powf(c, ADOBE_RGB_COMPOUND);
+    return pow(c, ADOBE_RGB_COMPOUND);
 }
 
 /**
  * @brief Unpivot SRGB unpivot the calculated SRGB value
- * @param c float
- * @return float
+ * @param c double
+ * @return double
  */
-static float unpivotRGB(float c) {
-    if (c <= 0.0031308f) {
-        return c * 12.92f;
+static double unpivotRGB(double c) {
+    if (c <= 0.0031308) {
+        return c * 12.92;
     }
     
-    return 1.055f * powf(c, 1 / 2.4f) - 0.055;
+    return 1.055 * pow(c, 1 / 2.4) - 0.055;
 }
 
 /**
  * @brief Unpivot ARGB unpivot the calculated Adobe RGB value
- * @param c float
- * @return float
+ * @param c double
+ * @return double
  */
-static float unpivotARGB(float c) {
-    if (c <= 0.0f) {
-        return 0.0f;
+static double unpivotARGB(double c) {
+    if (c <= 0.0) {
+        return 0.0;
     }
     
-    return powf(c, 1 / ADOBE_RGB_COMPOUND);
+    return pow(c, 1 / ADOBE_RGB_COMPOUND);
 }
 
 /**
  * @discussion Calculate Xyz Rgb, calculate the xyz for the sRgb value
- * @param r float
- * @param g float
- * @param b float
- * @param arr float
+ * @param r double
+ * @param g double
+ * @param b double
+ * @param arr double
  */
-static void calculateXyzRgb(float r, float g, float b, float *arr) {
+static void calculateXyzRgb(double r, double g, double b, double *arr) {
     r = pivotRGB(r);
     g = pivotRGB(g);
     b = pivotRGB(b);
     
-    float x = xr * r + xg * g + xb * b;
-    float y = yr * r + yg * g + yb * b;
-    float z = zr * r + zg * g + zb * b;
+    double x = xr * r + xg * g + xb * b;
+    double y = yr * r + yg * g + yb * b;
+    double z = zr * r + zg * g + zb * b;
     
     arr[0] = x;
     arr[1] = y;
@@ -87,12 +89,12 @@ static void calculateXyzRgb(float r, float g, float b, float *arr) {
 
 /**
  * @discussion Calculate Xyz Adobe Rgb calculate the xyz value for the Adobe RGB value
- * @param r float
- * @param g float
- * @param b float
- * @param arr float
+ * @param r double
+ * @param g double
+ * @param b double
+ * @param arr double
  */
-static void calculateXyzAdobeRgb(float r, float g, float b, float *arr) {
+static void calculateXyzAdobeRgb(double r, double g, double b, double *arr) {
     r = pivotAdobeRGB(r);
     g = pivotAdobeRGB(g);
     b = pivotAdobeRGB(b);
@@ -103,14 +105,21 @@ static void calculateXyzAdobeRgb(float r, float g, float b, float *arr) {
 }
 
 Xyz * generateXyzFromRgb(Rgb *rgb, enum Matrix m) {
-    if (rgb == NULL)
+    Xyz *xyz = malloc(sizeof(Xyz));
+    if (xyz == NULL) {
         return NULL;
+    }
     
-    float _r = (float) rgb->r / 255;
-    float _g = (float) rgb->g / 255;
-    float _b = (float) rgb->b / 255;
+    if (rgb == NULL) {
+        xyz->error = NULL_INPUT_STRUCT;
+        return xyz;
+    }
     
-    float *value = malloc(sizeof(float) * 3);
+    double _r = (double) rgb->r / 255.0;
+    double _g = (double) rgb->g / 255.0;
+    double _b = (double) rgb->b / 255.0;
+    
+    double *value = malloc(sizeof(double) * 3);
     
     switch(m) {
         case srgb:
@@ -124,7 +133,6 @@ Xyz * generateXyzFromRgb(Rgb *rgb, enum Matrix m) {
             return NULL;
     }
     
-    Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = value[0];
     xyz->y = value[1];
     xyz->z = value[2];
@@ -140,10 +148,13 @@ Xyz * generateXyzFromRgb(Rgb *rgb, enum Matrix m) {
  * @param xyz * Xyz
  * @param m Matrix
  */
-static float * calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
-    float * linearRGB = malloc(sizeof(float) * 3);
-    float sr, sg, sb;
+static double * calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
+    double *linearRGB = malloc(sizeof(double) * 3);
+    if (linearRGB == NULL) {
+        return NULL;
+    }
     
+    double sr, sg, sb;
     if (m == srgb) {
         sr = xyz->x * xx + xyz->y * xy + xyz->z * xz;
         sg = xyz->x * yx + xyz->y * yy + xyz->z * yz;
@@ -168,20 +179,25 @@ static float * calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
 }
 
 Rgb * generateRgbFromXyz(Xyz * xyz, Matrix m) {
-    if (xyz == NULL) {
-        return NULL;
-    }
-    
-    float * matrixValue = calculateLinearRgbToXyz(xyz, m);
-    
     Rgb * rgb = malloc(sizeof(rgb));
     if (rgb == NULL) {
         return NULL;
     }
     
-    rgb->r = floatToUint(matrixValue[0] * 255);
-    rgb->g = floatToUint(matrixValue[1] * 255);
-    rgb->b = floatToUint(matrixValue[2] * 255);
+    if (xyz == NULL) {
+        rgb->error = NULL_INPUT_STRUCT;
+        return rgb;
+    }
+    
+    double *matrixValue = calculateLinearRgbToXyz(xyz, m);
+    if (matrixValue == NULL) {
+        rgb->error = MALLOC_ERROR;
+        return rgb;
+    }
+    
+    rgb->r = doubleToUint(matrixValue[0] * 255);
+    rgb->g = doubleToUint(matrixValue[1] * 255);
+    rgb->b = doubleToUint(matrixValue[2] * 255);
     free(matrixValue);
     
     return rgb;

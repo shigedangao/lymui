@@ -25,15 +25,15 @@ matrix:
         - lcov --list coverage.info
         - coveralls-lcov  coverage.info
     
-    - language: node_js
-      node_js:
-        - "lts/*"
-      before_install:
-        - make lib
-        - npm install
-        - npm install -g node-gyp
-      before_script:
-        - node-gyp configure
-        - npm run build:dev
-      script:
-        - npm run test
+    # - language: node_js
+    #   node_js:
+    #     - "lts/*"
+    #   before_install:
+    #     - make lib
+    #     - npm install
+    #     - npm install -g node-gyp
+    #   before_script:
+    #     - node-gyp configure
+    #     - npm run build:dev
+    #   script:
+    #     - npm run test

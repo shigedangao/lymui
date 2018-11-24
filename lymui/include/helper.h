@@ -25,20 +25,27 @@ char * uintToHex(uint8_t v);
  */
 uint8_t floatToUint(float value);
 
-/*!
- * @discussion round a float to 1 digit
- * @param value float
- * @param factor int
- * @return a float
+/**
+ * @brief convert a double to an uint8_t
+ * @param value doule
+ * @return uint8_t
  */
-float roundDigit(float value, int factor);
+uint8_t doubleToUint(double value);
+
+/**
+ * @discussion round a double to 1 digit
+ * @param value double
+ * @param factor int
+ * @return a double
+ */
+double roundDigit(double value, int factor);
 
 /**
  * @brief round the decimal value
- * @param value float
+ * @param value double
  * @param decimal int
  */
-float roundDecimal(float value, int decimal);
+double roundDecimal(double value, int decimal);
 
 /*
  * @discussion Update Constraint Value
@@ -46,37 +53,40 @@ float roundDecimal(float value, int decimal);
  * @param value the float array
  * @return an array of float
  */
-float * updateConstraintValue(float *value, uint8_t size);
-
-/*!
- * @discussion Get the saturation between 2 values
- * @param min float value of the rgb struct
- * @param max float value of the rgb struct
- * @param l   float representing the luminance
- * @return float saturation
- */
-float getSaturation(float min, float max, float l);
+double *updateConstraintValue(double *value, uint8_t size);
 
 /**
- * @discussion Get degree from radian value
- * @param r float
- * @return d float
+ * @brief Get the saturation between 2 values
+ * @param min double value of the rgb struct
+ * @param max double value of the rgb struct
+ * @param l   double representing the luminance
+ * @return double saturation
  */
-float getDegFromRad(float r);
+double getSaturation(double min, double max, double l);
 
 /**
- * @discussion Get radian from degree value
- * @param d float
- * @return r float
+ * @brief Get degree from radian value
+ * @param r double
+ * @return d double
  */
-float getRadFromDeg(float d);
+double getDegFromRad(double r);
 
 /**
- * @brief Clamp the value
- * @param v float
- * @return float
+ * @brief Get radian from degree value
+ * @param d double
+ * @return r double
  */
-float clampXyz(float v);
+double getRadFromDeg(double d);
+
+/**
+ * @brief Get minimum value of RGB
+ * @param r double
+ * @param g double
+ * @param b double
+ * @param operation uint
+ * @return double
+ */
+double getMinMax(double r, double g, double b, uint8_t operation);
 
 
 #endif /* helper_h */

@@ -10,6 +10,7 @@
 #include <cunit.h>
 #include <stdlib.h>
 #include "test_header.h"
+#include "errors.h"
 #include "ycbcr.h"
 #include "rgb.h"
 
@@ -30,7 +31,7 @@ ctest_return_t testYcbcrNullCreation(ctest_t *test, void *arg) {
     Rgb *rgb = NULL;
     Ycbcr *ycbcr = getYcbcrFromRgb(rgb);
     
-    CTAssertNull(test, ycbcr, "Expect YCbCr to be NULL");
+    CTAssertEqual(test, ycbcr->error, NULL_INPUT_STRUCT, "Expect to return a string message error", NULL_INPUT_STRUCT);
     
     free(rgb);
     free(ycbcr);
@@ -43,7 +44,7 @@ ctest_return_t testUintCreationFromYcbcr(ctest_t *test, void *arg) {
     ycbcr->cb = 186;
     ycbcr->cr = 77;
     
-    Rgb *rgb = getRawRGBValueFromYcbcr(ycbcr);
+    Rgb *rgb = getRGBFromYcbcr(ycbcr);
     CTAssertEqual(test, 0, rgb->r, "Expect R to be equal to %i but got %i", 0, rgb->r);
     CTAssertEqual(test, 100, rgb->g, "Expect G to be equal to %i but got %i", 100, rgb->g);
     CTAssertEqual(test, 199, rgb->b, "Expect B to be equal to %i but got %i", 198, rgb->b);
@@ -53,8 +54,8 @@ ctest_return_t testUintCreationFromYcbcr(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testUintNullCreationFromYcbcr(ctest_t *test, void *arg) {
-    Rgb *rgb = getRawRGBValueFromYcbcr(NULL);
-    CTAssertNull(test, rgb, "Expect RGB to be NULL");
+    Rgb *rgb = getRGBFromYcbcr(NULL);
+    CTAssertEqual(test, rgb->error, NULL_INPUT_STRUCT, "Expect to return a string message error", NULL_INPUT_STRUCT);
     
     free(rgb);
 }

@@ -8,27 +8,30 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include "errors.h"
 #include "ycbcr.h"
 #include "helper.h"
 
 // constant variable
-const float yValue[]  = {0.257, 0.504, 0.098};
-const float crValue[] = {0.439, 0.368, 0.071};
-const float cbValue[] = {0.148, 0.291, 0.439};
-const float YConst    = 1.164;
+const double yValue[]  = {0.257, 0.504, 0.098};
+const double crValue[] = {0.439, 0.368, 0.071};
+const double cbValue[] = {0.148, 0.291, 0.439};
 
 /**
- * @discussion Make Value calculate the value of the y cb cr based on the pass rgb structure
+ * @brief Make Value calculate the value of the y cb cr based on the pass rgb structure
  * @param rgb an Rgb struct
  * @return **v a multidimensonal array
  */
-static float ** makeValue( Rgb *rgb) {
-    float **v = malloc(3 * 3 * sizeof(float));
+static double ** makeValue(Rgb *rgb) {
+    double **v = malloc(3 * 3 * sizeof(double));
+    if (v == NULL) {
+        return NULL;
+    }
     
     // init the multi dimensional array
-    v[0] = malloc(sizeof(float) * 3);
-    v[1] = malloc(sizeof(float) * 3);
-    v[2] = malloc(sizeof(float) * 3);
+    v[0] = malloc(sizeof(double) * 3);
+    v[1] = malloc(sizeof(double) * 3);
+    v[2] = malloc(sizeof(double) * 3);
     
     // Set the YValue
     v[0][0] = rgb->r * yValue[0];
@@ -50,14 +53,25 @@ static float ** makeValue( Rgb *rgb) {
 
 // Make Ycbcr
 Ycbcr * getYcbcrFromRgb(Rgb *rgb) {
-    if (rgb == NULL)
-        return NULL;
-    
     Ycbcr *v = malloc(sizeof (Ycbcr));
-    float **colors = makeValue(rgb);
-    uint8_t y  = floatToUint(16  + (colors[0][0] + colors[0][1] + colors[0][2]));
-    uint8_t cb = floatToUint(128 + (- colors[1][0] - colors[1][1] + colors[1][2]));
-    uint8_t cr = floatToUint(128 + (colors[2][0]  - colors[2][1] - colors[2][2]));
+    if (v == NULL) {
+        return NULL;
+    }
+    
+    if (rgb == NULL) {
+        v->error = NULL_INPUT_STRUCT;
+        return v;
+    }
+    
+    double **colors = makeValue(rgb);
+    if (colors == NULL) {
+        v->error = MALLOC_ERROR;
+        return v;
+    }
+    
+    uint8_t y  = doubleToUint(16  + (colors[0][0] + colors[0][1] + colors[0][2]));
+    uint8_t cb = doubleToUint(128 + (- colors[1][0] - colors[1][1] + colors[1][2]));
+    uint8_t cr = doubleToUint(128 + (colors[2][0]  - colors[2][1] - colors[2][2]));
     
     v->y  = y;
     v->cb = cb;
@@ -69,21 +83,20 @@ Ycbcr * getYcbcrFromRgb(Rgb *rgb) {
 }
 
 // Get Raw RGB Array Value From Ycbcr
-Rgb * getRawRGBValueFromYcbcr(Ycbcr *cb) {
-    if (cb == NULL)
-        return NULL;
+Rgb *getRGBFromYcbcr(Ycbcr *cb) {
+    Rgb *rgb = initRgb();
+    if (cb == NULL) {
+        rgb->error = NULL_INPUT_STRUCT;
+        return rgb;
+    }
     
-    uint8_t * cArr = malloc(sizeof(char) * 3);
     uint8_t r = floatToUint(YConst * (cb->y - 16) + 1.596 * (cb->cr - 128));
     uint8_t g = floatToUint(YConst * (cb->y - 16) - 0.813 * (cb->cr - 128) - 0.391 * (cb->cb - 128));
     uint8_t b = floatToUint(YConst * (cb->y - 16) + 2.018 * (cb->cb - 128));
     
-    cArr[0] = r;
-    cArr[1] = g;
-    cArr[2] = b;
-    
-    Rgb *rgb = makeRGB(cArr, 3);
-    free(cArr);
+    rgb->r = r;
+    rgb->g = g;
+    rgb->b = b;
     
     // don't forget to free when not needed anymore
     return rgb;

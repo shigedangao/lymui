@@ -7,11 +7,11 @@
 //
 
 #include <stdlib.h>
+#include "errors.h"
 #include "xyy.h"
 
-static float calculateXyyValue(float v, Xyz *xyz, uint8_t x) {
+static double calculateXyyValue(double v, Xyz *xyz, uint8_t x) {
     uint8_t cond = !xyz->x && !xyz->y && !xyz->z;
-    
     if (!cond)
         return v / (xyz->x + xyz->y + xyz->z);
     
@@ -21,14 +21,20 @@ static float calculateXyyValue(float v, Xyz *xyz, uint8_t x) {
     return chromaY;
 }
 
-Xyy * getXyyFromXyz(Xyz *xyz) {
-    if (xyz == NULL)
-        return NULL;
-    
+Xyy *getXyyFromXyz(Xyz *xyz) {
     Xyy * xyy = malloc(sizeof(Xyy));
-    xyy->x = calculateXyyValue(xyz->x, xyz, 1);
-    xyy->y = calculateXyyValue(xyz->y, xyz, 0);
-    xyy->Y = xyz->y;
+    if (xyy == NULL) {
+        return NULL;
+    }
+    
+    if (xyz == NULL) {
+        xyy->error = NULL_INPUT_STRUCT;
+        return xyy;
+    }
+    
+    xyy->x  = calculateXyyValue(xyz->x, xyz, 1);
+    xyy->yx = calculateXyyValue(xyz->y, xyz, 0);
+    xyy->yy = xyz->y;
     
     free(xyz);
     
@@ -36,23 +42,29 @@ Xyy * getXyyFromXyz(Xyz *xyz) {
 }
 
 Xyz * getXyzFromXyy(Xyy *xyy) {
-    if (xyy == NULL)
-        return NULL;
-    
     Xyz *xyz = malloc(sizeof(Xyz));
+    if (xyz == NULL) {
+        return NULL;
+    }
     
-    if (!xyy->y) {
-        xyz->x = 0.0f;
-        xyz->y = 0.0f;
-        xyz->z = 0.0f;
+    if (xyy == NULL) {
+        xyz->error = NULL_INPUT_STRUCT;
+        return xyz;
+    }
+    
+    
+    if (!xyy->yx) {
+        xyz->x = 0.0;
+        xyz->y = 0.0;
+        xyz->z = 0.0;
         free(xyy);
         
         return xyz;
     }
     
-    xyz->x = (xyy->x * xyy->Y) / xyy->y;
-    xyz->y = xyy->Y;
-    xyz->z = ((1.0f - xyy->x - xyy->y) * xyy->Y) / xyy->y;
+    xyz->x = (xyy->x * xyy->yy) / xyy->yx;
+    xyz->y = xyy->yy;
+    xyz->z = ((1.0 - xyy->x - xyy->yx) * xyy->yy) / xyy->yx;
     
     free(xyy);
     return xyz;

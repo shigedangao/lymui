@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cunit.h>
+#include "errors.h"
 #include "rgb.h"
 #include "xyz.h"
 #include "srgb.h"
@@ -23,15 +24,17 @@ ctest_return_t testSRgbCreation(ctest_t *test, void *arg) {
     Xyz *xyz = generateXyzFromRgb(rgb, srgb);
     SRgb *srgb = getSRgbFromXyz(xyz);
     
-    CTAssertEqual(test, 1.9f, roundDigit(srgb->r * 10, 10), "Expect r to be equal to be equal to 1.8 but got %f", roundDigit(srgb->r * 10, 10));
-    CTAssertEqual(test, 0.3f, roundDigit(srgb->g * 10, 10), "Expect g to be equal to be equal to 0.3 but got %f", roundDigit(srgb->g * 10, 10));
-    CTAssertEqual(test, 3.7f, roundDigit(srgb->b * 10, 10), "Expect r to be equal to be equal to 3.7 but got %f", roundDigit(srgb->b * 10, 10));
+    CTAssertDecimalEqual(test, 0.19, srgb->r, 0.01, "Expect r to be equal to be equal to 0.19 but got %f", srgb->r);
+    CTAssertDecimalEqual(test, 0.03, srgb->g, 0.01, "Expect g to be equal to be equal to 0.03 but got %f", srgb->g);
+    CTAssertDecimalEqual(test, 0.37, srgb->b, 0.01, "Expect b to be equal to be equal to 0.37 but got %f", srgb->b);
+
+    free(srgb);
 }
 
 ctest_return_t testNullSRgbCreation(ctest_t *test, void *arg) {
     SRgb *srgb = getSRgbFromXyz(NULL);
-    CTAssertNull(test, srgb, "Expect sRgb to be NULL");
-    
+    CTAssertEqual(test, srgb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+
     free(srgb);
 }
 

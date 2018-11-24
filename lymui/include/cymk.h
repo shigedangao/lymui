@@ -17,13 +17,15 @@
  */
 typedef struct Cymk {
     // C value
-    float c;
+    double c;
     // Y value
-    float y;
+    double y;
     // M value
-    float m;
+    double m;
     // K value
-    float k;
+    double k;
+    // error char
+    char *error;
 } Cymk;
 
 /**
@@ -32,7 +34,7 @@ typedef struct Cymk {
  * @param clamp int
  * @return a uint8_t array
  */
-Cymk * getCymkFromRgb(Rgb *rgb, int clamp);
+Cymk *getCymkFromRgb(Rgb *rgb, int clamp);
 
 /**
  * @brief Creates a uint8_t array from a Cymk struct pointer
@@ -40,6 +42,6 @@ Cymk * getCymkFromRgb(Rgb *rgb, int clamp);
  * @return a uint8_t array
  * @TODO return RGB struct instead
  */
-Rgb * getRawRGBValueFromCymk(Cymk *cymk);
+Rgb *getRgbFromCymk(Cymk *cymk);
 
 #endif /* cymk_h */

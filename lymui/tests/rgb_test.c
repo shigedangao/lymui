@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <cunit.h>
+#include "errors.h"
 #include "rgb.h"
 
 // For instance the test are done in the main file
@@ -30,7 +31,14 @@ ctest_return_t testFailRgbCreation(ctest_t *test, void *arg) {
     uint8_t uc[] = {0, 100};
     Rgb *rgb = makeRGB(uc, sizeof(uc));
     
-    CTAssertNull(test, rgb, "Expect RGB to be NULL");
+    CTAssertEqual(test, rgb->error, WRONG_INPUT_PARAM, "Expect RGB to be return a string error %s", WRONG_INPUT_PARAM);
+    free(rgb);
+}
+
+ctest_return_t testNullRgbCreation(ctest_t *test, void *arg) {
+    Rgb *rgb = makeRGB(NULL, 0);
+    
+    CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect RGB to be return a string error %s", NULL_INPUT_PARAM);
     free(rgb);
 }
 
@@ -54,13 +62,15 @@ ctcase_t *wrapRgbCreationTest() {
     ctcase_t *rgbCase = ctcase("Rgb creation test case");
     
     // Create test
-    ctest_t   *testRgbCreation = ctest("Creation of a RGB from a null uint8_t array", testRgbCreationFromArr, NULL);
-    ctest_t   *testRgbFailure  = ctest("Creation of a NULL RGB from a NULL uint8_t array", testFailRgbCreation, NULL);
-    ctest_t   *testRgbFromArr  = ctest("Creation of a RGB from uint8_t array", testCreationRgbFromPtrArr, NULL);
+    ctest_t *testRgbCreation = ctest("Creation of a RGB from a null uint8_t array", testRgbCreationFromArr, NULL);
+    ctest_t *testRgbFailure  = ctest("Creation of a NULL RGB from a NULL uint8_t array", testFailRgbCreation, NULL);
+    ctest_t *testRgbFromArr  = ctest("Creation of a RGB from uint8_t array", testCreationRgbFromPtrArr, NULL);
+    ctest_t *testEmptyRgb    = ctest("Creation of a RGB from a NULL array and length", testNullRgbCreation, NULL);
     
     ctctestadd(rgbCase, testRgbCreation);
     ctctestadd(rgbCase, testRgbFailure);
     ctctestadd(rgbCase, testRgbFromArr);
+    ctctestadd(rgbCase, testEmptyRgb);
     
     return rgbCase;
 }

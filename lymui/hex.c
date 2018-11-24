@@ -9,31 +9,47 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include "errors.h"
 #include "hex.h"
 #include "helper.h"
 
 // Get Hex From RGB
-char * getHexFromRGB(Rgb *c) {
+char *getHexFromRGB(Rgb *c) {
     char *r = uintToHex(c->r);
     char *g = uintToHex(c->g);
     char *b = uintToHex(c->b);
     
     // create a char array of hex value
     char *hex = malloc(sizeof(char) * HEX_SIZE);
+    if (hex == NULL) {
+        return NULL;
+    }
+    
     snprintf(hex, HEX_SIZE, "%s%s%s", r, g, b);
     return hex;
 }
 
 // Get RGB Value From Hex
-Rgb * getRawRGBValueFromHex(char *hex) {
-    if (hex == NULL)
+Rgb *getRawRGBValueFromHex(char *hex) {
+    Rgb *rgb = initRgb();
+    if (rgb == NULL) {
         return NULL;
+    }
+    
+    if (hex == NULL) {
+        rgb->error = NULL_INPUT_PARAM;
+        return rgb;
+    }
     
     // Make a copy of the pointer
     uint8_t *rgbArr = malloc(sizeof (char) * 3);
+    if (rgbArr == NULL) {
+        rgb->error = MALLOC_ERROR;
+        return rgb;
+    }
+    
     uint8_t idx = 0;
     // As we use the ushort we set 16 as our flag
-    
     while (idx < strlen(hex)) {
         int x = getUintCharValue(hex, idx);
         int y = getUintCharValue(hex, idx + 1);
@@ -43,10 +59,13 @@ Rgb * getRawRGBValueFromHex(char *hex) {
     }
     
     // remove the pointer as we don't need it anymore
+    rgb->r = rgbArr[0];
+    rgb->g = rgbArr[1];
+    rgb->b = rgbArr[2];
+    
     free(hex);
-    Rgb *rgb = makeRGB(rgbArr, 3);
     free(rgbArr);
-    // Don't forget to free it after it's usage
+
     return rgb;
 }
 
@@ -65,6 +84,11 @@ uint8_t getUintCharValue(char *c, uint8_t idx) {
     
     if (n == 0) {
         char *v = malloc(sizeof(char));
+        if (v == NULL) {
+            // fail passive
+            return 0;
+        }
+        
         v[0] = c[idx];
         n = strtol(v, NULL, 10);
         
