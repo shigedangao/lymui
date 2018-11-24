@@ -23,11 +23,6 @@ Rgb *makeRGB(uint8_t c[], size_t length) {
         return NULL;
     }
     
-    if (color == NULL) {
-        color->error = NULL_INPUT_PARAM;
-        return color;
-    }
-    
     if (c == NULL || !length) {
         color->error = NULL_INPUT_PARAM;
         return color;
