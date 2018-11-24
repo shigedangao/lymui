@@ -72,6 +72,11 @@ napi_value toRGB(napi_env env, napi_callback_info info) {
         return promise;
     }
     
+    if (argc < 1) {
+        napi_reject_deferred(env, def, BuildPromiseError(env, ARG_NB_ERR));
+        return promise;
+    }
+    
     BridgeObj *bridge = normalize(env, argv[0]);
     if (bridge == NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, ALLOCATION_ERR));

@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <node_api.h>
 #include "binding_error.h"
-#include "node_rgb.h"
 #include "convert_space.h"
 #include "convert_regular.h"
 #include "convert_rgb.h"

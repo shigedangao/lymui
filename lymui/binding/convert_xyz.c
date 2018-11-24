@@ -54,6 +54,11 @@ napi_value toXYZ(napi_env env, napi_callback_info info) {
         return promise;
     }
     
+    if (argc < 1) {
+        napi_reject_deferred(env, def, BuildPromiseError(env, ARG_NB_ERR));
+        return promise;
+    }
+    
     BridgeSpaceObj *bridge = normalizeSpace(env, argv[0]);
     if (bridge == NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, ALLOCATION_ERR));
