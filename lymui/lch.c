@@ -8,48 +8,67 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include "errors.h"
 #include "helper.h"
 #include "lch.h"
 #include "luv.h"
 
-Lch * getLchFromXyz(Xyz *xyz) {
-    if (xyz == NULL)
+Lch *getLchFromXyz(Xyz *xyz) {
+    Lch *lch = malloc(sizeof( Lch));
+    if (lch == NULL) {
         return NULL;
+    }
+    
+    if (xyz == NULL) {
+        lch->error = NULL_INPUT_STRUCT;
+        return lch;
+    }
     
     Luv *luv = getLuvFromXyz(xyz);
-    
     if (luv == NULL) {
         return NULL;
     }
     
-    Lch *lch = malloc(sizeof( Lch));
-    float H = getDegFromRad(atan2f(luv->v, luv->u));
+    double H = getDegFromRad(atan2(luv->v, luv->u));
     lch->l = luv->l;
-    lch->c = sqrtf(powf(luv->u, 2.0f) + powf(luv->v, 2.0f));
-    lch->h = H >= 0.0f ? H : H + 360.0f;
+    lch->c = sqrt(pow(luv->u, 2.0f) + pow(luv->v, 2.0f));
+    lch->h = H >= 0.0 ? H : H + 360.0;
     
     free(luv);
     
     return lch;
 }
 
-Xyz * getXyzFromLch(Lch *lch) {
-    if (lch == NULL)
+Xyz *getXyzFromLch(Lch *lch) {
+    Xyz *errXyz = malloc(sizeof(Xyz));
+    if (errXyz == NULL) {
         return NULL;
+    }
     
-    Luv *luv = malloc(sizeof( Luv));
-    float H = getRadFromDeg(lch->h);
+    if (lch == NULL) {
+        errXyz->error = NULL_INPUT_STRUCT;
+        return errXyz;
+    }
+    
+    Luv *luv = malloc(sizeof(Luv));
+    if (luv == NULL) {
+        errXyz->error = MALLOC_ERROR;
+        return errXyz;
+    }
+    
+    double H = getRadFromDeg(lch->h);
     luv->l = lch->l;
     luv->u = lch->c * cosf(H);
     luv->v = lch->c * sinf(H);
     
     Xyz *xyz = getXyzFromLuv(luv);
-    
     if (xyz == NULL) {
-        return NULL;
+        errXyz->error = MALLOC_ERROR;
+        return errXyz;
     }
     
     free(lch);
+    free(errXyz);
     
     return xyz;
 }

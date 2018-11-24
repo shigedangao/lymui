@@ -8,28 +8,35 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include "errors.h"
 #include "helper.h"
 #include "lab.h"
 #include "lchlab.h"
 
-LchLab * getLchFromLab(Xyz *xyz) {
-    if (xyz == NULL)
-        return NULL;
-    
-    Lab *lab = getLabFromXyz(xyz);
-    if (lab == NULL) {
+LchLab *getLchFromLab(Xyz *xyz) {
+    LchLab *lch = malloc(sizeof(LchLab));
+    if (lch == NULL) {
         return NULL;
     }
     
-    LchLab *lch = malloc(sizeof(LchLab));
-    lch->l = lab->l;
-    lch->c = sqrtf(powf(lab->a, 2.0f) + powf(lab->b, 2.0f));
+    if (xyz == NULL) {
+        lch->error = NULL_INPUT_STRUCT;
+        return lch;
+    }
     
-    float h = getRadFromDeg(atan2f(lab->b, lab->a));
-    if (h >= 0.0f) {
+    Lab *lab = getLabFromXyz(xyz);
+    if (lab == NULL) {
+        lch->error = MALLOC_ERROR;
+        return lch;
+    }
+    
+    lch->l = lab->l;
+    lch->c = sqrt(pow(lab->a, 2.0) + powf(lab->b, 2.0));
+    double h = getRadFromDeg(atan2(lab->b, lab->a));
+    if (h >= 0.0) {
         lch->h = h;
     } else {
-        lch->h = h + 360.0f;
+        lch->h = h + 360.0;
     }
     
     free(lab);
@@ -38,24 +45,34 @@ LchLab * getLchFromLab(Xyz *xyz) {
 }
 
 Xyz * getXyzFromLchlab(LchLab *lch) {
-    if (lch == NULL)
-        return NULL;
-    
-    // Get the lab first
-    Lab *lab = malloc(sizeof(Lab));
-    
-    if (lab == NULL) {
+    Xyz *errXyz = malloc(sizeof(Xyz));
+    if (errXyz == NULL) {
         return NULL;
     }
     
-    float H = getRadFromDeg(lch->h);
-    lab->l = lch->l;
-    lab->a = lch->c * cosf(H);
-    lab->b = lch->c * sinf(H);
+    if (lch == NULL) {
+        errXyz->error = NULL_INPUT_STRUCT;
+        return errXyz;
+    }
+    // Get the lab first
+    Lab *lab = malloc(sizeof(Lab));
+    if (lab == NULL) {
+        errXyz->error = MALLOC_ERROR;
+        return errXyz;
+    }
     
+    double H = getRadFromDeg(lch->h);
+    lab->l = lch->l;
+    lab->a = lch->c * cos(H);
+    lab->b = lch->c * sin(H);
     
     // get the xyz
     Xyz *xyz = getXyzFromLab(lab);
+    if (xyz == NULL) {
+        errXyz->error = MALLOC_ERROR;
+        return errXyz;
+    }
     
+    free(errXyz);
     return xyz;
 }

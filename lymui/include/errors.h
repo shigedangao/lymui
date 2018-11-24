@@ -12,5 +12,6 @@
 #define NULL_INPUT_STRUCT "The input struct is empty"
 #define NULL_INPUT_PARAM "The imput param is empty"
 #define WRONG_INPUT_PARAM "The input param is incorrect"
+#define MALLOC_ERROR "Unable to allocate memory for creating data"
 
 #endif /* errors_h */

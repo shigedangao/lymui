@@ -19,7 +19,7 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     Rgb *lym = makeRGB(uc, sizeof(uc));
     
     char *hex = getHexFromRGB(lym);
-    char *value = malloc(sizeof(char) * 6);
+    char *value = malloc(sizeof(char) * 6 + 1);
     value[0] = '0';
     value[1] = '5';
     value[2] = '0';
@@ -36,7 +36,7 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
-    char *hex = malloc(sizeof (char) * 6);
+    char *hex = malloc(sizeof (char) * 6 + 1);
     hex[0] = '0';
     hex[1] = '5';
     hex[2] = '0';
@@ -54,7 +54,7 @@ ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
-    char *hex = malloc(sizeof(char) * 6);
+    char *hex = malloc(sizeof(char) * 6 + 1);
     hex[0] = 'A';
     hex[1] = 'B';
     hex[2] = 'C';

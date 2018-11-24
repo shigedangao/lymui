@@ -80,16 +80,12 @@ double *updateConstraintValue(double *value, uint8_t size) {
     return value;
 }
 
-float getDegFromRad(float r) {
-    return r * (180.0f / M_PI);
+double getDegFromRad(double r) {
+    return r * (180.0 / M_PI);
 }
 
-float getRadFromDeg(float d) {
-    return d * M_PI / 180.0f;
-}
-
-float clampXyz(float v) {
-    return v;
+double getRadFromDeg(double d) {
+    return d * M_PI / 180.0;
 }
 
 double getMinMax(double r, double g, double b, uint8_t op) {

@@ -65,25 +65,18 @@ double *updateConstraintValue(double *value, uint8_t size);
 double getSaturation(double min, double max, double l);
 
 /**
- * @discussion Get degree from radian value
- * @param r float
- * @return d float
+ * @brief Get degree from radian value
+ * @param r double
+ * @return d double
  */
-float getDegFromRad(float r);
+double getDegFromRad(double r);
 
 /**
- * @discussion Get radian from degree value
- * @param d float
- * @return r float
+ * @brief Get radian from degree value
+ * @param d double
+ * @return r double
  */
-float getRadFromDeg(float d);
-
-/**
- * @brief Clamp the value
- * @param v float
- * @return float
- */
-float clampXyz(float v);
+double getRadFromDeg(double d);
 
 /**
  * @brief Get minimum value of RGB

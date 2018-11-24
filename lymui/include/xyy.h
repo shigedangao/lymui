@@ -12,30 +12,31 @@
 #include <stdio.h>
 #include "xyz.h"
 
-#define chromaX 0.31271f
-#define chromaY 0.32902f
+#define chromaX 0.31271
+#define chromaY 0.32902
 
 /**
  * @brief Xyy struct color format
  */
 typedef struct Xyy {
-    float x;
-    float y;
-    float Y;
+    double x;
+    double yx;
+    double yy;
+    char *error;
 } Xyy;
 
 /**
- * @description Get an Xyy struct from an Xyz struct
+ * @brief Get an Xyy struct from an Xyz struct
  * @param xyz struct Xyz pointer
  * @return xyy
  */
-Xyy * getXyyFromXyz(Xyz *xyz);
+Xyy *getXyyFromXyz(Xyz *xyz);
 
 /**
- * @description Get an Xyz struct from an Xyy struct
+ * @brief Get an Xyz struct from an Xyy struct
  * @param xyy struct from Xyy pointer
  * @return xyz
  */
-Xyz * getXyzFromXyy(Xyy *xyy);
+Xyz *getXyzFromXyy(Xyy *xyy);
 
 #endif /* xyy_h */
