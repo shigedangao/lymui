@@ -9,10 +9,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <node_api.h>
 #include "deserializer.h"
 #include "binding_util.h"
 #include "binding_error.h"
-#include <node_api.h>
 
 /**
  * @brief return an enum based on the input string

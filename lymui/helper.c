@@ -47,10 +47,6 @@ double roundDigit(double value, int factor) {
     return round(value * factor) / factor;
 }
 
-double roundDecimal(double value, int decimal) {
-    return floor(value * decimal) / decimal;
-}
-
 double getSaturation(double min, double max, double l) {
     // big condition... we also check if max and min is not equal to 1 in order to avoid dividing by 0...
     if (l > 0.5 && (max != 1.0 || min != 1.0))
