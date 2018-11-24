@@ -111,3 +111,33 @@ BridgeObj *deserialize(napi_env env, napi_value obj) {
     
     return br;
 }
+
+BridgeObj *normalize(napi_env env, napi_value obj) {
+    BridgeObj *br = malloc(sizeof(BridgeObj));
+    if (br == NULL) {
+        return NULL;
+    }
+    
+    char *inputProps = "input:type";
+    napi_value params[2];
+    
+    if (!hasPropInJSObj(env, obj, inputProps, CONVERT_BASIC_LEN)) {
+        br->error = ARG_NB_ERR;
+        return br;
+    }
+    
+    getNamedPropArray(env, inputProps, obj, CONVERT_BASIC_LEN, params);
+    char *type = getStringValue(env, params[0], MAX_LEN_TYPE);
+    
+    br->color  = params[0];
+    br->output = strToOTypeEnum(type);
+    
+    OptField *opt = getOptField(env, obj, "profile");
+    if (opt == NULL) {
+        return br;
+    }
+    
+    br->matrix = opt->field;
+    
+    return br;
+}

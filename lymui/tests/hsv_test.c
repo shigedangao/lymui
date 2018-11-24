@@ -68,7 +68,7 @@ ctest_return_t testCaseRgb_0(ctest_t *test, void *arg) {
     hsv->s = 100.0f;
     hsv->v = 100.0f;
     
-     Rgb *rgb = getRgbValueFromHsv(hsv);
+     Rgb *rgb = getRgbFromHsv(hsv);
     CTAssertEqual(test, 255, rgb->r, "Expect r to be equal to 255 but got %ui", rgb->r);
     CTAssertEqual(test, 0, rgb->g, "Expect g to be equal to 0 but got %ui", rgb->g);
     CTAssertEqual(test, 0, rgb->b, "Expect b to be equal to 0 but got %ui", rgb->b);
@@ -82,7 +82,7 @@ ctest_return_t testCaseRgb_1(ctest_t *test, void *arg) {
     hsv->s = 100.0f;
     hsv->v = 93.3f;
     
-    Rgb *rgb = getRgbValueFromHsv(hsv);
+    Rgb *rgb = getRgbFromHsv(hsv);
     CTAssertEqual(test, 155, rgb->r, "Expect r to be equal to 156 but got %ui", rgb->r);
     CTAssertEqual(test, 238, rgb->g, "Expect g to be equal to 238 but got %ui", rgb->g);
     CTAssertEqual(test, 0, rgb->b, "Expect b to be equal to 1 but got %ui", rgb->b);
@@ -96,7 +96,7 @@ ctest_return_t testCaseRgb_2(ctest_t *test, void *arg) {
     hsv->s = 40.0f;
     hsv->v = 90.0f;
     
-    Rgb *rgb = getRgbValueFromHsv(hsv);
+    Rgb *rgb = getRgbFromHsv(hsv);
     CTAssertEqual(test, 138, rgb->r, "Expect r to be equal to 168 but got %ui", rgb->r);
     CTAssertEqual(test, 230, rgb->g, "Expect g to be equal to 230 but got %ui", rgb->g);
     CTAssertEqual(test, 199, rgb->b, "Expect b to be equal to 138 but got %ui", rgb->b);
@@ -110,7 +110,7 @@ ctest_return_t testCaseRgb_3(ctest_t *test, void *arg) {
     hsv->s = 20.0f;
     hsv->v = 70.0f;
     
-    Rgb *rgb = getRgbValueFromHsv(hsv);
+    Rgb *rgb = getRgbFromHsv(hsv);
     CTAssertEqual(test, 143, rgb->r, "Expect r to be equal to 143 but got %ui", rgb->r);
     CTAssertEqual(test, 179, rgb->g, "Expect g to be equal to 179 but got %ui", rgb->g);
     CTAssertEqual(test, 179, rgb->b, "Expect b to be equal to 179 but got %ui", rgb->b);
@@ -124,7 +124,7 @@ ctest_return_t testCaseRgb_4(ctest_t *test, void *arg) {
     hsv->s = 90.0f;
     hsv->v = 90.0f;
     
-    Rgb *rgb = getRgbValueFromHsv(hsv);
+    Rgb *rgb = getRgbFromHsv(hsv);
     CTAssertEqual(test, 92, rgb->r, "Expect r to be equal to 92 but got %ui", rgb->r);
     CTAssertEqual(test, 23, rgb->g, "Expect g to be equal to 23 but got %ui", rgb->g);
     CTAssertEqual(test, 230, rgb->b, "Expect b to be equal to 230 but got %ui", rgb->b);
@@ -138,7 +138,7 @@ ctest_return_t testCaseNo_Sat(ctest_t *test, void *arg) {
     hsv->s = 0.0f;
     hsv->v = 90.0f;
     
-    Rgb *rgb = getRgbValueFromHsv(hsv);
+    Rgb *rgb = getRgbFromHsv(hsv);
     CTAssertEqual(test, 230, rgb->r, "Expect r to be equal to 230 but got %ui", rgb->r);
     CTAssertEqual(test, 230, rgb->g, "Expect g to be equal to 230 but got %ui", rgb->g);
     CTAssertEqual(test, 230, rgb->b, "Expect b to be equal to 230 but got %ui", rgb->b);
@@ -152,7 +152,7 @@ ctest_return_t testCaseRgb_Default(ctest_t *test, void *arg) {
     hsv->s = 90.0f;
     hsv->v = 25.0f;
     
-    Rgb *rgb = getRgbValueFromHsv(hsv);
+    Rgb *rgb = getRgbFromHsv(hsv);
     CTAssertEqual(test, 64, rgb->r, "Expect r to be equal to 92 but got %ui", rgb->r);
     CTAssertEqual(test, 6,  rgb->g, "Expect g to be equal to 6 but got %ui", rgb->g);
     CTAssertEqual(test, 6,  rgb->b, "Expect b to be equal to 7 but got %ui", rgb->b);
@@ -161,7 +161,7 @@ ctest_return_t testCaseRgb_Default(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testCaseRgb_NULL(ctest_t *test, void *arg) {
-    Rgb *rgb = getRgbValueFromHsv(NULL);
+    Rgb *rgb = getRgbFromHsv(NULL);
     CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect error to return a string %s", NULL_INPUT_PARAM);
     
     free(rgb);

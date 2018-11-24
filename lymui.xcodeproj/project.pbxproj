@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2F1D31AA21A982290092DF0E /* convert_regular.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D31A921A982290092DF0E /* convert_regular.c */; };
 		2F1D31AD21A9847E0092DF0E /* deserializer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D31AC21A9847E0092DF0E /* deserializer.c */; };
+		2F2927F021A9B50C0089C767 /* convert_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F2927EF21A9B50C0089C767 /* convert_rgb.c */; };
+		2F2927F521A9BC820089C767 /* normalizer_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F2927F421A9BC820089C767 /* normalizer_rgb.c */; };
 		2F61F933218065F100F61E22 /* bootstrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F932218065F100F61E22 /* bootstrap.c */; };
 		2F61F9372180684200F61E22 /* node_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F9362180684200F61E22 /* node_rgb.c */; };
 		2F61F93C2180725900F61E22 /* binding_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F93B2180725900F61E22 /* binding_util.c */; };
@@ -70,6 +72,10 @@
 		2F1D31A921A982290092DF0E /* convert_regular.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = convert_regular.c; sourceTree = "<group>"; };
 		2F1D31AB21A9847E0092DF0E /* deserializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = deserializer.h; sourceTree = "<group>"; };
 		2F1D31AC21A9847E0092DF0E /* deserializer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = deserializer.c; sourceTree = "<group>"; };
+		2F2927EE21A9B50C0089C767 /* convert_rgb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = convert_rgb.h; sourceTree = "<group>"; };
+		2F2927EF21A9B50C0089C767 /* convert_rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = convert_rgb.c; sourceTree = "<group>"; };
+		2F2927F321A9BC820089C767 /* normalizer_rgb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = normalizer_rgb.h; sourceTree = "<group>"; };
+		2F2927F421A9BC820089C767 /* normalizer_rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = normalizer_rgb.c; sourceTree = "<group>"; };
 		2F61F932218065F100F61E22 /* bootstrap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bootstrap.c; sourceTree = "<group>"; };
 		2F61F9352180684200F61E22 /* node_rgb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_rgb.h; sourceTree = "<group>"; };
 		2F61F9362180684200F61E22 /* node_rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_rgb.c; sourceTree = "<group>"; };
@@ -157,9 +163,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F2927F121A9BC5D0089C767 /* normalizer */ = {
+			isa = PBXGroup;
+			children = (
+				2F2927F421A9BC820089C767 /* normalizer_rgb.c */,
+			);
+			path = normalizer;
+			sourceTree = "<group>";
+		};
 		2F61F931218065C700F61E22 /* binding */ = {
 			isa = PBXGroup;
 			children = (
+				2F2927F121A9BC5D0089C767 /* normalizer */,
 				2F61F9342180681300F61E22 /* include */,
 				2F61F932218065F100F61E22 /* bootstrap.c */,
 				2F61F9362180684200F61E22 /* node_rgb.c */,
@@ -170,6 +185,7 @@
 				2F1D31A921A982290092DF0E /* convert_regular.c */,
 				2F1D31AC21A9847E0092DF0E /* deserializer.c */,
 				2FA8C89F21A9A561003F4563 /* deserializer_space.c */,
+				2F2927EF21A9B50C0089C767 /* convert_rgb.c */,
 			);
 			path = binding;
 			sourceTree = "<group>";
@@ -177,6 +193,8 @@
 		2F61F9342180681300F61E22 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				2F2927F321A9BC820089C767 /* normalizer_rgb.h */,
+				2F2927EE21A9B50C0089C767 /* convert_rgb.h */,
 				2FA8C89E21A9A561003F4563 /* deserializer_space.h */,
 				2F1D31AB21A9847E0092DF0E /* deserializer.h */,
 				2F1D31A821A982290092DF0E /* convert_regular.h */,
@@ -370,6 +388,7 @@
 				9F4D411D20599E020031CDA5 /* argb_test.c in Sources */,
 				9FFE46FC20567B8B00EA68D5 /* yuv.c in Sources */,
 				2F80B92C218B3E8100397737 /* factory.c in Sources */,
+				2F2927F521A9BC820089C767 /* normalizer_rgb.c in Sources */,
 				9FC5E6F820A4ED4B00667C61 /* lch.c in Sources */,
 				9F649FBE20580CF10019A8BD /* xyz_test.c in Sources */,
 				9F649FBC2057E45C0019A8BD /* srgb_test.c in Sources */,
@@ -386,6 +405,7 @@
 				9FA29B5820757F6B009DC625 /* luv.c in Sources */,
 				9F9AA8AB202A546B008A28B8 /* hex.c in Sources */,
 				9F04727320348E67000639EA /* ycbcr_test.c in Sources */,
+				2F2927F021A9B50C0089C767 /* convert_rgb.c in Sources */,
 				2F1D31AD21A9847E0092DF0E /* deserializer.c in Sources */,
 				9F41ED57207CD80E00B8B644 /* luv_test.c in Sources */,
 				9F04979C204D485200173243 /* hsv_test.c in Sources */,

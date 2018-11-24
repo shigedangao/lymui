@@ -49,8 +49,17 @@ typedef struct OptFields {
  * @brief deserialize
  * @param env napi_env
  * @param obj napi_value
+ * @return BridgeObj pointer
  */
 BridgeObj *deserialize(napi_env env, napi_value obj);
+
+/**
+ * @brief normalize the value of regular color for being prepare into being convet into RGB (broken english am sick).
+ * @param env napi_env
+ * @param obj napi_value
+ * @return BridgeObj pointer
+ */
+BridgeObj *normalize(napi_env env, napi_value obj);
 
 /**
  * @brief retrieve an optional field. Note this method is fail passive

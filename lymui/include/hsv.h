@@ -34,7 +34,7 @@ Hsv *getHsvFromRgb(Rgb *rgb);
  * @param hsv an Hsv struct pointer
  * @return rgb a struct Rgb pointer
  */
-Rgb *getRgbValueFromHsv(Hsv *hsv);
+Rgb *getRgbFromHsv(Hsv *hsv);
 
 #endif /* hsv_h */
 
