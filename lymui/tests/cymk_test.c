@@ -11,6 +11,7 @@
 #include <math.h>
 #include <cunit.h>
 #include "test_header.h"
+#include "errors.h"
 #include "rgb.h"
 #include "cymk.h"
 
@@ -19,11 +20,10 @@ ctest_return_t testCymkCreation(ctest_t *test, void *arg) {
     Rgb *rgb = makeRGB(uc, 3);
     Cymk *cymk = getCymkFromRgb(rgb, 1000);
     
-    // Check the value of the cymk
-    CTAssertEqual(test, 0.0f, cymk->c, "Expect C to be equal to %f but got %f", 0.0f, cymk->c);
-    CTAssertEqual(test, 8.0f, roundf(cymk->m * 10), "Expect M to be equal to %f but got %f", 8.0f, cymk->m);
-    CTAssertEqual(test, 6.0f, round(cymk->y * 10), "Expect Y to be equal to %f but got %f", 0.6f, cymk->y);
-    CTAssertEqual(test, 0.0, cymk->k, "Expect K to be equal to %f but got %f", 0.0f, cymk->k);
+    CTAssertDecimalEqual(test, 0.0, cymk->c, 0.1, "Expect C to be equal to %f but got %f", 0.0, cymk->c);
+    CTAssertDecimalEqual(test, 0.6, cymk->y, 0.1, "Expect Y to be equal to %f but got %f", 0.0, cymk->y);
+    CTAssertDecimalEqual(test, 0.8, cymk->m, 0.1, "Expect M to be equal to %f but got %f", 0.0, cymk->m);
+    CTAssertDecimalEqual(test, 0.0, cymk->k, 0.1, "Expect K to be equal to %f but got %f", 0.0, cymk->k);
     
     free(cymk);
 }
@@ -32,16 +32,17 @@ ctest_return_t testCymkBlackCreation(ctest_t *test, void *arg) {
     uint8_t uc[] = {0, 0, 0};
     Rgb *rgb = makeRGB(uc, 3);
     Cymk * cymk = getCymkFromRgb(rgb, 1000);
-        
-    CTAssertEqual(test, 0.0f, cymk->c, "Expect C to be equal to %f but got %f", 0.0f, cymk->c);
-    CTAssertEqual(test, 0.0f, cymk->m, "Expect M to be equal to %f but got %f", 0.0f, cymk->m);
-    CTAssertEqual(test, 0.0f, cymk->y, "Expect Y to be equal to %f but got %f", 0.0f, cymk->y);
-    CTAssertEqual(test, 1.0, cymk->k, "Expect K to be equal to %f but got %f", 0.0f, cymk->k);
+    
+    CTAssertDecimalEqual(test, 0.0, cymk->c, 0.1, "Expect C to be equal to %f but got %f", 0.0, cymk->c);
+    CTAssertDecimalEqual(test, 0.0, cymk->y, 0.1, "Expect Y to be equal to %f but got %f", 0.0, cymk->y);
+    CTAssertDecimalEqual(test, 0.0, cymk->m, 0.1, "Expect M to be equal to %f but got %f", 0.0, cymk->m);
+    CTAssertDecimalEqual(test, 1.0, cymk->k, 0.1, "Expect K to be equal to %f but got %f", 0.0, cymk->k);
 }
 
 ctest_return_t testCymkNullCreation(ctest_t *test, void *arg) {
     Cymk *cymk = getCymkFromRgb(NULL, 1000);
-    CTAssertNull(test, cymk, "Expected CYMK to be NULL");
+    
+    CTAssertEqual(test, NULL_INPUT_STRUCT, cymk->error, "Expected cymk to return an error of message %s", NULL_INPUT_STRUCT);
     
     free(cymk);
 }
@@ -53,7 +54,7 @@ ctest_return_t testCymkToRgbColor(ctest_t *test, void *arg) {
     cymk->m = 0.949f;
     cymk->k = 0.223f;
     
-    Rgb * rgb = getRawRGBValueFromCymk(cymk);
+    Rgb * rgb = getRgbFromCymk(cymk);
     
     CTAssertEqual(test, 5, rgb->r, "Expect R to be equal to %i but got %i", 5, rgb->r);
     CTAssertEqual(test, 10, rgb->g, "Expect G to be equal to %i but got %i", 10, rgb->g);
@@ -70,7 +71,7 @@ ctest_return_t testCymkToRgb(ctest_t *test, void *arg) {
     cymk->m = 0.0f;
     cymk->k = 1.0f;
     
-    Rgb *color = getRawRGBValueFromCymk(cymk);
+    Rgb *color = getRgbFromCymk(cymk);
     
     CTAssertEqual(test, 0, color->r, "Expect R to be equal to %i but got %i", 0, color->r);
     CTAssertEqual(test, 0, color->g, "Expect G to be equal to %i but got %i", 0, color->g);
@@ -81,9 +82,10 @@ ctest_return_t testCymkToRgb(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testCymkToUintNull(ctest_t *test, void *arg) {
-    Rgb *colors = getRawRGBValueFromCymk(NULL);
+    Rgb *colors = getRgbFromCymk(NULL);
     
-    CTAssertNull(test, colors, "Expected RGB to be NULL");
+    CTAssertEqual(test, colors->error, NULL_INPUT_PARAM, "Expect to return a string message error", NULL_INPUT_PARAM);
+    
     free(colors);
 }
 

@@ -6,17 +6,18 @@
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
-#include "bridge.h"
 #include <stdlib.h>
 #include <string.h>
 #include <node_api.h>
 #include "binding_error.h"
 #include "binding_util.h"
+#include "bridge.h"
 #include "rgb.h"
 #include "hex.h"
 #include "hsl.h"
 #include "hsv.h"
 #include "yuv.h"
+#include "xyz.h"
 
 /**
  * @brief bind value of properties to node_value array
@@ -44,6 +45,28 @@ static void getNamedPropArray(napi_env env, char * name, napi_value obj, size_t 
         
         idx++;
     }
+}
+
+/**
+ * @brief get the enum for the kind of color space
+ * @param str char array
+ */
+static LymuiColorSpace getColorSpaceEnum(char * str) {
+    char * list[] = {"iRgb", "iXyz","lab", "lch", "luv", "argb", "srgb"};
+    uint8_t idx = 0;
+    size_t size = 5;
+    LymuiColorSpace type = lab;
+    
+    while(idx < size) {
+        if (!strcmp(str, list[idx])) {
+            type = idx;
+            idx = size + 1;
+        }
+        
+        idx++;
+    }
+    
+    return type;
 }
 
 Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
@@ -205,4 +228,48 @@ Xyz * getXyzFromJSObj(napi_env env, napi_value args) {
     xyz->z = z;
     
     return xyz;
+}
+
+
+ColorBridge * getColorSpaceData(napi_env env, napi_value args) {
+    napi_status status;
+    napi_value funcParams[3];
+    char * prop = "data:output:colorType";
+    char * propValidation = "data:output";
+    // 0 -> Data napi_value
+    // 2 -> output type String
+    // 3 -> color type (optional) String
+    bool hasColorType;
+    Xyz * xyz = NULL;
+    
+    if (!hasPropInJSObj(env, args, propValidation, COLOR_SPACE_INPUT_VALIDATION)) {
+        return NULL;
+    }
+    
+    status = napi_has_named_property(env, args, "colorType", &hasColorType);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    // Retrieve the value from the object
+    getNamedPropArray(env, prop, args, COLOR_SPACE_INPUT, funcParams);
+    // Retrieve the string representation of the enum passed by input & output properties
+    char * output = getStringValue(env, funcParams[1], SPACELen);
+    
+    // If a color type is input this mean that the value is an RGB value
+    if (hasColorType) {
+        char * colorType = getStringValue(env, funcParams[2], SPACELen);
+        Matrix m = getEnumFromStr(colorType);
+        Rgb * rgb = getRGBFromJSObj(env, funcParams[0]);
+        xyz = generateXyzFromRgb(rgb, m);
+    } else {
+        xyz = getXyzFromJSObj(env, funcParams[0]);
+    }
+    
+    LymuiColorSpace space = getColorSpaceEnum(output);
+    ColorBridge * bridge = malloc(sizeof(ColorBridge));
+    bridge->color = xyz;
+    bridge->c = space;
+    
+    return bridge;
 }

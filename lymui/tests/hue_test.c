@@ -15,10 +15,9 @@
 ctest_return_t testSimpleHueCreation(ctest_t *test, void *arg) {
     uint8_t cvalue[3] = {255, 255, 255};
     Rgb *rgb  = makeRGB(cvalue, 3);
-    // get the hue from the rgb
-    float hue = getHueFromRgb(rgb);
     
-    CTAssertEqual(test, 0.0f, hue, "Expect hue to be equal to 0 but got %f", hue);
+    Hue hue = getHueFromRgb(rgb);
+    CTAssertDecimalEqual(test, 0.0, hue, 0.1, "Expect hue to be equal to 0 but got %f", hue);
     
     free(rgb);
 }
@@ -26,10 +25,9 @@ ctest_return_t testSimpleHueCreation(ctest_t *test, void *arg) {
 ctest_return_t testPurpleHueCreation(ctest_t *test, void *arg) {
     uint8_t cvalue[3] = {255, 100, 255};
     Rgb *rgb = makeRGB(cvalue, 3);
-    // get the hue
-    float hue = getHueFromRgb(rgb);
-    
-    CTAssertEqual(test, 300.0f, hue, "Expect hue to be equal to 300 but got %f", hue);
+
+    Hue hue = getHueFromRgb(rgb);
+    CTAssertDecimalEqual(test, 300.0, hue, 0.1, "Expect hue to be equal to 300 but got %f", hue);
     
     free(rgb);
 }
@@ -38,9 +36,8 @@ ctest_return_t testB(ctest_t *test, void *arg) {
     uint8_t cvalue[3] = {50, 10, 232};
     Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     
-    float hue = getHueFromRgb(rgb);
-    
-    CTAssertEqual(test, 251.0f, hue, "Expect hue to be equal to 251 but got %f", hue);
+    Hue hue = getHueFromRgb(rgb);
+    CTAssertDecimalEqual(test, 251.0, hue, 0.1, "Expect hue to be equal to 251 but got %f", hue);
     
     free(rgb);
 }
@@ -49,10 +46,9 @@ ctest_return_t testG(ctest_t *test, void *arg) {
     uint8_t cvalue[3] = {222, 102, 30};
     Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     
-    float hue = getHueFromRgb(rgb);
-    
-    CTAssertEqual(test, 23.0f, hue, "Expect hue to be equal to 23 but got %f", hue);
-    
+    Hue hue = getHueFromRgb(rgb);
+    CTAssertDecimalEqual(test, 23.0, hue, 0.1, "Expect hue to be equal to 23 but got %f", hue);
+
     free(rgb);
 }
 
@@ -60,15 +56,15 @@ ctest_return_t testR(ctest_t *test, void *arg) {
     uint8_t cvalue[3] = {244, 100, 200};
     Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
     
-    float hue = getHueFromRgb(rgb);
-    CTAssertEqual(test, 318.0f, hue, "Expect hue to be equal to 318 but got %f", hue);
+    Hue hue = getHueFromRgb(rgb);
+    CTAssertDecimalEqual(test, 318.0, hue, 0.1, "Expect hue to be equal to 318 but got %f", hue);
     
     free(rgb);
 }
 
 ctest_return_t testNullHue(ctest_t *test, void *arg) {
-    float hue = getHueFromRgb(NULL);
-    CTAssertEqual(test, 0.0f, hue, "Expect Hue to be equal to 0 but got %f", hue);
+    Hue hue = getHueFromRgb(NULL);
+    CTAssertDecimalEqual(test, 0.0, hue, 0.1, "Expect hue to be equal to 0 but got %f", hue);
 }
 
 ctcase_t *wrapHueCreationTest() {

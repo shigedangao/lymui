@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include <node_api.h>
+#include "xyz.h"
 
 /**
  * @brief Enum struct that represent some JavaScript type. Note in JS int and float use the same type we just separate the 2 values for usability purposes
@@ -56,6 +57,14 @@ uint8_t getUintValue(napi_env env, napi_value v);
 float getFloatValue(napi_env env, napi_value v);
 
 /**
+ * @brief Retrieve string value from a napi_value
+ * @param env napi_env
+ * @param v napi_value
+ * @param size size_t
+ */
+char * getStringValue(napi_env env, napi_value v, size_t size);
+
+/**
  * @brief check if the args has the property within the JS Object
  * @param env napi_env
  * @param v napi_value
@@ -72,5 +81,12 @@ uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len);
  * @return double
  */
 double floatToDouble(float value, int clamp);
+
+/**
+ * @brief Return an enum from the string
+ * @param enumStr * char
+ * @return Matrix enum
+ */
+Matrix getEnumFromStr(char * enumStr);
 
 #endif /* binding_util_h */

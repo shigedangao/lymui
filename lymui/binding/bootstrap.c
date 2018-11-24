@@ -19,6 +19,7 @@
 #include "node_hsv.h"
 #include "node_yuv.h"
 #include "node_xyz.h"
+#include "convert.h"
 
 
 #define DECLARE_NAPI_METHOD(name, func) { name, 0, func, 0, 0, 0, napi_default, 0 }
@@ -54,7 +55,9 @@ napi_value Init(napi_env env, napi_value exports) {
         DECLARE_NAPI_METHOD("getRgbFromYuv", GetRGBFromYuv),
         // Xyz
         DECLARE_NAPI_METHOD("getXyzFromRgb", GetXyzFromRGB),
-        DECLARE_NAPI_METHOD("getRgbFromXyz", GetRGBFromXyz)
+        DECLARE_NAPI_METHOD("getRgbFromXyz", GetRGBFromXyz),
+        // Color Space
+        DECLARE_NAPI_METHOD("convert", convert)
     };
     
     status = napi_define_properties(env, exports, sizeof(desc) / sizeof(*desc), desc);

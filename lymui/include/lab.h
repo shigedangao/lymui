@@ -12,35 +12,40 @@
 #include <stdio.h>
 #include "xyz.h"
 
-#define epsilon 0.008856f
-#define kameah 903.3f
+#define epsilon 0.008856
+#define kameah 24389.0 / 27.0
+
+#define refX 0.95047
+#define refY 1.000
+#define refZ 1.08883
 
 /**
  * @brief Lab struct representing the Lab color space
  */
 typedef struct Lab {
-    float l;
-    float a;
-    float b;
+    double l;
+    double a;
+    double b;
+    char *error;
 } Lab;
 
 /**
- * @discussion Get Lab From Xyz return a new Lab struct based on Xyz struct
+ * @brief Get Lab From Xyz return a new Lab struct based on Xyz struct
  * @param xyz Xyz struct
  * @return Lab struct
  */
-Lab * getLabFromXyz(Xyz *xyz);
+Lab *getLabFromXyz(Xyz *xyz);
 
 /**
- * @discussion Get Huntere Lab From Xyz return a new Lab struct based on HunterLab calculation..
+ * @brief Get Huntere Lab From Xyz return a new Lab struct based on HunterLab calculation..
  * @param xyz Xyz struct
  * @return Lab struct
  */
-Lab * getHunterLabFromXyz(Xyz *xyz);
+Lab *getHunterLabFromXyz(Xyz *xyz);
 
 /**
  * @discussion Get Xyz From Lab return a new Xyz struct from a Lab struct
  */
-Xyz * getXyzFromLab(Lab *lab);
+Xyz *getXyzFromLab(Lab *lab);
 
 #endif /* lab_h */

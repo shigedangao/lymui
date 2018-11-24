@@ -74,9 +74,9 @@ describe('Creating Xyz from RGB', () => {
 
     const xyz = lib.getXyzFromRgb(rgb, "srgb", 10000);
     expect(xyz).to.be.deep.equal({
-      x: 0.9502,
-      y: 0.9997,
-      z: 1.0886
+      x: 0.9504,
+      y: 1,
+      z: 1.0888
     });
   });
 

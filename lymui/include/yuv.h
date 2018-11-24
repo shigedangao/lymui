@@ -13,26 +13,27 @@
 #include "rgb.h"
 
 /**
- * @disuccsion Yuv structure
+ * @brief Yuv structure
  */
 typedef struct Yuv {
-    float y;
-    float u;
-    float v;
+    double y;
+    double u;
+    double v;
+    char *error;
 } Yuv;
 
 /**
- * @discussion GetYuvFromRgb return a pointer yuv struct from an RGB pointer
+ * @brief GetYuvFromRgb return a pointer yuv struct from an RGB pointer
  * @param rgb a pointer struct rgb
  * @return an Yuv pointer struct
  */
-Yuv * getYuvFromRgb(Rgb *rgb);
+Yuv *getYuvFromRgb(Rgb *rgb);
 
 /**
- * @disucssion GetRgbFromYuv return a Rgb pointer struct from a Yuv
+ * @brief GetRgbFromYuv return a Rgb pointer struct from a Yuv
  * @param yuv a pointer Yuv struct
  * @return rgb a pointer Rgb struct
  */
-Rgb * getRgbFromYuv(Yuv *yuv);
+Rgb *getRgbFromYuv(Yuv *yuv);
 
 #endif /* yuv_h */

@@ -18,6 +18,21 @@
 #include "hsv.h"
 #include "yuv.h"
 #include "xyz.h"
+#include "lab.h"
+#include "lch.h"
+#include "luv.h"
+#include "argb.h"
+#include "srgb.h"
+
+#define COLOR_SPACE_CLAMP 10000
+
+/**
+ * @brief struct use for handling promise error
+ */
+typedef struct JSError {
+    char * error;
+} JSError;
+
 
 /**
  * @brief Factory creating Rgb Object on the fly
@@ -78,5 +93,53 @@ napi_value YuvJSObjFactory(napi_env env, Yuv * yuv, int clamp);
  * @return napi_value
  */
 napi_value XyzJSObjFactory(napi_env env, Xyz * xyz, int clamp);
+
+/**
+ * @brief Creating Lab JS Object
+ * @param env napi_env
+ * @param xyz * Xyz
+ * @return napi_value
+ */
+napi_value LabJSObjFactory(napi_env env, Xyz * xyz);
+
+/**
+ * @brief Creating Lch JS Object
+ * @param env napi_env
+ * @param xyz * Xyz
+ * @return napi_value
+ */
+napi_value LchJSObjFactory(napi_env env, Xyz * xyz);
+
+/**
+ * @brief Creating Luv JS Object
+ * @param env napi_env
+ * @param xyz * Xyz
+ * @return napi_value
+ */
+napi_value LuvJSObjFactory(napi_env env, Xyz * xyz);
+
+/**
+ * @brief Creating ARGB JS Object
+ * @param env napi_env
+ * @param xyz * Xyz
+ * @return napi_value
+ */
+napi_value ArgbJSObjFactory(napi_env env, Xyz * xyz);
+
+/**
+ * @brief Creating Srgb JS Object
+ * @param env napi_env
+ * @param xyz * Xyz
+ * @return napi_value
+ */
+napi_value SrgbJSObjFactory(napi_env env, Xyz * xyz);
+
+/**
+ * @brief Build Promise Error
+ * @param env napi_env
+ * @param error * char
+ * @return napi_value
+ */
+napi_value BuildPromiseError(napi_env env, char * error);
 
 #endif /* factory_h */

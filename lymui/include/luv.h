@@ -12,19 +12,21 @@
 #include <stdio.h>
 #include "xyz.h"
 
-#define e 0.008856f
-#define k 903.3f
+#define e 0.008856
+#define ko 903.3
 
 /**
  * @brief struct representing the Luv format
  */
 typedef struct Luv {
     // Range from 0 > L > 100
-    float l;
+    double l;
     // Range from +-100
-    float u;
+    double u;
     // Range from +-100
-    float v;
+    double v;
+    // error
+    char *error;
 } Luv;
 
 /**
@@ -32,13 +34,13 @@ typedef struct Luv {
  * @param xyz struct Rgb pointer
  * @return Luv struct
  */
-Luv * getLuvFromXyz(Xyz *xyz);
+Luv *getLuvFromXyz(Xyz *xyz);
 
 /**
  * @description Get Xyz From Luv calculate the Xyz struct based on the Luv struct
  * @param luv struct Luv pointer
  * @return Xyz struct
  */
-Xyz * getXyzFromLuv(Luv *luv);
+Xyz *getXyzFromLuv(Luv *luv);
 
 #endif /* luv_h */

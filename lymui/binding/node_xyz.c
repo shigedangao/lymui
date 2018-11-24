@@ -11,23 +11,11 @@
 #include <string.h>
 #include <node_api.h>
 #include "binding_error.h"
+#include "binding_util.h"
 #include "bridge.h"
 #include "factory.h"
 #include "rgb.h"
 #include "xyz.h"
-
-/**
- * @brief Return an enum from the string
- * @param enumStr * char
- * @return Matrix enum
- */
-static Matrix getEnumFromStr(char * enumStr) {
-    if (!strcmp(enumStr, "srgb")) {
-        return srgb;
-    }
-    
-    return adobeRgb;
-}
 
 napi_value GetXyzFromRGB(napi_env env, napi_callback_info info) {
     napi_status status;
