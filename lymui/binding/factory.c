@@ -21,9 +21,14 @@
 
 napi_value RgbJSObjFactory(napi_env env, Rgb *rgb) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -39,18 +44,26 @@ napi_value RgbJSObjFactory(napi_env env, Rgb *rgb) {
     }
     
     // assign the value
-    assignPropToJSObj(&object, env, numberInt, "r", &rgb->r);
-    assignPropToJSObj(&object, env, numberInt, "g", &rgb->g);
-    assignPropToJSObj(&object, env, numberInt, "b", &rgb->b);
+    assignPropToJSObj(&data, env, numberInt, "r", &rgb->r);
+    assignPropToJSObj(&data, env, numberInt, "g", &rgb->g);
+    assignPropToJSObj(&data, env, numberInt, "b", &rgb->b);
+    
+    // assign data to the object
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
 }
 
 napi_value CymkJSObjFactory(napi_env env, Rgb *rgb) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -67,19 +80,26 @@ napi_value CymkJSObjFactory(napi_env env, Rgb *rgb) {
     }
     
     // assign the cymk object
-    assignPropToJSObj(&object, env, numberDouble, "c", &cymk->c);
-    assignPropToJSObj(&object, env, numberDouble, "y", &cymk->y);
-    assignPropToJSObj(&object, env, numberDouble, "m", &cymk->m);
-    assignPropToJSObj(&object, env, numberDouble, "k", &cymk->k);
+    assignPropToJSObj(&data, env, numberDouble, "c", &cymk->c);
+    assignPropToJSObj(&data, env, numberDouble, "y", &cymk->y);
+    assignPropToJSObj(&data, env, numberDouble, "m", &cymk->m);
+    assignPropToJSObj(&data, env, numberDouble, "k", &cymk->k);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
 }
 
 napi_value YcbcrJSObjFactory(napi_env env, Rgb *rgb) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -95,18 +115,25 @@ napi_value YcbcrJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberInt, "y", &ycb->y);
-    assignPropToJSObj(&object, env, numberInt, "cb", &ycb->cb);
-    assignPropToJSObj(&object, env, numberInt, "cr", &ycb->cr);
+    assignPropToJSObj(&data, env, numberInt, "y", &ycb->y);
+    assignPropToJSObj(&data, env, numberInt, "cb", &ycb->cb);
+    assignPropToJSObj(&data, env, numberInt, "cr", &ycb->cr);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
 }
 
 napi_value HslJSObjFactory(napi_env env, Rgb *rgb) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -122,18 +149,25 @@ napi_value HslJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberDouble, "h", &hsl->h);
-    assignPropToJSObj(&object, env, numberDouble, "s", &hsl->s);
-    assignPropToJSObj(&object, env, numberDouble, "l", &hsl->l);
+    assignPropToJSObj(&data, env, numberDouble, "h", &hsl->h);
+    assignPropToJSObj(&data, env, numberDouble, "s", &hsl->s);
+    assignPropToJSObj(&data, env, numberDouble, "l", &hsl->l);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
 }
 
 napi_value HsvJSObjFactory(napi_env env, Rgb *rgb) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -149,18 +183,25 @@ napi_value HsvJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberDouble, "h", &hsv->h);
-    assignPropToJSObj(&object, env, numberDouble, "s", &hsv->s);
-    assignPropToJSObj(&object, env, numberDouble, "v", &hsv->v);
+    assignPropToJSObj(&data, env, numberDouble, "h", &hsv->h);
+    assignPropToJSObj(&data, env, numberDouble, "s", &hsv->s);
+    assignPropToJSObj(&data, env, numberDouble, "v", &hsv->v);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
 }
 
 napi_value YuvJSObjFactory(napi_env env, Rgb *rgb) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -176,20 +217,27 @@ napi_value YuvJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberDouble, "y", &yuv->y);
-    assignPropToJSObj(&object, env, numberDouble, "u", &yuv->u);
-    assignPropToJSObj(&object, env, numberDouble, "v", &yuv->v);
+    assignPropToJSObj(&data, env, numberDouble, "y", &yuv->y);
+    assignPropToJSObj(&data, env, numberDouble, "u", &yuv->u);
+    assignPropToJSObj(&data, env, numberDouble, "v", &yuv->v);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
 }
 
 napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, OBJ_MAKE_ERR);
+    }
+    
+    status = napi_create_object(env, &data);
+    if (status != napi_ok) {
+        return NULL;
     }
     
     Matrix m = getEnumFromStr(matrix);
@@ -205,18 +253,25 @@ napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberDouble, "x", &xyz->x);
-    assignPropToJSObj(&object, env, numberDouble, "y", &xyz->y);
-    assignPropToJSObj(&object, env, numberDouble, "z", &xyz->z);
+    assignPropToJSObj(&data, env, numberDouble, "x", &xyz->x);
+    assignPropToJSObj(&data, env, numberDouble, "y", &xyz->y);
+    assignPropToJSObj(&data, env, numberDouble, "z", &xyz->z);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
 }
 
 napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -226,18 +281,25 @@ napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberDouble, "x", &xyz->x);
-    assignPropToJSObj(&object, env, numberDouble, "y", &xyz->y);
-    assignPropToJSObj(&object, env, numberDouble, "z", &xyz->z);
+    assignPropToJSObj(&data, env, numberDouble, "x", &xyz->x);
+    assignPropToJSObj(&data, env, numberDouble, "y", &xyz->y);
+    assignPropToJSObj(&data, env, numberDouble, "z", &xyz->z);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
 }
 
 napi_value LabJSObjFactory(napi_env env, Xyz *xyz) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -253,9 +315,12 @@ napi_value LabJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberDouble, "l", &lab->l);
-    assignPropToJSObj(&object, env, numberDouble, "a", &lab->a);
-    assignPropToJSObj(&object, env, numberDouble, "b", &lab->b);
+    assignPropToJSObj(&data, env, numberDouble, "l", &lab->l);
+    assignPropToJSObj(&data, env, numberDouble, "a", &lab->a);
+    assignPropToJSObj(&data, env, numberDouble, "b", &lab->b);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
+    
     free(lab);
     
     return object;
@@ -263,9 +328,14 @@ napi_value LabJSObjFactory(napi_env env, Xyz *xyz) {
 
 napi_value LchJSObjFactory(napi_env env, Xyz *xyz) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -281,9 +351,12 @@ napi_value LchJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberDouble, "l", &lch->l);
-    assignPropToJSObj(&object, env, numberDouble, "c", &lch->c);
-    assignPropToJSObj(&object, env, numberDouble, "h", &lch->h);
+    assignPropToJSObj(&data, env, numberDouble, "l", &lch->l);
+    assignPropToJSObj(&data, env, numberDouble, "c", &lch->c);
+    assignPropToJSObj(&data, env, numberDouble, "h", &lch->h);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
+    
     free(lch);
     
     return object;
@@ -291,9 +364,14 @@ napi_value LchJSObjFactory(napi_env env, Xyz *xyz) {
 
 napi_value LchLabJSObjFactory(napi_env env, Xyz *xyz) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -309,9 +387,12 @@ napi_value LchLabJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberDouble, "l", &lchlab->l);
-    assignPropToJSObj(&object, env, numberDouble, "c", &lchlab->c);
-    assignPropToJSObj(&object, env, numberDouble, "h", &lchlab->h);
+    assignPropToJSObj(&data, env, numberDouble, "l", &lchlab->l);
+    assignPropToJSObj(&data, env, numberDouble, "c", &lchlab->c);
+    assignPropToJSObj(&data, env, numberDouble, "h", &lchlab->h);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
+    
     free(lchlab);
     
     return object;
@@ -319,9 +400,14 @@ napi_value LchLabJSObjFactory(napi_env env, Xyz *xyz) {
 
 napi_value LuvJSObjFactory(napi_env env, Xyz *xyz) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
     if (status != napi_ok) {
         return NULL;
     }
@@ -337,9 +423,11 @@ napi_value LuvJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberDouble, "l", &luv->l);
-    assignPropToJSObj(&object, env, numberDouble, "u", &luv->u);
-    assignPropToJSObj(&object, env, numberDouble, "v", &luv->v);
+    assignPropToJSObj(&data, env, numberDouble, "l", &luv->l);
+    assignPropToJSObj(&data, env, numberDouble, "u", &luv->u);
+    assignPropToJSObj(&data, env, numberDouble, "v", &luv->v);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     free(luv);
     
@@ -348,11 +436,16 @@ napi_value LuvJSObjFactory(napi_env env, Xyz *xyz) {
 
 napi_value ArgbJSObjFactory(napi_env env, Xyz *xyz) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, OBJ_MAKE_ERR);
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
+    if (status != napi_ok) {
         return NULL;
     }
     
@@ -367,9 +460,11 @@ napi_value ArgbJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    assignPropToJSObj(&object, env, numberDouble, "r", &argb->r);
-    assignPropToJSObj(&object, env, numberDouble, "g", &argb->g);
-    assignPropToJSObj(&object, env, numberDouble, "b", &argb->b);
+    assignPropToJSObj(&data, env, numberDouble, "r", &argb->r);
+    assignPropToJSObj(&data, env, numberDouble, "g", &argb->g);
+    assignPropToJSObj(&data, env, numberDouble, "b", &argb->b);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     free(argb);
     
@@ -378,11 +473,16 @@ napi_value ArgbJSObjFactory(napi_env env, Xyz *xyz) {
 
 napi_value SrgbJSObjFactory(napi_env env, Xyz *xyz) {
     napi_status status;
-    napi_value object;
+    napi_value object, data;
     
     status = napi_create_object(env, &object);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, OBJ_MAKE_ERR);
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
+    if (status != napi_ok) {
         return NULL;
     }
     
@@ -400,6 +500,8 @@ napi_value SrgbJSObjFactory(napi_env env, Xyz *xyz) {
     assignPropToJSObj(&object, env, numberDouble, "r", &srgb->r);
     assignPropToJSObj(&object, env, numberDouble, "g", &srgb->g);
     assignPropToJSObj(&object, env, numberDouble, "b", &srgb->b);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     free(srgb);
     

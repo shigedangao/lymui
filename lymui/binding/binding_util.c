@@ -13,7 +13,7 @@
 #include <string.h>
 #include "binding_error.h"
 
-void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char * name, void * arg) {
+void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char *name, void *arg) {
     napi_value value;
     napi_status status;
     
@@ -29,13 +29,21 @@ void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char * name, 
     }
     
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, CONVERT_ERR);
+        return;
     }
 
     status = napi_set_named_property(env, *jsObj, name, value);
-
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, ASSIGN_ERR);
+        return;
+    }
+}
+
+void assignJSObjtoJSObj(napi_env env, napi_value *target, napi_value src, char *name) {
+    napi_status status;
+    
+    status = napi_set_named_property(env, *target, name, src);
+    if (status != napi_ok) {
+        return;
     }
 }
 

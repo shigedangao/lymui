@@ -37,6 +37,15 @@ typedef enum JSType {
 void assignPropToJSObj(napi_value *jsObj, napi_env env, JSType t, char * name, void * arg);
 
 /**
+ * @brief Assign a napi_value into a js object {data: {r: 5, g: 10, b: 98}}
+ * @param env napi_env
+ * @param target napi_value
+ * @param src napi_value
+ * @param name char
+ */
+void assignJSObjtoJSObj(napi_env env, napi_value *target, napi_value src, char *name);
+
+/**
  *  @brief validate the type of the value
  *  @param env napi_env
  *  @param v napi_value
