@@ -32,21 +32,6 @@ uint8_t floatToUint(float value);
  */
 uint8_t doubleToUint(double value);
 
-/**
- * @discussion round a double to 1 digit
- * @param value double
- * @param factor int
- * @return a double
- */
-double roundDigit(double value, int factor);
-
-/**
- * @brief round the decimal value
- * @param value double
- * @param decimal int
- */
-double roundDecimal(double value, int decimal);
-
 /*
  * @discussion Update Constraint Value
  * @TODO This method need to be redone
