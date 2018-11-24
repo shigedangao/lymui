@@ -30,7 +30,7 @@ char *getHexFromRGB(Rgb *c) {
 }
 
 // Get RGB Value From Hex
-Rgb *getRawRGBValueFromHex(char *hex) {
+Rgb *getRGBFromHex(char *hex) {
     Rgb *rgb = initRgb();
     if (rgb == NULL) {
         return NULL;

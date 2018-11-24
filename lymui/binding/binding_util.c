@@ -13,14 +13,14 @@
 #include <string.h>
 #include "binding_error.h"
 
-void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char * name, void * arg) {
+void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char *name, void *arg) {
     napi_value value;
     napi_status status;
     
     if (t == numberInt) {
         uint8_t v = *(uint8_t *) arg;
         status = napi_create_uint32(env, v, &value);
-    } else if (t == numberFloat) {
+    } else if (t == numberDouble) {
         double v = *(double *) arg;
         status = napi_create_double(env, (double) v, &value);
     } else {
@@ -29,13 +29,21 @@ void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char * name, 
     }
     
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, CONVERT_ERR);
+        return;
     }
 
     status = napi_set_named_property(env, *jsObj, name, value);
-
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, ASSIGN_ERR);
+        return;
+    }
+}
+
+void assignJSObjtoJSObj(napi_env env, napi_value *target, napi_value src, char *name) {
+    napi_status status;
+    
+    status = napi_set_named_property(env, *target, name, src);
+    if (status != napi_ok) {
+        return;
     }
 }
 
@@ -51,8 +59,7 @@ uint8_t isTypeOf(napi_env env, napi_value v, JSType t) {
     
     // might not be super performant...
     if (type == napi_number &&
-        (t == numberInt ||
-        t == numberFloat)) {
+        (t == numberInt || t == numberDouble)) {
         return 1;
     }
     
@@ -75,26 +82,25 @@ uint8_t getUintValue(napi_env env, napi_value v) {
     return (uint8_t) res;
 }
 
-float getFloatValue(napi_env env, napi_value v) {
+double getDoubleValue(napi_env env, napi_value v) {
     napi_status status;
     double res = 0;
     
     status = napi_get_value_double(env, v, &res);
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, CREATE_TYPE_ERR);
+        return 0.0;
     }
     
-    return (float) res;
+    return res;
 }
 
-char * getStringValue(napi_env env, napi_value v, size_t strLen) {
+char *getStringValue(napi_env env, napi_value v, size_t strLen) {
     napi_status status;
     char * str = malloc(sizeof(char) * strLen);
     size_t len;
     
     status = napi_get_value_string_utf8(env, v, str, strLen + 1, &len);
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, PARSE_ERR);
         return NULL;
     }
     
@@ -138,4 +144,23 @@ Matrix getEnumFromStr(char * enumStr) {
     }
     
     return adobeRgb;
+}
+
+void getNamedPropArray(napi_env env, char * name, napi_value obj, size_t len, napi_value * res) {
+    uint8_t idx = 0;
+    napi_status status;
+    const char delimiter[] = ":";
+    char * running = strdup(name);
+    char * string;
+    
+    while(idx < len) {
+        string = strsep(&running, delimiter);
+        status = napi_get_named_property(env, obj, string, &res[idx]);
+        if (status != napi_ok) {
+            idx = len + 1;
+            napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        }
+        
+        idx++;
+    }
 }

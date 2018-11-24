@@ -14,7 +14,7 @@
 #include "helper.h"
 
 // Get Cymk From Rgb
-Cymk *getCymkFromRgb(Rgb *rgb, int clamp) {
+Cymk *getCymkFromRgb(Rgb *rgb) {
     Cymk *cymk = malloc(sizeof(Cymk));
     if (cymk == NULL) {
         return NULL;
@@ -35,11 +35,11 @@ Cymk *getCymkFromRgb(Rgb *rgb, int clamp) {
     // Calculate the K value
     double _k = 1.0 - _m;
     
-    cymk->k = roundDecimal(_k, clamp);
+    cymk->k = _k;
     if (_k != 1.0) {
-        cymk->c = roundDecimal((1.0 - _r - _k) / (1.0 - _k), clamp);
-        cymk->m = roundDecimal((1.0 - _g - _k) / (1.0 - _k), clamp);
-        cymk->y = roundDecimal((1.0 - _b - _k) / (1.0 - _k), clamp);
+        cymk->c = (1.0 - _r - _k) / (1.0 - _k);
+        cymk->m = (1.0 - _g - _k) / (1.0 - _k);
+        cymk->y = (1.0 - _b - _k) / (1.0 - _k);
     } else {
         cymk->c = 0.0;
         cymk->m = 0.0;

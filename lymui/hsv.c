@@ -77,7 +77,7 @@ static void putRgb(uint8_t r, uint8_t g, uint8_t b, Rgb *rgb) {
     rgb->b = b;
 }
 
-Rgb *getRgbValueFromHsv(Hsv *hsv) {
+Rgb *getRgbFromHsv(Hsv *hsv) {
     Rgb *rgb = malloc(sizeof(Rgb));
     if (rgb == NULL) {
         return NULL;

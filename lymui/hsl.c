@@ -106,7 +106,7 @@ static uint8_t calculateEachColorValue(double c, double temp_m, double temp_l) {
     return doubleToUint(round(fv * 255.0));
 }
 
-Rgb *getRgbValueFromHsl(Hsl *hsl) {
+Rgb *getRgbFromHsl(Hsl *hsl) {
     Rgb *rgb = initRgb();
     if (rgb == NULL) {
         return NULL;
