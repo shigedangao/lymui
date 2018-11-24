@@ -68,6 +68,10 @@ static Rgb *getShadeOfGray(Hsl *hsl, Rgb *rgb) {
  */
 static double *getTempRgbValue(Hue hue) {
     double * _rgb = malloc(sizeof(double) * 3);
+    if (_rgb == NULL) {
+        return NULL;
+    }
+    
     double _hue  = hue / 360.0;
     
     // red
@@ -132,6 +136,10 @@ Rgb *getRgbValueFromHsl(Hsl *hsl) {
     // get other temp value
     double temp_lum_s = 2.0f * _l - temp_lum;
     double *temp_rgb  = getTempRgbValue(hsl->h);
+    if (temp_rgb == NULL) {
+        rgb->error = MALLOC_ERROR;
+        return rgb;
+    }
     
     rgb->r = calculateEachColorValue(temp_rgb[0], temp_lum, temp_lum_s);
     rgb->g = calculateEachColorValue(temp_rgb[1], temp_lum, temp_lum_s);

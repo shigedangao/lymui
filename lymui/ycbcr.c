@@ -24,6 +24,9 @@ const double cbValue[] = {0.148, 0.291, 0.439};
  */
 static double ** makeValue(Rgb *rgb) {
     double **v = malloc(3 * 3 * sizeof(double));
+    if (v == NULL) {
+        return NULL;
+    }
     
     // init the multi dimensional array
     v[0] = malloc(sizeof(double) * 3);
@@ -61,6 +64,11 @@ Ycbcr * getYcbcrFromRgb(Rgb *rgb) {
     }
     
     double **colors = makeValue(rgb);
+    if (colors == NULL) {
+        v->error = MALLOC_ERROR;
+        return v;
+    }
+    
     uint8_t y  = doubleToUint(16  + (colors[0][0] + colors[0][1] + colors[0][2]));
     uint8_t cb = doubleToUint(128 + (- colors[1][0] - colors[1][1] + colors[1][2]));
     uint8_t cr = doubleToUint(128 + (colors[2][0]  - colors[2][1] - colors[2][2]));

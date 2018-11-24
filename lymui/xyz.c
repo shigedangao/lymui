@@ -50,7 +50,7 @@ static double unpivotRGB(double c) {
         return c * 12.92;
     }
     
-    return 1.055 * powf(c, 1 / 2.4) - 0.055;
+    return 1.055 * pow(c, 1 / 2.4) - 0.055;
 }
 
 /**
@@ -150,8 +150,11 @@ Xyz * generateXyzFromRgb(Rgb *rgb, enum Matrix m) {
  */
 static double * calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
     double *linearRGB = malloc(sizeof(double) * 3);
-    double sr, sg, sb;
+    if (linearRGB == NULL) {
+        return NULL;
+    }
     
+    double sr, sg, sb;
     if (m == srgb) {
         sr = xyz->x * xx + xyz->y * xy + xyz->z * xz;
         sg = xyz->x * yx + xyz->y * yy + xyz->z * yz;
@@ -187,6 +190,11 @@ Rgb * generateRgbFromXyz(Xyz * xyz, Matrix m) {
     }
     
     double *matrixValue = calculateLinearRgbToXyz(xyz, m);
+    if (matrixValue == NULL) {
+        rgb->error = MALLOC_ERROR;
+        return rgb;
+    }
+    
     rgb->r = doubleToUint(matrixValue[0] * 255);
     rgb->g = doubleToUint(matrixValue[1] * 255);
     rgb->b = doubleToUint(matrixValue[2] * 255);

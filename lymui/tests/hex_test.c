@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "test_header.h"
+#include "errors.h"
 #include "hex.h"
 #include "rgb.h"
 
@@ -74,8 +75,8 @@ ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
 ctest_return_t testUintNullCreationFromHex(ctest_t *test, void *arg) {
     char *hex = NULL;
     Rgb *uc = getRawRGBValueFromHex(hex);
-    
-    CTAssertNull(test, uc, "Test uint null creation, value is not NULL");
+    CTAssertEqual(test, uc->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
+
 }
 
 ctcase_t *wrapHexCreationTest() {

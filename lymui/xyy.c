@@ -64,7 +64,7 @@ Xyz * getXyzFromXyy(Xyy *xyy) {
     
     xyz->x = (xyy->x * xyy->yy) / xyy->yx;
     xyz->y = xyy->yy;
-    xyz->z = ((1.0f - xyy->x - xyy->yx) * xyy->yy) / xyy->yx;
+    xyz->z = ((1.0 - xyy->x - xyy->yx) * xyy->yy) / xyy->yx;
     
     free(xyy);
     return xyz;

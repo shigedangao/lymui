@@ -31,7 +31,7 @@ Cymk *getCymkFromRgb(Rgb *rgb, int clamp) {
     double _b = rgb->b / 255.0;
     
     // get the max value
-    double _m = fmaxf(fmaxf(_r, _g), _b);
+    double _m = fmax(fmax(_r, _g), _b);
     // Calculate the K value
     double _k = 1.0 - _m;
     
@@ -61,6 +61,10 @@ Rgb *getRgbFromCymk(Cymk *cymk) {
     }
     
     uint8_t *value = malloc(sizeof(uint8_t) * 3);
+    if (value == NULL) {
+        rgb->error = MALLOC_ERROR;
+        return rgb;
+    }
     
     double _kv = 1.0 - cymk->k;
     double r = 255.0 * (1.0 - cymk->c) * _kv;

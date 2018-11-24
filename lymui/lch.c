@@ -31,7 +31,7 @@ Lch *getLchFromXyz(Xyz *xyz) {
     
     double H = getDegFromRad(atan2(luv->v, luv->u));
     lch->l = luv->l;
-    lch->c = sqrt(pow(luv->u, 2.0f) + pow(luv->v, 2.0f));
+    lch->c = sqrt(pow(luv->u, 2.0) + pow(luv->v, 2.0));
     lch->h = H >= 0.0 ? H : H + 360.0;
     
     free(luv);
@@ -58,8 +58,8 @@ Xyz *getXyzFromLch(Lch *lch) {
     
     double H = getRadFromDeg(lch->h);
     luv->l = lch->l;
-    luv->u = lch->c * cosf(H);
-    luv->v = lch->c * sinf(H);
+    luv->u = lch->c * cos(H);
+    luv->v = lch->c * sin(H);
     
     Xyz *xyz = getXyzFromLuv(luv);
     if (xyz == NULL) {

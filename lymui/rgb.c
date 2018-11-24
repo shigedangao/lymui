@@ -23,6 +23,11 @@ Rgb *makeRGB(uint8_t c[], size_t length) {
         return NULL;
     }
     
+    if (color == NULL) {
+        color->error = NULL_INPUT_PARAM;
+        return color;
+    }
+    
     if (c == NULL || !length) {
         color->error = NULL_INPUT_PARAM;
         return color;
@@ -43,7 +48,6 @@ Rgb *makeRGB(uint8_t c[], size_t length) {
 
 Rgb *initRgb() {
     Rgb *rgb = malloc(sizeof(Rgb));
-    
     if (rgb == NULL) {
         return NULL;
     }
