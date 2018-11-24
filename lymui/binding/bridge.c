@@ -20,34 +20,6 @@
 #include "xyz.h"
 
 /**
- * @brief bind value of properties to node_value array
- * @param env napi_env
- * @param name char * array
- * @param obj napi_value
- * @param len size_t
- * @param res napi_vlue * array
- * @void
- */
-static void getNamedPropArray(napi_env env, char * name, napi_value obj, size_t len, napi_value * res) {
-    uint8_t idx = 0;
-    napi_status status;
-    const char delimiter[] = ":";
-    char * running = strdup(name);
-    char * string;
-    
-    while(idx < len) {
-        string = strsep(&running, delimiter);
-        status = napi_get_named_property(env, obj, string, &res[idx]);
-        if (status != napi_ok) {
-            idx = len + 1;
-            napi_throw_error(env, NULL, DESERIALIZE_ERR);
-        }
-        
-        idx++;
-    }
-}
-
-/**
  * @brief get the enum for the kind of color space
  * @param str char array
  */

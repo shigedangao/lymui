@@ -20,7 +20,7 @@ void assignPropToJSObj(napi_value * jsObj, napi_env env, JSType t, char * name, 
     if (t == numberInt) {
         uint8_t v = *(uint8_t *) arg;
         status = napi_create_uint32(env, v, &value);
-    } else if (t == numberFloat) {
+    } else if (t == numberDouble) {
         double v = *(double *) arg;
         status = napi_create_double(env, (double) v, &value);
     } else {
@@ -51,8 +51,7 @@ uint8_t isTypeOf(napi_env env, napi_value v, JSType t) {
     
     // might not be super performant...
     if (type == napi_number &&
-        (t == numberInt ||
-        t == numberFloat)) {
+        (t == numberInt || t == numberDouble)) {
         return 1;
     }
     
@@ -87,7 +86,7 @@ float getFloatValue(napi_env env, napi_value v) {
     return (float) res;
 }
 
-char * getStringValue(napi_env env, napi_value v, size_t strLen) {
+char *getStringValue(napi_env env, napi_value v, size_t strLen) {
     napi_status status;
     char * str = malloc(sizeof(char) * strLen);
     size_t len;
@@ -138,4 +137,23 @@ Matrix getEnumFromStr(char * enumStr) {
     }
     
     return adobeRgb;
+}
+
+void getNamedPropArray(napi_env env, char * name, napi_value obj, size_t len, napi_value * res) {
+    uint8_t idx = 0;
+    napi_status status;
+    const char delimiter[] = ":";
+    char * running = strdup(name);
+    char * string;
+    
+    while(idx < len) {
+        string = strsep(&running, delimiter);
+        status = napi_get_named_property(env, obj, string, &res[idx]);
+        if (status != napi_ok) {
+            idx = len + 1;
+            napi_throw_error(env, NULL, DESERIALIZE_ERR);
+        }
+        
+        idx++;
+    }
 }

@@ -60,7 +60,7 @@ typedef struct ColorSpaceBridge {
  * @param args napi_value
  * @return rgb struct pointer
  */
-Rgb * getRGBFromJSObj(napi_env env, napi_value args);
+Rgb *getRGBFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract a char array representing the Hex value from JS
@@ -68,7 +68,7 @@ Rgb * getRGBFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return char array
  */
-char * getHEXFromJSObj(napi_env env, napi_value args);
+char *getHEXFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract a CYMK Object from a JS Object
@@ -76,7 +76,7 @@ char * getHEXFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return cymk pointer Cymk struct
  */
-Cymk * getCymkFromJSObj(napi_env env, napi_value args);
+Cymk *getCymkFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extrat a Ycbcr struct from a JS Object
@@ -84,7 +84,7 @@ Cymk * getCymkFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return ycbcr pointer struct
  */
-Ycbcr * getYcbcrFromJSObj(napi_env env, napi_value args);
+Ycbcr *getYcbcrFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract a Hsl struct from a JS Object
@@ -92,7 +92,7 @@ Ycbcr * getYcbcrFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return hsl
  */
-Hsl * getHslFromJSObj(napi_env env, napi_value args);
+Hsl *getHslFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract a HSV struct from a JS Object
@@ -100,7 +100,7 @@ Hsl * getHslFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return hsv
  */
-Hsv * getHsvFromJSObj(napi_env env, napi_value args);
+Hsv *getHsvFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract a YUV struct from a JS Object
@@ -108,7 +108,7 @@ Hsv * getHsvFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return yuv
  */
-Yuv * getYuvFromJSObj(napi_env env, napi_value args);
+Yuv *getYuvFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract Xyz struct from a JS Object
@@ -116,7 +116,7 @@ Yuv * getYuvFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return xyz
  */
-Xyz * getXyzFromJSObj(napi_env env, napi_value args);
+Xyz *getXyzFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Get Color Space From JS Obj
@@ -132,6 +132,6 @@ Xyz * getXyzFromJSObj(napi_env env, napi_value args);
  * })
  *
  */
-ColorBridge * getColorSpaceData(napi_env env, napi_value args);
+ColorBridge *getColorSpaceData(napi_env env, napi_value args);
 
 #endif /* bridge_h */

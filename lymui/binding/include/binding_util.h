@@ -18,7 +18,7 @@
  */
 typedef enum JSType {
     numberInt,
-    numberFloat,
+    numberDouble,
     string
 } JSType;
 
@@ -62,7 +62,7 @@ float getFloatValue(napi_env env, napi_value v);
  * @param v napi_value
  * @param size size_t
  */
-char * getStringValue(napi_env env, napi_value v, size_t size);
+char *getStringValue(napi_env env, napi_value v, size_t size);
 
 /**
  * @brief check if the args has the property within the JS Object
@@ -75,18 +75,20 @@ char * getStringValue(napi_env env, napi_value v, size_t size);
 uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len);
 
 /**
- * @brief convert a float to a double by taking into account the clamp value
- * @param value float
- * @param clamp int
- * @return double
- */
-double floatToDouble(float value, int clamp);
-
-/**
  * @brief Return an enum from the string
  * @param enumStr * char
  * @return Matrix enum
  */
 Matrix getEnumFromStr(char * enumStr);
+
+/**
+ * @brief Get the property of an object and set it on a napi_value array
+ * @param env napi_env
+ * @param name char array
+ * @param obj napi_value
+ * @param len size_t
+ * @param res napi_value
+ */
+void getNamedPropArray(napi_env env, char *name, napi_value obj, size_t len, napi_value *res);
 
 #endif /* binding_util_h */

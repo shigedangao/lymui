@@ -23,5 +23,6 @@
 #define CONVERSION_ERR "Error while converting from Type T to an other type"
 #define ALLOCATION_ERR "Error while creating new type T of color"
 #define PROMISE_ERR "Unable to create promise"
+#define CB_INFO_ERR "Unable to retrieve data from method"
 
 #endif /* binding_error_h */
