@@ -5,18 +5,17 @@
       "target_name": "lymuilib",
       "sources": [
         "lymui/binding/bootstrap.c",
-        "lymui/binding/node_rgb.c",
         "lymui/binding/binding_util.c",
         "lymui/binding/bridge.c",
-        "lymui/binding/factory.c"
-        "lymui/binding/normalizer/normalizer_rgb.c",
-        "lymui/binding/normalizer/normalizer_xyz.c"
+        "lymui/binding/factory.c",
+        "lymui/binding/convert_xyz.c",
+        "lymui/binding/convert_rgb.c",
+        "lymui/binding/convert_regular.c",
+        "lymui/binding/convert_space.c",
         "lymui/binding/deserializer.c",
         "lymui/binding/deserializer_space.c",
-        "lymui/binding/convert_space.c",
-        "lymui/binding/convert_regular.c",
-        "lymui/binding/convert_rgb.c",
-        "lymui/binding/convert_xyz.c",
+        "lymui/binding/normalizer/normalizer_rgb.c",
+        "lymui/binding/normalizer/normalizer_xyz.c",
       ],
       "include_dirs": [
         "bin/include",

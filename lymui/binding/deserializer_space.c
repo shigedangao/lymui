@@ -68,7 +68,7 @@ BridgeSpaceObj *deserializeSpace(napi_env env, napi_value obj) {
     return br;
 }
 
-BridgeSpaceObj *normalize(napi_env env, napi_value obj) {
+BridgeSpaceObj *normalizeSpace(napi_env env, napi_value obj) {
     BridgeSpaceObj *br = malloc(sizeof(BridgeSpaceObj));
     if (br == NULL) {
         return NULL;

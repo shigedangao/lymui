@@ -75,7 +75,7 @@ napi_value convert(napi_env env, napi_callback_info info) {
         return promise;
     }
     
-    BridgeSpaceObj *bridge = deserialize(env, argv[0]);
+    BridgeSpaceObj *bridge = deserializeSpace(env, argv[0]);
     if (bridge == NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, CREATE_VALUE_ERR));
         return promise;

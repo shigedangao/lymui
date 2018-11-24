@@ -43,7 +43,7 @@ typedef struct BridgeSpaceObj {
  * @param obj napi_value
  * @return BridgeSpaceObj pointer
  */
-BridgeSpaceObj *deserialize(napi_env env, napi_value obj);
+BridgeSpaceObj *deserializeSpace(napi_env env, napi_value obj);
 
 
 /**
@@ -52,6 +52,6 @@ BridgeSpaceObj *deserialize(napi_env env, napi_value obj);
  * @param obj napi_value
  * @return BridgeObj pointer
  */
-BridgeSpaceObj *normalize(napi_env env, napi_value obj);
+BridgeSpaceObj *normalizeSpace(napi_env env, napi_value obj);
 
 #endif /* deserializer_space_h */
