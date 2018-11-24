@@ -11,6 +11,8 @@
 		2F1D31AD21A9847E0092DF0E /* deserializer.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F1D31AC21A9847E0092DF0E /* deserializer.c */; };
 		2F2927F021A9B50C0089C767 /* convert_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F2927EF21A9B50C0089C767 /* convert_rgb.c */; };
 		2F2927F521A9BC820089C767 /* normalizer_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F2927F421A9BC820089C767 /* normalizer_rgb.c */; };
+		2F2927F821A9D8AA0089C767 /* normalizer_xyz.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F2927F721A9D8AA0089C767 /* normalizer_xyz.c */; };
+		2F2927FB21A9E5130089C767 /* convert_xyz.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F2927FA21A9E5130089C767 /* convert_xyz.c */; };
 		2F61F933218065F100F61E22 /* bootstrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F932218065F100F61E22 /* bootstrap.c */; };
 		2F61F9372180684200F61E22 /* node_rgb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F9362180684200F61E22 /* node_rgb.c */; };
 		2F61F93C2180725900F61E22 /* binding_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F93B2180725900F61E22 /* binding_util.c */; };
@@ -76,6 +78,10 @@
 		2F2927EF21A9B50C0089C767 /* convert_rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = convert_rgb.c; sourceTree = "<group>"; };
 		2F2927F321A9BC820089C767 /* normalizer_rgb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = normalizer_rgb.h; sourceTree = "<group>"; };
 		2F2927F421A9BC820089C767 /* normalizer_rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = normalizer_rgb.c; sourceTree = "<group>"; };
+		2F2927F621A9D8AA0089C767 /* normalizer_xyz.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = normalizer_xyz.h; sourceTree = "<group>"; };
+		2F2927F721A9D8AA0089C767 /* normalizer_xyz.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = normalizer_xyz.c; sourceTree = "<group>"; };
+		2F2927F921A9E5130089C767 /* convert_xyz.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = convert_xyz.h; sourceTree = "<group>"; };
+		2F2927FA21A9E5130089C767 /* convert_xyz.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = convert_xyz.c; sourceTree = "<group>"; };
 		2F61F932218065F100F61E22 /* bootstrap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bootstrap.c; sourceTree = "<group>"; };
 		2F61F9352180684200F61E22 /* node_rgb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = node_rgb.h; sourceTree = "<group>"; };
 		2F61F9362180684200F61E22 /* node_rgb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = node_rgb.c; sourceTree = "<group>"; };
@@ -167,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				2F2927F421A9BC820089C767 /* normalizer_rgb.c */,
+				2F2927F721A9D8AA0089C767 /* normalizer_xyz.c */,
 			);
 			path = normalizer;
 			sourceTree = "<group>";
@@ -186,6 +193,7 @@
 				2F1D31AC21A9847E0092DF0E /* deserializer.c */,
 				2FA8C89F21A9A561003F4563 /* deserializer_space.c */,
 				2F2927EF21A9B50C0089C767 /* convert_rgb.c */,
+				2F2927FA21A9E5130089C767 /* convert_xyz.c */,
 			);
 			path = binding;
 			sourceTree = "<group>";
@@ -193,6 +201,8 @@
 		2F61F9342180681300F61E22 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				2F2927F921A9E5130089C767 /* convert_xyz.h */,
+				2F2927F621A9D8AA0089C767 /* normalizer_xyz.h */,
 				2F2927F321A9BC820089C767 /* normalizer_rgb.h */,
 				2F2927EE21A9B50C0089C767 /* convert_rgb.h */,
 				2FA8C89E21A9A561003F4563 /* deserializer_space.h */,
@@ -375,6 +385,7 @@
 				9F4D411B20599A590031CDA5 /* argb.c in Sources */,
 				9F8BC44A203CC9EE001709CA /* hue.c in Sources */,
 				2F737C3F2183734600C6BFA8 /* bridge.c in Sources */,
+				2F2927F821A9D8AA0089C767 /* normalizer_xyz.c in Sources */,
 				9FFE470B20572EE800EA68D5 /* xyz.c in Sources */,
 				9F8ABE4320A9925A0001F811 /* lch_lab_test.c in Sources */,
 				9F3A07B22028891300CB2311 /* main.c in Sources */,
@@ -382,6 +393,7 @@
 				2F61F9372180684200F61E22 /* node_rgb.c in Sources */,
 				2F61F933218065F100F61E22 /* bootstrap.c in Sources */,
 				9F04727120347861000639EA /* hex_test.c in Sources */,
+				2F2927FB21A9E5130089C767 /* convert_xyz.c in Sources */,
 				2F1D31AA21A982290092DF0E /* convert_regular.c in Sources */,
 				9F8ABE4820AA22630001F811 /* xyy_test.c in Sources */,
 				9FFE470E20573A7A00EA68D5 /* srgb.c in Sources */,

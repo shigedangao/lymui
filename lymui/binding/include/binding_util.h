@@ -53,12 +53,12 @@ uint8_t isTypeOf(napi_env env, napi_value v, JSType t);
 uint8_t getUintValue(napi_env env, napi_value v);
 
 /**
- * @brief retrive the float from a napi_value
+ * @brief retrive the double from a napi_value (fail passive)
  * @param env napi_env
  * @param v napi_value
- * @return float
+ * @return double
  */
-float getFloatValue(napi_env env, napi_value v);
+double getDoubleValue(napi_env env, napi_value v);
 
 /**
  * @brief Retrieve string value from a napi_value

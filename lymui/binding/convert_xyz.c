@@ -1,58 +1,40 @@
 //
-//  convert_rgb.c
+//  convert_xyz.c
 //  lymui
 //
 //  Created by Marc Intha on 24/11/2018.
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
-#include "convert_rgb.h"
+#include "convert_xyz.h"
 #include <node_api.h>
 #include "binding_error.h"
 #include "factory.h"
-#include "deserializer.h"
-#include "normalizer_rgb.h"
+#include "deserializer_space.h"
+#include "normalizer_xyz.h"
 
 /**
- * @brief generate rgb object
+ * @brief generate xyz object
  * @param env napi_env
- * @param bridge BridgeObj pointer
+ * @param bridge BridgeSpaceObj pointer
  * @return napi_value
  */
-static napi_value generateRGB(napi_env env, BridgeObj *bridge) {
-    // make a decorator
+static napi_value generateXYZ(napi_env env, BridgeSpaceObj *bridge) {
     switch (bridge->output) {
-        case hex:
-            return normalizeHex(env, bridge->color);
-        case hsl:
-            return normalizeHsl(env, bridge->color);
-        case hsv:
-            return normalizeHsv(env, bridge->color);
-        case cymk:
-            return normalizeCymk(env, bridge->color);
-        case ycbcr:
-            return normalizeYcbcr(env, bridge->color);
-        case xyz:
-            return normalizeXyz(env, bridge->color, bridge->matrix);
+        case lab:
+            return normalizeLab(env, bridge->color);
+        case lch:
+            return normalizeLch(env, bridge->color);
+        case lchlab:
+            return normalizeLchLab(env, bridge->color);
+        case luv:
+            return normalizeLuv(env, bridge->color);
         default:
             return NULL;
     }
 }
 
-/**
- * JS API
- *  const rgb = async toRGB({
- *    input: {
- *      y: 0,
- *      u: 0,
- *      v: 0
- *    },
- *    type: 'yuv',
- *    profile: 'adobeRgb'
- *  })
- *
- */
-napi_value toRGB(napi_env env, napi_callback_info info) {
+napi_value toXYZ(napi_env env, napi_callback_info info) {
     napi_status status;
     size_t argc = 1;
     napi_value argv[1];
@@ -72,7 +54,7 @@ napi_value toRGB(napi_env env, napi_callback_info info) {
         return promise;
     }
     
-    BridgeObj *bridge = normalize(env, argv[0]);
+    BridgeSpaceObj *bridge = normalize(env, argv[0]);
     if (bridge == NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, ALLOCATION_ERR));
         return promise;
@@ -83,7 +65,7 @@ napi_value toRGB(napi_env env, napi_callback_info info) {
         return promise;
     }
     
-    JSObject = generateRGB(env, bridge);
+    JSObject = generateXYZ(env, bridge);
     if (JSObject == NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, CREATE_VALUE_ERR));
         return promise;

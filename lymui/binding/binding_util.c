@@ -74,16 +74,16 @@ uint8_t getUintValue(napi_env env, napi_value v) {
     return (uint8_t) res;
 }
 
-float getFloatValue(napi_env env, napi_value v) {
+double getDoubleValue(napi_env env, napi_value v) {
     napi_status status;
     double res = 0;
     
     status = napi_get_value_double(env, v, &res);
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, CREATE_TYPE_ERR);
+        return 0.0;
     }
     
-    return (float) res;
+    return res;
 }
 
 char *getStringValue(napi_env env, napi_value v, size_t strLen) {

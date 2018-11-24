@@ -31,8 +31,6 @@ static napi_value generateTypeJSObj(napi_env env, BridgeObj *bridge) {
             return HslJSObjFactory(env, rgb);
         case hsv:
             return HsvJSObjFactory(env, rgb);
-        case hue:
-            return NULL;
         case cymk:
             return CymkJSObjFactory(env, rgb);
         case ycbcr:

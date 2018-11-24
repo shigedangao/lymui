@@ -18,7 +18,7 @@
  * @param color napi_value
  * @return napi_value
  */
-napi_value NormalizeHEX(napi_env env, napi_value color);
+napi_value normalizeHex(napi_env env, napi_value color);
 
 /**
  * @brief normalize HSL
@@ -26,7 +26,7 @@ napi_value NormalizeHEX(napi_env env, napi_value color);
  * @param color napi_value
  * @return napi_value
  */
-napi_value NormalizeHSL(napi_env env, napi_value color);
+napi_value normalizeHsl(napi_env env, napi_value color);
 
 /**
  * @brief normalize HSV
@@ -34,7 +34,7 @@ napi_value NormalizeHSL(napi_env env, napi_value color);
  * @param color napi_value
  * @return napi_value
  */
-napi_value NormalizeHSV(napi_env env, napi_value color);
+napi_value normalizeHsv(napi_env env, napi_value color);
 
 /**
  * @brief normalize CYMK
@@ -42,7 +42,7 @@ napi_value NormalizeHSV(napi_env env, napi_value color);
  * @param color napi_value
  * @return napi_value
  */
-napi_value NormalizeCYMK(napi_env env, napi_value color);
+napi_value normalizeCymk(napi_env env, napi_value color);
 
 /**
  * @brief normalize YCBCR
@@ -50,7 +50,7 @@ napi_value NormalizeCYMK(napi_env env, napi_value color);
  * @param color napi_value
  * @return napi_value
  */
-napi_value NormalizeYCBCR(napi_env env, napi_value color);
+napi_value normalizeYcbcr(napi_env env, napi_value color);
 
 /**
  * @brief normalize XYZ
@@ -59,6 +59,6 @@ napi_value NormalizeYCBCR(napi_env env, napi_value color);
  * @param m char
  * @return napi_value
  */
-napi_value NormalizeXYZ(napi_env env, napi_value color, char *m);
+napi_value normalizeXyz(napi_env env, napi_value color, char *m);
 
 #endif /* normalizer_rgb_h */

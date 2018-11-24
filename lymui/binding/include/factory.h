@@ -20,6 +20,7 @@
 #include "xyz.h"
 #include "lab.h"
 #include "lch.h"
+#include "lchlab.h"
 #include "luv.h"
 #include "argb.h"
 #include "srgb.h"
@@ -90,6 +91,14 @@ napi_value YuvJSObjFactory(napi_env env, Rgb *rgb);
 napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix);
 
 /**
+ * @brief Create Xyz JS Object
+ * @param env napi_env
+ * @param xyz Xyz
+ * @return napi_value
+ */
+napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz);
+
+/**
  * @brief Creating Lab JS Object
  * @param env napi_env
  * @param xyz * Xyz
@@ -104,6 +113,14 @@ napi_value LabJSObjFactory(napi_env env, Xyz * xyz);
  * @return napi_value
  */
 napi_value LchJSObjFactory(napi_env env, Xyz * xyz);
+
+/**
+ * @brief Creating Lch Lab JS Object
+ * @param env napi_env
+ * @param xyz * Xyz
+ * @return napi_value
+ */
+napi_value LchLabJSObjFactory(napi_env env, Xyz * xyz);
 
 /**
  * @brief Creating Luv JS Object

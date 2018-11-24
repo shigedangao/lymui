@@ -21,7 +21,6 @@ typedef enum Output {
     hex,
     hsl,
     hsv,
-    hue,
     cymk,
     ycbcr,
     xyz

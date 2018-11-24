@@ -20,7 +20,7 @@
  * @return OType
  */
 static OType strToOTypeEnum(char *str) {
-    char *type[] = {"hex", "hsl", "hsv", "hue", "cymk", "ycbcr", "xyz"};
+    char *type[] = {"hex", "hsl", "hsv", "cymk", "ycbcr", "xyz"};
     uint8_t idx = 0;
     size_t size = 7;
     OType t = hex;

@@ -13,7 +13,7 @@
 #include "bridge.h"
 #include "factory.h"
 
-napi_value NormalizeHEX(napi_env env, napi_value color) {
+napi_value normalizeHex(napi_env env, napi_value color) {
     char *hex = getHEXFromJSObj(env, color);
     if (hex == NULL) {
         return NULL;
@@ -25,7 +25,7 @@ napi_value NormalizeHEX(napi_env env, napi_value color) {
     return object;
 }
 
-napi_value NormalizeHSL(napi_env env, napi_value color) {
+napi_value normalizeHsl(napi_env env, napi_value color) {
     Hsl *hsl = getHslFromJSObj(env, color);
     if (hsl == NULL) {
         return NULL;
@@ -37,19 +37,18 @@ napi_value NormalizeHSL(napi_env env, napi_value color) {
     return object;
 }
 
-napi_value NormalizeHSV(napi_env env, napi_value color) {
+napi_value normalizeHsv(napi_env env, napi_value color) {
     Hsv *hsv = getHsvFromJSObj(env, color);
     if (hsv == NULL) {
         return NULL;
     }
     
     Rgb *rgb = getRgbFromHsv(hsv);
-    
     napi_value object = RgbJSObjFactory(env, rgb);
     return object;
 }
 
-napi_value NormalizeCYMK(napi_env env, napi_value color) {
+napi_value normalizeCymk(napi_env env, napi_value color) {
     Cymk *cymk = getCymkFromJSObj(env, color);
     if (cymk == NULL) {
         return NULL;
@@ -61,7 +60,7 @@ napi_value NormalizeCYMK(napi_env env, napi_value color) {
     return object;
 }
 
-napi_value NormalizeYCBCR(napi_env env, napi_value color) {
+napi_value normalizeYcbcr(napi_env env, napi_value color) {
     Ycbcr *ycbcr = getYcbcrFromJSObj(env, color);
     if (ycbcr == NULL) {
         return NULL;
@@ -73,7 +72,7 @@ napi_value NormalizeYCBCR(napi_env env, napi_value color) {
     return object;
 }
 
-napi_value NormalizeXYZ(napi_env env, napi_value color, char *m) {
+napi_value normalizeXyz(napi_env env, napi_value color, char *m) {
     Matrix mx = getEnumFromStr(m);
     Xyz *xyz = getXyzFromJSObj(env, color);
     if (xyz == NULL) {

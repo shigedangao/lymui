@@ -20,9 +20,9 @@
  * @return OSpaceType
  */
 static OSpaceType strToOSpaceTypeEnum(char *str) {
-    char *type[] = {"xxyz", "lab", "lch", "luv", "argb", "Srgb"};
+    char *type[] = {"xxyz", "lab", "lch", "lchlab", "luv", "argb", "Srgb"};
     uint8_t idx = 0;
-    size_t size = 7;
+    size_t size = 8;
     OSpaceType t = xxyz;
     
     while(idx < size) {
@@ -56,6 +56,33 @@ BridgeSpaceObj *deserializeSpace(napi_env env, napi_value obj) {
         return br;
     }
     
+    char *type = getStringValue(env, params[1], MAX_LEN_TYPE);
+    if (type == NULL) {
+        br->error = CONVERT_ERR;
+        return br;
+    }
+    
+    br->color  = params[0];
+    br->output = strToOSpaceTypeEnum(type);
+    
+    return br;
+}
+
+BridgeSpaceObj *normalize(napi_env env, napi_value obj) {
+    BridgeSpaceObj *br = malloc(sizeof(BridgeSpaceObj));
+    if (br == NULL) {
+        return NULL;
+    }
+    
+    char *inputProps = "input:type";
+    napi_value params[2];
+    
+    if (!hasPropInJSObj(env, obj, inputProps, CONVERT_BASIC_LEN)) {
+        br->error = ARG_NB_ERR;
+        return br;
+    }
+    
+    getNamedPropArray(env, inputProps, obj, CONVERT_BASIC_LEN, params);
     char *type = getStringValue(env, params[1], MAX_LEN_TYPE);
     if (type == NULL) {
         br->error = CONVERT_ERR;

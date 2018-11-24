@@ -18,20 +18,15 @@
 #include "hsv.h"
 #include "yuv.h"
 #include "xyz.h"
+#include "lab.h"
+#include "lch.h"
+#include "lchlab.h"
+#include "luv.h"
+#include "argb.h"
+#include "srgb.h"
 
-#define RgbPropLen 3
-#define CymkPropLen 4
-#define YCbCrLen 3
-#define HslHsvLen 3
-#define YUVLen 3
-#define XYZLen 3
-#define LABLen 3
-#define LCHLen 3
-#define SPACELen 4
-#define MIN_CLAMP_VALUE 1000
-#define PERCENT_CLAMP_VALUE 100
-#define COLOR_SPACE_INPUT 3
-#define COLOR_SPACE_INPUT_VALIDATION 2
+#define MIN_PARAM_VALUE 3
+#define MAX_PARAM_VALUE 4
 
 /**
  * @brief Extract an RGB Object from a JS Object
@@ -96,6 +91,54 @@ Yuv *getYuvFromJSObj(napi_env env, napi_value args);
  * @return xyz
  */
 Xyz *getXyzFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Lab struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Lab
+ */
+Lab *getLabFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Lch struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Lch
+ */
+Lch *getLchFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Lch struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Lch
+ */
+LchLab *getLchlabFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Luv struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Luv
+ */
+Luv *getLuvFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Argb struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Argb
+ */
+Argb *getArgbFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Srgb struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Srgb
+ */
+SRgb *getSrgbFromJSObj(napi_env env, napi_value args);
 
 
 #endif /* bridge_h */

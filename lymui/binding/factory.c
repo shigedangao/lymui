@@ -25,7 +25,17 @@ napi_value RgbJSObjFactory(napi_env env, Rgb *rgb) {
     
     status = napi_create_object(env, &object);
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, OBJ_MAKE_ERR);
+        return NULL;
+    }
+    
+    if (rgb == NULL) {
+        assignPropToJSObj(&object, env, string, "error", OBJ_MAKE_ERR);
+        return object;
+    }
+    
+    if (rgb->error) {
+        assignPropToJSObj(&object, env, string, "error", rgb->error);
+        return object;
     }
     
     // assign the value
@@ -202,13 +212,33 @@ napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix) {
     return object;
 }
 
+napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz) {
+    napi_status status;
+    napi_value object;
+    
+    status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    if (xyz == NULL) {
+        assignPropToJSObj(&object, env, string, "error", OBJ_MAKE_ERR);
+        return object;
+    }
+    
+    assignPropToJSObj(&object, env, numberDouble, "x", &xyz->x);
+    assignPropToJSObj(&object, env, numberDouble, "y", &xyz->y);
+    assignPropToJSObj(&object, env, numberDouble, "z", &xyz->z);
+    
+    return object;
+}
+
 napi_value LabJSObjFactory(napi_env env, Xyz *xyz) {
     napi_status status;
     napi_value object;
     
     status = napi_create_object(env, &object);
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, OBJ_MAKE_ERR);
         return NULL;
     }
     
@@ -251,11 +281,38 @@ napi_value LchJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    
     assignPropToJSObj(&object, env, numberDouble, "l", &lch->l);
     assignPropToJSObj(&object, env, numberDouble, "c", &lch->c);
     assignPropToJSObj(&object, env, numberDouble, "h", &lch->h);
     free(lch);
+    
+    return object;
+}
+
+napi_value LchLabJSObjFactory(napi_env env, Xyz *xyz) {
+    napi_status status;
+    napi_value object;
+    
+    status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    LchLab *lchlab = getLchFromLab(xyz);
+    if (lchlab == NULL) {
+        assignPropToJSObj(&object, env, string, "error", OBJ_MAKE_ERR);
+        return object;
+    }
+    
+    if (lchlab->error) {
+        assignPropToJSObj(&object, env, string, "error", lchlab->error);
+        return object;
+    }
+    
+    assignPropToJSObj(&object, env, numberDouble, "l", &lchlab->l);
+    assignPropToJSObj(&object, env, numberDouble, "c", &lchlab->c);
+    assignPropToJSObj(&object, env, numberDouble, "h", &lchlab->h);
+    free(lchlab);
     
     return object;
 }

@@ -21,6 +21,7 @@ typedef enum OutputSpace {
     xxyz,
     lab,
     lch,
+    lchlab,
     luv,
     argb,
     Srgb
@@ -42,6 +43,15 @@ typedef struct BridgeSpaceObj {
  * @param obj napi_value
  * @return BridgeSpaceObj pointer
  */
-BridgeSpaceObj *deserializeSpace(napi_env env, napi_value obj);
+BridgeSpaceObj *deserialize(napi_env env, napi_value obj);
+
+
+/**
+ * @brief normalize the value of regular color for being prepare into being convet into RGB (broken english am sick).
+ * @param env napi_env
+ * @param obj napi_value
+ * @return BridgeObj pointer
+ */
+BridgeSpaceObj *normalize(napi_env env, napi_value obj);
 
 #endif /* deserializer_space_h */
