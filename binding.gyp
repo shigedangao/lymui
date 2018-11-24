@@ -6,7 +6,8 @@
       "sources": [
         "lymui/binding/bootstrap.c",
         "lymui/binding/node_rgb.c",
-        "lymui/binding/convert.c",
+        "lymui/binding/convert_space.c",
+        "lymui/binding/convert_regular.c",
         "lymui/binding/binding_util.c",
         "lymui/binding/bridge.c",
         "lymui/binding/factory.c"

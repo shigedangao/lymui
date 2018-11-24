@@ -12,10 +12,6 @@
 #include <stdio.h>
 #include <node_api.h>
 
-#define CONVERT_BASIC_LEN 2
-#define MIN_LEN_TYPE 3
-#define MAX_LEN_TYPE 5
-
 #define RGB_PROPS "r:g:b"
 
 /**
@@ -41,6 +37,9 @@ typedef struct BridgeObj {
     char *error;
 } BridgeObj;
 
+/**
+ * @brief structure for the optional field deserializer
+ */
 typedef struct OptFields {
     char *field;
     bool has;

@@ -11,7 +11,7 @@
 #include <node_api.h>
 #include "binding_error.h"
 #include "node_rgb.h"
-#include "convert.h"
+#include "convert_space.h"
 #include "convert_regular.h"
 
 

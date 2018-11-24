@@ -68,12 +68,17 @@ napi_value convertRegular(napi_env env, napi_callback_info info) {
     status = napi_create_promise(env, &def, &promise);
     if (status != napi_ok) {
         napi_throw_error(env, NULL, PROMISE_ERR);
-        return promise;
+        return NULL;
     }
     
     status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
     if (status != napi_ok) {
         napi_reject_deferred(env, def, BuildPromiseError(env, CB_INFO_ERR));
+        return promise;
+    }
+    
+    if (argc < 1) {
+        napi_reject_deferred(env, def, BuildPromiseError(env, ARG_NB_ERR));
         return promise;
     }
     

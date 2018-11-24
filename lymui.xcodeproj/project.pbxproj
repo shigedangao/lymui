@@ -14,7 +14,8 @@
 		2F61F93C2180725900F61E22 /* binding_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F61F93B2180725900F61E22 /* binding_util.c */; };
 		2F737C3F2183734600C6BFA8 /* bridge.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F737C3E2183734600C6BFA8 /* bridge.c */; };
 		2F80B92C218B3E8100397737 /* factory.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F80B92B218B3E8100397737 /* factory.c */; };
-		2FF1205B219B737500083A70 /* convert.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1205A219B737500083A70 /* convert.c */; };
+		2FA8C8A021A9A561003F4563 /* deserializer_space.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FA8C89F21A9A561003F4563 /* deserializer_space.c */; };
+		2FF1205B219B737500083A70 /* convert_space.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FF1205A219B737500083A70 /* convert_space.c */; };
 		9F04726F203476D1000639EA /* rgb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04726E203476D1000639EA /* rgb_test.c */; };
 		9F04727120347861000639EA /* hex_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727020347861000639EA /* hex_test.c */; };
 		9F04727320348E67000639EA /* ycbcr_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727220348E67000639EA /* ycbcr_test.c */; };
@@ -80,10 +81,12 @@
 		2F737C3E2183734600C6BFA8 /* bridge.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bridge.c; sourceTree = "<group>"; };
 		2F80B92A218B3E8100397737 /* factory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = factory.h; sourceTree = "<group>"; };
 		2F80B92B218B3E8100397737 /* factory.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = factory.c; sourceTree = "<group>"; };
+		2FA8C89E21A9A561003F4563 /* deserializer_space.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = deserializer_space.h; sourceTree = "<group>"; };
+		2FA8C89F21A9A561003F4563 /* deserializer_space.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = deserializer_space.c; sourceTree = "<group>"; };
 		2FE6F42221A6135E001E3D17 /* errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = errors.h; sourceTree = "<group>"; };
 		2FECDFFA21A7605B008F4DE5 /* xyz_constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xyz_constant.h; sourceTree = "<group>"; };
-		2FF12059219B737500083A70 /* convert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = convert.h; sourceTree = "<group>"; };
-		2FF1205A219B737500083A70 /* convert.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = convert.c; sourceTree = "<group>"; };
+		2FF12059219B737500083A70 /* convert_space.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = convert_space.h; sourceTree = "<group>"; };
+		2FF1205A219B737500083A70 /* convert_space.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = convert_space.c; sourceTree = "<group>"; };
 		9F04726D203476D1000639EA /* test_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test_header.h; sourceTree = "<group>"; };
 		9F04726E203476D1000639EA /* rgb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rgb_test.c; sourceTree = "<group>"; };
 		9F04727020347861000639EA /* hex_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hex_test.c; sourceTree = "<group>"; };
@@ -163,9 +166,10 @@
 				2F61F93B2180725900F61E22 /* binding_util.c */,
 				2F737C3E2183734600C6BFA8 /* bridge.c */,
 				2F80B92B218B3E8100397737 /* factory.c */,
-				2FF1205A219B737500083A70 /* convert.c */,
+				2FF1205A219B737500083A70 /* convert_space.c */,
 				2F1D31A921A982290092DF0E /* convert_regular.c */,
 				2F1D31AC21A9847E0092DF0E /* deserializer.c */,
+				2FA8C89F21A9A561003F4563 /* deserializer_space.c */,
 			);
 			path = binding;
 			sourceTree = "<group>";
@@ -173,9 +177,10 @@
 		2F61F9342180681300F61E22 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				2FA8C89E21A9A561003F4563 /* deserializer_space.h */,
 				2F1D31AB21A9847E0092DF0E /* deserializer.h */,
 				2F1D31A821A982290092DF0E /* convert_regular.h */,
-				2FF12059219B737500083A70 /* convert.h */,
+				2FF12059219B737500083A70 /* convert_space.h */,
 				2F80B92A218B3E8100397737 /* factory.h */,
 				2F737C3D2183734600C6BFA8 /* bridge.h */,
 				2F61F93A2180725900F61E22 /* binding_util.h */,
@@ -373,7 +378,8 @@
 				9FF5D4E72048A99C00D364BD /* hsv.c in Sources */,
 				9F9AA8A72029DE74008A28B8 /* helper.c in Sources */,
 				9FECCB452061BA6200725C97 /* lab_test.c in Sources */,
-				2FF1205B219B737500083A70 /* convert.c in Sources */,
+				2FF1205B219B737500083A70 /* convert_space.c in Sources */,
+				2FA8C8A021A9A561003F4563 /* deserializer_space.c in Sources */,
 				9F05AC0D2029208B00734C15 /* rgb.c in Sources */,
 				9F8ABE4120A982270001F811 /* lchlab.c in Sources */,
 				9F10A9BD20605C7F00692EA8 /* lab.c in Sources */,
@@ -507,7 +513,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				EXCLUDED_SOURCE_FILE_NAMES = "lymui/binding/*";
+				EXCLUDED_SOURCE_FILE_NAMES = "";
 				"HEADER_SEARCH_PATHS[arch=*]" = (
 					"$(SRCROOT)/lib/cunit/include",
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,

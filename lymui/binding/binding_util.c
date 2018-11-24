@@ -93,7 +93,6 @@ char *getStringValue(napi_env env, napi_value v, size_t strLen) {
     
     status = napi_get_value_string_utf8(env, v, str, strLen + 1, &len);
     if (status != napi_ok) {
-        napi_throw_error(env, NULL, PARSE_ERR);
         return NULL;
     }
     

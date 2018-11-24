@@ -77,7 +77,7 @@ BridgeObj *deserialize(napi_env env, napi_value obj) {
     }
     
     char *inputProps = "input:output";
-    napi_value params[3];
+    napi_value params[2];
     
     if (!hasPropInJSObj(env, obj, inputProps, CONVERT_BASIC_LEN)) {
         br->error = ARG_NB_ERR;
@@ -92,6 +92,11 @@ BridgeObj *deserialize(napi_env env, napi_value obj) {
     }
     
     char *type = getStringValue(env, params[1], MAX_LEN_TYPE);
+    if (type == NULL) {
+        br->error = CONVERT_ERR;
+        return br;
+    }
+    
     // set the struct
     br->color  = params[0];
     br->output = strToOTypeEnum(type);

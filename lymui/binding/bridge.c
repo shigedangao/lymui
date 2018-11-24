@@ -19,29 +19,8 @@
 #include "yuv.h"
 #include "xyz.h"
 
-/**
- * @brief get the enum for the kind of color space
- * @param str char array
- */
-static LymuiColorSpace getColorSpaceEnum(char * str) {
-    char * list[] = {"iRgb", "iXyz","lab", "lch", "luv", "argb", "srgb"};
-    uint8_t idx = 0;
-    size_t size = 5;
-    LymuiColorSpace type = lab;
-    
-    while(idx < size) {
-        if (!strcmp(str, list[idx])) {
-            type = idx;
-            idx = size + 1;
-        }
-        
-        idx++;
-    }
-    
-    return type;
-}
 
-Rgb * getRGBFromJSObj(napi_env env, napi_value obj) {
+Rgb *getRGBFromJSObj(napi_env env, napi_value obj) {
     napi_value value[3];
     char * prop = "r:g:b";
     
@@ -81,7 +60,7 @@ char * getHEXFromJSObj(napi_env env, napi_value obj) {
     return unslashHex;
 }
 
-Cymk * getCymkFromJSObj(napi_env env, napi_value obj) {
+Cymk *getCymkFromJSObj(napi_env env, napi_value obj) {
     napi_value value[4];
     char * prop = "c:y:m:k";
     
@@ -99,7 +78,7 @@ Cymk * getCymkFromJSObj(napi_env env, napi_value obj) {
     return cymkSt;
 }
 
-Ycbcr * getYcbcrFromJSObj(napi_env env, napi_value obj) {
+Ycbcr *getYcbcrFromJSObj(napi_env env, napi_value obj) {
     napi_value value[3];
     char * prop = "y:cb:cr";
     
@@ -117,7 +96,7 @@ Ycbcr * getYcbcrFromJSObj(napi_env env, napi_value obj) {
     return ycb;
 }
 
-Hsl * getHslFromJSObj(napi_env env, napi_value obj) {
+Hsl *getHslFromJSObj(napi_env env, napi_value obj) {
     napi_value value[3];
     char * prop = "h:s:l";
     
@@ -134,7 +113,7 @@ Hsl * getHslFromJSObj(napi_env env, napi_value obj) {
     return hsl;
 }
 
-Hsv * getHsvFromJSObj(napi_env env, napi_value obj) {
+Hsv *getHsvFromJSObj(napi_env env, napi_value obj) {
     napi_value value[3];
     char * prop = "h:s:v";
     
@@ -151,7 +130,7 @@ Hsv * getHsvFromJSObj(napi_env env, napi_value obj) {
     return hsv;
 }
 
-Yuv * getYuvFromJSObj(napi_env env, napi_value obj) {
+Yuv *getYuvFromJSObj(napi_env env, napi_value obj) {
     char * prop = "y:u:v";
     napi_value value[3];
     
@@ -177,7 +156,7 @@ Yuv * getYuvFromJSObj(napi_env env, napi_value obj) {
     return yuv;
 }
 
-Xyz * getXyzFromJSObj(napi_env env, napi_value args) {
+Xyz *getXyzFromJSObj(napi_env env, napi_value args) {
     char * prop = "x:y:z";
     napi_value value[3];
     
@@ -200,48 +179,4 @@ Xyz * getXyzFromJSObj(napi_env env, napi_value args) {
     xyz->z = z;
     
     return xyz;
-}
-
-
-ColorBridge * getColorSpaceData(napi_env env, napi_value args) {
-    napi_status status;
-    napi_value funcParams[3];
-    char * prop = "data:output:colorType";
-    char * propValidation = "data:output";
-    // 0 -> Data napi_value
-    // 2 -> output type String
-    // 3 -> color type (optional) String
-    bool hasColorType;
-    Xyz * xyz = NULL;
-    
-    if (!hasPropInJSObj(env, args, propValidation, COLOR_SPACE_INPUT_VALIDATION)) {
-        return NULL;
-    }
-    
-    status = napi_has_named_property(env, args, "colorType", &hasColorType);
-    if (status != napi_ok) {
-        return NULL;
-    }
-    
-    // Retrieve the value from the object
-    getNamedPropArray(env, prop, args, COLOR_SPACE_INPUT, funcParams);
-    // Retrieve the string representation of the enum passed by input & output properties
-    char * output = getStringValue(env, funcParams[1], SPACELen);
-    
-    // If a color type is input this mean that the value is an RGB value
-    if (hasColorType) {
-        char * colorType = getStringValue(env, funcParams[2], SPACELen);
-        Matrix m = getEnumFromStr(colorType);
-        Rgb * rgb = getRGBFromJSObj(env, funcParams[0]);
-        xyz = generateXyzFromRgb(rgb, m);
-    } else {
-        xyz = getXyzFromJSObj(env, funcParams[0]);
-    }
-    
-    LymuiColorSpace space = getColorSpaceEnum(output);
-    ColorBridge * bridge = malloc(sizeof(ColorBridge));
-    bridge->color = xyz;
-    bridge->c = space;
-    
-    return bridge;
 }
