@@ -43,6 +43,10 @@ uint8_t doubleToUint(double value) {
     return 0;
 }
 
+double roundDigit(double value, int factor) {
+    return round(value * factor) / factor;
+}
+
 double getSaturation(double min, double max, double l) {
     // big condition... we also check if max and min is not equal to 1 in order to avoid dividing by 0...
     if (l > 0.5 && (max != 1.0 || min != 1.0))

@@ -38,7 +38,7 @@ napi_value RgbJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    if (rgb->error) {
+    if (rgb->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", rgb->error);
         return object;
     }
@@ -74,7 +74,7 @@ napi_value CymkJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    if (cymk->error) {
+    if (cymk->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", cymk->error);
         return object;
     }
@@ -110,7 +110,7 @@ napi_value YcbcrJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    if (ycb->error) {
+    if (ycb->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", ycb->error);
         return object;
     }
@@ -144,7 +144,7 @@ napi_value HslJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    if (hsl->error) {
+    if (hsl->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", hsl->error);
         return object;
     }
@@ -178,7 +178,7 @@ napi_value HsvJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    if (hsv->error) {
+    if (hsv->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", hsv->error);
         return object;
     }
@@ -212,7 +212,7 @@ napi_value YuvJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    if (yuv->error) {
+    if (yuv->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", yuv->error);
         return object;
     }
@@ -248,7 +248,7 @@ napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix) {
         return object;
     }
     
-    if (xyz->error) {
+    if (xyz->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", xyz->error);
         return object;
     }
@@ -310,7 +310,7 @@ napi_value LabJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    if (lab->error) {
+    if (lab->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", lab->error);
         return object;
     }
@@ -346,7 +346,7 @@ napi_value LchJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    if (lch->error) {
+    if (lch->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", lch->error);
         return object;
     }
@@ -382,7 +382,7 @@ napi_value LchLabJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    if (lchlab->error) {
+    if (lchlab->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", lchlab->error);
         return object;
     }
@@ -418,7 +418,7 @@ napi_value LuvJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    if (luv->error) {
+    if (luv->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", luv->error);
         return object;
     }
@@ -455,7 +455,7 @@ napi_value ArgbJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    if (argb->error) {
+    if (argb->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", argb->error);
         return object;
     }
@@ -492,7 +492,7 @@ napi_value SrgbJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    if (srgb->error) {
+    if (srgb->error != NULL) {
         assignPropToJSObj(&object, env, string, "error", srgb->error);
         return object;
     }

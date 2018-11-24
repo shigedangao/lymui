@@ -86,6 +86,11 @@ napi_value convertRegular(napi_env env, napi_callback_info info) {
         return promise;
     }
     
+    if (bridge->error != NULL) {
+        napi_reject_deferred(env, def, BuildPromiseError(env, bridge->error));
+        return promise;
+    }
+    
     JSObject = generateTypeJSObj(env, bridge);
     if (JSObject == NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, CREATE_VALUE_ERR));

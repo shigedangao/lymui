@@ -23,7 +23,11 @@ static OType strToOTypeEnum(char *str) {
     char *type[] = {"hex", "hsl", "hsv", "cymk", "ycbcr", "xyz"};
     uint8_t idx = 0;
     size_t size = 7;
-    OType t = hex;
+    OType t = hsl;
+    
+    if (str == NULL) {
+        return t;
+    }
     
     while(idx < size) {
         if (!strcmp(str, type[idx])) {
@@ -34,6 +38,28 @@ static OType strToOTypeEnum(char *str) {
     }
     
     return t;
+}
+
+/**
+ * @brief get the validation props for validating the input color
+ * @param o OType
+ * @return char *
+ */
+static char *getValidationPropsFromOType(OType o) {
+    switch (o) {
+        case cymk:
+            return CMYK_PROPS;
+        case hsl:
+            return HSL_PROPS;
+        case hsv:
+            return HSV_PROPS;
+        case ycbcr:
+            return YCBCR_PROPS;
+        case xyz:
+            return XYZ_PROPS;
+        default:
+            return NULL;
+    }
 }
 
 OptField *getOptField(napi_env env, napi_value obj, char *field) {
@@ -100,6 +126,7 @@ BridgeObj *deserialize(napi_env env, napi_value obj) {
     // set the struct
     br->color  = params[0];
     br->output = strToOTypeEnum(type);
+    br->error  = NULL;
 
     OptField *opt = getOptField(env, obj, "profile");
     if (opt == NULL) {
@@ -127,10 +154,24 @@ BridgeObj *normalize(napi_env env, napi_value obj) {
     }
     
     getNamedPropArray(env, inputProps, obj, CONVERT_BASIC_LEN, params);
-    char *type = getStringValue(env, params[0], MAX_LEN_TYPE);
+    char *type = getStringValue(env, params[1], MAX_LEN_TYPE);
+    
+    OType o = strToOTypeEnum(type);
+    char *validation = getValidationPropsFromOType(o);
+    
+    if (validation == NULL) {
+        br->error = ARG_TYPE_ERR;
+        return br;
+    }
+    
+    if (!hasPropInJSObj(env, params[0], validation, MIN_LEN_TYPE)) {
+        br->error = ARG_TYPE_ERR;
+        return br;
+    }
     
     br->color  = params[0];
-    br->output = strToOTypeEnum(type);
+    br->output = o;
+    br->error  = NULL;
     
     OptField *opt = getOptField(env, obj, "profile");
     if (opt == NULL) {

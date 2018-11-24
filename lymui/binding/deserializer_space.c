@@ -64,6 +64,7 @@ BridgeSpaceObj *deserializeSpace(napi_env env, napi_value obj) {
     
     br->color  = params[0];
     br->output = strToOSpaceTypeEnum(type);
+    br->error  = NULL;
     
     return br;
 }
@@ -91,6 +92,7 @@ BridgeSpaceObj *normalizeSpace(napi_env env, napi_value obj) {
     
     br->color  = params[0];
     br->output = strToOSpaceTypeEnum(type);
+    br->error  = NULL;
     
     return br;
 }
