@@ -76,7 +76,8 @@ ctest_return_t testUintNullCreationFromHex(ctest_t *test, void *arg) {
     char *hex = NULL;
     Rgb *uc = getRGBFromHex(hex);
     CTAssertEqual(test, uc->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
-
+    
+    free(uc);
 }
 
 ctcase_t *wrapHexCreationTest() {

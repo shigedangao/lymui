@@ -19,6 +19,10 @@ char *getHexFromRGB(Rgb *c) {
     char *g = uintToHex(c->g);
     char *b = uintToHex(c->b);
     
+    if (r == NULL || g == NULL || b == NULL) {
+        return NULL;
+    }
+    
     // create a char array of hex value
     char *hex = malloc(sizeof(char) * HEX_SIZE);
     if (hex == NULL) {
@@ -42,7 +46,7 @@ Rgb *getRGBFromHex(char *hex) {
     }
     
     // Make a copy of the pointer
-    uint8_t *rgbArr = malloc(sizeof (char) * 3);
+    uint8_t *rgbArr = malloc(sizeof(char) * 3);
     if (rgbArr == NULL) {
         rgb->error = MALLOC_ERROR;
         return rgb;
@@ -62,6 +66,7 @@ Rgb *getRGBFromHex(char *hex) {
     rgb->r = rgbArr[0];
     rgb->g = rgbArr[1];
     rgb->b = rgbArr[2];
+    rgb->error = NULL;
     
     free(hex);
     free(rgbArr);

@@ -41,6 +41,23 @@ static OType strToOTypeEnum(char *str) {
 }
 
 /**
+ * @brief Is Hex
+ * @param type char array
+ * @return uint8_t
+ */
+static uint8_t isHex(char *type) {
+    if (type == NULL) {
+        return 0;
+    }
+    
+    if (!strcmp("hex", type)) {
+        return 1;
+    }
+    
+    return 0;
+}
+
+/**
  * @brief get the validation props for validating the input color
  * @param o OType
  * @return char *
@@ -157,6 +174,7 @@ BridgeObj *deserialize(napi_env env, napi_value obj) {
 }
 
 BridgeObj *normalize(napi_env env, napi_value obj) {
+    uint8_t hex = 0;
     BridgeObj *br = malloc(sizeof(BridgeObj));
     if (br == NULL) {
         return NULL;
@@ -172,10 +190,22 @@ BridgeObj *normalize(napi_env env, napi_value obj) {
     
     getNamedPropArray(env, inputProps, obj, CONVERT_BASIC_LEN, params);
     char *type = getStringValue(env, params[1], MAX_LEN_TYPE);
-    
+    hex = isHex(type);
     OType o = strToOTypeEnum(type);
-    char *validation = getValidationPropsFromOType(o);
     
+    br->color  = params[0];
+    br->output = o;
+    br->error  = NULL;
+    br->matrix = NULL;
+    
+    // Special case for the HEX format as it doesn't have any object
+    // We test if the type is Hex and if correct we then forward to the converter
+    if (hex) {
+        return br;
+    }
+    
+    // add an other step of validation
+    char *validation = getValidationPropsFromOType(o);
     if (validation == NULL) {
         br->error = ARG_TYPE_ERR;
         return br;
@@ -185,12 +215,7 @@ BridgeObj *normalize(napi_env env, napi_value obj) {
         br->error = ARG_TYPE_ERR;
         return br;
     }
-    
-    br->color  = params[0];
-    br->output = o;
-    br->error  = NULL;
-    br->matrix = NULL;
-    
+
     OptField *profile = getOptField(env, obj, "profile");
     if (profile == NULL) {
         return br;

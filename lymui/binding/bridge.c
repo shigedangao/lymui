@@ -51,7 +51,7 @@ char * getHEXFromJSObj(napi_env env, napi_value obj) {
         return NULL;
     }
     
-    strncpy(unslashHex, hex + 1, 7);
+    strncpy(unslashHex, hex, 7);
     unslashHex[7] = '\0';
     
     free(hex);

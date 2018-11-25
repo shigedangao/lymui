@@ -39,8 +39,17 @@ typedef struct JSError {
  * @brief Factory creating Rgb Object on the fly
  * @param env napi_env
  * @param rgb Rgb struct pointer
+ * @return napi_value
  */
 napi_value RgbJSObjFactory(napi_env env, Rgb *rgb);
+
+/**
+ * @brief Factory creating a Hex JS Object
+ * @param env napi_env
+ * @param rgb Rgb struct pointer
+ * @return napi_env
+ */
+napi_value HexJSObjFactory(napi_env env, Rgb *rgb);
 
 /**
  * @brief Factory creating Cymk JS Object

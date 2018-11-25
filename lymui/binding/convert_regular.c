@@ -26,7 +26,7 @@ static napi_value generateTypeJSObj(napi_env env, BridgeObj *bridge) {
     
     switch (bridge->output) {
         case hex:
-            return NULL;
+            return HexJSObjFactory(env, rgb);
         case hsl:
             return HslJSObjFactory(env, rgb);
         case hsv:
