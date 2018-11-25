@@ -24,15 +24,15 @@ static napi_value generateColorSpaceJSObj(napi_env env, BridgeSpaceObj *bridge) 
         case lab:
             return LabJSObjFactory(env, xyz, bridge->clamp);
         case lch:
-            return LchJSObjFactory(env, xyz);
+            return LchJSObjFactory(env, xyz, bridge->clamp);
         case lchlab:
-            return LchLabJSObjFactory(env, xyz);
+            return LchLabJSObjFactory(env, xyz, bridge->clamp);
         case argb:
-            return ArgbJSObjFactory(env, xyz);
+            return ArgbJSObjFactory(env, xyz, bridge->clamp);
         case Srgb:
-            return SrgbJSObjFactory(env, xyz);
+            return SrgbJSObjFactory(env, xyz, bridge->clamp);
         case luv:
-            return LuvJSObjFactory(env, xyz);
+            return LuvJSObjFactory(env, xyz, bridge->clamp);
         default:
             return NULL;
     }

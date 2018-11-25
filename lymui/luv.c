@@ -64,6 +64,7 @@ Luv *getLuvFromXyz(Xyz *xyz) {
     luv->l = l;
     luv->u = 13.0 * l * (uv[0] - urv[0]);
     luv->v = 13.0 * l * (uv[1] - urv[1]);
+    luv->error = NULL;
     
     free(xyz);
     free(urv);
@@ -134,6 +135,7 @@ Xyz *getXyzFromLuv(Luv *luv) {
     xyz->x = tempX;
     xyz->y = params[4];
     xyz->z = (tempX * params[0] + params[1]);
+    xyz->error = NULL;
     
     free(luv);
     free(params);
