@@ -5,7 +5,7 @@ module.exports = {
    * @param {Object} n
    * @return {Object}
    */
-  toFixed: o => {
+  toFixed: (o) => {
     const keys = Object.keys(o)
     for (let idx = 0; idx < keys.length; idx++) {
       o[keys[idx]] = parseFloat(Number.parseFloat(o[keys[idx]]).toFixed(4))
