@@ -13,6 +13,7 @@
 #include <node_api.h>
 #include "binding_error.h"
 #include "binding_util.h"
+#include "deserializer_opts.h"
 
 /**
  * @brief return an enum based on the input string
@@ -20,10 +21,10 @@
  * @return OSpaceType
  */
 static OSpaceType strToOSpaceTypeEnum(char *str) {
-    char *type[] = {"xxyz", "lab", "lch", "lchlab", "luv", "argb", "Srgb"};
+    char *type[] = {"lab", "lch", "lchlab", "luv", "argb", "Srgb"};
     uint8_t idx = 0;
-    size_t size = 8;
-    OSpaceType t = xxyz;
+    size_t size = 6;
+    OSpaceType t = lab;
     
     while(idx < size) {
         if (!strcmp(str, type[idx])) {
@@ -34,6 +35,25 @@ static OSpaceType strToOSpaceTypeEnum(char *str) {
     }
     
     return t;
+}
+
+static char *getValidationPropsFromOSpaceType(OSpaceType t) {
+    switch (t) {
+        case lab:
+            return LAB_PROPS;
+        case lch:
+            return LCH_PROPS;
+        case luv:
+            return LUV_PROPS;
+        case lchlab:
+            return LCHLAB_PROPS;
+        case argb:
+            return ARGB_PROPS;
+        case Srgb:
+            return SRGB_PROPS;
+        default:
+            return LAB_PROPS;
+    }
 }
 
 BridgeSpaceObj *deserializeSpace(napi_env env, napi_value obj) {
@@ -65,6 +85,17 @@ BridgeSpaceObj *deserializeSpace(napi_env env, napi_value obj) {
     br->color  = params[0];
     br->output = strToOSpaceTypeEnum(type);
     br->error  = NULL;
+    br->clamp  = 0.0;
+    
+    OptField *clamp = getOptField(env, obj, "clamp");
+    if (clamp == NULL) {
+        return br;
+    }
+    
+    if (clamp->has) {
+        double clampValue = getDoubleValue(env, clamp->field);
+        br->clamp = clampValue;
+    }
     
     return br;
 }
@@ -90,9 +121,29 @@ BridgeSpaceObj *normalizeSpace(napi_env env, napi_value obj) {
         return br;
     }
     
+    OSpaceType t = strToOSpaceTypeEnum(type);
+    
+    // Get a validation character in order to check if the data is present
+    char *validation = getValidationPropsFromOSpaceType(t);
+    if (!hasPropInJSObj(env, params[0], validation, MIN_LEN_TYPE)) {
+        br->error = ARG_TYPE_ERR;
+        return br;
+    }
+    
     br->color  = params[0];
-    br->output = strToOSpaceTypeEnum(type);
+    br->output = t;
     br->error  = NULL;
+    br->clamp  = 0.0;
+    
+    OptField *clamp = getOptField(env, obj, "clamp");
+    if (clamp == NULL) {
+        return br;
+    }
+    
+    if (clamp->has) {
+        double clampValue = getDoubleValue(env, clamp->field);
+        br->clamp = clampValue;
+    }
     
     return br;
 }

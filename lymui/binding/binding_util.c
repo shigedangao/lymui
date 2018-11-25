@@ -107,7 +107,7 @@ char *getStringValue(napi_env env, napi_value v, size_t strLen) {
     return str;
 }
 
-uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
+uint8_t hasPropInJSObj(napi_env env, napi_value v, char *name, size_t len) {
     napi_status status;
     uint8_t idx = 0;
     uint8_t res = 1;
@@ -131,8 +131,12 @@ uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
     return res;
 }
 
-double clampValue(double value, uint32_t clamp) {
-    return round(value * clamp) / (double) clamp;
+double clampValue(double value, double clamp) {
+    if (!clamp) {
+        return value;
+    }
+    
+    return round(value * clamp) / clamp;
 }
 
 Matrix getEnumFromStr(char *enumStr) {

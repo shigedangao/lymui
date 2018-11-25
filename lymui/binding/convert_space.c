@@ -22,17 +22,17 @@ static napi_value generateColorSpaceJSObj(napi_env env, BridgeSpaceObj *bridge) 
     // Create the Object for each type
     switch(bridge->output) {
         case lab:
-            return LabJSObjFactory(env, xyz);
+            return LabJSObjFactory(env, xyz, bridge->clamp);
         case lch:
-            return LchJSObjFactory(env, xyz);
+            return LchJSObjFactory(env, xyz, bridge->clamp);
         case lchlab:
-            return LchLabJSObjFactory(env, xyz);
+            return LchLabJSObjFactory(env, xyz, bridge->clamp);
         case argb:
-            return ArgbJSObjFactory(env, xyz);
-        case srgb:
-            return SrgbJSObjFactory(env, xyz);
+            return ArgbJSObjFactory(env, xyz, bridge->clamp);
+        case Srgb:
+            return SrgbJSObjFactory(env, xyz, bridge->clamp);
         case luv:
-            return LuvJSObjFactory(env, xyz);
+            return LuvJSObjFactory(env, xyz, bridge->clamp);
         default:
             return NULL;
     }
@@ -46,7 +46,8 @@ static napi_value generateColorSpaceJSObj(napi_env env, BridgeSpaceObj *bridge) 
  *     y: 1.0,
  *     z: 0.98
  *   },
- *   output: 'lab'
+ *   output: 'lab',
+ *   clamp: <optional> <double>
  * })
  *
  */
@@ -78,6 +79,11 @@ napi_value convert(napi_env env, napi_callback_info info) {
     BridgeSpaceObj *bridge = deserializeSpace(env, argv[0]);
     if (bridge == NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, CREATE_VALUE_ERR));
+        return promise;
+    }
+    
+    if (bridge->error != NULL) {
+        napi_reject_deferred(env, def, BuildPromiseError(env, bridge->error));
         return promise;
     }
     

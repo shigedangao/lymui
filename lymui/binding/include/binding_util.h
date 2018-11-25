@@ -72,10 +72,10 @@ double getDoubleValue(napi_env env, napi_value v);
 /**
  * @brief clamp the value to a limited value
  * @param value double
- * @param clamp uint32_t
+ * @param clamp double
  * @return double
  */
-double clampValue(double value, uint32_t clamp);
+double clampValue(double value, double clamp);
 
 /**
  * @brief Retrieve string value from a napi_value

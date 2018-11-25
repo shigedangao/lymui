@@ -16,50 +16,50 @@
 #include "argb.h"
 #include "srgb.h"
 
-napi_value normalizeLab(napi_env env, napi_value obj) {
+napi_value normalizeLab(napi_env env, napi_value obj, double clamp) {
     Lab *lab = getLabFromJSObj(env, obj);
     if (lab == NULL) {
         return NULL;
     }
     
     Xyz *xyz = getXyzFromLab(lab);
-    napi_value object = XyzJSObjFactoryNoInst(env, xyz);
+    napi_value object = XyzJSObjFactoryNoInst(env, xyz, clamp);
     
     return object;
 }
 
-napi_value normalizeLch(napi_env env, napi_value obj) {
+napi_value normalizeLch(napi_env env, napi_value obj, double clamp) {
     Lch *lch = getLchFromJSObj(env, obj);
     if (lch == NULL) {
         return NULL;
     }
     
     Xyz *xyz = getXyzFromLch(lch);
-    napi_value object = XyzJSObjFactoryNoInst(env, xyz);
+    napi_value object = XyzJSObjFactoryNoInst(env, xyz, clamp);
     
     return object;
 }
 
-napi_value normalizeLchLab(napi_env env, napi_value obj) {
+napi_value normalizeLchLab(napi_env env, napi_value obj, double clamp) {
     LchLab *lch = getLchlabFromJSObj(env, obj);
     if (lch == NULL) {
         return NULL;
     }
     
     Xyz *xyz = getXyzFromLchlab(lch);
-    napi_value object = XyzJSObjFactoryNoInst(env, xyz);
+    napi_value object = XyzJSObjFactoryNoInst(env, xyz, clamp);
     
     return object;
 }
 
-napi_value normalizeLuv(napi_env env, napi_value obj) {
+napi_value normalizeLuv(napi_env env, napi_value obj, double clamp) {
     Luv *luv = getLuvFromJSObj(env, obj);
     if (luv == NULL) {
         return NULL;
     }
     
     Xyz *xyz = getXyzFromLuv(luv);
-    napi_value object = XyzJSObjFactoryNoInst(env, xyz);
+    napi_value object = XyzJSObjFactoryNoInst(env, xyz, clamp);
     
     return object;
 }

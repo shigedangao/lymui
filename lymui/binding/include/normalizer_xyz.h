@@ -16,32 +16,36 @@
  * @brief normalize lab
  * @param env napi_env
  * @param obj napi_value
+ * @param clamp double
  * @return napi_value
  */
-napi_value normalizeLab(napi_env env, napi_value obj);
+napi_value normalizeLab(napi_env env, napi_value obj, double clamp);
 
 /**
  * @brief normalize lch
  * @param env napi_env
  * @param obj napi_value
+ * @param clamp double
  * @return napi_value
  */
-napi_value normalizeLch(napi_env env, napi_value obj);
+napi_value normalizeLch(napi_env env, napi_value obj, double clamp);
 
 /**
  * @brief normalize lch lab
  * @param env napi_env
  * @param obj napi_value
+ * @param clamp double
  * @return napi_value
  */
-napi_value normalizeLchLab(napi_env env, napi_value obj);
+napi_value normalizeLchLab(napi_env env, napi_value obj, double clamp);
 
 /**
  * @brief normalize luv
  * @param env napi_env
  * @param obj napi_value
+ * @param clamp double
  * @return napi_value
  */
-napi_value normalizeLuv(napi_env env, napi_value obj);
+napi_value normalizeLuv(napi_env env, napi_value obj, double clamp);
 
 #endif /* normalizer_xyz_h */
