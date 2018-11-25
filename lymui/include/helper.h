@@ -18,13 +18,6 @@
  */
 char * uintToHex(uint8_t v);
 
-/*!
- * @discussion convert a float to a uint
- * @param value float
- * @return a uint8_t value
- */
-uint8_t floatToUint(float value);
-
 /**
  * @brief convert a double to an uint8_t
  * @param value doule

@@ -11,10 +11,7 @@
 #include <math.h>
 #include "helper.h"
 
-char* uintToHex(uint8_t color) {
-    if (color > 255)
-        return NULL;
-    
+char *uintToHex(uint8_t color) {
     char HEX[] = "0123456789ABCDEF";
     char *hexa = malloc(sizeof(char) * 2);
     if (hexa == NULL) {
@@ -32,18 +29,8 @@ char* uintToHex(uint8_t color) {
     return hexa;
 }
 
-uint8_t floatToUint(float value) {
-    if (fabsf(value) == value)
-        return (uint8_t) round(value);
-    
-    return 0;
-}
-
 uint8_t doubleToUint(double value) {
-    if (fabs(value) == value)
-        return (uint8_t) round(value);
-    
-    return 0;
+    return (uint8_t) round(value);    
 }
 
 double roundDigit(double value, int factor) {
