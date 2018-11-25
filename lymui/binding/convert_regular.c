@@ -34,6 +34,8 @@ static napi_value generateTypeJSObj(napi_env env, BridgeObj *bridge) {
         case cymk:
             return CymkJSObjFactory(env, rgb);
         case ycbcr:
+            return YcbcrJSObjFactory(env, rgb);
+        case yuv:
             return YuvJSObjFactory(env, rgb);
         case xyz:
             return XyzJSObjFactory(env, rgb, bridge->matrix);

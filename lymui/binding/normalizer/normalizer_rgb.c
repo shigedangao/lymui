@@ -71,6 +71,18 @@ napi_value normalizeYcbcr(napi_env env, napi_value color) {
     return object;
 }
 
+napi_value normalizeYuv(napi_env env, napi_value color) {
+    Yuv *yuv = getYuvFromJSObj(env, color);
+    if (yuv == NULL) {
+        return NULL;
+    }
+    
+    Rgb *rgb = getRgbFromYuv(yuv);
+    napi_value object = RgbJSObjFactory(env, rgb);
+    
+    return object;
+}
+
 napi_value normalizeXyz(napi_env env, napi_value color, char *m) {
     Matrix mx = getEnumFromStr(m);
     Xyz *xyz = getXyzFromJSObj(env, color);

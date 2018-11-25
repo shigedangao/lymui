@@ -53,6 +53,14 @@ napi_value normalizeCymk(napi_env env, napi_value color);
 napi_value normalizeYcbcr(napi_env env, napi_value color);
 
 /**
+ * @brief normalize Yuv
+ * @param env napi_env
+ * @param color napi_value
+ * @return napi_value
+ */
+napi_value normalizeYuv(napi_env env, napi_value color);
+
+/**
  * @brief normalize XYZ
  * @param env napi_env
  * @param color napi_value
