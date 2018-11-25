@@ -147,17 +147,15 @@ Hsv *getHsvFromJSObj(napi_env env, napi_value obj) {
 Yuv *getYuvFromJSObj(napi_env env, napi_value obj) {
     char *prop = "y:u:v";
     napi_value value[3];
-    Yuv *yuv = malloc(sizeof(Yuv));
-    if (yuv == NULL) {
-        return NULL;
-    }
-
     if (!hasPropInJSObj(env, obj, prop, MIN_PARAM_VALUE)) {
         return NULL;
     }
     
     getNamedPropArray(env, prop, obj, MIN_PARAM_VALUE, value);
-    
+    Yuv *yuv = malloc(sizeof(Yuv));
+    if (yuv == NULL) {
+        return NULL;
+    }
     yuv->y = getDoubleValue(env, value[0]);
     yuv->u = getDoubleValue(env, value[1]);
     yuv->v = getDoubleValue(env, value[2]);
