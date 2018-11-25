@@ -131,7 +131,7 @@ uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
     return res;
 }
 
-double clampValue(double value, uint32_t clamp) {
+double clampValue(double value, double clamp) {
     return round(value * clamp) / (double) clamp;
 }
 

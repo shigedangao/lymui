@@ -300,7 +300,7 @@ napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix, double clamp) {
     return object;
 }
 
-napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz) {
+napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz, double clamp) {
     napi_status status;
     napi_value object, data;
     
@@ -319,16 +319,26 @@ napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    assignPropToJSObj(&data, env, numberDouble, "x", &xyz->x);
-    assignPropToJSObj(&data, env, numberDouble, "y", &xyz->y);
-    assignPropToJSObj(&data, env, numberDouble, "z", &xyz->z);
+    double x = xyz->x;
+    double y = xyz->y;
+    double z = xyz->z;
+    
+    if (clamp) {
+        x = clampValue(x, clamp);
+        y = clampValue(y, clamp);
+        z = clampValue(z, clamp);
+    }
+    
+    assignPropToJSObj(&data, env, numberDouble, "x", &x);
+    assignPropToJSObj(&data, env, numberDouble, "y", &y);
+    assignPropToJSObj(&data, env, numberDouble, "z", &z);
     
     assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
 }
 
-napi_value LabJSObjFactory(napi_env env, Xyz *xyz) {
+napi_value LabJSObjFactory(napi_env env, Xyz *xyz, double clamp) {
     napi_status status;
     napi_value object, data;
     
@@ -353,9 +363,19 @@ napi_value LabJSObjFactory(napi_env env, Xyz *xyz) {
         return object;
     }
     
-    assignPropToJSObj(&data, env, numberDouble, "l", &lab->l);
-    assignPropToJSObj(&data, env, numberDouble, "a", &lab->a);
-    assignPropToJSObj(&data, env, numberDouble, "b", &lab->b);
+    double l = lab->l;
+    double a = lab->a;
+    double b = lab->b;
+    
+    if (clamp) {
+        l = clampValue(l, clamp);
+        a = clampValue(a, clamp);
+        b = clampValue(b, clamp);
+    }
+    
+    assignPropToJSObj(&data, env, numberDouble, "l", &l);
+    assignPropToJSObj(&data, env, numberDouble, "a", &a);
+    assignPropToJSObj(&data, env, numberDouble, "b", &b);
     
     assignJSObjtoJSObj(env, &object, data, "data");
     

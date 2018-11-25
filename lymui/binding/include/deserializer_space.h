@@ -34,6 +34,7 @@ typedef struct BridgeSpaceObj {
     napi_value color;
     OSpaceType output;
     char *error;
+    double clamp;
 } BridgeSpaceObj;
 
 

@@ -22,7 +22,7 @@ static napi_value generateColorSpaceJSObj(napi_env env, BridgeSpaceObj *bridge) 
     // Create the Object for each type
     switch(bridge->output) {
         case lab:
-            return LabJSObjFactory(env, xyz);
+            return LabJSObjFactory(env, xyz, bridge->clamp);
         case lch:
             return LchJSObjFactory(env, xyz);
         case lchlab:
@@ -46,7 +46,8 @@ static napi_value generateColorSpaceJSObj(napi_env env, BridgeSpaceObj *bridge) 
  *     y: 1.0,
  *     z: 0.98
  *   },
- *   output: 'lab'
+ *   output: 'lab',
+ *   clamp: <optional> <double>
  * })
  *
  */
@@ -78,6 +79,11 @@ napi_value convert(napi_env env, napi_callback_info info) {
     BridgeSpaceObj *bridge = deserializeSpace(env, argv[0]);
     if (bridge == NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, CREATE_VALUE_ERR));
+        return promise;
+    }
+    
+    if (bridge->error) {
+        napi_reject_deferred(env, def, BuildPromiseError(env, bridge->error));
         return promise;
     }
     

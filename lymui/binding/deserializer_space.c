@@ -13,6 +13,7 @@
 #include <node_api.h>
 #include "binding_error.h"
 #include "binding_util.h"
+#include "deserializer_opts.h"
 
 /**
  * @brief return an enum based on the input string
@@ -65,6 +66,17 @@ BridgeSpaceObj *deserializeSpace(napi_env env, napi_value obj) {
     br->color  = params[0];
     br->output = strToOSpaceTypeEnum(type);
     br->error  = NULL;
+    br->clamp  = 0.0;
+    
+    OptField *clamp = getOptField(env, obj, "clamp");
+    if (clamp == NULL) {
+        return br;
+    }
+    
+    if (clamp->has) {
+        double clampValue = getDoubleValue(env, clamp->field);
+        br->clamp = clampValue;
+    }
     
     return br;
 }
@@ -93,6 +105,17 @@ BridgeSpaceObj *normalizeSpace(napi_env env, napi_value obj) {
     br->color  = params[0];
     br->output = strToOSpaceTypeEnum(type);
     br->error  = NULL;
+    br->clamp  = 0.0;
+    
+    OptField *clamp = getOptField(env, obj, "clamp");
+    if (clamp == NULL) {
+        return br;
+    }
+    
+    if (clamp->has) {
+        double clampValue = getDoubleValue(env, clamp->field);
+        br->clamp = clampValue;
+    }
     
     return br;
 }

@@ -104,17 +104,19 @@ napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix, double clamp);
  * @brief Create Xyz JS Object
  * @param env napi_env
  * @param xyz Xyz
+ * @param clamp double
  * @return napi_value
  */
-napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz);
+napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz, double clamp);
 
 /**
  * @brief Creating Lab JS Object
  * @param env napi_env
  * @param xyz * Xyz
+ * @param clamp double
  * @return napi_value
  */
-napi_value LabJSObjFactory(napi_env env, Xyz * xyz);
+napi_value LabJSObjFactory(napi_env env, Xyz * xyz, double clamp);
 
 /**
  * @brief Creating Lch JS Object

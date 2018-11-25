@@ -14,6 +14,7 @@
         "lymui/binding/convert_space.c",
         "lymui/binding/deserializer.c",
         "lymui/binding/deserializer_space.c",
+        "lymui/binding/deserializer_opts.c",
         "lymui/binding/normalizer/normalizer_rgb.c",
         "lymui/binding/normalizer/normalizer_xyz.c",
       ],
