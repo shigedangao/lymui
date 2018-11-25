@@ -145,20 +145,36 @@ describe('Creating XYZ from LAB', () => {
     })
   })
 
-  // it('Expect to throw an error when the type is wrong', async () => {
-  //   const { data } = await lib.toXYZ({
-  //     input: {
-  //       l: 0,
-  //       a: 0,
-  //       b: 0
-  //     },
-  //     type: 'yuv',
-  //   })
+  it('Expect to throw an error when the type is wrong', async () => {
+    const { data } = await lib.toXYZ({
+      input: {
+        l: 0,
+        a: 0,
+        b: 0
+      },
+      type: 'yuv',
+    })
 
-  //   expect(data).to.be.deep.equal({
-  //     x: 0,
-  //     y: 0,
-  //     z: 0
-  //   })
-  // })
+    expect(data).to.be.deep.equal({
+      x: 0,
+      y: 0,
+      z: 0
+    })
+  })
+
+  it('Expect to throw an error when the type is wrong', async () => {
+    try {
+      await lib.toXYZ({
+        input: {
+          l: 0,
+          a: 0,
+          b: 0
+        },
+      })
+    } catch (e) {
+      expect(e).to.be.deep.equal({
+        err: 'Missing arguments'
+      })
+    }
+  })
 })

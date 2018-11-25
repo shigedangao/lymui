@@ -13,12 +13,17 @@
 #include <node_api.h>
 
 #define XYZ_PROPS "x:y:z"
+#define LAB_PROPS "l:a:b"
+#define LCH_PROPS "l:c:h"
+#define LUV_PROPS "l:u:v"
+#define ARGB_PROPS "r:g:b"
+#define SRGB_PROPS "r:g:b"
+#define LCHLAB_PROPS "l:a:b"
 
 /**
  * @brief list of color supported color space
  */
 typedef enum OutputSpace {
-    xxyz,
     lab,
     lch,
     lchlab,

@@ -29,7 +29,7 @@ static napi_value generateColorSpaceJSObj(napi_env env, BridgeSpaceObj *bridge) 
             return LchLabJSObjFactory(env, xyz);
         case argb:
             return ArgbJSObjFactory(env, xyz);
-        case srgb:
+        case Srgb:
             return SrgbJSObjFactory(env, xyz);
         case luv:
             return LuvJSObjFactory(env, xyz);
@@ -82,7 +82,7 @@ napi_value convert(napi_env env, napi_callback_info info) {
         return promise;
     }
     
-    if (bridge->error) {
+    if (bridge->error != NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, bridge->error));
         return promise;
     }
