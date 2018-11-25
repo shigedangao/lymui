@@ -48,24 +48,6 @@ A NodeJS compatibility is currently being in WIP by using N-API. You can check t
 
 ## Example in C
 
-#### Converting an RGB to an XYZ to an Lch(uv)
-
-```c
-#include "rgb.h"
-#include "xyz.h"
-#include "lch.h"
-
-uint8_t c[] = {5, 10, 95};
-struct Rgb *rgb = makeRGB(c)
-
-// Convert the Rgb to an Xyz
-// generateXyzFromRgb take 2 parameter an Rgb struct pointer and an enum (sRgb | adobeRgb)
-struct Xyz *xyz = generateXyzFromRgb(rgb, sRgb);
-
-// Convert the xyz to an lch
-struct Lch *lch = getLchFromXyz(xyz);
-```
-
 #### Converting an Rgb to an Hex
 
 ```c
