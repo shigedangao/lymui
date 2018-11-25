@@ -35,7 +35,7 @@ describe('Creating HEX from RGB', () => {
     })
   })
 
-  it('Expect to not throw when R, G, B value > uint8_t', async () => {
+  it('Expect to not throw when R, G, B value > uint8_t', async (done) => {
     try {
       const hex = await lib.convertRegular({
         input: {
@@ -103,7 +103,7 @@ describe('Creating an RGB from an Hex', () => {
     }
   })
 
-  it('Expect a long hexa to not throw', async () => {
+  it('Expect a long hexa to not throw', async (done) => {
     try {
       const rgb = await lib.toRGB({
         input: 'LOL_NO_GENERIC',
