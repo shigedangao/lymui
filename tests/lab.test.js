@@ -43,7 +43,7 @@ describe('Creating LAB from XYZ', () => {
 
   it('Expect to throw when nothing is passed', async () => {
     try {
-      await lib.convertSpace();
+      await lib.convertSpace()
     } catch(e) {
       expect(e).to.be.deep.equal({
         err: 'Missing arguments'
@@ -93,7 +93,7 @@ describe('Creating LAB from XYZ', () => {
 
 describe('Creating XYZ from LAB', () => {
   it('Expect to create XYZ from LAB', async () => {
-    const { data } = await lib.toXYZ({
+    const { data } = await lib.toXYZ({
       input: {
         l: 13.951,
         a: 37.071,

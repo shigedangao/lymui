@@ -281,15 +281,9 @@ napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix, double clamp) {
         return object;
     }
     
-    double x = xyz->x;
-    double y = xyz->y;
-    double z = xyz->z;
-    
-    if (clamp) {
-        x = clampValue(x, clamp);
-        y = clampValue(y, clamp);
-        z = clampValue(z, clamp);
-    }
+    double x = clampValue(xyz->x, clamp);
+    double y = clampValue(xyz->y, clamp);
+    double z = clampValue(xyz->z, clamp);
     
     assignPropToJSObj(&data, env, numberDouble, "x", &x);
     assignPropToJSObj(&data, env, numberDouble, "y", &y);
@@ -319,15 +313,9 @@ napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz, double clamp) {
         return object;
     }
     
-    double x = xyz->x;
-    double y = xyz->y;
-    double z = xyz->z;
-    
-    if (clamp) {
-        x = clampValue(x, clamp);
-        y = clampValue(y, clamp);
-        z = clampValue(z, clamp);
-    }
+    double x = clampValue(xyz->x, clamp);
+    double y = clampValue(xyz->y, clamp);
+    double z = clampValue(xyz->z, clamp);
     
     assignPropToJSObj(&data, env, numberDouble, "x", &x);
     assignPropToJSObj(&data, env, numberDouble, "y", &y);
@@ -363,15 +351,9 @@ napi_value LabJSObjFactory(napi_env env, Xyz *xyz, double clamp) {
         return object;
     }
     
-    double l = lab->l;
-    double a = lab->a;
-    double b = lab->b;
-    
-    if (clamp) {
-        l = clampValue(l, clamp);
-        a = clampValue(a, clamp);
-        b = clampValue(b, clamp);
-    }
+    double l = clampValue(lab->l, clamp);
+    double a = clampValue(lab->a, clamp);
+    double b = clampValue(lab->b, clamp);
     
     assignPropToJSObj(&data, env, numberDouble, "l", &l);
     assignPropToJSObj(&data, env, numberDouble, "a", &a);
@@ -409,15 +391,9 @@ napi_value LchJSObjFactory(napi_env env, Xyz *xyz, double clamp) {
         return object;
     }
     
-    double l = lch->l;
-    double c = lch->c;
-    double h = lch->h;
-    
-    if (clamp) {
-        l = clampValue(l, clamp);
-        c = clampValue(c, clamp);
-        h = clampValue(h, clamp);
-    }
+    double l = clampValue(lch->l, clamp);
+    double c = clampValue(lch->c, clamp);
+    double h = clampValue(lch->h, clamp);
     
     assignPropToJSObj(&data, env, numberDouble, "l", &l);
     assignPropToJSObj(&data, env, numberDouble, "c", &c);
@@ -455,15 +431,9 @@ napi_value LchLabJSObjFactory(napi_env env, Xyz *xyz, double clamp) {
         return object;
     }
     
-    double l = lchlab->l;
-    double c = lchlab->c;
-    double h = lchlab->h;
-    
-    if (clamp) {
-        l = clampValue(l, clamp);
-        c = clampValue(c, clamp);
-        h = clampValue(h, clamp);
-    }
+    double l = clampValue(lchlab->l, clamp);
+    double c = clampValue(lchlab->c, clamp);
+    double h = clampValue(lchlab->h, clamp);
     
     assignPropToJSObj(&data, env, numberDouble, "l", &l);
     assignPropToJSObj(&data, env, numberDouble, "c", &c);
@@ -501,15 +471,9 @@ napi_value LuvJSObjFactory(napi_env env, Xyz *xyz, double clamp) {
         return object;
     }
     
-    double l = luv->l;
-    double u = luv->u;
-    double v = luv->v;
-    
-    if (clamp) {
-        l = clampValue(l, clamp);
-        u = clampValue(u, clamp);
-        v = clampValue(v, clamp);
-    }
+    double l = clampValue(luv->l, clamp);
+    double u = clampValue(luv->u, clamp);
+    double v = clampValue(luv->v, clamp);
     
     assignPropToJSObj(&data, env, numberDouble, "l", &l);
     assignPropToJSObj(&data, env, numberDouble, "u", &u);
@@ -548,15 +512,9 @@ napi_value ArgbJSObjFactory(napi_env env, Xyz *xyz, double clamp) {
         return object;
     }
     
-    double r = argb->r;
-    double g = argb->g;
-    double b = argb->b;
-    
-    if (clamp) {
-        r = clampValue(r, clamp);
-        g = clampValue(g, clamp);
-        b = clampValue(b, clamp);
-    }
+    double r = clampValue(argb->r, clamp);
+    double g = clampValue(argb->g, clamp);
+    double b = clampValue(argb->b, clamp);
     
     assignPropToJSObj(&data, env, numberDouble, "r", &r);
     assignPropToJSObj(&data, env, numberDouble, "g", &g);
@@ -595,15 +553,9 @@ napi_value SrgbJSObjFactory(napi_env env, Xyz *xyz, double clamp) {
         return object;
     }
     
-    double r = srgb->r;
-    double g = srgb->g;
-    double b = srgb->b;
-    
-    if (clamp) {
-        r = clampValue(r, clamp);
-        g = clampValue(g, clamp);
-        b = clampValue(b, clamp);
-    }
+    double r = clampValue(srgb->r, clamp);
+    double g = clampValue(srgb->g, clamp);
+    double b = clampValue(srgb->b, clamp);
     
     assignPropToJSObj(&object, env, numberDouble, "r", &r);
     assignPropToJSObj(&object, env, numberDouble, "g", &g);

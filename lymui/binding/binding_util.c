@@ -132,7 +132,11 @@ uint8_t hasPropInJSObj(napi_env env, napi_value v, char *name, size_t len) {
 }
 
 double clampValue(double value, double clamp) {
-    return round(value * clamp) / (double) clamp;
+    if (!clamp) {
+        return value;
+    }
+    
+    return round(value * clamp) / clamp;
 }
 
 Matrix getEnumFromStr(char *enumStr) {
