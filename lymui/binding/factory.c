@@ -40,11 +40,6 @@ napi_value RgbJSObjFactory(napi_env env, Rgb *rgb) {
     }
     
     if (rgb->error != NULL) {
-        printf("passe par la du con \n");
-        printf("passe par la du con R value %i \n", rgb->r);
-        printf("passe par la du con G value %i \n", rgb->g);
-        printf("passe par la du con B value %i \n", rgb->b);
-
         assignPropToJSObj(&object, env, string, "error", rgb->error);
         return object;
     }
