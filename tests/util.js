@@ -11,6 +11,6 @@ module.exports = {
       o[keys[idx]] = parseFloat(Number.parseFloat(o[keys[idx]]).toFixed(4))
     }
 
-    return o;
+    return o
   }
-};
+}
