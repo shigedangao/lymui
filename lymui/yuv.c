@@ -30,6 +30,7 @@ Yuv *getYuvFromRgb(Rgb *rgb) {
     yuv->y = roundDigit(_y, 1000);
     yuv->u = roundDigit(0.492f * (_b - _y), 1000);
     yuv->v = roundDigit(0.877f * (_r - _y), 1000);
+    yuv->error = NULL;
     
     free(rgb);
     
@@ -54,6 +55,7 @@ Rgb *getRgbFromYuv(Yuv *yuv) {
     rgb->r = doubleToUint(_r * 255);
     rgb->g = doubleToUint(_g * 255);
     rgb->b = doubleToUint(_b * 255);
+    rgb->error = NULL;
     
     free(yuv);
     
