@@ -86,9 +86,10 @@ napi_value YuvJSObjFactory(napi_env env, Rgb *rgb);
  * @brief Creating Xyz JS Object
  * @param env napi_env
  * @param rgb *Rgb
+ * @param clamp double
  * @return napi_value
  */
-napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix);
+napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix, double clamp);
 
 /**
  * @brief Create Xyz JS Object

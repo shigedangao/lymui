@@ -91,8 +91,7 @@ OptField *getOptField(napi_env env, napi_value obj, char *field) {
         return opt;
     }
     
-    char *value = getStringValue(env, optfield, MAX_LEN_TYPE);
-    opt->field = value;
+    opt->field = optfield;
     opt->has = true;
     
     return opt;
@@ -129,13 +128,29 @@ BridgeObj *deserialize(napi_env env, napi_value obj) {
     br->color  = params[0];
     br->output = strToOTypeEnum(type);
     br->error  = NULL;
+    br->matrix = NULL;
+    br->clamp  = 0.0;
 
     OptField *opt = getOptField(env, obj, "profile");
     if (opt == NULL) {
         return br;
     }
     
-    br->matrix = opt->field;
+    if (opt->has) {
+        char *value = getStringValue(env, opt->field, MAX_LEN_TYPE);
+        br->matrix = value;
+    }
+    
+    OptField *clamp = getOptField(env, obj, "clamp");
+    if (clamp == NULL) {
+        return br;
+    }
+    
+    if (clamp->has) {
+        double clampValue = getDoubleValue(env, clamp->field);
+        br->clamp = clampValue;
+    }
+    
     free(opt);
     
     return br;
@@ -174,13 +189,17 @@ BridgeObj *normalize(napi_env env, napi_value obj) {
     br->color  = params[0];
     br->output = o;
     br->error  = NULL;
+    br->matrix = NULL;
     
-    OptField *opt = getOptField(env, obj, "profile");
-    if (opt == NULL) {
+    OptField *profile = getOptField(env, obj, "profile");
+    if (profile == NULL) {
         return br;
     }
     
-    br->matrix = opt->field;
+    if (profile->has) {
+        char *value = getStringValue(env, profile->field, MAX_LEN_TYPE);
+        br->matrix = value;
+    }
     
     return br;
 }

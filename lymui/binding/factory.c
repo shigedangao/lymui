@@ -226,7 +226,7 @@ napi_value YuvJSObjFactory(napi_env env, Rgb *rgb) {
     return object;
 }
 
-napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix) {
+napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix, double clamp) {
     napi_status status;
     napi_value object, data;
     
@@ -253,9 +253,19 @@ napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix) {
         return object;
     }
     
-    assignPropToJSObj(&data, env, numberDouble, "x", &xyz->x);
-    assignPropToJSObj(&data, env, numberDouble, "y", &xyz->y);
-    assignPropToJSObj(&data, env, numberDouble, "z", &xyz->z);
+    double x = xyz->x;
+    double y = xyz->y;
+    double z = xyz->z;
+    
+    if (clamp) {
+        x = clampValue(x, clamp);
+        y = clampValue(y, clamp);
+        z = clampValue(z, clamp);
+    }
+    
+    assignPropToJSObj(&data, env, numberDouble, "x", &x);
+    assignPropToJSObj(&data, env, numberDouble, "y", &y);
+    assignPropToJSObj(&data, env, numberDouble, "z", &z);
     
     assignJSObjtoJSObj(env, &object, data, "data");
     

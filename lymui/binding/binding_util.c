@@ -131,14 +131,15 @@ uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len) {
     return res;
 }
 
-double floatToDouble(float value, int clamp) {
-    double v = (double) value;
-    
-    return floor(v * clamp) / clamp;
+double clampValue(double value, uint32_t clamp) {
+    return round(value * clamp) / (double) clamp;
 }
 
+Matrix getEnumFromStr(char *enumStr) {
+    if (enumStr == NULL) {
+        return adobeRgb;
+    }
 
-Matrix getEnumFromStr(char * enumStr) {
     if (!strcmp(enumStr, "srgb")) {
         return srgb;
     }

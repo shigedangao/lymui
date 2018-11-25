@@ -41,13 +41,14 @@ typedef struct BridgeObj {
     OType output;
     char *matrix;
     char *error;
+    double clamp;
 } BridgeObj;
 
 /**
  * @brief structure for the optional field deserializer
  */
 typedef struct OptFields {
-    char *field;
+    napi_value field;
     bool has;
 } OptField;
 

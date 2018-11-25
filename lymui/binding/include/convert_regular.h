@@ -16,6 +16,7 @@
  * @brief convert a regular type RGB to an other type X
  * @param env napi_env
  * @param info napi_callback_info
+ * @return napi_value
  */
 napi_value convertRegular(napi_env env, napi_callback_info info);
 
