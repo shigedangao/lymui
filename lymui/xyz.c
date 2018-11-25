@@ -180,7 +180,7 @@ static double * calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
 }
 
 Rgb *generateRgbFromXyz(Xyz * xyz, Matrix m) {
-    Rgb *rgb = malloc(sizeof(rgb));
+    Rgb *rgb = malloc(sizeof(Rgb));
     if (rgb == NULL) {
         return NULL;
     }
