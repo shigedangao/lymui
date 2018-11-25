@@ -18,13 +18,6 @@
  */
 char * uintToHex(uint8_t v);
 
-/*!
- * @discussion convert a float to a uint
- * @param value float
- * @return a uint8_t value
- */
-uint8_t floatToUint(float value);
-
 /**
  * @brief convert a double to an uint8_t
  * @param value doule
@@ -39,13 +32,6 @@ uint8_t doubleToUint(double value);
  * @return a double
  */
 double roundDigit(double value, int factor);
-
-/**
- * @brief round the decimal value
- * @param value double
- * @param decimal int
- */
-double roundDecimal(double value, int decimal);
 
 /*
  * @discussion Update Constraint Value

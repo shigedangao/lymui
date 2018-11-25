@@ -34,6 +34,6 @@ Hsl *getHslFromRgb(Rgb *rgb);
  * @param hsl an Hsl structure
  * @return rgb structure
  */
-Rgb *getRgbValueFromHsl(Hsl *hsl);
+Rgb *getRgbFromHsl(Hsl *hsl);
 
 #endif /* hsl_h */

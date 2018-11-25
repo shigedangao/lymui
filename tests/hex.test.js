@@ -1,132 +1,132 @@
-const { expect } = require('chai');
-const SegfaultHandler = require('segfault-handler');
-const lib = require('../build/Debug/lymuilib');
+const { expect } = require('chai')
+const SegfaultHandler = require('segfault-handler')
+const lib = require('../build/Debug/lymuilib')
 
-SegfaultHandler.registerHandler('hex_crash.log');
+SegfaultHandler.registerHandler('hex_crash.log')
 
 describe('Creating HEX from RGB', () => {
-  it('Expect to create an HEX from an RGB object', () => {
-    const rgb = {
-      r: 5,
-      g: 10,
-      b: 198,
-    };
+  it('Expect to create an HEX from an RGB object', async () => {
+    const hex = await lib.convertRegular({
+      input: {
+        r: 5,
+        g: 10,
+        b: 98
+      },
+      output: 'hex'
+    })
 
-    const hex = lib.getHEX(rgb);
-    expect(hex).to.be.equal('#050AC6');
-  });
+    expect(hex.data).to.be.deep.equal({
+      hex: '050A62'
+    })
+  })
 
-  it('Expect to create an HEX with upper value', () => {
-    const rgb = {
-      r: 255,
-      g: 255,
-      b: 255
-    };
+  it('Expect to create an HEX with upper value', async () => {
+    const hex = await lib.convertRegular({
+      input: {
+        r: 255,
+        g: 255,
+        b: 255
+      },
+      output: 'hex'
+    })
 
-    const hex = lib.getHEX(rgb);
-    expect(hex).to.be.equal('#FFFFFF');
-  });
+    expect(hex.data).to.be.deep.equal({
+      hex: 'FFFFFF'
+    })
+  })
 
-  it('Expect to not throw when R, G, B value > uint8_t', () => {
-    const rgb = {
-      r: 300,
-      g: 400,
-      b: 1000
-    };
+  it('Expect to not throw when R, G, B value > uint8_t', async () => {
+    try {
+      await lib.convertRegular({
+        input: {
+          r: 300,
+          g: 400,
+          b: 1000
+        },
+        output: 'hex'
+      })
 
-    expect(() => lib.getHEX(rgb)).to.not.throw();
-  });
-
-  it('Expect to not throw when one of the parameters is > uint8_t', () => {
-    const rgb = {
-      r: 500,
-      g: 10,
-      b: 95
-    };
-
-    expect(() => lib.getHEX(rgb)).to.not.throw();
-  });
-
-  it('Expect to throw an error when nothing is pass to the method', () => {
-    expect(() => lib.getHEX()).to.throw('Missing arguments');
-  });
-
-  it('Expect to throw when the property is not founded', () => {
-    expect(() => lib.getHEX('lol')).to.throw('Property not found in JS Object');
-  });
-
-  it('Expect to throw when one of the property is missing', () => {
-    const rgb = {
-      r: 10,
-      b: 20
-    };
-
-    expect(() => lib.getHEX(rgb)).to.throw('Property not found in JS Object');
-  });
-
-  it('Expect to throw when two of the property is missing', () => {
-    const rgb = {
-      r: 10,
-    };
-
-    expect(() => lib.getHEX(rgb)).to.throw('Property not found in JS Object');
-  });
-
-  it('Expect to throw default V8 error when null is pass', () => {
-    expect(() => lib.getHEX(null)).to.throw('Cannot convert undefined or null to object');
-  });
-});
+    } catch (e) {
+      throw e
+    }    
+  })
+})
 
 describe('Creating an RGB from an Hex', () => {
-  it('Expect an Hex to return an RGB JS Object', () => {
-    const rgb = lib.getRgbFromHex('#050AC6');
+  it('Expect an Hex to return an RGB JS Object', async () => {
+    const rgb = await lib.toRGB({
+      input: '050A62',
+      type: 'hex'
+    })
 
-    expect(rgb).to.be.deep.equal({
+    expect(rgb.data).to.be.deep.equal({
       r: 5,
       g: 10,
-      b: 198
-    });
-  });
+      b: 98
+    })
+  })
 
-  it('Expect a black color to return a black rgb JS Object', () => {
-    const rgb = lib.getRgbFromHex('#000000');
+  it('Expect a black color to return a black rgb JS Object', async () => {
+    const rgb = await lib.toRGB({
+      input: '000000',
+      type: 'hex'
+    })
 
-    expect(rgb).to.be.deep.equal({
+    expect(rgb.data).to.be.deep.equal({
       r: 0,
       g: 0,
       b: 0
-    });
-  });
+    })
+  })
 
-  it('Expect a white color to return a white rgb JS Object', () => {
-    const rgb = lib.getRgbFromHex('#FFFFFF');
-    
-    expect(rgb).to.be.deep.equal({
+  it('Expect a white color to return a white rgb JS Object', async () => {
+    const rgb = await lib.toRGB({
+      input: 'FFFFFF',
+      type: 'hex'
+    })
+
+    expect(rgb.data).to.be.deep.equal({
       r: 255,
       g: 255,
       b: 255
-    });
-  });
+    })
+  })
 
-  it('Expect a short hexa to not throw', () => {
-    expect(() => lib.getRgbFromHex('#FF')).to.not.throw();
-  });
+  it('Expect a short hexa to not throw', async () => {
+    try {
+      await lib.toRGB({
+        type: 'hex'
+      })
+    } catch (e) {
+      expect(e).to.be.deep.equal({
+        err: 'Missing arguments'
+      })
+    }
+  })
 
-  it('Expect a long hexa to not throw', () => {
-    expect(() => lib.getRgbFromHex('#123456789ABCD')).to.not.throw();
-  });
+  it('Expect a long hexa to not throw', async () => {
+    try {
+      const rgb = await lib.toRGB({
+        input: 'LOL_NO_GENERIC',
+        type: 'hex'
+      })
+      
+    } catch (e) {
+      throw e
+    }
+  })
 
-  it('Expect to throw when no param is passed', () => {
-    expect(() => lib.getRgbFromHex()).to.throw('Missing arguments');
-  });
 
-  it('Expect to not throw when unknown character is pass', () => {
-    const rgb = lib.getRgbFromHex('ééé');
-
-    expect(rgb).to.be.deep.equal({
-      r: 0,
-      g: 0,
-      b: 0
-    });
-  });
-});
+  it('Expect to not throw when unknown character is pass', async () => {
+    try {
+      await lib.toRGB({
+        input: 232323323,
+        type: 'hex'
+      });
+    } catch (e) {
+      expect(e).to.be.deep.equal({
+        err: 'Error while creating JS Value'
+      })
+    }
+  })
+})

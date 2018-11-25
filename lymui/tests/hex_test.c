@@ -45,7 +45,7 @@ ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
     hex[4] = '5';
     hex[5] = 'F';
     
-    Rgb *uc = getRawRGBValueFromHex(hex);
+    Rgb *uc = getRGBFromHex(hex);
 
     CTAssertEqual(test, 5, uc->r, "R value is %d where as it should be 5", 5);
     CTAssertEqual(test, 10, uc->g, "G value is %d where as it should be 10", 10);
@@ -63,7 +63,7 @@ ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
     hex[4] = 'E';
     hex[5] = 'F';
     
-    Rgb *uc = getRawRGBValueFromHex(hex);
+    Rgb *uc = getRGBFromHex(hex);
     
     CTAssertEqual(test, 171, uc->r, "R value expected: 171, value: %ui", 171);
     CTAssertEqual(test, 205, uc->g, "G value expected: 205, value: %ui", 205);
@@ -74,9 +74,10 @@ ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
 
 ctest_return_t testUintNullCreationFromHex(ctest_t *test, void *arg) {
     char *hex = NULL;
-    Rgb *uc = getRawRGBValueFromHex(hex);
+    Rgb *uc = getRGBFromHex(hex);
     CTAssertEqual(test, uc->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
-
+    
+    free(uc);
 }
 
 ctcase_t *wrapHexCreationTest() {

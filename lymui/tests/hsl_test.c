@@ -78,7 +78,7 @@ ctest_return_t testRgbGrayCreationFromHsv(ctest_t *test, void *arg) {
     hsl->s = 0;
     hsl->l = 59;
     
-    Rgb *rgb = getRgbValueFromHsl(hsl);
+    Rgb *rgb = getRgbFromHsl(hsl);
     
     CTAssertEqual(test, 150, rgb->r, "Expect r to be equal to 150 but got %ui", rgb->r);
     CTAssertEqual(test, 150, rgb->g, "Expect g to be equal to 150 but got %ui", rgb->g);
@@ -93,7 +93,7 @@ ctest_return_t testNiwaHSLRgb(ctest_t *test, void *arg) {
     hsl->s = 67;
     hsl->l = 28;
     
-     Rgb *rgb = getRgbValueFromHsl(hsl);
+     Rgb *rgb = getRgbFromHsl(hsl);
 
     CTAssertEqual(test, 24, rgb->r, "Expect r to be equal to 24 but got %i", rgb->r);
     CTAssertEqual(test, 98, rgb->g, "Expect g to be equal to 98 but got %i", rgb->g);
@@ -108,7 +108,7 @@ ctest_return_t testComplexHslRgb(ctest_t *test, void *arg) {
     hsl->s = 10;
     hsl->l = 98;
     
-     Rgb *rgb = getRgbValueFromHsl(hsl);
+     Rgb *rgb = getRgbFromHsl(hsl);
     
     CTAssertEqual(test, 250, rgb->r, "Expect r to be equal to 250 but got %i", rgb->r);
     CTAssertEqual(test, 249, rgb->g, "Expect g to be equal to 249 but got %i", rgb->g);
@@ -123,7 +123,7 @@ ctest_return_t testBlackHslRgb(ctest_t *test, void *arg) {
     hsl->s = 0;
     hsl->l = 0;
     
-    Rgb *rgb = getRgbValueFromHsl(hsl);
+    Rgb *rgb = getRgbFromHsl(hsl);
     
     CTAssertEqual(test, 0, rgb->r, "Expect r to be equal to 0 but got %i", rgb->r);
     CTAssertEqual(test, 0, rgb->g, "Expect g to be equal to 0 but got %i", rgb->g);
@@ -138,7 +138,7 @@ ctest_return_t testNegativeRgbValue(ctest_t *test, void *arg) {
     hsl->s = 1;
     hsl->l = 1;
     
-    Rgb *rgb = getRgbValueFromHsl(hsl);
+    Rgb *rgb = getRgbFromHsl(hsl);
     
     CTAssertEqual(test, 3, rgb->r, "Expect r to be equal to 3 but got %i", rgb->r);
     CTAssertEqual(test, 3, rgb->g, "Expect g to be equal to 3 but got %i", rgb->g);
@@ -153,7 +153,7 @@ ctest_return_t testPositiveRgbValue(ctest_t *test, void *arg) {
     hsl->s = 100;
     hsl->l = 56;
     
-    Rgb *rgb = getRgbValueFromHsl(hsl);
+    Rgb *rgb = getRgbFromHsl(hsl);
     
     CTAssertEqual(test, 255, rgb->r, "Expect r to be equal to 255 but got %i", rgb->r);
     CTAssertEqual(test, 31, rgb->g, "Expect g to be equal to 31 but got %i", rgb->g);
@@ -163,7 +163,7 @@ ctest_return_t testPositiveRgbValue(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testNullRgbFromHsl(ctest_t *test, void *arg) {
-    Rgb *rgb = getRgbValueFromHsl(NULL);
+    Rgb *rgb = getRgbFromHsl(NULL);
     
     CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
     free(rgb);

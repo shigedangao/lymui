@@ -18,41 +18,15 @@
 #include "hsv.h"
 #include "yuv.h"
 #include "xyz.h"
+#include "lab.h"
+#include "lch.h"
+#include "lchlab.h"
+#include "luv.h"
+#include "argb.h"
+#include "srgb.h"
 
-#define RgbPropLen 3
-#define CymkPropLen 4
-#define YCbCrLen 3
-#define HslHsvLen 3
-#define YUVLen 3
-#define XYZLen 3
-#define LABLen 3
-#define LCHLen 3
-#define SPACELen 4
-#define MIN_CLAMP_VALUE 1000
-#define PERCENT_CLAMP_VALUE 100
-#define COLOR_SPACE_INPUT 3
-#define COLOR_SPACE_INPUT_VALIDATION 2
-
-/**
- * @brief enum use by the bridge to identify which kind of i/o is used by the convert object
- */
-typedef enum LymuiColorSpace {
-    iRgb,
-    iXyz,
-    lab,
-    lch,
-    luv,
-    argb,
-    spaceRgb
-} LymuiColorSpace;
-
-/**
- * @brief struct use as a transational state for passing to the factory
- */
-typedef struct ColorSpaceBridge {
-    Xyz * color;
-    LymuiColorSpace c;
-} ColorBridge;
+#define MIN_PARAM_VALUE 3
+#define MAX_PARAM_VALUE 4
 
 /**
  * @brief Extract an RGB Object from a JS Object
@@ -60,7 +34,7 @@ typedef struct ColorSpaceBridge {
  * @param args napi_value
  * @return rgb struct pointer
  */
-Rgb * getRGBFromJSObj(napi_env env, napi_value args);
+Rgb *getRGBFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract a char array representing the Hex value from JS
@@ -68,7 +42,7 @@ Rgb * getRGBFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return char array
  */
-char * getHEXFromJSObj(napi_env env, napi_value args);
+char *getHEXFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract a CYMK Object from a JS Object
@@ -76,7 +50,7 @@ char * getHEXFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return cymk pointer Cymk struct
  */
-Cymk * getCymkFromJSObj(napi_env env, napi_value args);
+Cymk *getCymkFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extrat a Ycbcr struct from a JS Object
@@ -84,7 +58,7 @@ Cymk * getCymkFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return ycbcr pointer struct
  */
-Ycbcr * getYcbcrFromJSObj(napi_env env, napi_value args);
+Ycbcr *getYcbcrFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract a Hsl struct from a JS Object
@@ -92,7 +66,7 @@ Ycbcr * getYcbcrFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return hsl
  */
-Hsl * getHslFromJSObj(napi_env env, napi_value args);
+Hsl *getHslFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract a HSV struct from a JS Object
@@ -100,7 +74,7 @@ Hsl * getHslFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return hsv
  */
-Hsv * getHsvFromJSObj(napi_env env, napi_value args);
+Hsv *getHsvFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract a YUV struct from a JS Object
@@ -108,7 +82,7 @@ Hsv * getHsvFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return yuv
  */
-Yuv * getYuvFromJSObj(napi_env env, napi_value args);
+Yuv *getYuvFromJSObj(napi_env env, napi_value args);
 
 /**
  * @brief Extract Xyz struct from a JS Object
@@ -116,22 +90,55 @@ Yuv * getYuvFromJSObj(napi_env env, napi_value args);
  * @param args napi_value
  * @return xyz
  */
-Xyz * getXyzFromJSObj(napi_env env, napi_value args);
+Xyz *getXyzFromJSObj(napi_env env, napi_value args);
 
 /**
- * @brief Get Color Space From JS Obj
+ * @brief Extract Lab struct from JS Object
  * @param env napi_env
- * @param args napi_args
- * @return colorbridge struct pointer
- *
- * //// JS Actual usage (promise method)
- * lymui.convert({
- *   data: <Object>,
- *   output: <String> LAB, LCH...
- *   colorType: <EnumString> SRGB | AdobeRGB
- * })
- *
+ * @param args napi_value
+ * @return Lab
  */
-ColorBridge * getColorSpaceData(napi_env env, napi_value args);
+Lab *getLabFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Lch struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Lch
+ */
+Lch *getLchFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Lch struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Lch
+ */
+LchLab *getLchlabFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Luv struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Luv
+ */
+Luv *getLuvFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Argb struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Argb
+ */
+Argb *getArgbFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract Srgb struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Srgb
+ */
+SRgb *getSrgbFromJSObj(napi_env env, napi_value args);
+
 
 #endif /* bridge_h */

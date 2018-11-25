@@ -20,6 +20,7 @@
 #include "xyz.h"
 #include "lab.h"
 #include "lch.h"
+#include "lchlab.h"
 #include "luv.h"
 #include "argb.h"
 #include "srgb.h"
@@ -38,61 +39,74 @@ typedef struct JSError {
  * @brief Factory creating Rgb Object on the fly
  * @param env napi_env
  * @param rgb Rgb struct pointer
+ * @return napi_value
  */
-napi_value RgbJSObjFactory(napi_env env, Rgb * rgb);
+napi_value RgbJSObjFactory(napi_env env, Rgb *rgb);
+
+/**
+ * @brief Factory creating a Hex JS Object
+ * @param env napi_env
+ * @param rgb Rgb struct pointer
+ * @return napi_env
+ */
+napi_value HexJSObjFactory(napi_env env, Rgb *rgb);
 
 /**
  * @brief Factory creating Cymk JS Object
  * @param env napi_env
- * @param cymk Cymk struct pointer
- * @param clamp int
+ * @param rgb Rgb struct pointer
  * @return napi_value
  */
-napi_value CymkJSObjFactory(napi_env env, Cymk * cymk, int clamp);
+napi_value CymkJSObjFactory(napi_env env, Rgb *rgb);
 
 /**
  * @brief Factory creating Ycbcr Object
  * @param env napi_env
- * @param ycb Ycbcr struct pointer
+ * @param rgb Rgbs struct pointer
  * @return napi_value
  */
-napi_value YcbcrJSObjFactory(napi_env env, Ycbcr *ycb);
+napi_value YcbcrJSObjFactory(napi_env env, Rgb *rgb);
 
 /**
  * @brief Factory creating Hsl Object
  * @param env napi_env
- * @param hsl Hsl struct pointer
- * @param clamp int
+ * @param rgb Rgb struct pointer
  * @return napi_value
  */
-napi_value HslJSObjFactory(napi_env env, Hsl * hsl, int clamp);
+napi_value HslJSObjFactory(napi_env env, Rgb *rgb);
 
 /**
  * @breif Creating HSV JS Object
  * @param env napi_env
- * @param hsv struct HSV pointer
- * @param clamp int
+ * @param rgb struct Rgb pointer
  * @return napi_value
  */
-napi_value HsvJSObjFactory(napi_env env, Hsv * hsv, int clamp);
+napi_value HsvJSObjFactory(napi_env env, Rgb *rgb);
 
 /**
  * @brief Creating YUV JS Object
  * @param env napi_env
- * @param yuv * yuv
- * @param clamp int
+ * @param rgb *Rgb
  * @return napi_value
  */
-napi_value YuvJSObjFactory(napi_env env, Yuv * yuv, int clamp);
+napi_value YuvJSObjFactory(napi_env env, Rgb *rgb);
 
 /**
  * @brief Creating Xyz JS Object
  * @param env napi_env
- * @param xyz * Xyz
- * @param clamp int
+ * @param rgb *Rgb
+ * @param clamp double
  * @return napi_value
  */
-napi_value XyzJSObjFactory(napi_env env, Xyz * xyz, int clamp);
+napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix, double clamp);
+
+/**
+ * @brief Create Xyz JS Object
+ * @param env napi_env
+ * @param xyz Xyz
+ * @return napi_value
+ */
+napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz);
 
 /**
  * @brief Creating Lab JS Object
@@ -109,6 +123,14 @@ napi_value LabJSObjFactory(napi_env env, Xyz * xyz);
  * @return napi_value
  */
 napi_value LchJSObjFactory(napi_env env, Xyz * xyz);
+
+/**
+ * @brief Creating Lch Lab JS Object
+ * @param env napi_env
+ * @param xyz * Xyz
+ * @return napi_value
+ */
+napi_value LchLabJSObjFactory(napi_env env, Xyz * xyz);
 
 /**
  * @brief Creating Luv JS Object

@@ -51,8 +51,7 @@ static double ** makeValue(Rgb *rgb) {
     return v;
 }
 
-// Make Ycbcr
-Ycbcr * getYcbcrFromRgb(Rgb *rgb) {
+Ycbcr *getYcbcrFromRgb(Rgb *rgb) {
     Ycbcr *v = malloc(sizeof (Ycbcr));
     if (v == NULL) {
         return NULL;
@@ -76,6 +75,7 @@ Ycbcr * getYcbcrFromRgb(Rgb *rgb) {
     v->y  = y;
     v->cb = cb;
     v->cr = cr;
+    v->error = NULL;
     
     // don't forget to free when not needed anymore
     free(colors);
@@ -90,13 +90,14 @@ Rgb *getRGBFromYcbcr(Ycbcr *cb) {
         return rgb;
     }
     
-    uint8_t r = floatToUint(YConst * (cb->y - 16) + 1.596 * (cb->cr - 128));
-    uint8_t g = floatToUint(YConst * (cb->y - 16) - 0.813 * (cb->cr - 128) - 0.391 * (cb->cb - 128));
-    uint8_t b = floatToUint(YConst * (cb->y - 16) + 2.018 * (cb->cb - 128));
+    uint8_t r = doubleToUint(YConst * (cb->y - 16) + 1.596 * (cb->cr - 128));
+    uint8_t g = doubleToUint(YConst * (cb->y - 16) - 0.813 * (cb->cr - 128) - 0.391 * (cb->cb - 128));
+    uint8_t b = doubleToUint(YConst * (cb->y - 16) + 2.018 * (cb->cb - 128));
     
     rgb->r = r;
     rgb->g = g;
     rgb->b = b;
+    rgb->error = NULL;
     
     // don't forget to free when not needed anymore
     return rgb;

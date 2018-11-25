@@ -14,22 +14,22 @@
 
 #define HEX_SIZE 7
 
-/*!
- * @discussion Create a char array which is the HEX value
+/**
+ * @brief Create a char array which is the HEX value
  * @param rgb a RGB structure
  * @return a Char array pointer containing the HEX
  */
-char *getHexFromRGB(struct Rgb *rgb);
+char *getHexFromRGB(Rgb *rgb);
 
-/*!
- * @discussion Get a raw uint8_t array value
+/**
+ * @brief Get a raw uint8_t array value
  * @param hex a Hex char array
  * @return a uint8_t value
  */
-Rgb *getRawRGBValueFromHex(char *hex);
+Rgb *getRGBFromHex(char *hex);
 
-/*!
- * @discussion Get the uint8_t value based on each character of the Hex
+/**
+ * @brief Get the uint8_t value based on each character of the Hex
  * @param v a char array representing the Hex array
  * @param idx an index
  * @return a uint8_t value

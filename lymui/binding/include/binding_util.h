@@ -13,12 +13,16 @@
 #include <node_api.h>
 #include "xyz.h"
 
+#define CONVERT_BASIC_LEN 2
+#define MIN_LEN_TYPE 3
+#define MAX_LEN_TYPE 5
+
 /**
  * @brief Enum struct that represent some JavaScript type. Note in JS int and float use the same type we just separate the 2 values for usability purposes
  */
 typedef enum JSType {
     numberInt,
-    numberFloat,
+    numberDouble,
     string
 } JSType;
 
@@ -31,6 +35,15 @@ typedef enum JSType {
  *  @param arg any
  */
 void assignPropToJSObj(napi_value *jsObj, napi_env env, JSType t, char * name, void * arg);
+
+/**
+ * @brief Assign a napi_value into a js object {data: {r: 5, g: 10, b: 98}}
+ * @param env napi_env
+ * @param target napi_value
+ * @param src napi_value
+ * @param name char
+ */
+void assignJSObjtoJSObj(napi_env env, napi_value *target, napi_value src, char *name);
 
 /**
  *  @brief validate the type of the value
@@ -49,12 +62,20 @@ uint8_t isTypeOf(napi_env env, napi_value v, JSType t);
 uint8_t getUintValue(napi_env env, napi_value v);
 
 /**
- * @brief retrive the float from a napi_value
+ * @brief retrive the double from a napi_value (fail passive)
  * @param env napi_env
  * @param v napi_value
- * @return float
+ * @return double
  */
-float getFloatValue(napi_env env, napi_value v);
+double getDoubleValue(napi_env env, napi_value v);
+
+/**
+ * @brief clamp the value to a limited value
+ * @param value double
+ * @param clamp uint32_t
+ * @return double
+ */
+double clampValue(double value, uint32_t clamp);
 
 /**
  * @brief Retrieve string value from a napi_value
@@ -62,7 +83,7 @@ float getFloatValue(napi_env env, napi_value v);
  * @param v napi_value
  * @param size size_t
  */
-char * getStringValue(napi_env env, napi_value v, size_t size);
+char *getStringValue(napi_env env, napi_value v, size_t size);
 
 /**
  * @brief check if the args has the property within the JS Object
@@ -75,18 +96,20 @@ char * getStringValue(napi_env env, napi_value v, size_t size);
 uint8_t hasPropInJSObj(napi_env env, napi_value v, char * name, size_t len);
 
 /**
- * @brief convert a float to a double by taking into account the clamp value
- * @param value float
- * @param clamp int
- * @return double
- */
-double floatToDouble(float value, int clamp);
-
-/**
  * @brief Return an enum from the string
  * @param enumStr * char
  * @return Matrix enum
  */
 Matrix getEnumFromStr(char * enumStr);
+
+/**
+ * @brief Get the property of an object and set it on a napi_value array
+ * @param env napi_env
+ * @param name char array
+ * @param obj napi_value
+ * @param len size_t
+ * @param res napi_value
+ */
+void getNamedPropArray(napi_env env, char *name, napi_value obj, size_t len, napi_value *res);
 
 #endif /* binding_util_h */

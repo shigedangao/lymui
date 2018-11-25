@@ -39,6 +39,7 @@ Hsv *getHsvFromRgb(Rgb *rgb) {
     
     hsv->h = hue;
     hsv->v = roundDigit(max * 100.0, 10);
+    hsv->error = NULL;
     
     if (max > 0.0) {
         hsv->s = roundDigit((_delta / max) * 100.0, 10);
@@ -60,6 +61,7 @@ static void getValueRGB(Hsv *hsv, Rgb *rgb) {
     rgb->r = v;
     rgb->g = v;
     rgb->b = v;
+    rgb->error = NULL;
     
     free(hsv);
 }
@@ -75,9 +77,10 @@ static void putRgb(uint8_t r, uint8_t g, uint8_t b, Rgb *rgb) {
     rgb->r = r;
     rgb->g = g;
     rgb->b = b;
+    rgb->error = NULL;
 }
 
-Rgb *getRgbValueFromHsv(Hsv *hsv) {
+Rgb *getRgbFromHsv(Hsv *hsv) {
     Rgb *rgb = malloc(sizeof(Rgb));
     if (rgb == NULL) {
         return NULL;

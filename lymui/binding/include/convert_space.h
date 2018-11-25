@@ -6,8 +6,8 @@
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
-#ifndef convert_h
-#define convert_h
+#ifndef convert_space_h
+#define convert_space_h
 
 #include <stdio.h>
 #include <node_api.h>
@@ -20,4 +20,4 @@
  */
 napi_value convert(napi_env env, napi_callback_info info);
 
-#endif /* convert_h */
+#endif /* convert_space_h */

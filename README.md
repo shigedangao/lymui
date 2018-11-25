@@ -30,7 +30,8 @@ The project is shipped with a makefile. Below is the command that you can use in
 If you want to test this project with Xcode you will need to add the **binding** folder to the excluded source file names property of xcode
 
 ```bash
-EXCLUDED_SOURCE_FILE_NAMES = lymui/binding/*
+EXCLUDED_SOURCE_FILE_NAMES = lymui/binding/* 
+EXCLUDED_SOURCE_FILE_NAMES = lymui/binding/normalizer/*
 ```
 
 ## Usage

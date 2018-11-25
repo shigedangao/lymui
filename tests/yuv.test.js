@@ -1,144 +1,141 @@
-const { expect } = require('chai');
-const SegfaultHandler = require('segfault-handler');
-const lib = require('../build/Debug/lymuilib');
+const { expect } = require('chai')
+const SegfaultHandler = require('segfault-handler')
+const lib = require('../build/Debug/lymuilib')
 
-SegfaultHandler.registerHandler('yuv_crash.log');
+SegfaultHandler.registerHandler('yuv_crash.log')
 
 describe('Creating YUV from RGB', () => {
-  it('Expect to create YUV from RGB', () => {
-    const rgb = {
-      r: 50,
-      g: 10,
-      b: 95
-    };
+  it('Expect to create YUV from RGB', async () => {
+    const yuv = await lib.convertRegular({
+      input: {
+        r: 50,
+        g: 10,
+        b: 95
+      },
+      output: 'yuv'
+    })
 
-    const yuv = lib.getYuvFromRgb(rgb);
-    expect(yuv).to.be.deep.equal({
-      y: 0.123,
+    expect(yuv.data).to.be.deep.equal({
+      y: 0.124,
       u: 0.122,
       v: 0.063
-    });
-  });
+    })
+  })
 
-  it('Expect to create dark YUV from black RGB', () => {
-    const rgb = {
-      r: 0,
-      g: 0,
-      b: 0
-    };
+  it('Expect to create dark YUV from black RGB', async () => {
+    const yuv = await lib.convertRegular({
+      input: {
+        r: 0,
+        g: 0,
+        b: 0
+      },
+      output: 'yuv'
+    })
 
-    const yuv = lib.getYuvFromRgb(rgb);
-    expect(yuv).to.be.deep.equal({
+    expect(yuv.data).to.be.deep.equal({
       y: 0,
       u: 0,
       v: 0
-    });
-  });
+    })
+  })
 
-  it('Expect to create white YUV from white RGB', () => {
-    const rgb = {
-      r: 255,
-      g: 255,
-      b: 255
-    };
+  it('Expect to create white YUV from white RGB', async () => {
+    const yuv = await lib.convertRegular({
+      input: {
+        r: 255,
+        g: 255,
+        b: 255
+      },
+      output: 'yuv'
+    })
 
-    const yuv = lib.getYuvFromRgb(rgb);
-    expect(yuv).to.be.deep.equal({
+    expect(yuv.data).to.be.deep.equal({
       y: 1,
       u: 0,
       v: 0
-    });
-  });
+    })
+  })
 
-  it('Expect to throw when no arguments is pass', () => {
-    expect(() => lib.getYuvFromRgb()).to.throw('Missing arguments');
-  });
-
-  it('Expect to throw when wrong kind of RGB is pass', () => {
-    const rgb = {
-      r: 10,
-      g: 10
-    };
-
-    expect(() => lib.getYuvFromRgb(rgb)).to.throw('Property not found in JS Object');
-  });
-
-  it('Expect to create clamp YUV value', () => {
-    const rgb = {
-      r: 50,
-      g: 10,
-      b: 95
-    };
-
-    const yuv = lib.getYuvFromRgb(rgb, 100);
-    expect(yuv).to.be.deep.equal({
-      y: 0.12,
-      u: 0.12,
-      v: 0.06
-    });
-  });
-});
+  it('Expect to throw when wrong kind of RGB is pass', async () => {
+    try {
+      await lib.convertRegular({
+        input: {
+          r: 10,
+          g: 10
+        }
+      })
+    } catch (e) {
+      expect(e).to.be.deep.equal({
+        err: 'Missing arguments'
+      })
+    }
+  })
+})
 
 describe('Creating RGB from YUV', () => {
-  it('Expect to create RGB from YUV value', () => {
-    const yuv = {
-      y: 0.123,
-      u: 0.122,
-      v: 0.063
-    };
+  it('Expect to create RGB from YUV value', async () => {
+    const rgb = await lib.toRGB({
+      input: {
+        y: 0.123,
+        u: 0.122,
+        v: 0.063
+      },
+      type: 'yuv'
+    })
 
-    const rgb = lib.getRgbFromYuv(yuv);
-    expect(rgb).to.be.deep.equal({
+    expect(rgb.data).to.be.deep.equal({
       r: 50,
       g: 10,
       b: 95
-    });
-  });
+    })
+  })
 
-  it('Expect to create black RGB from dark YUV value', () => {
-    const yuv = {
-      y: 0,
-      u: 0,
-      v: 0
-    };
+  it('Expect to create black RGB from dark YUV value', async () => {
+    const rgb = await lib.toRGB({
+      input: {
+        y: 0,
+        u: 0,
+        v: 0
+      },
+      type: 'yuv'
+    })
 
-    const rgb = lib.getRgbFromYuv(yuv);
-    expect(rgb).to.be.deep.equal({
+    expect(rgb.data).to.be.deep.equal({
       r: 0,
       g: 0,
       b: 0
-    });
-  });
+    })
+  })
 
-  it('Expect to create white RGB from bright YUV value', () => {
-    const yuv = {
-      y: 1,
-      u: 0,
-      v: 0
-    };
+  it('Expect to create white RGB from bright YUV value', async () => {
+    const rgb = await lib.toRGB({
+      input: {
+        y: 1,
+        u: 0,
+        v: 0
+      },
+      type: 'yuv'
+    })
 
-    const rgb = lib.getRgbFromYuv(yuv);
-    expect(rgb).to.be.deep.equal({
+    expect(rgb.data).to.be.deep.equal({
       r: 255,
       g: 255,
       b: 255
-    });
-  });
+    })
+  })
 
-  it('Expect to throw when no param is passed', () => {
-    expect(() => lib.getRgbFromYuv()).to.throw('Missing arguments');
-  });
-
-  it('Expect to throw when missing property in the YUV object is pass', () => {
-    const yuv = {
-      u: 0,
-      v: 0
-    };
-    
-    expect(() => lib.getRgbFromYuv(yuv)).to.throw('Property not found in JS Object');
-  });
-
-  it('Expect to throw when wrong kind of object is passed', () => {    
-    expect(() => lib.getRgbFromYuv('lol')).to.throw('Property not found in JS Object');
-  });
-});
+  it('Expect to throw when missing property in the YUV object is pass', async () => {
+    try {
+      await lib.toRGB({
+        input: {
+          y: 0,
+          v: 0
+        }
+      })
+    } catch (e) {
+      expect(e).to.be.deep.equal({
+        err: 'Missing arguments'
+      })
+    }    
+  })
+})
