@@ -111,7 +111,7 @@ describe('Creating XYZ from LAB', () => {
   })
 
   it('Expect to create a bright XYZ from LAB', async () => {
-    const { data } = await lib.toXYZ({
+    const { data } = await lib.toXYZ({
       input: {
         l: 100,
         a: 0,
@@ -129,7 +129,7 @@ describe('Creating XYZ from LAB', () => {
   })
 
   it('Expect to create a dark XYZ from LAB', async () => {
-    const { data } = await lib.toXYZ({
+    const { data } = await lib.toXYZ({
       input: {
         l: 0,
         a: 0,
@@ -146,7 +146,7 @@ describe('Creating XYZ from LAB', () => {
   })
 
   it('Expect to throw an error when the type is wrong', async () => {
-    const { data } = await lib.toXYZ({
+    const { data } = await lib.toXYZ({
       input: {
         l: 0,
         a: 0,

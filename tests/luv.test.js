@@ -147,7 +147,7 @@ describe('Creating XYZ from LUV', () => {
   })
 
   it('Expect to create XYZ from a bright LUV', async () => {
-    const { data } = await lib.toXYZ({
+    const { data } = await lib.toXYZ({
       input: {
         l: 100,
         u: 0,
