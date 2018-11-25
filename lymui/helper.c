@@ -11,12 +11,15 @@
 #include <math.h>
 #include "helper.h"
 
-char * uintToHex(uint8_t color) {
+char* uintToHex(uint8_t color) {
     if (color > 255)
         return NULL;
     
     char HEX[] = "0123456789ABCDEF";
-    char *hexa = malloc(2);
+    char *hexa = malloc(sizeof(char) * 2);
+    if (hexa == NULL) {
+        return NULL;
+    }
     
     uint8_t accum = 2;
     

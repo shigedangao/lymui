@@ -12,6 +12,7 @@
 #include "binding_error.h"
 #include "binding_util.h"
 #include "rgb.h"
+#include "hex.h"
 #include "cymk.h"
 #include "ycbcr.h"
 #include "hsl.h"
@@ -39,6 +40,11 @@ napi_value RgbJSObjFactory(napi_env env, Rgb *rgb) {
     }
     
     if (rgb->error != NULL) {
+        printf("passe par la du con \n");
+        printf("passe par la du con R value %i \n", rgb->r);
+        printf("passe par la du con G value %i \n", rgb->g);
+        printf("passe par la du con B value %i \n", rgb->b);
+
         assignPropToJSObj(&object, env, string, "error", rgb->error);
         return object;
     }
@@ -49,6 +55,33 @@ napi_value RgbJSObjFactory(napi_env env, Rgb *rgb) {
     assignPropToJSObj(&data, env, numberInt, "b", &rgb->b);
     
     // assign data to the object
+    assignJSObjtoJSObj(env, &object, data, "data");
+    
+    return object;
+}
+
+napi_value HexJSObjFactory(napi_env env, Rgb *rgb) {
+    napi_status status;
+    napi_value object, data;
+    
+    status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    char *hex = getHexFromRGB(rgb);
+    if (hex == NULL) {
+        assignPropToJSObj(&object, env, string, "error", BuildPromiseError(env, CONVERT_ERR));
+        return object;
+    }
+    
+    assignPropToJSObj(&data, env, string, "hex", hex);
+    
     assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
