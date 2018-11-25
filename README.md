@@ -82,6 +82,34 @@ char * hex = getHexFromRGB(rgb);
 printf("Value of the hex %s", hex);
 ```
 
+#### Converting an Rgb to an Hsl
+
+```c
+#include <stdlib.h>
+#include "rgb.h"
+#include "hex.h"
+
+struct Rgb *rgb = initRGB();
+// rgb return NULL if malloc fail
+rgb->r = 100;
+rgb->g = 150;
+rgb->b = 200;
+
+// Convert a rgb struct to an Hex
+Hsl *hsl = getHslFromRGB(rgb);
+
+// Every Struct either return NULL if malloc fail.
+// If it fail internally it return an error char
+
+if (hsl->error != NULL) {
+  printf("AYOO !! an error %s", hsl->error);
+}
+
+// do anything you want with the struct pointer then :)
+double hue = hsl->h;
+```
+
+
 ## Example in NodeJS
 
 #### Converting an Rgb to an Hex
