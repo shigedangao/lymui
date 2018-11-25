@@ -1,9 +1,9 @@
-const { expect } = require('chai');
+const { expect } = require('chai')
 const { toFixed } = require('./util')
-const SegfaultHandler = require('segfault-handler');
-const lib = require('../build/Debug/lymuilib');
+const SegfaultHandler = require('segfault-handler')
+const lib = require('../build/Debug/lymuilib')
 
-SegfaultHandler.registerHandler('cymk_crash.log');
+SegfaultHandler.registerHandler('cymk_crash.log')
 
 describe('Creating Cymk from RGB', () => {
   it('Expect to create a Cymk object from a RGB object', async () => {

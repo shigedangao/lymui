@@ -57,6 +57,7 @@ static Rgb *getShadeOfGray(Hsl *hsl, Rgb *rgb) {
     rgb->r = v;
     rgb->g = v;
     rgb->b = v;
+    rgb->error = NULL;
     
     free(hsl);
     return rgb;

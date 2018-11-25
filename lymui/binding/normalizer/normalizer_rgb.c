@@ -32,7 +32,6 @@ napi_value normalizeHsl(napi_env env, napi_value color) {
     }
     
     Rgb *rgb = getRgbFromHsl(hsl);
-    
     napi_value object = RgbJSObjFactory(env, rgb);
     return object;
 }
