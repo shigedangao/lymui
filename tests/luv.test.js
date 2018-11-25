@@ -6,22 +6,20 @@ SegfaultHandler.registerHandler('lch_convert.log')
 
 describe('Creating LUV from RGB', () => {
   it('Expect to create LUV from RGB with type SRGB', async () => {
-    const rgb = {
-      r: 5,
-      g: 10,
-      b: 98
-    }
-
-    const luv = await lib.convert({
-      data: rgb,
+    const { data } = await lib.convertSpace({
+      input: {
+        x: 0.034889,
+        y: 0.017213,
+        z: 0.109727
+      },
       output: 'luv',
-      colorType: 'srgb'
+      clamp: 1000
     })
 
-    expect(luv).to.be.deep.equal({
-      l: 10.0373,
-      u: -2.9766,
-      v: -36.6424
+    expect(data).to.be.deep.equal({
+      l: 13.951,
+      u: 4.794,
+      v: -39.787
     })
   })
 
@@ -32,33 +30,37 @@ describe('Creating LUV from RGB', () => {
       b: 98
     }
 
-    const luv = await lib.convert({
-      data: rgb,
-      output: 'luv',
-      colorType: 'adobeRgb'
+    const { data } = await lib.convertRegular({
+      input: rgb,
+      output: 'xyz',
+      profile: 'srgb'
     })
 
-    expect(luv).to.be.deep.equal({
-      l: 8.7716,
-      u: -2.6738,
-      v: -34.6343
+    const luv = await lib.convertSpace({
+      input: data,
+      output: 'luv',
+      clamp: 1000
+    })
+
+    expect(luv.data).to.be.deep.equal({
+      l: 10.037,
+      u: -2.977,
+      v: -36.642
     })
   })
 
   it('Expect to create a valid LUV from a white SRGB', async () => {
-    const rgb = {
-      r: 255,
-      g: 255,
-      b: 255
-    }
-
-    const luv = await lib.convert({
-      data: rgb,
+    const luv = await lib.convertSpace({
+      input: {
+        x: 0.9505,
+        y: 1,
+        z: 1.0888
+      },
       output: 'luv',
-      colorType: 'srgb'
+      clamp: 10
     })
 
-    expect(luv).to.be.deep.equal({
+    expect(luv.data).to.be.deep.equal({
       l: 100,
       u: 0,
       v: 0
@@ -72,67 +74,145 @@ describe('Creating LUV from RGB', () => {
       b: 255
     }
 
-    const luv = await lib.convert({
-      data: rgb,
-      output: 'luv',
-      colorType: 'adobeRgb'
+    const { data } = await lib.convertRegular({
+      input: rgb,
+      output: 'xyz',
+      profile: 'adobeRgb'
     })
 
-    expect(luv).to.be.deep.equal({
-      l: 99.9922,
-      u: 0.0016,
-      v: -0.009
+    const luv = await lib.convertSpace({
+      input: data,
+      output: 'luv',
+      clamp: 1000
+    })
+
+    expect(luv.data).to.be.deep.equal({
+      l: 100,
+      u: 0,
+      v: 0
     })
   })
 
   it('Expect to throw when a params is missing on the Rgb object', async () => {
     try {
-      await lib.convert({
+      await lib.convertSpace({
         output: 'luv',
-        colorType: 'srgb'
       })
     } catch (e) {
       expect(e).to.be.deep.equal({
-        err: 'Property not found in JS Object'
+        err: 'Missing arguments'
       })
     }
   })
 
   it('Expect to return a valid luv from an xyz value', async () => {
     const xyz = {
-      x: 0.03628,
-      y: 0.01777,
-      z: 0.11705
+      x: 0.196341,
+      y: 0.101518,
+      z: 0.994060
     }
     
-    const luv = await lib.convert({
-      data: xyz,
+    const luv = await lib.convertSpace({
       output: 'luv',
+      input: xyz,
+      clamp: 1000
     })
 
-    expect(luv).to.be.deep.equal({
-      l: 14.2705,
-      u: 4.4641,
-      v: -41.5165
+    expect(luv.data).to.be.deep.equal({
+      l: 38.114,
+      u: -15.254,
+      v: -135.757
+    })
+  })
+})
+
+describe('Creating XYZ from LUV', () => {
+
+  it('Expect to create XYZ from LUV', async () => {
+    const { data } = await lib.toXYZ({
+      input: {
+        l: 13.951,
+        u: 4.794,
+        v: -39.787
+      },
+      type: 'luv',
+      clamp: 1000000
+    })
+
+    expect(data).to.be.deep.equal({
+      x: 0.034889,
+      y: 0.017213,
+      z: 0.109726
     })
   })
 
-  it('Expect to return a valid white luv from a white xyz value', async () => {
-    const xyz = {
-      x: 0.9504,
+  it('Expect to create XYZ from a bright LUV', async () => {
+    const { data } = await lib.toXYZ({
+      input: {
+        l: 100,
+        u: 0,
+        v: 0
+      },
+      type: 'luv',
+      clamp: 100000
+    })
+
+    expect(data).to.be.deep.equal({
+      x: 0.95047,
       y: 1,
-      z: 1.0888
+      z: 1.08883
+    })
+  })
+
+  it('Expect to throw when the input value contain bad params', async () => {
+    try {
+      await lib.toXYZ({
+        input: {
+          l: 100,
+          u: 0,
+          y: 0
+        },
+        type: 'luv',
+        clamp: 100000
+      })
+    } catch (e) {
+      expect(e).to.be.deep.equal({
+        err: 'Wrong argument(s) type'
+      })
     }
+  })
 
-    const luv = await lib.convert({
-      data: xyz,
-      output: 'luv'
-    })
+  it('Expect to throw when type is not a string', async () => {
+    try {
+      await lib.toXYZ({
+        input: {
+          l: 100,
+          u: 0,
+          v: 0
+        },
+        type: 33,
+      })
+    } catch (e) {
+      expect(e).to.be.deep.equal({
+        err: 'Error while converting value to an other type'
+      })
+    }
+  })
 
-    expect(luv).to.be.deep.equal({
-      l: 100,
-      u: -0.0168,
-      v: 0.005
-    })
+  it('Expect to throw when type is not a type of color space', async () => {
+    try {
+      await lib.toXYZ({
+        input: {
+          l: 100,
+          u: 0,
+          v: 0
+        },
+        type: '我想睡觉',
+      })
+    } catch (e) {
+      expect(e).to.be.deep.equal({
+        err: 'Wrong argument(s) type'
+      })
+    }
   })
 })

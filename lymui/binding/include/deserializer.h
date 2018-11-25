@@ -45,14 +45,6 @@ typedef struct BridgeObj {
 } BridgeObj;
 
 /**
- * @brief structure for the optional field deserializer
- */
-typedef struct OptFields {
-    napi_value field;
-    bool has;
-} OptField;
-
-/**
  * @brief deserialize
  * @param env napi_env
  * @param obj napi_value
@@ -67,13 +59,5 @@ BridgeObj *deserialize(napi_env env, napi_value obj);
  * @return BridgeObj pointer
  */
 BridgeObj *normalize(napi_env env, napi_value obj);
-
-/**
- * @brief retrieve an optional field. Note this method is fail passive
- * @param env napi_env
- * @param val napi_value
- * @param field *char
- */
-OptField *getOptField(napi_env env, napi_value val, char *field);
 
 #endif /* deserializer_h */

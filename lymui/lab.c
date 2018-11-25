@@ -43,6 +43,7 @@ Lab *getLabFromXyz(Xyz *xyz) {
     lab->l = 116.0 * calculateDomain(xyz->y / refY) - 16.0;
     lab->a = 500.0 * (calculateDomain(xyz->x / refX) - calculateDomain(xyz->y / refY));
     lab->b = 200.0 * (calculateDomain(xyz->y / refY) - calculateDomain(xyz->z / refZ));
+    lab->error = NULL;
     
     free(xyz);
     
@@ -87,6 +88,7 @@ Lab *getHunterLabFromXyz(Xyz *xyz) {
     lab->l = 100.0 * sqrt(xyz->y / Yn);
     lab->a = 100.0 * kAkB[0] * ((xyz->x / Xn - xyz->y / Yn) / sqrtf(xyz->y / Yn));
     lab->b = 100.0 * kAkB[1] * ((xyz->y / Yn - xyz->z / Zn) / sqrtf(xyz->y / Yn));
+    lab->error = NULL;
     
     free(xyz);
     free(kAkB);
@@ -128,6 +130,8 @@ Xyz *getXyzFromLab(Lab *lab) {
         xyz->y = refY * pow(labL, 3);
     else
         xyz->y = refY * (lab->l / kameah);
+    
+    xyz->error = NULL;
     
     free(lab);
     
