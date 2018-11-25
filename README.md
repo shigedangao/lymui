@@ -23,7 +23,7 @@ Contributions are always welcomed. Open issue if you want to add an other kind o
 The project is shipped with a makefile. Below is the command that you can use in order to generate different type of build
 
 - Output lib: ```make lib```
-- Test app: ```make lym```
+- Test app: ```make lym && make test```
 
 ### Note
 
@@ -87,7 +87,7 @@ printf("Value of the hex %s", hex);
 ```c
 #include <stdlib.h>
 #include "rgb.h"
-#include "hex.h"
+#include "hsl.h"
 
 struct Rgb *rgb = initRGB();
 // rgb return NULL if malloc fail
