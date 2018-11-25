@@ -51,8 +51,7 @@ static double ** makeValue(Rgb *rgb) {
     return v;
 }
 
-// Make Ycbcr
-Ycbcr * getYcbcrFromRgb(Rgb *rgb) {
+Ycbcr *getYcbcrFromRgb(Rgb *rgb) {
     Ycbcr *v = malloc(sizeof (Ycbcr));
     if (v == NULL) {
         return NULL;
@@ -76,6 +75,7 @@ Ycbcr * getYcbcrFromRgb(Rgb *rgb) {
     v->y  = y;
     v->cb = cb;
     v->cr = cr;
+    v->error = NULL;
     
     // don't forget to free when not needed anymore
     free(colors);
@@ -97,6 +97,7 @@ Rgb *getRGBFromYcbcr(Ycbcr *cb) {
     rgb->r = r;
     rgb->g = g;
     rgb->b = b;
+    rgb->error = NULL;
     
     // don't forget to free when not needed anymore
     return rgb;

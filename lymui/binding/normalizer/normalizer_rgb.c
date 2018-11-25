@@ -32,7 +32,6 @@ napi_value normalizeHsl(napi_env env, napi_value color) {
     }
     
     Rgb *rgb = getRgbFromHsl(hsl);
-    
     napi_value object = RgbJSObjFactory(env, rgb);
     return object;
 }
@@ -67,6 +66,18 @@ napi_value normalizeYcbcr(napi_env env, napi_value color) {
     }
     
     Rgb *rgb = getRGBFromYcbcr(ycbcr);
+    napi_value object = RgbJSObjFactory(env, rgb);
+    
+    return object;
+}
+
+napi_value normalizeYuv(napi_env env, napi_value color) {
+    Yuv *yuv = getYuvFromJSObj(env, color);
+    if (yuv == NULL) {
+        return NULL;
+    }
+    
+    Rgb *rgb = getRgbFromYuv(yuv);
     napi_value object = RgbJSObjFactory(env, rgb);
     
     return object;

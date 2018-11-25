@@ -40,6 +40,7 @@ Hsl *getHslFromRgb(Rgb *rgb) {
     hsl->h = hue;
     hsl->s = roundDigit(sat * 100.0, 10);
     hsl->l = roundDigit(_l * 100.0, 10);
+    hsl->error = NULL;
     free(rgb);
     
     return hsl;
@@ -56,6 +57,7 @@ static Rgb *getShadeOfGray(Hsl *hsl, Rgb *rgb) {
     rgb->r = v;
     rgb->g = v;
     rgb->b = v;
+    rgb->error = NULL;
     
     free(hsl);
     return rgb;
@@ -144,6 +146,7 @@ Rgb *getRgbFromHsl(Hsl *hsl) {
     rgb->r = calculateEachColorValue(temp_rgb[0], temp_lum, temp_lum_s);
     rgb->g = calculateEachColorValue(temp_rgb[1], temp_lum, temp_lum_s);
     rgb->b = calculateEachColorValue(temp_rgb[2], temp_lum, temp_lum_s);
+    rgb->error = NULL;
     
     free(hsl);
     

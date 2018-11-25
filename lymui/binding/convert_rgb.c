@@ -32,6 +32,8 @@ static napi_value generateRGB(napi_env env, BridgeObj *bridge) {
             return normalizeCymk(env, bridge->color);
         case ycbcr:
             return normalizeYcbcr(env, bridge->color);
+        case yuv:
+            return normalizeYuv(env, bridge->color);
         case xyz:
             return normalizeXyz(env, bridge->color, bridge->matrix);
         default:
@@ -83,7 +85,7 @@ napi_value toRGB(napi_env env, napi_callback_info info) {
         return promise;
     }
     
-    if (bridge->error) {
+    if (bridge->error != NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, bridge->error));
         return promise;
     }

@@ -34,9 +34,11 @@ static napi_value generateTypeJSObj(napi_env env, BridgeObj *bridge) {
         case cymk:
             return CymkJSObjFactory(env, rgb);
         case ycbcr:
+            return YcbcrJSObjFactory(env, rgb);
+        case yuv:
             return YuvJSObjFactory(env, rgb);
         case xyz:
-            return XyzJSObjFactory(env, rgb, bridge->matrix);
+            return XyzJSObjFactory(env, rgb, bridge->matrix, bridge->clamp);
         default:
             return NULL;
     }
@@ -51,7 +53,8 @@ static napi_value generateTypeJSObj(napi_env env, BridgeObj *bridge) {
  *      b: 200
  *    },
  *    output: 'xyz',
- *    profile: 'adobeRgb'
+ *    profile: 'adobeRgb', (optional) <string>
+ *    clamp: 1000, optional <uint32_t>
  *  })
  *
  */
@@ -83,6 +86,11 @@ napi_value convertRegular(napi_env env, napi_callback_info info) {
     BridgeObj *bridge = deserialize(env, argv[0]);
     if (bridge == NULL) {
         napi_reject_deferred(env, def, BuildPromiseError(env, DESERIALIZE_ERR));
+        return promise;
+    }
+    
+    if (bridge->error != NULL) {
+        napi_reject_deferred(env, def, BuildPromiseError(env, bridge->error));
         return promise;
     }
     

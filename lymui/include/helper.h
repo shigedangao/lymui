@@ -40,13 +40,6 @@ uint8_t doubleToUint(double value);
  */
 double roundDigit(double value, int factor);
 
-/**
- * @brief round the decimal value
- * @param value double
- * @param decimal int
- */
-double roundDecimal(double value, int decimal);
-
 /*
  * @discussion Update Constraint Value
  * @TODO This method need to be redone

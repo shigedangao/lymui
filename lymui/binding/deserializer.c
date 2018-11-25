@@ -20,10 +20,14 @@
  * @return OType
  */
 static OType strToOTypeEnum(char *str) {
-    char *type[] = {"hex", "hsl", "hsv", "cymk", "ycbcr", "xyz"};
+    char *type[] = {"hex", "hsl", "hsv", "cymk", "ycbcr", "yuv" ,"xyz"};
     uint8_t idx = 0;
     size_t size = 7;
-    OType t = hex;
+    OType t = hsl;
+    
+    if (str == NULL) {
+        return t;
+    }
     
     while(idx < size) {
         if (!strcmp(str, type[idx])) {
@@ -34,6 +38,30 @@ static OType strToOTypeEnum(char *str) {
     }
     
     return t;
+}
+
+/**
+ * @brief get the validation props for validating the input color
+ * @param o OType
+ * @return char *
+ */
+static char *getValidationPropsFromOType(OType o) {
+    switch (o) {
+        case cymk:
+            return CMYK_PROPS;
+        case hsl:
+            return HSL_PROPS;
+        case hsv:
+            return HSV_PROPS;
+        case ycbcr:
+            return YCBCR_PROPS;
+        case yuv:
+            return YUV_PROPS;
+        case xyz:
+            return XYZ_PROPS;
+        default:
+            return NULL;
+    }
 }
 
 OptField *getOptField(napi_env env, napi_value obj, char *field) {
@@ -63,8 +91,7 @@ OptField *getOptField(napi_env env, napi_value obj, char *field) {
         return opt;
     }
     
-    char *value = getStringValue(env, optfield, MAX_LEN_TYPE);
-    opt->field = value;
+    opt->field = optfield;
     opt->has = true;
     
     return opt;
@@ -100,13 +127,30 @@ BridgeObj *deserialize(napi_env env, napi_value obj) {
     // set the struct
     br->color  = params[0];
     br->output = strToOTypeEnum(type);
+    br->error  = NULL;
+    br->matrix = NULL;
+    br->clamp  = 0.0;
 
     OptField *opt = getOptField(env, obj, "profile");
     if (opt == NULL) {
         return br;
     }
     
-    br->matrix = opt->field;
+    if (opt->has) {
+        char *value = getStringValue(env, opt->field, MAX_LEN_TYPE);
+        br->matrix = value;
+    }
+    
+    OptField *clamp = getOptField(env, obj, "clamp");
+    if (clamp == NULL) {
+        return br;
+    }
+    
+    if (clamp->has) {
+        double clampValue = getDoubleValue(env, clamp->field);
+        br->clamp = clampValue;
+    }
+    
     free(opt);
     
     return br;
@@ -127,17 +171,35 @@ BridgeObj *normalize(napi_env env, napi_value obj) {
     }
     
     getNamedPropArray(env, inputProps, obj, CONVERT_BASIC_LEN, params);
-    char *type = getStringValue(env, params[0], MAX_LEN_TYPE);
+    char *type = getStringValue(env, params[1], MAX_LEN_TYPE);
     
-    br->color  = params[0];
-    br->output = strToOTypeEnum(type);
+    OType o = strToOTypeEnum(type);
+    char *validation = getValidationPropsFromOType(o);
     
-    OptField *opt = getOptField(env, obj, "profile");
-    if (opt == NULL) {
+    if (validation == NULL) {
+        br->error = ARG_TYPE_ERR;
         return br;
     }
     
-    br->matrix = opt->field;
+    if (!hasPropInJSObj(env, params[0], validation, MIN_LEN_TYPE)) {
+        br->error = ARG_TYPE_ERR;
+        return br;
+    }
+    
+    br->color  = params[0];
+    br->output = o;
+    br->error  = NULL;
+    br->matrix = NULL;
+    
+    OptField *profile = getOptField(env, obj, "profile");
+    if (profile == NULL) {
+        return br;
+    }
+    
+    if (profile->has) {
+        char *value = getStringValue(env, profile->field, MAX_LEN_TYPE);
+        br->matrix = value;
+    }
     
     return br;
 }

@@ -23,17 +23,17 @@
 #define zb 0.9503041
 
 // Constant for Adobe RGB value from RGB to XYZ
-#define axr 0.5767
-#define axg 0.1855
-#define axb 0.1881
+#define axr 0.5767309
+#define axg 0.1855540
+#define axb 0.1881852
 
-#define ayr 0.2973
-#define ayg 0.6273
-#define ayb 0.0752
+#define ayr 0.2973769
+#define ayg 0.6273491
+#define ayb 0.0752741
 
-#define azr 0.0270
-#define azg 0.0706
-#define azb 0.9911
+#define azr 0.0270343
+#define azg 0.0706872
+#define azb 0.9911085
 
 // Illuminant for D65
 #define Xn 0.95047

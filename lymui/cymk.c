@@ -46,6 +46,7 @@ Cymk *getCymkFromRgb(Rgb *rgb) {
         cymk->y = 0.0;
     }
     
+    cymk->error = NULL;
     return cymk;
 }
 
@@ -74,6 +75,7 @@ Rgb *getRgbFromCymk(Cymk *cymk) {
     rgb->r = doubleToUint(r);
     rgb->g = doubleToUint(g);
     rgb->b = doubleToUint(b);
+    rgb->error = NULL;
     
     free(value);
     return rgb;
