@@ -12,7 +12,7 @@ This project used cunit @itzseven library as it's unit test lib.
 
 ## Status
 
-Version: 1.0.1
+Version: 1.1.0a
 
 ## Contribute
 
@@ -86,6 +86,15 @@ printf("Value of the hex %s", hex);
 
 #### Converting an Rgb to an Hex
 
+4 APIs are available for converting colors
+
+- convertRegular
+- convertSpace
+- toRGB
+- toXYZ
+
+Example for HEX value
+
 ```js
 const lib = require('lymuilib')
 
@@ -93,8 +102,46 @@ const rgb = {
   r: 5,
   g: 10,
   b: 98
-};
+}
 
-// note: This method can throw the list of the error can be found on the binding_error.h file
-const hex = lib.getHEX(rgb);
+const { data, error } = await lib.convertRegular({
+  input: rgb,
+  output: 'hex'
+})
+```
+
+Example for LAB value from RGB
+
+```js
+const lib = require('lymuilib')
+
+const rgb = {
+  r: 50,
+  g: 10,
+  b: 95
+}
+
+const { data, error } = await lib.convertRegular({
+  input: rgb,
+  output: 'xyz',
+  profile: 'srgb' // optional
+})
+
+const xyz = await lib.convertSpace({
+  input: data,
+  output: 'lab',
+  clamp: 1000 // optional
+})
+```
+
+an object should be output like this
+
+```js
+{
+  data: {
+    l: 13.951,
+    a: 37.071,
+    b: -41.431
+  }
+}
 ```
