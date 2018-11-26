@@ -67,7 +67,7 @@ double *updateConstraintValue(double *value, uint8_t size) {
 }
 
 double getDegFromRad(double r) {
-    return r * (180.0 / M_PI);
+    return 180.0 * r / M_PI;
 }
 
 double getRadFromDeg(double d) {

@@ -20,13 +20,20 @@
  * @return params double * array
  */
 static double *calculateParams(double x, double y, double z) {
-    double u = (4.0 * x) / (x + 15.0 * y + 3.0 * z);
-    double v = (9.0 * y) / (x + 15.0 * y + 3.0 * z);
-    
     double *params = malloc(sizeof(double) * 2);
     if (params == NULL) {
         return NULL;
     }
+    
+    if (!x && !y && !z) {
+        params[0] = 0.0;
+        params[1] = 0.0;
+        
+        return params;
+    }
+    
+    double u = (4.0 * x) / (x + 15.0 * y + 3.0 * z);
+    double v = (9.0 * y) / (x + 15.0 * y + 3.0 * z);
     
     params[0] = u;
     params[1] = v;
