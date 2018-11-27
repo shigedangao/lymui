@@ -26,7 +26,7 @@
 typedef enum OutputSpace {
     lab,
     lch,
-    lchlab,
+    llab,
     luv,
     argb,
     Srgb
