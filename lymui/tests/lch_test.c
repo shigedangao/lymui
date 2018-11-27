@@ -115,9 +115,7 @@ ctest_return_t testDarkLchToXyz(ctest_t *test, void *arg) {
     xyz->x = 0;
     xyz->y = 0;
     xyz->z = 0;
-    
-    printf("Dark XYZ \n");
-    
+        
     Lch *lch  = getLchFromXyz(xyz);
     Xyz *nXyz = getXyzFromLch(lch);
     
