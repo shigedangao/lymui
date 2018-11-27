@@ -23,7 +23,7 @@ describe('Creating Xyz from RGB', () => {
     })
   })
 
-  it('Expect to create XYZ from RGB Object with a clamp value', async () => {
+  it('Expect to create XYZ from RGB Object with a clamp value of type ARGB', async () => {
     const xyz = await lib.convertRegular({
       input: {
         r: 50,
