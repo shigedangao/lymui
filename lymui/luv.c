@@ -100,8 +100,6 @@ static double calculateYValue(double l) {
 static double *calculateXyzParams(Luv *luv) {
     // calculate the u0 and v0 value
     double *ur = calculateParams(Xn, Yn, Zn);
-    
-    
     double y = calculateYValue(luv->l);
     double a = (1.0 / 3.0) * ((52.0 * luv->l) / (luv->u + 13.0 * luv->l * ur[0]) - 1.0);
     double b = -5.0 * y;
@@ -109,6 +107,10 @@ static double *calculateXyzParams(Luv *luv) {
     double d = y * ((39.0 * luv->l) / (luv->v + 13.0 * luv->l * ur[1]) - 5.0);
     
     double *params = malloc(sizeof(double) * 5);
+    if (params == NULL) {
+        return NULL;
+    }
+    
     params[0] = a;
     params[1] = b;
     params[2] = c;
@@ -138,7 +140,17 @@ Xyz *getXyzFromLuv(Luv *luv) {
         return xyz;
     }
     
+    xyz->error = NULL;
+    if (!luv->u && !luv->l) {
+        xyz->x = 0;
+        xyz->y = 0;
+        xyz->z = 0;
+        
+        return xyz;
+    }
+    
     double tempX = (params[3] - params[1]) / (params[0] - params[2]);
+    
     xyz->x = tempX;
     xyz->y = params[4];
     xyz->z = (tempX * params[0] + params[1]);
