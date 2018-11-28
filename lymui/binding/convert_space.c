@@ -25,7 +25,7 @@ static napi_value generateColorSpaceJSObj(napi_env env, BridgeSpaceObj *bridge) 
             return LabJSObjFactory(env, xyz, bridge->clamp);
         case lch:
             return LchJSObjFactory(env, xyz, bridge->clamp);
-        case lchlab:
+        case llab:
             return LchLabJSObjFactory(env, xyz, bridge->clamp);
         case argb:
             return ArgbJSObjFactory(env, xyz, bridge->clamp);
