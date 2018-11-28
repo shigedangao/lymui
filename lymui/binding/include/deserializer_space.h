@@ -18,7 +18,7 @@
 #define LUV_PROPS "l:u:v"
 #define ARGB_PROPS "r:g:b"
 #define SRGB_PROPS "r:g:b"
-#define LCHLAB_PROPS "l:a:b"
+#define LCHLAB_PROPS "l:c:h"
 
 /**
  * @brief list of color supported color space
