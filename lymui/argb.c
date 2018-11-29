@@ -44,6 +44,7 @@ Argb *getARgbFromXyz(Xyz *xyz) {
     argb->r = adobeGammaCorrection(r);
     argb->g = adobeGammaCorrection(g);
     argb->b = adobeGammaCorrection(b);
+    argb->error = NULL;
     
     free(xyz);
     
