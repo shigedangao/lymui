@@ -309,3 +309,25 @@ SRgb *getSrgbFromJSObj(napi_env env, napi_value args) {
     
     return srgb;
 }
+
+Xyy *getXyyFromJSObj(napi_env env, napi_value args) {
+    char *prop = "x:y:Y";
+    napi_value value[3];
+    
+    if (!hasPropInJSObj(env, args, prop, MIN_PARAM_VALUE)) {
+        return NULL;
+    }
+    
+    getNamedPropArray(env, prop, args, MIN_PARAM_VALUE, value);
+    Xyy *xyy = malloc(sizeof(Xyy));
+    if (xyy == NULL) {
+        return NULL;
+    }
+    
+    xyy->x  = getDoubleValue(env, value[0]);
+    xyy->y = getDoubleValue(env, value[1]);
+    xyy->Y = getDoubleValue(env, value[2]);
+    
+    return xyy;
+}
+

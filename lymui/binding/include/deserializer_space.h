@@ -19,6 +19,7 @@
 #define ARGB_PROPS "r:g:b"
 #define SRGB_PROPS "r:g:b"
 #define LCHLAB_PROPS "l:c:h"
+#define XYY_PROPS "x:y:Y"
 
 /**
  * @brief list of color supported color space
@@ -29,7 +30,8 @@ typedef enum OutputSpace {
     llab,
     luv,
     argb,
-    Srgb
+    Srgb,
+    xyy
 } OSpaceType;
 
 /**

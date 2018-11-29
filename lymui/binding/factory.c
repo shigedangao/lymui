@@ -557,13 +557,51 @@ napi_value SrgbJSObjFactory(napi_env env, Xyz *xyz, double clamp) {
     double g = clampValue(srgb->g, clamp);
     double b = clampValue(srgb->b, clamp);
     
-    assignPropToJSObj(&object, env, numberDouble, "r", &r);
-    assignPropToJSObj(&object, env, numberDouble, "g", &g);
-    assignPropToJSObj(&object, env, numberDouble, "b", &b);
+    assignPropToJSObj(&data, env, numberDouble, "r", &r);
+    assignPropToJSObj(&data, env, numberDouble, "g", &g);
+    assignPropToJSObj(&data, env, numberDouble, "b", &b);
     
     assignJSObjtoJSObj(env, &object, data, "data");
     
     free(srgb);
+    
+    return object;
+}
+
+napi_value XyyJSObjFactory(napi_env env, Xyz *xyz, double clamp) {
+    napi_status status;
+    napi_value object, data;
+    
+    status = napi_create_object(env, &object);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    status = napi_create_object(env, &data);
+    if (status != napi_ok) {
+        return NULL;
+    }
+    
+    Xyy *xyy = getXyyFromXyz(xyz);
+    if (xyy == NULL) {
+        assignPropToJSObj(&object, env, string, "error", OBJ_MAKE_ERR);
+        return object;
+    }
+    
+    if (xyy->error != NULL) {
+        assignPropToJSObj(&object, env, string, "error", xyy->error);
+        return object;
+    }
+    
+    double x  = clampValue(xyy->x, clamp);
+    double yx = clampValue(xyy->y, clamp);
+    double yy = clampValue(xyy->Y, clamp);
+    
+    assignPropToJSObj(&data, env, numberDouble, "x", &x);
+    assignPropToJSObj(&data, env, numberDouble, "y", &yx);
+    assignPropToJSObj(&data, env, numberDouble, "Y", &yy);
+    
+    assignJSObjtoJSObj(env, &object, data, "data");
     
     return object;
 }
