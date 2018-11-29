@@ -45,7 +45,7 @@ ctest_return_t testXyyFromZeroXyz(ctest_t *test, void *arg) {
 
 ctest_return_t testXyzFromXyy(ctest_t *test, void *arg) {
     Xyy *xyy = malloc(sizeof(Xyy));
-    xyy->x  = 0.375;
+    xyy->x = 0.375;
     xyy->y = 0.333;
     xyy->Y = 0.8;
     
@@ -60,7 +60,7 @@ ctest_return_t testXyzFromXyy(ctest_t *test, void *arg) {
 
 ctest_return_t testXyzFromXyyZero(ctest_t *test, void *arg) {
     Xyy *xyy = malloc(sizeof(Xyy));
-    xyy->x  = 1.0f;
+    xyy->x = 1.0f;
     xyy->y = 0.0f;
     xyy->Y = 0.9f;
     
