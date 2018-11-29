@@ -22,8 +22,8 @@ ctest_return_t testXyyFromXyz(ctest_t *test, void *arg) {
     Xyy *xyy = getXyyFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 0.375, xyy->x, 0.001, "Expect x to be equal to 0.375 but got %f", xyy->x);
-    CTAssertDecimalEqual(test, 0.333, xyy->yx, 0.001, "Expect y to be equal to 0.333 but got %f", xyy->yx);
-    CTAssertDecimalEqual(test, 0.8, xyy->yy, 0.01, "Expect Y to be equal to 0.8 but got %f", xyy->yy);
+    CTAssertDecimalEqual(test, 0.333, xyy->y, 0.001, "Expect y to be equal to 0.333 but got %f", xyy->y);
+    CTAssertDecimalEqual(test, 0.8, xyy->Y, 0.01, "Expect Y to be equal to 0.8 but got %f", xyy->Y);
 
     free(xyy);
 }
@@ -37,8 +37,8 @@ ctest_return_t testXyyFromZeroXyz(ctest_t *test, void *arg) {
     Xyy *xyy = getXyyFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 0.312, xyy->x, 0.001, "Expect x to be equal to 0.312 but got %f", xyy->x);
-    CTAssertDecimalEqual(test, 0.329, xyy->yx, 0.001, "Expect y to be equal to 0.329 but got %f", xyy->yx);
-    CTAssertDecimalEqual(test, 0.0, xyy->yy, 0.01, "Expect Y to be equal to 0.0f but got %f", xyy->yy);
+    CTAssertDecimalEqual(test, 0.329, xyy->y, 0.001, "Expect y to be equal to 0.329 but got %f", xyy->y);
+    CTAssertDecimalEqual(test, 0.0, xyy->Y, 0.01, "Expect Y to be equal to 0.0f but got %f", xyy->Y);
     
     free(xyy);
 }
@@ -46,8 +46,8 @@ ctest_return_t testXyyFromZeroXyz(ctest_t *test, void *arg) {
 ctest_return_t testXyzFromXyy(ctest_t *test, void *arg) {
     Xyy *xyy = malloc(sizeof(Xyy));
     xyy->x  = 0.375;
-    xyy->yx = 0.333;
-    xyy->yy = 0.8;
+    xyy->y = 0.333;
+    xyy->Y = 0.8;
     
     Xyz *xyz = getXyzFromXyy(xyy);
     
@@ -61,8 +61,8 @@ ctest_return_t testXyzFromXyy(ctest_t *test, void *arg) {
 ctest_return_t testXyzFromXyyZero(ctest_t *test, void *arg) {
     Xyy *xyy = malloc(sizeof(Xyy));
     xyy->x  = 1.0f;
-    xyy->yx = 0.0f;
-    xyy->yy = 0.9f;
+    xyy->y = 0.0f;
+    xyy->Y = 0.9f;
     
     Xyz *xyz = getXyzFromXyy(xyy);
     
