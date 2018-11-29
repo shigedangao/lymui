@@ -18,7 +18,7 @@
  * @return * xyz double
  */
 static double gammaCorrection(double c) {
-    if (c <= 0.00313) {
+    if (c <= 0.0031308) {
         return c * 12.92;
     }
     
@@ -43,6 +43,7 @@ SRgb *getSRgbFromXyz(Xyz *xyz) {
     srgb->r = gammaCorrection(r);
     srgb->g = gammaCorrection(g);
     srgb->b = gammaCorrection(b);
+    srgb->error = NULL;
     
     free(xyz);
     
