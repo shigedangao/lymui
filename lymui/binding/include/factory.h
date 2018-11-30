@@ -24,6 +24,7 @@
 #include "luv.h"
 #include "argb.h"
 #include "srgb.h"
+#include "xyy.h"
 
 #define COLOR_SPACE_CLAMP 10000
 
@@ -152,7 +153,7 @@ napi_value LuvJSObjFactory(napi_env env, Xyz * xyz, double clamp);
  * @param clamp double
  * @return napi_value
  */
-napi_value ArgbJSObjFactory(napi_env env, Xyz * xyz, double clamp);
+napi_value ArgbJSObjFactory(napi_env env, Xyz *xyz, double clamp);
 
 /**
  * @brief Creating Srgb JS Object
@@ -161,7 +162,16 @@ napi_value ArgbJSObjFactory(napi_env env, Xyz * xyz, double clamp);
  * @param clamp double
  * @return napi_value
  */
-napi_value SrgbJSObjFactory(napi_env env, Xyz * xyz, double clamp);
+napi_value SrgbJSObjFactory(napi_env env, Xyz *xyz, double clamp);
+
+/**
+ * @brief Creating XYY JS Object
+ * @param env napi_env
+ * @param xyz Xyz
+ * @param clamp double
+ * @return napi_value
+ */
+napi_value XyyJSObjFactory(napi_env env, Xyz *xyz, double clamp);
 
 /**
  * @brief Build Promise Error

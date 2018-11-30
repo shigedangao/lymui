@@ -63,3 +63,27 @@ napi_value normalizeLuv(napi_env env, napi_value obj, double clamp) {
     
     return object;
 }
+
+napi_value normalizeXyy(napi_env env, napi_value obj, double clamp) {
+    Xyy *xyy = getXyyFromJSObj(env, obj);
+    if (xyy == NULL) {
+        return NULL;
+    }
+        
+    Xyz *xyz = getXyzFromXyy(xyy);
+    napi_value object = XyzJSObjFactoryNoInst(env, xyz, clamp);
+    
+    return object;
+}
+
+napi_value normalizeSRgb(napi_env env, napi_value obj, double clamp) {
+    SRgb *srgb = getSrgbFromJSObj(env, obj);
+    if (srgb == NULL) {
+        return NULL;
+    }
+    
+    Xyz *xyz = getXyzFromSrgb(srgb);
+    napi_value object = XyzJSObjFactoryNoInst(env, xyz, clamp);
+    
+    return object;
+}

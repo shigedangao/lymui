@@ -20,8 +20,8 @@
  */
 typedef struct Xyy {
     double x;
-    double yx;
-    double yy;
+    double y;
+    double Y;
     char *error;
 } Xyy;
 

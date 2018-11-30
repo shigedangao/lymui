@@ -33,15 +33,16 @@ Xyy *getXyyFromXyz(Xyz *xyz) {
     }
     
     xyy->x  = calculateXyyValue(xyz->x, xyz, 1);
-    xyy->yx = calculateXyyValue(xyz->y, xyz, 0);
-    xyy->yy = xyz->y;
+    xyy->y = calculateXyyValue(xyz->y, xyz, 0);
+    xyy->Y = xyz->y;
+    xyy->error = NULL;
     
     free(xyz);
     
     return xyy;
 }
 
-Xyz * getXyzFromXyy(Xyy *xyy) {
+Xyz *getXyzFromXyy(Xyy *xyy) {
     Xyz *xyz = malloc(sizeof(Xyz));
     if (xyz == NULL) {
         return NULL;
@@ -53,7 +54,7 @@ Xyz * getXyzFromXyy(Xyy *xyy) {
     }
     
     
-    if (!xyy->yx) {
+    if (!xyy->y) {
         xyz->x = 0.0;
         xyz->y = 0.0;
         xyz->z = 0.0;
@@ -62,9 +63,10 @@ Xyz * getXyzFromXyy(Xyy *xyy) {
         return xyz;
     }
     
-    xyz->x = (xyy->x * xyy->yy) / xyy->yx;
-    xyz->y = xyy->yy;
-    xyz->z = ((1.0 - xyy->x - xyy->yx) * xyy->yy) / xyy->yx;
+    xyz->x = (xyy->x * xyy->Y) / xyy->y;
+    xyz->y = xyy->Y;
+    xyz->z = ((1.0 - xyy->x - xyy->y) * xyy->Y) / xyy->y;
+    xyz->error = NULL;
     
     free(xyy);
     return xyz;

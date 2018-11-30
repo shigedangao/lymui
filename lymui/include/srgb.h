@@ -13,17 +13,19 @@
 #include "xyz.h"
 #include "rgb.h"
 
-#define srr 3.2406
-#define srg -1.5732
-#define srb -0.4986
+// XYZ -> SRGB
 
-#define sgr -0.9789
-#define sgg 1.8758
-#define sgb 0.0415
+#define srr 3.2404542
+#define srg -1.5371385
+#define srb -0.4985314
 
-#define sbr 0.0557
-#define sbg -0.2040
-#define sbb 1.0570
+#define sgr -0.9692660
+#define sgg 1.8760108
+#define sgb 0.0415560
+
+#define sbr 0.0556434
+#define sbg -0.2040259
+#define sbb 1.0572252
 
 /**
  * @brief a structure defining the sRgb value. It's store float as the sRGB color space value use decimal
@@ -41,5 +43,12 @@ typedef struct SRgb {
  * @return sRgb a struct pointer of type sRgb
  */
 SRgb *getSRgbFromXyz(Xyz *xyz);
+
+/**
+ * @brief get XYZ from SRGB struct
+ * @param srgb Srgb
+ * @return xyz
+ */
+Xyz *getXyzFromSrgb(SRgb *srgb);
 
 #endif /* srgb_h */

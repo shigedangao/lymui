@@ -25,10 +25,14 @@ static napi_value generateXYZ(napi_env env, BridgeSpaceObj *bridge) {
             return normalizeLab(env, bridge->color, bridge->clamp);
         case lch:
             return normalizeLch(env, bridge->color, bridge->clamp);
-        case lchlab:
+        case llab:
             return normalizeLchLab(env, bridge->color, bridge->clamp);
         case luv:
             return normalizeLuv(env, bridge->color, bridge->clamp);
+        case xyy:
+            return normalizeXyy(env, bridge->color, bridge->clamp);
+        case Srgb:
+            return normalizeSRgb(env, bridge->color, bridge->clamp);
         default:
             return NULL;
     }

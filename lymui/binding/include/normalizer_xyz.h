@@ -48,4 +48,22 @@ napi_value normalizeLchLab(napi_env env, napi_value obj, double clamp);
  */
 napi_value normalizeLuv(napi_env env, napi_value obj, double clamp);
 
+/**
+ * @brief normalize xyy
+ * @param env napi_env
+ * @param obj napi_value
+ * @param clamp double
+ * @return napi_value
+ */
+napi_value normalizeXyy(napi_env env, napi_value obj, double clamp);
+
+/**
+ * @brief Normalize SRGB
+ * @param env napi_env
+ * @param obj napi_value
+ * @param clamp double
+ * @return napi_value
+ */
+napi_value normalizeSRgb(napi_env env, napi_value obj, double clamp);
+
 #endif /* normalizer_xyz_h */

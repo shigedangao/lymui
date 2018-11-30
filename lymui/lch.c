@@ -26,13 +26,15 @@ Lch *getLchFromXyz(Xyz *xyz) {
     
     Luv *luv = getLuvFromXyz(xyz);
     if (luv == NULL) {
+        lch->error = MALLOC_ERROR;
         return NULL;
     }
     
     double H = getDegFromRad(atan2(luv->v, luv->u));
     lch->l = luv->l;
     lch->c = sqrt(pow(luv->u, 2.0) + pow(luv->v, 2.0));
-    lch->h = H >= 0.0 ? H : H + 360.0;
+    lch->h = H > 0.0 ? H : H + 360.0;
+    lch->error = NULL;
     
     free(luv);
     
@@ -67,6 +69,7 @@ Xyz *getXyzFromLch(Lch *lch) {
         return errXyz;
     }
     
+    xyz->error = NULL;
     free(lch);
     free(errXyz);
     

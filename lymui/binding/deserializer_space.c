@@ -21,9 +21,9 @@
  * @return OSpaceType
  */
 static OSpaceType strToOSpaceTypeEnum(char *str) {
-    char *type[] = {"lab", "lch", "lchlab", "luv", "argb", "Srgb"};
+    char *type[] = {"lab", "lch", "llab", "luv", "argb", "Srgb", "xyy"};
     uint8_t idx = 0;
-    size_t size = 6;
+    size_t size = 7;
     OSpaceType t = lab;
     
     while(idx < size) {
@@ -45,12 +45,14 @@ static char *getValidationPropsFromOSpaceType(OSpaceType t) {
             return LCH_PROPS;
         case luv:
             return LUV_PROPS;
-        case lchlab:
+        case llab:
             return LCHLAB_PROPS;
         case argb:
             return ARGB_PROPS;
         case Srgb:
             return SRGB_PROPS;
+        case xyy:
+            return XYY_PROPS;
         default:
             return LAB_PROPS;
     }

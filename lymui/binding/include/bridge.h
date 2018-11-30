@@ -24,6 +24,7 @@
 #include "luv.h"
 #include "argb.h"
 #include "srgb.h"
+#include "xyy.h"
 
 #define MIN_PARAM_VALUE 3
 #define MAX_PARAM_VALUE 4
@@ -139,6 +140,14 @@ Argb *getArgbFromJSObj(napi_env env, napi_value args);
  * @return Srgb
  */
 SRgb *getSrgbFromJSObj(napi_env env, napi_value args);
+
+/**
+ * @brief Extract XYY struct from JS Object
+ * @param env napi_env
+ * @param args napi_value
+ * @return Xyy
+ */
+Xyy *getXyyFromJSObj(napi_env env, napi_value args);
 
 
 #endif /* bridge_h */
