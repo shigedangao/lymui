@@ -47,6 +47,23 @@ ctest_return_t testXyzCreation(ctest_t *test, void *arg) {
     free(nXyz);
 }
 
+ctest_return_t testWhiteXyzCreation(ctest_t *test, void *arg) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 255;
+    rgb->g = 255;
+    rgb->b = 255;
+    
+    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    SRgb *srgb = getSRgbFromXyz(xyz);
+    Xyz *nXyz = getXyzFromSrgb(srgb);
+    
+    CTAssertDecimalEqual(test, 0.9504, nXyz->x, 0.01, "Expect x to be equal to be equal to 0.9504 but got %f", nXyz->x);
+    CTAssertDecimalEqual(test, 1.0000, nXyz->y, 0.01, "Expect y to be equal to be equal to 1.0000 but got %f", nXyz->y);
+    CTAssertDecimalEqual(test, 1.0888, nXyz->z, 0.01, "Expect z to be equal to be equal to 1.0888 but got %f", nXyz->z);
+    
+    free(nXyz);
+}
+
 ctest_return_t testNullSRgbCreation(ctest_t *test, void *arg) {
     SRgb *srgb = getSRgbFromXyz(NULL);
     CTAssertEqual(test, srgb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
@@ -54,17 +71,28 @@ ctest_return_t testNullSRgbCreation(ctest_t *test, void *arg) {
     free(srgb);
 }
 
+ctest_return_t testXyzNULLSRgbCreation(ctest_t *test, void *arg) {
+    Xyz *xyz = getXyzFromSrgb(NULL);
+    CTAssertEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    
+    free(xyz);
+}
+
 ctcase_t *wrapSRgbCreationTest() {
     ctcase_t *sRgbCase = ctcase("sRGB test case");
     
     //test regarding the creation of srgb
-    ctest_t *srgb  = ctest("Creation of an sRGB from Rgb struct", testSRgbCreation, NULL);
-    ctest_t *xyz   = ctest("Creation of an XYZ from an SRGB struct", testXyzCreation, NULL);
-    ctest_t *nSrgb = ctest("Creating of an NULL sRGB from an empty Rgb struct", testNullSRgbCreation, NULL);
+    ctest_t *srgb  = ctest("Creation of a sRGB from Rgb struct", testSRgbCreation, NULL);
+    ctest_t *xyz   = ctest("Creation of a XYZ from an SRGB struct", testXyzCreation, NULL);
+    ctest_t *wXyz  = ctest("Creation of a white XYZ from an sRGB struct", testWhiteXyzCreation, NULL);
+    ctest_t *nSrgb = ctest("Creating of a NULL sRGB from an empty Rgb struct", testNullSRgbCreation, NULL);
+    ctest_t *nXyz  = ctest("Return an error when no data is passed to getXyz", testXyzNULLSRgbCreation, NULL);
     
     ctctestadd(sRgbCase, srgb);
     ctctestadd(sRgbCase, xyz);
+    ctctestadd(sRgbCase, wXyz);
     ctctestadd(sRgbCase, nSrgb);
+    ctctestadd(sRgbCase, nXyz);
     
     return sRgbCase;
 }

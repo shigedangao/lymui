@@ -98,7 +98,7 @@ describe('Creating Xyz from RGB', () => {
     })
   })
 
-  it('Expect to create dark XYZ from RGB Object of type adobe RGB', async () => {
+  it('Expect to create bright XYZ from RGB Object of type adobe RGB', async () => {
     const xyz = await lib.convertRegular({
       input: {
         r: 255,

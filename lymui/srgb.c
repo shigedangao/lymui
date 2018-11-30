@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "xyz_constant.h"
 #include "errors.h"
 #include <math.h>
 #include "srgb.h"
@@ -78,9 +79,10 @@ Xyz *getXyzFromSrgb(SRgb *srgb) {
     double _g = reverseGamma(srgb->g);
     double _b = reverseGamma(srgb->b);
         
-    xyz->x = _r * xsr + _g * xsg + _b * xsb;
-    xyz->y = _r * ysr + _g * ysg + _b * ysb;
-    xyz->z = _r * zsr + _g * zsg + _b * zsb;
+    xyz->x = _r * xr + _g * xg + _b * xb;
+    xyz->y = _r * yr + _g * yg + _b * yb;
+    xyz->z = _r * zr + _g * zg + _b * zb;
+    xyz->error = NULL;
     
     free(srgb);
     

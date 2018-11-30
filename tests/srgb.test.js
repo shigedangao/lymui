@@ -22,7 +22,7 @@ describe('Creating SRGB from Xyz', () => {
     })
 
     expect(data).to.be.deep.equal({
-      r: 0.21,
+      r: 0.22,
       g: 0.01,
       b: 0.38
     })
@@ -68,9 +68,65 @@ describe('Creating SRGB from Xyz', () => {
     })
 
     expect(data).to.be.deep.equal({
-      r: 0.98,
+      r: 1.0,
       g: 1.0,
       b: 1.0
+    })
+  })
+})
+
+describe('Creating XYZ from SRGB', () => {
+  it('Expect to create XYZ from SRGB', async () => {
+    const { data } = await lib.toXYZ({
+      input: {
+        r: 0.216668,
+        g: 0.010423,
+        b: 0.379375
+      },
+      type: 'Srgb',
+      clamp: 10000
+    })
+
+    expect(data).to.be.deep.equal({
+      x: 0.0376,
+      y: 0.0174,
+      z: 0.1138
+    })
+  })
+
+  it('Expect to create bright XYZ from SRGB', async () => {
+    const { data } = await lib.toXYZ({
+      input: {
+        r: 1.0,
+        g: 1.0,
+        b: 1.0
+      },
+      type: 'Srgb',
+      clamp: 10000
+    })
+
+    expect(data).to.be.deep.equal({
+      x: 0.9505,
+      y: 1,
+      z: 1.0888
+    })
+  })
+
+  it('Expect to create dark XYZ from SRGB', async () => {
+    const { data } = await lib.toXYZ({
+      input: {
+        r: 0,
+        g: 0,
+        b: 0
+      },
+      type: 'Srgb',
+      clamp: 10000
+    })
+
+    expect(data).to.be.deep.equal({
+      x: 0.0,
+      y: 0.0,
+      z: 0.0
     })
   })
 })
