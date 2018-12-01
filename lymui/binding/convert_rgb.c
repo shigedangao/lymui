@@ -50,7 +50,7 @@ static napi_value generateRGB(napi_env env, BridgeObj *bridge) {
  *      v: 0
  *    },
  *    type: 'yuv',
- *    profile: 'adobeRgb'
+ *    profile: <optional> 'adobeRgb|srgb'
  *  })
  *
  */

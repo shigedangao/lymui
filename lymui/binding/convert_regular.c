@@ -28,15 +28,15 @@ static napi_value generateTypeJSObj(napi_env env, BridgeObj *bridge) {
         case hex:
             return HexJSObjFactory(env, rgb);
         case hsl:
-            return HslJSObjFactory(env, rgb);
+            return HslJSObjFactory(env, rgb, bridge->clamp);
         case hsv:
-            return HsvJSObjFactory(env, rgb);
+            return HsvJSObjFactory(env, rgb, bridge->clamp);
         case cymk:
             return CymkJSObjFactory(env, rgb);
         case ycbcr:
             return YcbcrJSObjFactory(env, rgb);
         case yuv:
-            return YuvJSObjFactory(env, rgb);
+            return YuvJSObjFactory(env, rgb, bridge->clamp);
         case xyz:
             return XyzJSObjFactory(env, rgb, bridge->matrix, bridge->clamp);
         default:
@@ -54,7 +54,7 @@ static napi_value generateTypeJSObj(napi_env env, BridgeObj *bridge) {
  *    },
  *    output: 'xyz',
  *    profile: 'adobeRgb', (optional) <string>
- *    clamp: 1000, optional <uint32_t>
+ *    clamp: 1000, optional <double>
  *  })
  *
  */

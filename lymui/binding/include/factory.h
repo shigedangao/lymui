@@ -72,25 +72,28 @@ napi_value YcbcrJSObjFactory(napi_env env, Rgb *rgb);
  * @brief Factory creating Hsl Object
  * @param env napi_env
  * @param rgb Rgb struct pointer
+ * @param clamp double
  * @return napi_value
  */
-napi_value HslJSObjFactory(napi_env env, Rgb *rgb);
+napi_value HslJSObjFactory(napi_env env, Rgb *rgb, double clamp);
 
 /**
  * @breif Creating HSV JS Object
  * @param env napi_env
  * @param rgb struct Rgb pointer
+ * @param clamp double
  * @return napi_value
  */
-napi_value HsvJSObjFactory(napi_env env, Rgb *rgb);
+napi_value HsvJSObjFactory(napi_env env, Rgb *rgb, double clamp);
 
 /**
  * @brief Creating YUV JS Object
  * @param env napi_env
  * @param rgb *Rgb
+ * @param clamp double
  * @return napi_value
  */
-napi_value YuvJSObjFactory(napi_env env, Rgb *rgb);
+napi_value YuvJSObjFactory(napi_env env, Rgb *rgb, double clamp);
 
 /**
  * @brief Creating Xyz JS Object

@@ -5,14 +5,15 @@ const lib = require('../build/Debug/lymuilib')
 SegfaultHandler.registerHandler('argb_crash.log')
 
 describe('Creating ARGB from Xyz', () => {
-  it('Expect to create ARGB from XYZ Object', async () => {
+  it('Expect to create ARGB from Adobe profile XYZ Object', async () => {
     const xyz = await lib.convertRegular({
       input: {
         r: 50,
         g: 10,
         b: 95
       },
-      output: 'xyz'
+      output: 'xyz',
+      profile: 'adobe'
     })
 
     const { data } = await lib.convertSpace({

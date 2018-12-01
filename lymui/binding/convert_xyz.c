@@ -38,6 +38,19 @@ static napi_value generateXYZ(napi_env env, BridgeSpaceObj *bridge) {
     }
 }
 
+/**
+ * JS API
+ *  const rgb = async toXYZ({
+ *    input: {
+ *      l: 13.9492,
+ *      c: 40.0716,
+ *      h: 276.8616
+ *    },
+ *    type: 'lch',
+ *    clamp: <optional> double
+ *  })
+ *
+ */
 napi_value toXYZ(napi_env env, napi_callback_info info) {
     napi_status status;
     size_t argc = 1;
