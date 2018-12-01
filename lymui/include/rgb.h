@@ -10,6 +10,7 @@
 #define rgb_h
 
 #include <stdio.h>
+#include <stdint.h>
 
 /**
  * @brief Rgb structure Object

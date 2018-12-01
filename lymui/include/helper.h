@@ -10,6 +10,7 @@
 #define helper_h
 
 #include <stdio.h>
+#include <stdint.h>
 
 /*!
  * @discussion convert an uint character to hex value

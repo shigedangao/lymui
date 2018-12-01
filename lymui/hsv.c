@@ -6,7 +6,6 @@
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
-#include <stdint.h>
 #include <stdlib.h>
 #include <math.h>
 #include "errors.h"
