@@ -52,6 +52,8 @@ napi_value RgbJSObjFactory(napi_env env, Rgb *rgb) {
     // assign data to the object
     assignJSObjtoJSObj(env, &object, data, "data");
     
+    free(rgb);
+    
     return object;
 }
 
@@ -78,6 +80,8 @@ napi_value HexJSObjFactory(napi_env env, Rgb *rgb) {
     assignPropToJSObj(&data, env, string, "hex", hex);
     
     assignJSObjtoJSObj(env, &object, data, "data");
+    
+    free(hex);
     
     return object;
 }
@@ -115,6 +119,8 @@ napi_value CymkJSObjFactory(napi_env env, Rgb *rgb) {
     
     assignJSObjtoJSObj(env, &object, data, "data");
     
+    free(cymk);
+    
     return object;
 }
 
@@ -149,10 +155,12 @@ napi_value YcbcrJSObjFactory(napi_env env, Rgb *rgb) {
     
     assignJSObjtoJSObj(env, &object, data, "data");
     
+    free(ycb);
+    
     return object;
 }
 
-napi_value HslJSObjFactory(napi_env env, Rgb *rgb) {
+napi_value HslJSObjFactory(napi_env env, Rgb *rgb, double clamp) {
     napi_status status;
     napi_value object, data;
     
@@ -177,16 +185,22 @@ napi_value HslJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    assignPropToJSObj(&data, env, numberDouble, "h", &hsl->h);
-    assignPropToJSObj(&data, env, numberDouble, "s", &hsl->s);
-    assignPropToJSObj(&data, env, numberDouble, "l", &hsl->l);
+    double h = clampValue(hsl->h, clamp);
+    double s = clampValue(hsl->s, clamp);
+    double l = clampValue(hsl->l, clamp);
+    
+    assignPropToJSObj(&data, env, numberDouble, "h", &h);
+    assignPropToJSObj(&data, env, numberDouble, "s", &s);
+    assignPropToJSObj(&data, env, numberDouble, "l", &l);
     
     assignJSObjtoJSObj(env, &object, data, "data");
+    
+    free(hsl);
     
     return object;
 }
 
-napi_value HsvJSObjFactory(napi_env env, Rgb *rgb) {
+napi_value HsvJSObjFactory(napi_env env, Rgb *rgb, double clamp) {
     napi_status status;
     napi_value object, data;
     
@@ -211,16 +225,22 @@ napi_value HsvJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    assignPropToJSObj(&data, env, numberDouble, "h", &hsv->h);
-    assignPropToJSObj(&data, env, numberDouble, "s", &hsv->s);
-    assignPropToJSObj(&data, env, numberDouble, "v", &hsv->v);
+    double h = clampValue(hsv->h, clamp);
+    double s = clampValue(hsv->s, clamp);
+    double v = clampValue(hsv->v, clamp);
+    
+    assignPropToJSObj(&data, env, numberDouble, "h", &h);
+    assignPropToJSObj(&data, env, numberDouble, "s", &s);
+    assignPropToJSObj(&data, env, numberDouble, "v", &v);
     
     assignJSObjtoJSObj(env, &object, data, "data");
+    
+    free(hsv);
     
     return object;
 }
 
-napi_value YuvJSObjFactory(napi_env env, Rgb *rgb) {
+napi_value YuvJSObjFactory(napi_env env, Rgb *rgb, double clamp) {
     napi_status status;
     napi_value object, data;
     
@@ -245,11 +265,17 @@ napi_value YuvJSObjFactory(napi_env env, Rgb *rgb) {
         return object;
     }
     
-    assignPropToJSObj(&data, env, numberDouble, "y", &yuv->y);
-    assignPropToJSObj(&data, env, numberDouble, "u", &yuv->u);
-    assignPropToJSObj(&data, env, numberDouble, "v", &yuv->v);
+    double y = clampValue(yuv->y, clamp);
+    double u = clampValue(yuv->u, clamp);
+    double v = clampValue(yuv->v, clamp);
+    
+    assignPropToJSObj(&data, env, numberDouble, "y", &y);
+    assignPropToJSObj(&data, env, numberDouble, "u", &u);
+    assignPropToJSObj(&data, env, numberDouble, "v", &v);
     
     assignJSObjtoJSObj(env, &object, data, "data");
+    
+    free(yuv);
     
     return object;
 }
@@ -291,6 +317,8 @@ napi_value XyzJSObjFactory(napi_env env, Rgb *rgb, char *matrix, double clamp) {
     
     assignJSObjtoJSObj(env, &object, data, "data");
     
+    free(xyz);
+    
     return object;
 }
 
@@ -322,6 +350,8 @@ napi_value XyzJSObjFactoryNoInst(napi_env env, Xyz *xyz, double clamp) {
     assignPropToJSObj(&data, env, numberDouble, "z", &z);
     
     assignJSObjtoJSObj(env, &object, data, "data");
+    
+    free(xyz);
     
     return object;
 }
@@ -602,6 +632,8 @@ napi_value XyyJSObjFactory(napi_env env, Xyz *xyz, double clamp) {
     assignPropToJSObj(&data, env, numberDouble, "Y", &yy);
     
     assignJSObjtoJSObj(env, &object, data, "data");
+    
+    free(xyy);
     
     return object;
 }

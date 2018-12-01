@@ -141,14 +141,14 @@ double clampValue(double value, double clamp) {
 
 Matrix getEnumFromStr(char *enumStr) {
     if (enumStr == NULL) {
-        return adobeRgb;
-    }
-
-    if (!strcmp(enumStr, "srgb")) {
         return srgb;
     }
+
+    if (!strcmp(enumStr, "adobe")) {
+        return adobeRgb;
+    }
     
-    return adobeRgb;
+    return srgb;
 }
 
 void getNamedPropArray(napi_env env, char * name, napi_value obj, size_t len, napi_value * res) {

@@ -22,6 +22,24 @@ describe('Creating YUV from RGB', () => {
     })
   })
 
+  it('Expect to create an other YUV from RGB', async () => {
+    const yuv = await lib.convertRegular({
+      input: {
+        r: 50,
+        g: 10,
+        b: 98
+      },
+      output: 'yuv',
+      clamp: 100
+    })
+
+    expect(yuv.data).to.be.deep.equal({
+      y: 0.13,
+      u: 0.13,
+      v: 0.06
+    })
+  })
+
   it('Expect to create dark YUV from black RGB', async () => {
     const yuv = await lib.convertRegular({
       input: {
