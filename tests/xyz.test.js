@@ -31,7 +31,8 @@ describe('Creating Xyz from RGB', () => {
         b: 95
       },
       output: 'xyz',
-      clamp: 10000 // Experimental
+      clamp: 10000,
+      profile: 'adobe'
     })
 
     expect(xyz.data).to.be.deep.equal({
@@ -106,7 +107,7 @@ describe('Creating Xyz from RGB', () => {
         b: 255
       },
       output: 'xyz',
-      profile: 'adobeRgb',
+      profile: 'adobe',
       clamp: 10000
     })
 
@@ -163,7 +164,8 @@ describe('Creating RGB from XYZ', () => {
         y: 0.0173,
         z: 0.1138
       },
-      type: 'xyz'
+      type: 'xyz',
+      profile: 'adobe'
     })
 
     expect(rgb.data).to.be.deep.equal({
@@ -199,7 +201,7 @@ describe('Creating RGB from XYZ', () => {
         z: 0
       },
       type: 'xyz',
-      profile: 'adobeRgb'
+      profile: 'adobe'
     })
 
     expect(rgb.data).to.be.deep.equal({
@@ -235,7 +237,7 @@ describe('Creating RGB from XYZ', () => {
         z: 1.0887
       },
       type: 'xyz',
-      profile: 'adobeRgb'
+      profile: 'adobe'
     })
 
     expect(rgb.data).to.be.deep.equal({

@@ -12,7 +12,8 @@ describe('Creating SRGB from Xyz', () => {
         g: 10,
         b: 95
       },
-      output: 'xyz'
+      output: 'xyz',
+      profile: 'srgb'
     })
 
     const { data } = await lib.convertSpace({
@@ -22,9 +23,9 @@ describe('Creating SRGB from Xyz', () => {
     })
 
     expect(data).to.be.deep.equal({
-      r: 0.22,
-      g: 0.01,
-      b: 0.38
+      r: 0.2,
+      g: 0.04,
+      b: 0.37
     })
   })
 

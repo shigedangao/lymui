@@ -8,9 +8,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "xyz_constant.h"
 #include "errors.h"
-#include <math.h>
 #include "srgb.h"
 
 /**
