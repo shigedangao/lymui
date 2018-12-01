@@ -31,7 +31,7 @@ ctest_return_t testYcbcrNullCreation(ctest_t *test, void *arg) {
     Rgb *rgb = NULL;
     Ycbcr *ycbcr = getYcbcrFromRgb(rgb);
     
-    CTAssertEqual(test, ycbcr->error, NULL_INPUT_STRUCT, "Expect to return a string message error", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, ycbcr->error, NULL_INPUT_STRUCT, "Expect to return a string message error", NULL_INPUT_STRUCT);
     
     free(rgb);
     free(ycbcr);

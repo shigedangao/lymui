@@ -65,7 +65,7 @@ ctest_return_t testWhiteLab(ctest_t *test, void *arg) {
 
 ctest_return_t testNullLab(ctest_t *test, void *arg) {
     Lab *lab = getLabFromXyz(NULL);
-    CTAssertEqual(test, lab->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, lab->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(lab);
 }
@@ -120,7 +120,7 @@ ctest_return_t testXyzFromLargeLab(ctest_t *test, void *arg) {
 
 ctest_return_t testXyzNullCreation(ctest_t *test, void *arg) {
     Xyz *xyz = getXyzFromLab(NULL);
-    CTAssertEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(xyz);
 }
@@ -143,7 +143,7 @@ ctest_return_t testHunterLabFromXyz(ctest_t *test, void *arg) {
 
 ctest_return_t testNullHunter(ctest_t *test, void *arg) {
     Lab *hunterLab = getHunterLabFromXyz(NULL);
-    CTAssertEqual(test, hunterLab->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, hunterLab->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(hunterLab);
 }
