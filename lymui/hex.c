@@ -29,7 +29,7 @@ char *getHexFromRGB(Rgb *c) {
         return NULL;
     }
     
-    char *tmp = malloc(sizeof(char) * 2);
+    char *tmp = malloc(sizeof(char) * 4);
     if (tmp == NULL) {
         return NULL;
     }
