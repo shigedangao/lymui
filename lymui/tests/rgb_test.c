@@ -31,14 +31,14 @@ ctest_return_t testFailRgbCreation(ctest_t *test, void *arg) {
     uint8_t uc[] = {0, 100};
     Rgb *rgb = makeRGB(uc, sizeof(uc));
     
-    CTAssertEqual(test, rgb->error, WRONG_INPUT_PARAM, "Expect RGB to be return a string error %s", WRONG_INPUT_PARAM);
+    CTAssertStringEqual(test, rgb->error, WRONG_INPUT_PARAM, "Expect RGB to be return a string error %s", WRONG_INPUT_PARAM);
     free(rgb);
 }
 
 ctest_return_t testNullRgbCreation(ctest_t *test, void *arg) {
     Rgb *rgb = makeRGB(NULL, 0);
     
-    CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect RGB to be return a string error %s", NULL_INPUT_PARAM);
+    CTAssertStringEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect RGB to be return a string error %s", NULL_INPUT_PARAM);
     free(rgb);
 }
 

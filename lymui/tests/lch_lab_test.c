@@ -81,14 +81,14 @@ ctest_return_t testXyzFromLchLab(ctest_t *test, void *arg) {
 
 ctest_return_t testLabLchNull(ctest_t *test, void *arg) {
     LchLab *lch = getLchFromLab(NULL);
-    CTAssertEqual(test, lch->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, lch->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(lch);
 }
 
 ctest_return_t testXyzLchlabNull(ctest_t *test, void *arg) {
     Xyz *xyz = getXyzFromLchlab(NULL);
-    CTAssertEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
 
     free(xyz);
 }

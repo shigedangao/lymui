@@ -10,6 +10,7 @@
 #define ycbcr_h
 
 #include <stdio.h>
+#include <stdint.h>
 #include "rgb.h"
 
 #define YConst 1.164

@@ -66,14 +66,14 @@ ctest_return_t testWhiteXyzCreation(ctest_t *test, void *arg) {
 
 ctest_return_t testNullSRgbCreation(ctest_t *test, void *arg) {
     SRgb *srgb = getSRgbFromXyz(NULL);
-    CTAssertEqual(test, srgb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, srgb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
 
     free(srgb);
 }
 
 ctest_return_t testXyzNULLSRgbCreation(ctest_t *test, void *arg) {
     Xyz *xyz = getXyzFromSrgb(NULL);
-    CTAssertEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(xyz);
 }

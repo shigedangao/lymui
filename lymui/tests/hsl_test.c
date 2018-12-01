@@ -165,14 +165,14 @@ ctest_return_t testPositiveRgbValue(ctest_t *test, void *arg) {
 ctest_return_t testNullRgbFromHsl(ctest_t *test, void *arg) {
     Rgb *rgb = getRgbFromHsl(NULL);
     
-    CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
+    CTAssertStringEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
     free(rgb);
 }
 
 ctest_return_t testErrorHslFromRgb(ctest_t *test, void *arg) {
     Hsl *hsl = getHslFromRgb(NULL);
     
-    CTAssertEqual(test, hsl->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
+    CTAssertStringEqual(test, hsl->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
     free(hsl);
 }
 

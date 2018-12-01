@@ -42,7 +42,7 @@ ctest_return_t testCymkBlackCreation(ctest_t *test, void *arg) {
 ctest_return_t testCymkNullCreation(ctest_t *test, void *arg) {
     Cymk *cymk = getCymkFromRgb(NULL);
     
-    CTAssertEqual(test, NULL_INPUT_STRUCT, cymk->error, "Expected cymk to return an error of message %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, NULL_INPUT_STRUCT, cymk->error, "Expected cymk to return an error of message %s", NULL_INPUT_STRUCT);
     
     free(cymk);
 }
@@ -84,7 +84,7 @@ ctest_return_t testCymkToRgb(ctest_t *test, void *arg) {
 ctest_return_t testCymkToUintNull(ctest_t *test, void *arg) {
     Rgb *colors = getRgbFromCymk(NULL);
     
-    CTAssertEqual(test, colors->error, NULL_INPUT_PARAM, "Expect to return a string message error", NULL_INPUT_PARAM);
+    CTAssertStringEqual(test, colors->error, NULL_INPUT_PARAM, "Expect to return a string message error", NULL_INPUT_PARAM);
     
     free(colors);
 }

@@ -7,7 +7,6 @@
 //
 
 #include <stdlib.h>
-#include <stdint.h>
 #include "rgb.h"
 #include "errors.h"
 #include "helper.h"

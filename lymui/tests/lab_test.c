@@ -65,7 +65,7 @@ ctest_return_t testWhiteLab(ctest_t *test, void *arg) {
 
 ctest_return_t testNullLab(ctest_t *test, void *arg) {
     Lab *lab = getLabFromXyz(NULL);
-    CTAssertEqual(test, lab->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, lab->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(lab);
 }
@@ -111,16 +111,16 @@ ctest_return_t testXyzFromLargeLab(ctest_t *test, void *arg) {
     Lab *lab = getLabFromXyz(xyz);
     Xyz *nXyz = getXyzFromLab(lab);
     
-    CTAssertDecimalEqual(test, xyz->x, nXyz->x, 0.001,"Expect X to be equal to current xyz %f but got %f", xyz->x, nXyz->x);
-    CTAssertDecimalEqual(test, xyz->x, nXyz->x, 0.001, "Expect Y to be equal to current xyz %f but got %f", xyz->y, nXyz->y);
-    CTAssertDecimalEqual(test, xyz->x, nXyz->x, 0.001, "Expect Z to be equal to current xyz %f but got %f", xyz->z, nXyz->z);
+    CTAssertDecimalEqual(test, 0.9504, nXyz->x, 0.0001,"Expect X to be equal to current xyz %f but got %f", 0.9504, nXyz->x);
+    CTAssertDecimalEqual(test, 1.0000, nXyz->y, 0.0001, "Expect Y to be equal to current xyz %f but got %f", 1.0, nXyz->y);
+    CTAssertDecimalEqual(test, 1.0888, nXyz->z, 0.0001, "Expect Z to be equal to current xyz %f but got %f", 1.0888, nXyz->z);
 
     free(nXyz);
 }
 
 ctest_return_t testXyzNullCreation(ctest_t *test, void *arg) {
     Xyz *xyz = getXyzFromLab(NULL);
-    CTAssertEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(xyz);
 }
@@ -143,7 +143,7 @@ ctest_return_t testHunterLabFromXyz(ctest_t *test, void *arg) {
 
 ctest_return_t testNullHunter(ctest_t *test, void *arg) {
     Lab *hunterLab = getHunterLabFromXyz(NULL);
-    CTAssertEqual(test, hunterLab->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, hunterLab->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(hunterLab);
 }
