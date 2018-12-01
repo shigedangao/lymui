@@ -29,17 +29,7 @@ char *getHexFromRGB(Rgb *c) {
         return NULL;
     }
     
-    char *tmp = malloc(sizeof(char) * 4);
-    if (tmp == NULL) {
-        return NULL;
-    }
-    
-    strcpy(hex, r);
-    strcpy(tmp, g);
-    strcat(tmp, b);
-    strcat(hex, tmp);
-
-    free(tmp);
+    snprintf(hex, HEX_SIZE, "%s%s%s", r, g, b);
     return hex;
 }
 
