@@ -15,7 +15,7 @@
 
 ctest_return_t testNullHsvCreation(ctest_t *test, void *arg) {
     Hsv *hsv = getHsvFromRgb(NULL);
-    CTAssertEqual(test, hsv->error, NULL_INPUT_PARAM, "Expect error to return a string %s", NULL_INPUT_PARAM);
+    CTAssertStringEqual(test, hsv->error, NULL_INPUT_PARAM, "Expect error to return a string %s", NULL_INPUT_PARAM);
     
     free(hsv);
 }
@@ -162,7 +162,7 @@ ctest_return_t testCaseRgb_Default(ctest_t *test, void *arg) {
 
 ctest_return_t testCaseRgb_NULL(ctest_t *test, void *arg) {
     Rgb *rgb = getRgbFromHsv(NULL);
-    CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect error to return a string %s", NULL_INPUT_PARAM);
+    CTAssertStringEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect error to return a string %s", NULL_INPUT_PARAM);
     
     free(rgb);
 }

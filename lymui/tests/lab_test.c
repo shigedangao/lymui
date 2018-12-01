@@ -111,9 +111,9 @@ ctest_return_t testXyzFromLargeLab(ctest_t *test, void *arg) {
     Lab *lab = getLabFromXyz(xyz);
     Xyz *nXyz = getXyzFromLab(lab);
     
-    CTAssertDecimalEqual(test, xyz->x, nXyz->x, 0.001,"Expect X to be equal to current xyz %f but got %f", xyz->x, nXyz->x);
-    CTAssertDecimalEqual(test, xyz->x, nXyz->x, 0.001, "Expect Y to be equal to current xyz %f but got %f", xyz->y, nXyz->y);
-    CTAssertDecimalEqual(test, xyz->x, nXyz->x, 0.001, "Expect Z to be equal to current xyz %f but got %f", xyz->z, nXyz->z);
+    CTAssertDecimalEqual(test, 0.9504, nXyz->x, 0.0001,"Expect X to be equal to current xyz %f but got %f", 0.9504, nXyz->x);
+    CTAssertDecimalEqual(test, 1.0000, nXyz->y, 0.0001, "Expect Y to be equal to current xyz %f but got %f", 1.0, nXyz->y);
+    CTAssertDecimalEqual(test, 1.0888, nXyz->z, 0.0001, "Expect Z to be equal to current xyz %f but got %f", 1.0888, nXyz->z);
 
     free(nXyz);
 }

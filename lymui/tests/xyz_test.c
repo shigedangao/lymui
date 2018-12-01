@@ -106,7 +106,7 @@ ctest_return_t testXyzArgbBright(ctest_t *test, void *arg) {
 
 ctest_return_t testXyzRgbNull(ctest_t *test, void *arg) {
     Xyz *xyz = generateXyzFromRgb(NULL, srgb);
-    CTAssertEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
 
     free(xyz);
 }
@@ -145,7 +145,7 @@ ctest_return_t testXyzToARgb(ctest_t *test, void *arg) {
 
 ctest_return_t testRgbXyzNull(ctest_t *test, void *arg) {
     Rgb *rgb = generateRgbFromXyz(NULL, srgb);
-    CTAssertEqual(test, rgb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, rgb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
 
     free(rgb);
 }
