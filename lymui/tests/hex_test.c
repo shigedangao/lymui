@@ -47,9 +47,9 @@ ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
     
     Rgb *uc = getRGBFromHex(hex);
 
-    CTAssertEqual(test, 5, uc->r, "R value is %d where as it should be 5", 5);
-    CTAssertEqual(test, 10, uc->g, "G value is %d where as it should be 10", 10);
-    CTAssertEqual(test, 95, uc->b, "B value is %d where as it should be 95", 95);
+    CTAssertEqual(test, 5, uc->r, "R value is %i where as it should be 5", uc->r);
+    CTAssertEqual(test, 10, uc->g, "G value is %i where as it should be 10", uc->g);
+    CTAssertEqual(test, 95, uc->b, "B value is %i where as it should be 95", uc->b);
     
     free(uc);
 }
