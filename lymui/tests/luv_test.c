@@ -80,7 +80,7 @@ ctest_return_t testInferiorYLuvFromXyz(ctest_t *test, void *arg) {
 
 ctest_return_t testNullLuv(ctest_t *test, void *arg) {
     Luv *luv = getLuvFromXyz(NULL);
-    CTAssertEqual(test, luv->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, luv->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(luv);
 }
@@ -121,7 +121,7 @@ ctest_return_t testHighXyzFromLuv(ctest_t *test, void *arg) {
 
 ctest_return_t testNullXyz(ctest_t *test, void *arg) {
     Xyz *xyz = getXyzFromLuv(NULL);
-    CTAssertEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
 
     
     free(xyz);

@@ -546,7 +546,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
-				"EXCLUDED_SOURCE_FILE_NAMES[arch=*]" = "";
+				"EXCLUDED_SOURCE_FILE_NAMES[arch=*]" = (
+					"lymui/binding/*",
+					"lymui/binding/normalizer/*",
+				);
 				"HEADER_SEARCH_PATHS[arch=*]" = (
 					"$(SRCROOT)/lib/cunit/include",
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,

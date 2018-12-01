@@ -10,6 +10,7 @@
 #define xyz_h
 
 #include <stdio.h>
+#include <stdint.h>
 #include "rgb.h"
 
 // Compound

@@ -76,14 +76,14 @@ ctest_return_t testXyzFromXyyZero(ctest_t *test, void *arg) {
 ctest_return_t testNullXyzXyy(ctest_t *test, void *arg) {
     Xyy *xyy = getXyyFromXyz(NULL);
     
-    CTAssertEqual(test, xyy->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, xyy->error, NULL_INPUT_STRUCT,  "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     free(xyy);
 }
 
 ctest_return_t testNullXyyXyz(ctest_t *test, void *arg) {
     Xyz *xyz = getXyzFromXyy(NULL);
-    CTAssertEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
+    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT,  "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     free(xyz);
 }
 

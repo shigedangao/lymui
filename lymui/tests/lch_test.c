@@ -74,7 +74,7 @@ ctest_return_t testLchFromMinXyz(ctest_t *test, void *arg) {
 
 ctest_return_t testNullLch(ctest_t *test, void *arg) {
     Lch *lch = getLchFromXyz(NULL);
-    CTAssertEqual(test, lch->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, lch->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     free(lch);
 }
 
@@ -129,7 +129,7 @@ ctest_return_t testDarkLchToXyz(ctest_t *test, void *arg) {
 
 ctest_return_t testEmptyXyz(ctest_t *test, void *arg) {
     Xyz *xyz = getXyzFromLch(NULL);
-    CTAssertEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(xyz);
 }

@@ -29,7 +29,9 @@ ctest_return_t testCaseCreationYuv(ctest_t *test, void *arg) {
 
 ctest_return_t testCaseCreationNullYuv(ctest_t *test, void *arg) {
     Yuv *yuv = getYuvFromRgb(NULL);
-    CTAssertEqual(test, yuv->error, NULL_INPUT_PARAM ,"Expect Yuv to be equal to %s", NULL_INPUT_PARAM);
+    CTAssertStringEqual(test, yuv->error, NULL_INPUT_PARAM ,"Expect Yuv to be equal to %s", NULL_INPUT_PARAM);
+    
+    free(yuv);
 }
 
 ctest_return_t testCreationRgb(ctest_t *test, void *arg) {
@@ -50,7 +52,7 @@ ctest_return_t testCreationRgb(ctest_t *test, void *arg) {
 ctest_return_t testCreationRgbNULL(ctest_t *test, void *arg) {
     Rgb *rgb = getRgbFromYuv(NULL);
     
-    CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM ,"Expect RGB to be equal to %s", NULL_INPUT_PARAM);
+    CTAssertStringEqual(test, rgb->error, NULL_INPUT_PARAM ,"Expect RGB to be equal to %s", NULL_INPUT_PARAM);
     
     free(rgb);
 }

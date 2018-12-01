@@ -38,7 +38,7 @@ lymdir:
 	mkdir -p $(TEST_DIR)
 
 lym: $(LM_TESTS_ALL)
-	$(CC) -o $@ $^ $(INC_TT) $(LIB_FLAGS) $(LIB_LINK)
+	$(CC) -o $@ $^ $(INC_TT) $(LIB_FLAGS) $(LIB_LINK) -lm -pthread
 
 test:
 	./lym

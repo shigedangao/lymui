@@ -66,7 +66,7 @@ ctest_return_t testMaxARgb(ctest_t *test, void *arg) {
 
 ctest_return_t testNullARgb(ctest_t *test, void *arg) {
     Argb *argb = getARgbFromXyz(NULL);
-    CTAssertEqual(test, argb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    CTAssertStringEqual(test, argb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     
     free(argb);
 }
