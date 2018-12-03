@@ -16,7 +16,7 @@
 #include "rgb.h"
 
 ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
-    uint8_t uc[]    = {05, 10, 95};
+    uint8_t uc[]    = {5, 10, 95};
     Rgb *lym = makeRGB(uc, sizeof(uc));
     
     char *hex = getHexFromRGB(lym);
@@ -28,6 +28,27 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     value[4] = '5';
     value[5] = 'f';
 
+    // As the lib does not support the hex test yet
+    CTAssertStringEqual(test, value, hex, "%s is not equal to %s", value, hex);
+    
+    free(lym);
+    free(hex);
+    free(value);
+}
+
+ctest_return_t testWhiteHexCreationFromRgb(ctest_t *test, void *arg) {
+    uint8_t uc[]    = {255, 255, 255};
+    Rgb *lym = makeRGB(uc, sizeof(uc));
+    
+    char *hex = getHexFromRGB(lym);
+    char *value = malloc(sizeof(char) * 6 + 1);
+    value[0] = 'f';
+    value[1] = 'f';
+    value[2] = 'f';
+    value[3] = 'f';
+    value[4] = 'f';
+    value[5] = 'f';
+    
     // As the lib does not support the hex test yet
     CTAssertStringEqual(test, value, hex, "%s is not equal to %s", value, hex);
     
@@ -85,12 +106,14 @@ ctcase_t *wrapHexCreationTest() {
     
     // Hex test
     ctest_t *hexCreation  = ctest("Create an Hex from RGB", testHexCreationFromRgb, NULL);
+    ctest_t *whiteCreation = ctest("Create white HEX value", testWhiteHexCreationFromRgb, NULL);
     ctest_t *uintCreation = ctest("Create an Uint8 Array from HEX", testUintArrayCreationFromHex, NULL);
     ctest_t *uintNull = ctest("Create an Uint8 Array from a Null HEX", testUintNullCreationFromHex, NULL);
     ctest_t *uintOtherHex = ctest("Create RGB From String Hex", testUintArrayCreationFromSecHex, NULL);
     
     // Add test to test case
     ctctestadd(hexCase, hexCreation);
+    ctctestadd(hexCase, whiteCreation);
     ctctestadd(hexCase, uintCreation);
     ctctestadd(hexCase, uintNull);
     ctctestadd(hexCase, uintOtherHex);
