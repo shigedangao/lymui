@@ -33,9 +33,11 @@ static char *uintToHex(uint8_t color) {
         strcpy(hex, "0");
         strcat(hex, &tmp[0]);
         
+        free(tmp);
         return hex;
     }
     
+    free(hex);
     return tmp;
 }
 
