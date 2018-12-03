@@ -20,18 +20,21 @@
  * @return char array
  */
 static char *uintToHex(uint8_t color) {
-    char *hexa = malloc(sizeof(char) * HEX_GROUP_LEN + 1);
-    if (hexa == NULL) {
+    char *tmp = malloc(sizeof(char) * HEX_GROUP_LEN + 1);
+    char *hex = malloc(sizeof(char) * HEX_GROUP_LEN + 1);
+    if (tmp == NULL || hex == NULL) {
         return NULL;
     }
     
-    sprintf(hexa, "%x", color);
-    if (!hexa[1]) {
-        hexa[1] = hexa[0];
-        hexa[0] = '0';
+    sprintf(tmp, "%x", color);
+    if (!tmp[1]) {
+        strcpy(hex, "0");
+        strcat(hex, &tmp[0]);
+        
+        return hex;
     }
     
-    return hexa;
+    return tmp;
 }
 
 // Get Hex From RGB
