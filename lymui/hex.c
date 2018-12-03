@@ -9,9 +9,30 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <ctype.h>
 #include "errors.h"
 #include "hex.h"
 #include "helper.h"
+
+/**
+ * @brief convert an uint8_t to an hex
+ * @param color uint8_t
+ * @return char array
+ */
+static char *uintToHex(uint8_t color) {
+    char *hexa = malloc(sizeof(char) * HEX_GROUP_LEN + 1);
+    if (hexa == NULL) {
+        return NULL;
+    }
+    
+    sprintf(hexa, "%x", color);
+    if (!hexa[1]) {
+        hexa[1] = hexa[0];
+        hexa[0] = '0';
+    }
+    
+    return hexa;
+}
 
 // Get Hex From RGB
 char *getHexFromRGB(Rgb *c) {
@@ -78,13 +99,13 @@ Rgb *getRGBFromHex(char *hex) {
 // Though it could have been better than using a switch...
 uint8_t getUintCharValue(char *c, uint8_t idx) {
     uint8_t n = 0;
-    switch (c[idx]) {
-        case 'A': n = 10; break;
-        case 'B': n = 11; break;
-        case 'C': n = 12; break;
-        case 'D': n = 13; break;
-        case 'E': n = 14; break;
-        case 'F': n = 15; break;
+    switch (tolower(c[idx])) {
+        case 'a': n = 10; break;
+        case 'b': n = 11; break;
+        case 'c': n = 12; break;
+        case 'd': n = 13; break;
+        case 'e': n = 14; break;
+        case 'f': n = 15; break;
     }
     
     if (n == 0) {

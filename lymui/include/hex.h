@@ -13,6 +13,7 @@
 #include "rgb.h"
 
 #define HEX_SIZE 7
+#define HEX_GROUP_LEN 2
 
 /**
  * @brief Create a char array which is the HEX value
