@@ -10,24 +10,6 @@
 #include <math.h>
 #include "helper.h"
 
-char *uintToHex(uint8_t color) {
-    char HEX[] = "0123456789ABCDEF";
-    char *hexa = malloc(sizeof(char) * 2);
-    if (hexa == NULL) {
-        return NULL;
-    }
-    
-    uint8_t accum = 2;
-    
-    while(accum > 0) {
-        hexa[accum - 1] = HEX[(color % 16)];
-        color = color / 16;
-        accum--;
-    }
-    
-    return hexa;
-}
-
 uint8_t doubleToUint(double value) {
     return (uint8_t) round(value);    
 }
