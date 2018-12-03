@@ -16,7 +16,7 @@ describe('Creating HEX from RGB', () => {
     })
 
     expect(hex.data).to.be.deep.equal({
-      hex: '050A62'
+      hex: '050a62'
     })
   })
 
@@ -31,7 +31,7 @@ describe('Creating HEX from RGB', () => {
     })
 
     expect(hex.data).to.be.deep.equal({
-      hex: 'FFFFFF'
+      hex: 'ffffff'
     })
   })
 

@@ -12,13 +12,6 @@
 #include <stdio.h>
 #include <stdint.h>
 
-/*!
- * @discussion convert an uint character to hex value
- * @param v a Hex char array
- * @return a char
- */
-char * uintToHex(uint8_t v);
-
 /**
  * @brief convert a double to an uint8_t
  * @param value doule

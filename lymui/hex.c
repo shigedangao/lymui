@@ -9,9 +9,37 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <ctype.h>
 #include "errors.h"
 #include "hex.h"
 #include "helper.h"
+
+/**
+ * @brief convert an uint8_t to an hex
+ *        /!\ Note this is a really inefficient of doing things
+ *        sprintf don't return the '0' eg: 5 don't return 05 but return 5
+ * @param color uint8_t
+ * @return char array
+ */
+static char *uintToHex(uint8_t color) {
+    char *tmp = malloc(sizeof(char) * HEX_GROUP_LEN + 1);
+    char *hex = malloc(sizeof(char) * HEX_GROUP_LEN + 1);
+    if (tmp == NULL || hex == NULL) {
+        return NULL;
+    }
+    
+    sprintf(tmp, "%x", color);
+    if (!tmp[1]) {
+        strcpy(hex, "0");
+        strcat(hex, &tmp[0]);
+        
+        free(tmp);
+        return hex;
+    }
+    
+    free(hex);
+    return tmp;
+}
 
 // Get Hex From RGB
 char *getHexFromRGB(Rgb *c) {
@@ -78,13 +106,13 @@ Rgb *getRGBFromHex(char *hex) {
 // Though it could have been better than using a switch...
 uint8_t getUintCharValue(char *c, uint8_t idx) {
     uint8_t n = 0;
-    switch (c[idx]) {
-        case 'A': n = 10; break;
-        case 'B': n = 11; break;
-        case 'C': n = 12; break;
-        case 'D': n = 13; break;
-        case 'E': n = 14; break;
-        case 'F': n = 15; break;
+    switch (tolower(c[idx])) {
+        case 'a': n = 10; break;
+        case 'b': n = 11; break;
+        case 'c': n = 12; break;
+        case 'd': n = 13; break;
+        case 'e': n = 14; break;
+        case 'f': n = 15; break;
     }
     
     if (n == 0) {
