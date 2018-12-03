@@ -16,6 +16,8 @@
 
 /**
  * @brief convert an uint8_t to an hex
+ *        /!\ Note this is a really inefficient of doing things
+ *        sprintf don't return the '0' eg: 5 don't return 05 but return 5
  * @param color uint8_t
  * @return char array
  */
