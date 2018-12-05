@@ -61,6 +61,40 @@ char *getHexFromRGB(Rgb *c) {
     return hex;
 }
 
+/**
+ * @brief Get the uint8_t value based on each character of the Hex
+ * @param c a char array representing the Hex array
+ * @param idx an index
+ * @return a uint8_t value
+ */
+static uint8_t getUintCharValue(char *c, uint8_t idx) {
+    uint8_t n = 0;
+    switch (tolower(c[idx])) {
+        case 'a': n = 10; break;
+        case 'b': n = 11; break;
+        case 'c': n = 12; break;
+        case 'd': n = 13; break;
+        case 'e': n = 14; break;
+        case 'f': n = 15; break;
+    }
+    
+    if (!n) {
+        char *v = malloc(sizeof(char));
+        if (v == NULL) {
+            // fail passive
+            return 0;
+        }
+        
+        v[0] = c[idx];
+        n = strtol(v, NULL, 10);
+        
+        // don't forget to remove the pointer
+        free(v);
+    }
+    
+    return n;
+}
+
 // Get RGB Value From Hex
 Rgb *getRGBFromHex(char *hex) {
     Rgb *rgb = initRgb();
@@ -100,34 +134,4 @@ Rgb *getRGBFromHex(char *hex) {
     free(rgbArr);
 
     return rgb;
-}
-
-// Get Uint Char Value
-// Though it could have been better than using a switch...
-uint8_t getUintCharValue(char *c, uint8_t idx) {
-    uint8_t n = 0;
-    switch (tolower(c[idx])) {
-        case 'a': n = 10; break;
-        case 'b': n = 11; break;
-        case 'c': n = 12; break;
-        case 'd': n = 13; break;
-        case 'e': n = 14; break;
-        case 'f': n = 15; break;
-    }
-    
-    if (n == 0) {
-        char *v = malloc(sizeof(char));
-        if (v == NULL) {
-            // fail passive
-            return 0;
-        }
-        
-        v[0] = c[idx];
-        n = strtol(v, NULL, 10);
-        
-        // don't forget to remove the pointer
-        free(v);
-    }
-    
-    return n;
 }

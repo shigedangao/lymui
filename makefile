@@ -15,7 +15,7 @@ INC_LIB_TT  = lymui/tests
 
 CC = gcc
 CFLAGS = -fprofile-arcs -ftest-coverage
-CFLAG_LIB = -O3 -I$(INC_DIR)
+CFLAG_LIB = -Wall -O2 -I$(INC_DIR)
 INC_TT = -I$(INC_DIR) -I$(INC_LIB_DIR) -I$(INC_LIB_TT) -Wall $(CFLAGS)
 
 # Lymui source files

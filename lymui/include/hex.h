@@ -29,12 +29,4 @@ char *getHexFromRGB(Rgb *rgb);
  */
 Rgb *getRGBFromHex(char *hex);
 
-/**
- * @brief Get the uint8_t value based on each character of the Hex
- * @param v a char array representing the Hex array
- * @param idx an index
- * @return a uint8_t value
- */
-uint8_t getUintCharValue(char *v, uint8_t idx);
-
 #endif /* hex_h */
