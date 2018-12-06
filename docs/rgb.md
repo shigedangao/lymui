@@ -2,7 +2,7 @@
 
 The library provide you 2 way of creating an RGB:
 - Allocating the **Rgb** struct by yourself and set it's value
-- Pass an array of **uint8_t *** to the **makeRGB** method
+- Pass an array of **uint8_t** to the **makeRGB** method
 
 ### Examples
 
@@ -35,3 +35,4 @@ With an RGB struct you can convert to the rgb to the format below:
 - hsl
 - hsv
 - ycbcr
+- xyz
