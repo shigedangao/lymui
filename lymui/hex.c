@@ -107,13 +107,7 @@ Rgb *getRGBFromHex(char *hex) {
         return rgb;
     }
     
-    // Make a copy of the pointer
-    uint8_t *rgbArr = malloc(sizeof(char) * 3);
-    if (rgbArr == NULL) {
-        rgb->error = MALLOC_ERROR;
-        return rgb;
-    }
-    
+    uint8_t rgbArr[3];
     uint8_t idx = 0;
     // As we use the ushort we set 16 as our flag
     while (idx < strlen(hex)) {
@@ -131,7 +125,6 @@ Rgb *getRGBFromHex(char *hex) {
     rgb->error = NULL;
     
     free(hex);
-    free(rgbArr);
 
     return rgb;
 }
