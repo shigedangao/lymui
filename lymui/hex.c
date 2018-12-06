@@ -79,17 +79,8 @@ static uint8_t getUintCharValue(char *c, uint8_t idx) {
     }
     
     if (!n) {
-        char *v = malloc(sizeof(char));
-        if (v == NULL) {
-            // fail passive
-            return 0;
-        }
-        
-        v[0] = c[idx];
-        n = strtol(v, NULL, 10);
-        
-        // don't forget to remove the pointer
-        free(v);
+        char v = c[idx];
+        n = strtol(&v, NULL, 10);
     }
     
     return n;
@@ -107,13 +98,7 @@ Rgb *getRGBFromHex(char *hex) {
         return rgb;
     }
     
-    // Make a copy of the pointer
-    uint8_t *rgbArr = malloc(sizeof(char) * 3);
-    if (rgbArr == NULL) {
-        rgb->error = MALLOC_ERROR;
-        return rgb;
-    }
-    
+    uint8_t rgbArr[3];
     uint8_t idx = 0;
     // As we use the ushort we set 16 as our flag
     while (idx < strlen(hex)) {
@@ -131,7 +116,6 @@ Rgb *getRGBFromHex(char *hex) {
     rgb->error = NULL;
     
     free(hex);
-    free(rgbArr);
 
     return rgb;
 }
