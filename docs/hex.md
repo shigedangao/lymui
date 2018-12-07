@@ -35,6 +35,19 @@ This method will either return the RGB struct or NULL. Below are the condition w
 
 - Rgb struct can't be allocated
 - Hex is NULL (method param)
-- Unable to allocate an array use for converting a hex to rgb
 
+### Example
+
+```c
+char *hex = {"050a5f"};
+Rgb *rgb = getRGBFromHex(hex);
+
+// RGB will contain R, G, B or an error message
+// can be access like so
+
+rgb->r;
+rgb->g;
+rgb->b;
+rgb->error;
+```
 
