@@ -115,7 +115,5 @@ Rgb *getRGBFromHex(char *hex) {
     rgb->b = rgbArr[2];
     rgb->error = NULL;
     
-    free(hex);
-
     return rgb;
 }

@@ -16,45 +16,29 @@
 #include "rgb.h"
 
 ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
-    uint8_t uc[]    = {5, 10, 95};
+    uint8_t uc[] = {5, 10, 95};
     Rgb *lym = makeRGB(uc, sizeof(uc));
     
     char *hex = getHexFromRGB(lym);
-    char *value = malloc(sizeof(char) * 6 + 1);
-    value[0] = '0';
-    value[1] = '5';
-    value[2] = '0';
-    value[3] = 'a';
-    value[4] = '5';
-    value[5] = 'f';
-
+    char *value = {"050a5f"};
     // As the lib does not support the hex test yet
     CTAssertStringEqual(test, value, hex, "%s is not equal to %s", value, hex);
     
     free(lym);
     free(hex);
-    free(value);
 }
 
 ctest_return_t testWhiteHexCreationFromRgb(ctest_t *test, void *arg) {
-    uint8_t uc[]    = {255, 255, 255};
+    uint8_t uc[] = {255, 255, 255};
     Rgb *lym = makeRGB(uc, sizeof(uc));
     
     char *hex = getHexFromRGB(lym);
-    char *value = malloc(sizeof(char) * 6 + 1);
-    value[0] = 'f';
-    value[1] = 'f';
-    value[2] = 'f';
-    value[3] = 'f';
-    value[4] = 'f';
-    value[5] = 'f';
-    
+    char *value = {"ffffff"};
     // As the lib does not support the hex test yet
     CTAssertStringEqual(test, value, hex, "%s is not equal to %s", value, hex);
     
     free(lym);
     free(hex);
-    free(value);
 }
 
 ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
@@ -72,17 +56,11 @@ ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
     CTAssertEqual(test, 95, uc->b, "B value is %d where as it should be 95", uc->b);
     
     free(uc);
+    free(hex);
 }
 
 ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
-    char *hex = malloc(sizeof(char) * 6 + 1);
-    hex[0] = 'a';
-    hex[1] = 'b';
-    hex[2] = 'c';
-    hex[3] = 'd';
-    hex[4] = 'e';
-    hex[5] = 'f';
-    
+    char *hex = {"abcdef"};
     Rgb *uc = getRGBFromHex(hex);
     
     CTAssertEqual(test, 171, uc->r, "R value expected: 171, value: %ui", 171);
