@@ -6,10 +6,16 @@ The Hex API allow you to create an HEX from an RGB struct and to convert it back
 
 Use the method: **getHexFromRGB**. This method return a char array or NULL
 
+### Error handling
+
 This method will return NULL when these conditions are meet:
 
 - Unable to convert uint to hex
 - Unable to allocate hex char array
+
+### Parameter
+
+- Rgb pointer struct
 
 ### Example
 
@@ -31,10 +37,15 @@ printf("hex is equal to %s", hex);
 
 Use the method **getRGBFromHex** to get the RGB
 
-This method will either return the RGB struct or NULL. Below are the condition where the method can return NULL:
+### Error handling
+
+This method will return NULL when:
 
 - Rgb struct can't be allocated
-- Hex is NULL (method param)
+
+The method *can return an RGB struct containing an error property*
+
+- Hex property not passed
 
 ### Example
 
@@ -44,10 +55,13 @@ Rgb *rgb = getRGBFromHex(hex);
 
 // RGB will contain R, G, B or an error message
 // can be access like so
-
-rgb->r;
-rgb->g;
-rgb->b;
-rgb->error;
 ```
 
+The method will return an Rgb struct which you can access it's property like the example below
+
+```c
+uint8_t r = rgb->r;
+uint8_t g = rgb->g;
+uint8_t b = rgb->b;
+char *error = rgb->error;
+```
