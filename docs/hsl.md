@@ -22,9 +22,6 @@ hsl->error = <string>
 
 - Rgb pointer struct
 
-
-The method *can return an RGB struct containing an error property*
-
 ### Usage Example
 
 ```c
