@@ -64,8 +64,8 @@ The method *can return an RGB struct containing an error property*
 ```c
 Hsv *hsv = malloc(sizeof(Hsv));
 hsv->h = 0.0f;
-hsv->s = 100.0f;
-hsv->v = 100.0f;
+hsv->s = 100.0;
+hsv->v = 100.0;
 
 Rgb *rgb = getRgbFromHsv(Hsv);
 ```
