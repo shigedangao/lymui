@@ -73,6 +73,8 @@ Xyy *xyy = malloc(sizeof(Xyy));
 xyy->x = 0.375;
 xyy->y = 0.333;
 xyy->Y = 0.8;
+
+Xyz *xyz = getXyzFromXyy(xyy);
 ```
 
 The method will return an Xyz struct which you can access it's property like the example below

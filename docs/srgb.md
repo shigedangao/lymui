@@ -73,6 +73,8 @@ SRgb *srgb = malloc(sizeof(SRgb));
 srgb->r = 0.0;
 srgb->g = 0.0;
 srgb->b = 0.0;
+
+Xyz *xyz = getXyzFromSrgb(srgb);
 ```
 
 The method will return an Xyz struct which you can access it's property like the example below

@@ -26,7 +26,7 @@ Rgb *rgb = makeRGB(colors, sizeof(colors));
 
 ### Targeted colors
 
-With an RGB struct you can convert to the rgb to the format below:
+With an RGB struct you can convert to the color format below:
 
 - hex
 - cymk

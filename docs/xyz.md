@@ -88,5 +88,15 @@ uint8_t b = rgb->b;
 char *error = rgb->error;
 ```
 
+### Targeted colors
+
+With an Xyz struct you can convert to the color format below:
+
+- lch
+- lchlab
+- xyy
+- srgb
+- argb
+
 
 

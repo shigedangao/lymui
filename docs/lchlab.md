@@ -74,6 +74,7 @@ lch->l = 100;
 lch->c = 0;
 lch->h = 360;
 
+Xyz *xyz = getXyzFromLchlab(lch);
 ```
 
 The method will return an Xyz struct which you can access it's property like the example below
