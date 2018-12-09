@@ -26,6 +26,9 @@ yuv->error = <string>
 ### Usage Example
 
 ```c
+#include "rgb.h"
+#include "yuv.h"
+
 uint8_t cvalue[3] = {100, 150, 255};
 Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
 Yuv *yuv = getYuvFromRgb(rgb);
@@ -62,6 +65,9 @@ The method *can return an RGB struct containing an error property*
 ### Usage Example
 
 ```c
+#include "rgb.h"
+#include "yuv.h"
+
 Yuv *yuv = malloc(sizeof(Yuv));
 yuv->y = 0.124f;
 yuv->u = 0.122f;

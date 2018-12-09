@@ -20,6 +20,9 @@ This method will return NULL when these conditions are meet:
 ### Example
 
 ```c
+#include "rgb.h"
+#include "hex.h"
+
 uint8_t colors = {5, 10, 95};
 Rgb *rgb = makeRGB(colors, sizeof(colors));
 
@@ -50,6 +53,9 @@ The method *can return an RGB struct containing an error property*
 ### Example
 
 ```c
+#include "rgb.h"
+#include "hex.h"
+
 char *hex = {"050a5f"};
 Rgb *rgb = getRGBFromHex(hex);
 

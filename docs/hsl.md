@@ -25,6 +25,9 @@ hsl->error = <string>
 ### Usage Example
 
 ```c
+#include "rgb.h"
+#include "hsl.h"
+
 uint8_t cvalue[3] = {100, 150, 255};
 Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
 Hsl *hsl = getHslFromRgb(rgb);
@@ -61,6 +64,9 @@ The method *can return an RGB struct containing an error property*
 ### Usage Example
 
 ```c
+#include "rgb.h"
+#include "hsl.h"
+
 Hsl *hsl = malloc(sizeof(Hsl));
 hsl->h = 0;
 hsl->s = 0;
