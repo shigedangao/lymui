@@ -35,6 +35,6 @@ Ycbcr *getYcbcrFromRgb(Rgb *rgb);
  * @param yc Ycbcr struct
  * @return a uint8_t array
  */
-Rgb *getRGBFromYcbcr(Ycbcr *yc);
+Rgb *getRgbFromYcbcr(Ycbcr *yc);
 
 #endif /* ycbcr_h */

@@ -20,7 +20,7 @@ ctest_return_t testLuvFromXyz(ctest_t *test, void *arg) {
     rgb->g = 10;
     rgb->b = 95;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 9.603, luv->l, 0.001, "Expect L to be equal to %f but got %f", 9.603, luv->l);
@@ -36,7 +36,7 @@ ctest_return_t testSuperiorYLuvFromXyz(ctest_t *test, void *arg) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 96.417, luv->l, 0.001, "Expect L to be equal to %f but got %f", 96.417, luv->l);
@@ -52,7 +52,7 @@ ctest_return_t testWhiteLuvFromXyz(ctest_t *test, void *arg) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 100.0, luv->l, 0.01, "Expect L to be equal to %f but got %f", 100.0, luv->l);
@@ -68,7 +68,7 @@ ctest_return_t testInferiorYLuvFromXyz(ctest_t *test, void *arg) {
     rgb->g = 1;
     rgb->b = 0;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 0.487, luv->l, 0.001, "Expect L to be equal to %f but got %f", 0.487, luv->l);
@@ -106,7 +106,7 @@ ctest_return_t testHighXyzFromLuv(ctest_t *test, void *arg) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
 
     // get back the xyz

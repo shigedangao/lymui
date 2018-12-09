@@ -82,7 +82,7 @@ Ycbcr *getYcbcrFromRgb(Rgb *rgb) {
 }
 
 // Get Raw RGB Array Value From Ycbcr
-Rgb *getRGBFromYcbcr(Ycbcr *cb) {
+Rgb *getRgbFromYcbcr(Ycbcr *cb) {
     Rgb *rgb = initRgb();
     if (cb == NULL) {
         rgb->error = NULL_INPUT_STRUCT;

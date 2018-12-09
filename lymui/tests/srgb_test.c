@@ -21,7 +21,7 @@ ctest_return_t testSRgbCreation(ctest_t *test, void *arg) {
     rgb->g = 10;
     rgb->b = 95;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     SRgb *srgb = getSRgbFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 0.19, srgb->r, 0.01, "Expect r to be equal to be equal to 0.19 but got %f", srgb->r);
@@ -53,7 +53,7 @@ ctest_return_t testWhiteXyzCreation(ctest_t *test, void *arg) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     SRgb *srgb = getSRgbFromXyz(xyz);
     Xyz *nXyz = getXyzFromSrgb(srgb);
     

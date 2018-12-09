@@ -21,7 +21,7 @@ ctest_return_t testLabFromXyz(ctest_t *test, void *arg) {
     rgb->g = 10;
     rgb->b = 195;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Lab *lab = getLabFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 26.25, lab->l, 0.01, "Expect L to be equal to %f but got %f real value is %f", 26.25, lab->l);
@@ -37,7 +37,7 @@ ctest_return_t testBlackLabFromXyz(ctest_t *test, void *arg) {
     rgb->g = 1;
     rgb->b = 1;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Lab *lab = getLabFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 0.27, lab->l, 0.01, "Expect L to be equal to %f but got %f", 0.27, lab->l);
@@ -53,7 +53,7 @@ ctest_return_t testWhiteLab(ctest_t *test, void *arg) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Lab *lab = getLabFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 100.0, lab->l, 0.001, "Expect L to be equal to %f but got %f", 100.0, lab->l);
@@ -76,7 +76,7 @@ ctest_return_t testXyzFromLab(ctest_t *test, void *arg) {
     rgb->g = 10;
     rgb->b = 195;
     
-    Xyz *xyz  = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz  = getXyzFromRgb(rgb, srgb);
     Lab *lab  = getLabFromXyz(xyz);
     Xyz *nXyz = getXyzFromLab(lab);
     
@@ -107,7 +107,7 @@ ctest_return_t testXyzFromLargeLab(ctest_t *test, void *arg) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Lab *lab = getLabFromXyz(xyz);
     Xyz *nXyz = getXyzFromLab(lab);
     
@@ -131,7 +131,7 @@ ctest_return_t testHunterLabFromXyz(ctest_t *test, void *arg) {
     rgb->g = 130;
     rgb->b = 54;
     
-    Xyz *xyz  = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz  = getXyzFromRgb(rgb, srgb);
     Lab *hunterLab = getHunterLabFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 58.811, hunterLab->l, 0.01, "Expect L to be equal to %f but got %f", 58.811, hunterLab->l);
