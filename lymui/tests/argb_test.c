@@ -22,7 +22,7 @@ ctest_return_t testARgbCreation(ctest_t *test, void *arg) {
     rgb->g = 10;
     rgb->b = 95;
     
-    Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
+    Xyz *xyz   = getXyzFromRgb(rgb, adobeRgb);
     Argb *argb = getARgbFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 0.19, argb->r, 0.01, "Expect r to be equal to be equal to 0.19 but got %f", argb->r);
@@ -38,7 +38,7 @@ ctest_return_t testARgbEmpty(ctest_t *test, void *arg) {
     rgb->g = 0;
     rgb->b = 0;
     
-    Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
+    Xyz *xyz   = getXyzFromRgb(rgb, adobeRgb);
     Argb *argb = getARgbFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 0.0, argb->r, 0.1, "Expect r to be equal to be equal to 0 but got %f", argb->r);
@@ -54,7 +54,7 @@ ctest_return_t testMaxARgb(ctest_t *test, void *arg) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Xyz *xyz   = generateXyzFromRgb(rgb, adobeRgb);
+    Xyz *xyz   = getXyzFromRgb(rgb, adobeRgb);
     Argb *argb = getARgbFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 1.0, argb->r, 0.1, "Expect r to be equal to be equal to 0 but got %f", argb->r);

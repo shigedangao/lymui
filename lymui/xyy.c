@@ -32,7 +32,7 @@ Xyy *getXyyFromXyz(Xyz *xyz) {
         return xyy;
     }
     
-    xyy->x  = calculateXyyValue(xyz->x, xyz, 1);
+    xyy->x = calculateXyyValue(xyz->x, xyz, 1);
     xyy->y = calculateXyyValue(xyz->y, xyz, 0);
     xyy->Y = xyz->y;
     xyy->error = NULL;

@@ -38,8 +38,8 @@ Hsl *getHslFromRgb(Rgb *rgb) {
     double sat = getSaturation(min, max, _l);
     
     hsl->h = hue;
-    hsl->s = roundDigit(sat * 100.0, 10);
-    hsl->l = roundDigit(_l * 100.0, 10);
+    hsl->s = sat * 100.0;
+    hsl->l = _l * 100.0;
     hsl->error = NULL;
     free(rgb);
     

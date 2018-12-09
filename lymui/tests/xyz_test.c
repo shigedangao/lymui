@@ -20,7 +20,7 @@ ctest_return_t testXyzRgb(ctest_t *test, void *arg) {
     rgb->g = 10;
     rgb->b = 95;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     
     CTAssertDecimalEqual(test, 0.0349, xyz->x, 0.01, "Expect X to be equal to %f but got %f", 0.0349, xyz->x);
     CTAssertDecimalEqual(test, 0.0172, xyz->y, 0.01, "Expect Y to be equal to %f but got %f", 0.0172, xyz->y);
@@ -35,7 +35,7 @@ ctest_return_t testXyzAdobeRgb(ctest_t *test, void *arg) {
     rgb->g = 10;
     rgb->b = 95;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, adobeRgb);
+    Xyz *xyz = getXyzFromRgb(rgb, adobeRgb);
     
     CTAssertDecimalEqual(test, 0.0376, xyz->x, 0.01, "Expect X to be equal to %f but got %f", 0.0376, xyz->x);
     CTAssertDecimalEqual(test, 0.0173, xyz->y, 0.01, "Expect Y to be equal to %f but got %f", 0.0173, xyz->y);
@@ -50,7 +50,7 @@ ctest_return_t testXyzSrgbDark(ctest_t *test, void *arg) {
     rgb->g = 0;
     rgb->b = 0;
     
-    Xyz * xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz * xyz = getXyzFromRgb(rgb, srgb);
     
     CTAssertEqual(test, 0.0, xyz->x, "Expect X to be equal to 0 but got %f", xyz->x);
     CTAssertEqual(test, 0.0, xyz->y, "Expect Y to be equal to 0 but got %f", xyz->y);
@@ -65,7 +65,7 @@ ctest_return_t testXyzArgbDark(ctest_t *test, void *arg) {
     rgb->g = 0;
     rgb->b = 0;
     
-    Xyz * xyz = generateXyzFromRgb(rgb, adobeRgb);
+    Xyz *xyz = getXyzFromRgb(rgb, adobeRgb);
     
     CTAssertEqual(test, 0.0, xyz->x, "Expect X to be equal to 0 but got %f", xyz->x);
     CTAssertEqual(test, 0.0, xyz->y, "Expect Y to be equal to 0 but got %f", xyz->y);
@@ -80,7 +80,7 @@ ctest_return_t testXyzSRgbBright(ctest_t *test, void *arg) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Xyz * xyz = generateXyzFromRgb(rgb, srgb);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
     
     CTAssertDecimalEqual(test, 0.9505, xyz->x, 0.01, "Expect X to be equal to 0.9502 but got %f", xyz->x);
     CTAssertDecimalEqual(test, 1.0, xyz->y, 0.01, "Expect X to be equal to 0.9997 but got %f", xyz->y);
@@ -95,7 +95,7 @@ ctest_return_t testXyzArgbBright(ctest_t *test, void *arg) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Xyz * xyz = generateXyzFromRgb(rgb, adobeRgb);
+    Xyz *xyz = getXyzFromRgb(rgb, adobeRgb);
     
     CTAssertDecimalEqual(test, 0.9502, xyz->x, 0.01, "Expect X to be equal to 0.9502 but got %f", xyz->x);
     CTAssertDecimalEqual(test, 0.9998, xyz->y, 0.01, "Expect .X to be equal to 0.9998 but got %f", xyz->y);
@@ -105,7 +105,7 @@ ctest_return_t testXyzArgbBright(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testXyzRgbNull(ctest_t *test, void *arg) {
-    Xyz *xyz = generateXyzFromRgb(NULL, srgb);
+    Xyz *xyz = getXyzFromRgb(NULL, srgb);
     CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
 
     free(xyz);
@@ -117,8 +117,8 @@ ctest_return_t testXyzToRgb(ctest_t *test, void *arg) {
     rgb->g = 10;
     rgb->b = 95;
     
-    Xyz * xyz = generateXyzFromRgb(rgb, srgb);
-    Rgb * iamtired = generateRgbFromXyz(xyz, srgb);
+    Xyz * xyz = getXyzFromRgb(rgb, srgb);
+    Rgb * iamtired = getRgbFromXyz(xyz, srgb);
     
     CTAssertEqual(test, iamtired->r, 50, "Expect R to be equal to 50 but got %i", iamtired->r);
     CTAssertEqual(test, iamtired->g, 10, "Expect G to be equal to 10 but got %i", iamtired->g);
@@ -133,8 +133,8 @@ ctest_return_t testXyzToARgb(ctest_t *test, void *arg) {
     rgb->g = 10;
     rgb->b = 98;
     
-    Xyz * xyz = generateXyzFromRgb(rgb, adobeRgb);
-    Rgb * iamtired = generateRgbFromXyz(xyz, adobeRgb);
+    Xyz * xyz = getXyzFromRgb(rgb, adobeRgb);
+    Rgb * iamtired = getRgbFromXyz(xyz, adobeRgb);
     
     CTAssertEqual(test, iamtired->r, 5, "Expect R to be equal to 50 but got %i", iamtired->r);
     CTAssertEqual(test, iamtired->g, 10, "Expect G to be equal to 10 but got %i", iamtired->g);
@@ -144,7 +144,7 @@ ctest_return_t testXyzToARgb(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testRgbXyzNull(ctest_t *test, void *arg) {
-    Rgb *rgb = generateRgbFromXyz(NULL, srgb);
+    Rgb *rgb = getRgbFromXyz(NULL, srgb);
     CTAssertStringEqual(test, rgb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
 
     free(rgb);

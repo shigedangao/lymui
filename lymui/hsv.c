@@ -37,11 +37,11 @@ Hsv *getHsvFromRgb(Rgb *rgb) {
     double _delta = max - min;
     
     hsv->h = hue;
-    hsv->v = roundDigit(max * 100.0, 10);
+    hsv->v = max * 100.0;
     hsv->error = NULL;
     
     if (max > 0.0) {
-        hsv->s = roundDigit((_delta / max) * 100.0, 10);
+        hsv->s = (_delta / max) * 100.0;
     } else {
         hsv->s = 0.0;
     }

@@ -36,19 +36,19 @@ typedef enum Matrix {
 } Matrix;
 
 /**
- * @brief generate Xyz From Rgb generate a Xyz structure
+ * @brief get Xyz From Rgb generate a Xyz structure
  * @param rgb Struct rgb pointer
  * @param m Matrix
  * @return an Xyz struct
  */
-Xyz *generateXyzFromRgb(Rgb *rgb, Matrix m);
+Xyz *getXyzFromRgb(Rgb *rgb, Matrix m);
 
 /**
- * @brief generate an rgb from xyz struct
+ * @brief get an rgb from xyz struct
  * @param xyz * Xyz
  * @param m Matrix
  * @return rgb * Rgb
  */
-Rgb *generateRgbFromXyz(Xyz * xyz, Matrix m);
+Rgb *getRgbFromXyz(Xyz * xyz, Matrix m);
 
 #endif /* xyz_h */

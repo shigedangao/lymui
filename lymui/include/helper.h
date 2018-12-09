@@ -19,14 +19,6 @@
  */
 uint8_t doubleToUint(double value);
 
-/**
- * @discussion round a double to 1 digit
- * @param value double
- * @param factor int
- * @return a double
- */
-double roundDigit(double value, int factor);
-
 /*
  * @discussion Update Constraint Value
  * @TODO This method need to be redone

@@ -21,8 +21,8 @@ ctest_return_t testSRgbCreation(ctest_t *test, void *arg) {
     rgb->g = 10;
     rgb->b = 95;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
-    SRgb *srgb = getSRgbFromXyz(xyz);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
+    SRgb *srgb = getSrgbFromXyz(xyz);
     
     CTAssertDecimalEqual(test, 0.19, srgb->r, 0.01, "Expect r to be equal to be equal to 0.19 but got %f", srgb->r);
     CTAssertDecimalEqual(test, 0.03, srgb->g, 0.01, "Expect g to be equal to be equal to 0.03 but got %f", srgb->g);
@@ -37,7 +37,7 @@ ctest_return_t testXyzCreation(ctest_t *test, void *arg) {
     xyz->y = 0.0173;
     xyz->z = 0.1138;
     
-    SRgb *srgb = getSRgbFromXyz(xyz);
+    SRgb *srgb = getSrgbFromXyz(xyz);
     Xyz *nXyz = getXyzFromSrgb(srgb);
     
     CTAssertDecimalEqual(test, 0.0376, nXyz->x, 0.01, "Expect x to be equal to be equal to 0.0376 but got %f", nXyz->x);
@@ -53,8 +53,8 @@ ctest_return_t testWhiteXyzCreation(ctest_t *test, void *arg) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Xyz *xyz = generateXyzFromRgb(rgb, srgb);
-    SRgb *srgb = getSRgbFromXyz(xyz);
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
+    SRgb *srgb = getSrgbFromXyz(xyz);
     Xyz *nXyz = getXyzFromSrgb(srgb);
     
     CTAssertDecimalEqual(test, 0.9504, nXyz->x, 0.01, "Expect x to be equal to be equal to 0.9504 but got %f", nXyz->x);
@@ -65,7 +65,7 @@ ctest_return_t testWhiteXyzCreation(ctest_t *test, void *arg) {
 }
 
 ctest_return_t testNullSRgbCreation(ctest_t *test, void *arg) {
-    SRgb *srgb = getSRgbFromXyz(NULL);
+    SRgb *srgb = getSrgbFromXyz(NULL);
     CTAssertStringEqual(test, srgb->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
 
     free(srgb);

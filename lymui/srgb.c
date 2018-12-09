@@ -39,7 +39,7 @@ static double reverseGamma(double c) {
     return pow((c + 0.055) / 1.055, 2.4);
 }
 
-SRgb *getSRgbFromXyz(Xyz *xyz) {
+SRgb *getSrgbFromXyz(Xyz *xyz) {
     SRgb *srgb = malloc(sizeof(SRgb));
     if (srgb == NULL) {
         return NULL;

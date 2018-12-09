@@ -65,8 +65,8 @@ ctest_return_t testComplexHsvCreation(ctest_t *test, void *arg) {
 ctest_return_t testCaseRgb_0(ctest_t *test, void *arg) {
     Hsv *hsv = malloc(sizeof(Hsv));
     hsv->h = 0.0f;
-    hsv->s = 100.0f;
-    hsv->v = 100.0f;
+    hsv->s = 100.0;
+    hsv->v = 100.0;
     
      Rgb *rgb = getRgbFromHsv(hsv);
     CTAssertEqual(test, 255, rgb->r, "Expect r to be equal to 255 but got %ui", rgb->r);

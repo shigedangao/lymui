@@ -104,7 +104,7 @@ static void calculateXyzAdobeRgb(double r, double g, double b, double *arr) {
     arr[2] = azr * r + azg * g + azb * b;
 }
 
-Xyz *generateXyzFromRgb(Rgb *rgb, enum Matrix m) {
+Xyz *getXyzFromRgb(Rgb *rgb, enum Matrix m) {
     Xyz *xyz = malloc(sizeof(Xyz));
     if (xyz == NULL) {
         return NULL;
@@ -179,7 +179,7 @@ static double * calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
     return linearRGB;
 }
 
-Rgb *generateRgbFromXyz(Xyz * xyz, Matrix m) {
+Rgb *getRgbFromXyz(Xyz * xyz, Matrix m) {
     Rgb *rgb = malloc(sizeof(Rgb));
     if (rgb == NULL) {
         return NULL;

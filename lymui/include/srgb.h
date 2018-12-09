@@ -42,7 +42,7 @@ typedef struct SRgb {
  * @param xyz a struct pointer Xyz
  * @return sRgb a struct pointer of type sRgb
  */
-SRgb *getSRgbFromXyz(Xyz *xyz);
+SRgb *getSrgbFromXyz(Xyz *xyz);
 
 /**
  * @brief get XYZ from SRGB struct
