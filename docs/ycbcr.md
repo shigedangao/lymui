@@ -65,7 +65,7 @@ The method *can return an RGB struct containing an error property*
 
 ```c
 #include "rgb.h"
-#include "Ycbcr.h"
+#include "ycbcr.h"
 
 Ycbcr *Ycbcr = malloc(sizeof(Ycbcr));
 ycbcr->y  = 86;
