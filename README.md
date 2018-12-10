@@ -2,15 +2,13 @@
 
 Lymui is a small color conversion library. It's my first project in C !.
 
+[![Coverage Status](https://coveralls.io/repos/github/MarcInthaamnouay/lymui/badge.svg)](https://coveralls.io/github/MarcInthaamnouay/lymui)
+[![Build Status](https://travis-ci.org/MarcInthaamnouay/lymui.svg?branch=master)](https://travis-ci.org/MarcInthaamnouay/lymui)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c443f9099d024a81b2c56b42edf0b147)](https://www.codacy.com/app/mintha/lymui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MarcInthaamnouay/lymui&amp;utm_campaign=Badge_Grade)
+
 ## Tests
 
 This project used cunit @itzseven library as it's unit test lib.
-
-[![Coverage Status](https://coveralls.io/repos/github/MarcInthaamnouay/lymui/badge.svg)](https://coveralls.io/github/MarcInthaamnouay/lymui)
-
-[![Build Status](https://travis-ci.org/MarcInthaamnouay/lymui.svg?branch=master)](https://travis-ci.org/MarcInthaamnouay/lymui)
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c443f9099d024a81b2c56b42edf0b147)](https://www.codacy.com/app/mintha/lymui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MarcInthaamnouay/lymui&amp;utm_campaign=Badge_Grade)
 
 ## Status
 
@@ -25,6 +23,12 @@ Contributions are always welcomed. Open issue if you want to add an other kind o
 The project is shipped with a makefile. Below is the command that you can use in order to generate different type of build
 
 - Output lib: ```make lib```
+
+Note: If you want to test on **linux** please clone cunit test library. Or if you recommend an other one why not
+
+After cloning cunit lib launch the make command from cunit library and then copy paste the includes and libcunit.a from the bin folder to the lib/cunit folder.
+Then you can run the command below
+
 - Test app: ```make lym && make test```
 
 ### Note
@@ -42,11 +46,7 @@ Converting a kind of color required you to import a color of type T. From this t
 
 Note that for any color space you have to pass by an Xyz color then to the wanted color. Below is some example of how to use the lib.
 
-Note that each time you convert a base color T to an other format Y, the **base color T will be free** (this might need improvement...)
-
-## NodeJS
-
-A NodeJS compatibility is currently being in WIP by using N-API. You can check the code on the binding folder lymui/binding.
+**Note**: When converting a color the struct that has been given to a converter will be freed
 
 ## Example in C
 
@@ -93,67 +93,8 @@ if (hsl->error != NULL) {
 double hue = hsl->h;
 ```
 
+## APIs
 
-## Example in NodeJS
+Please take a look at the list of available APIs
 
-#### Converting an Rgb to an Hex
-
-4 APIs are available for converting colors
-
-- convertRegular
-- convertSpace
-- toRGB
-- toXYZ
-
-Example for HEX value
-
-```js
-const lib = require('lymuilib')
-
-const rgb = {
-  r: 5,
-  g: 10,
-  b: 98
-}
-
-const { data, error } = await lib.convertRegular({
-  input: rgb,
-  output: 'hex'
-})
-```
-
-Example for LAB value from RGB
-
-```js
-const lib = require('lymuilib')
-
-const rgb = {
-  r: 50,
-  g: 10,
-  b: 95
-}
-
-const { data, error } = await lib.convertRegular({
-  input: rgb,
-  output: 'xyz',
-  profile: 'srgb' // optional
-})
-
-const xyz = await lib.convertSpace({
-  input: data,
-  output: 'lab',
-  clamp: 1000 // optional
-})
-```
-
-an object should be output like this
-
-```js
-{
-  data: {
-    l: 13.951,
-    a: 37.071,
-    b: -41.431
-  }
-}
-```
+[APIs list](https://marcinthaamnouay.github.io/lymui/docs/)

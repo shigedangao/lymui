@@ -36,9 +36,9 @@ ctest_return_t testCaseCreationNullYuv(ctest_t *test, void *arg) {
 
 ctest_return_t testCreationRgb(ctest_t *test, void *arg) {
     Yuv *yuv = malloc(sizeof(Yuv));
-    yuv->y = 0.124f;
-    yuv->u = 0.122f;
-    yuv->v = 0.063f;
+    yuv->y = 0.124;
+    yuv->u = 0.122;
+    yuv->v = 0.063;
     
     Rgb *rgb = getRgbFromYuv(yuv);
     

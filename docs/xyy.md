@@ -67,7 +67,7 @@ The method *can return an Xyz struct containing an error property*
 
 ```c
 #include "xyz.h"
-#include "Xyy.h"
+#include "xyy.h"
 
 Xyy *xyy = malloc(sizeof(Xyy));
 xyy->x = 0.375;
