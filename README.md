@@ -25,6 +25,12 @@ Contributions are always welcomed. Open issue if you want to add an other kind o
 The project is shipped with a makefile. Below is the command that you can use in order to generate different type of build
 
 - Output lib: ```make lib```
+
+Note: If you want to test on **linux** please clone cunit test library. Or if you recommend an other one why not
+
+After cloning cunit lib launch the make command from cunit library and then copy paste the includes and libcunit.a from the bin folder to the lib/cunit folder.
+Then you can run the command below
+
 - Test app: ```make lym && make test```
 
 ### Note
@@ -42,11 +48,7 @@ Converting a kind of color required you to import a color of type T. From this t
 
 Note that for any color space you have to pass by an Xyz color then to the wanted color. Below is some example of how to use the lib.
 
-Note that each time you convert a base color T to an other format Y, the **base color T will be free** (this might need improvement...)
-
-## NodeJS
-
-A NodeJS compatibility is currently being in WIP by using N-API. You can check the code on the binding folder lymui/binding.
+**Note**: When converting a color the struct that has been given to a converter will be freed
 
 ## Example in C
 
@@ -93,67 +95,8 @@ if (hsl->error != NULL) {
 double hue = hsl->h;
 ```
 
+## APIs
 
-## Example in NodeJS
+Please take a look at the list of available APIs
 
-#### Converting an Rgb to an Hex
-
-4 APIs are available for converting colors
-
-- convertRegular
-- convertSpace
-- toRGB
-- toXYZ
-
-Example for HEX value
-
-```js
-const lib = require('lymuilib')
-
-const rgb = {
-  r: 5,
-  g: 10,
-  b: 98
-}
-
-const { data, error } = await lib.convertRegular({
-  input: rgb,
-  output: 'hex'
-})
-```
-
-Example for LAB value from RGB
-
-```js
-const lib = require('lymuilib')
-
-const rgb = {
-  r: 50,
-  g: 10,
-  b: 95
-}
-
-const { data, error } = await lib.convertRegular({
-  input: rgb,
-  output: 'xyz',
-  profile: 'srgb' // optional
-})
-
-const xyz = await lib.convertSpace({
-  input: data,
-  output: 'lab',
-  clamp: 1000 // optional
-})
-```
-
-an object should be output like this
-
-```js
-{
-  data: {
-    l: 13.951,
-    a: 37.071,
-    b: -41.431
-  }
-}
-```
+[APIs list](https://marcinthaamnouay.github.io/lymui/docs/)
