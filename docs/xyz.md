@@ -92,6 +92,8 @@ char *error = rgb->error;
 
 With an Xyz struct you can convert to the color format below:
 
+- lab
+- luv
 - lch
 - lchlab
 - xyy
