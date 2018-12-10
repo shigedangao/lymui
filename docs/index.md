@@ -2,21 +2,21 @@
 
 Lymui is a small C color conversion library which support the following formats:
 
-- [rgb](https://marcinthaamnouay.github.io/lymui/docs/rgb)
-- [hex](https://marcinthaamnouay.github.io/lymui/docs/hex)
-- [hsl](https://marcinthaamnouay.github.io/lymui/docs/hsl)
-- [hsv](https://marcinthaamnouay.github.io/lymui/docs/hsv)
-- [hue](https://marcinthaamnouay.github.io/lymui/docs/hue)
-- [lab](https://marcinthaamnouay.github.io/lymui/docs/lab)
-- [lch(uv)](https://marcinthaamnouay.github.io/lymui/docs/lch)
-- [lch(lab)](https://marcinthaamnouay.github.io/lymui/docs/lchlab)
-- [luv](https://marcinthaamnouay.github.io/lymui/docs/luv)
-- [sRGB](https://marcinthaamnouay.github.io/lymui/docs/srgb)
-- [aRGB](https://marcinthaamnouay.github.io/lymui/docs/argb)
-- [xyz](https://marcinthaamnouay.github.io/lymui/docs/xyz)
-- [xyy](https://marcinthaamnouay.github.io/lymui/docs/xyy)
-- [ycbcr](https://marcinthaamnouay.github.io/lymui/docs/ycbcr)
-- [yuv](https://marcinthaamnouay.github.io/lymui/docs/yuv)
+* [rgb](https://marcinthaamnouay.github.io/lymui/docs/rgb)
+* [hex](https://marcinthaamnouay.github.io/lymui/docs/hex)
+* [hsl](https://marcinthaamnouay.github.io/lymui/docs/hsl)
+* [hsv](https://marcinthaamnouay.github.io/lymui/docs/hsv)
+* [hue](https://marcinthaamnouay.github.io/lymui/docs/hue)
+* [lab](https://marcinthaamnouay.github.io/lymui/docs/lab)
+* [lch(uv)](https://marcinthaamnouay.github.io/lymui/docs/lch)
+* [lch(lab)](https://marcinthaamnouay.github.io/lymui/docs/lchlab)
+* [luv](https://marcinthaamnouay.github.io/lymui/docs/luv)
+* [sRGB](https://marcinthaamnouay.github.io/lymui/docs/srgb)
+* [aRGB](https://marcinthaamnouay.github.io/lymui/docs/argb)
+* [xyz](https://marcinthaamnouay.github.io/lymui/docs/xyz)
+* [xyy](https://marcinthaamnouay.github.io/lymui/docs/xyy)
+* [ycbcr](https://marcinthaamnouay.github.io/lymui/docs/ycbcr)
+* [yuv](https://marcinthaamnouay.github.io/lymui/docs/yuv)
 
 This library is provided as a static library that you can plug to your project
 
