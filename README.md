@@ -19,7 +19,7 @@ Contributions are always welcomed. Open issue if you want to add an other kind o
 Testing this project required some steps:
 
 - Clone the cunit library available at this link [Cunit library](https://github.com/itzseven/cunit.git)
-- Go into cunit folder and run ```make lib````
+- Go into cunit folder and run ```make lib```
 - Copy the **content** of the **bin** folder and paste it into the **lib/cunit** folder
 - Then run: ```make lym && make test```
 
@@ -50,8 +50,7 @@ Note that for any color space you have to pass by an Xyz color then to the wante
 
 ## APIs
 
-Please take a look at the list of available APIs
-
+A full list of the APIs and it's example usage is available at this link
 [APIs list](https://marcinthaamnouay.github.io/lymui/docs/)
 
 ## Changelogs
