@@ -26,7 +26,7 @@ before_script:
 script: 
   - sh coverage.sh
   - make lib
-  - zip -r "liblymui-${TRAVIS_OS_NAME}-${VERSION}.zip" bin
+  - zip -r liblymui-${TRAVIS_OS_NAME}-${VERSION}.zip bin
 
 after_success:
   - lcov --directory . --capture --output-file coverage.info
@@ -51,7 +51,7 @@ deploy:
   provider: releases
   api_key: ${GH_TOKEN}
   file:
-    - "liblymui-${TRAVIS_OS_NAME}-${VERSION}.zip"
+    - liblymui-${TRAVIS_OS_NAME}-${VERSION}.zip
   skip_cleanup: true
   on:
     branch: master
