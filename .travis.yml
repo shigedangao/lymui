@@ -1,39 +1,57 @@
-# set os for testing (cunit has been build using OSX... i might need to automate this)
+language: c
+
 os:
   - osx
+  - linux
 
-matrix:
-  include:
-    - language: c
-      before_install:
-        - wget https://github.com/linux-test-project/lcov/releases/download/v1.13/lcov-1.13.tar.gz
-        - tar xf lcov-1.13.tar.gz
-        - sudo make -C lcov-1.13/ install
+env:
+ global:
+  - VERSION=1.1.1
 
-        # Install lcov
-        - gem install coveralls-lcov
-      # set the compiler
-      compiler:
-        - gcc
-      before_script:
-        - lcov --directory . --zerocounters
-      script: 
-        - sh coverage.sh
-      after_success:
-        - lcov --directory . --capture --output-file coverage.info
-        - lcov --remove coverage.info 'tests/*' '/usr/*' 'test-library*' --output-file coverage.info
-        - lcov --list coverage.info
-        - coveralls-lcov  coverage.info
-    
-    # - language: node_js
-    #   node_js:
-    #     - "lts/*"
-    #   before_install:
-    #     - make lib
-    #     - npm install
-    #     - npm install -g node-gyp
-    #   before_script:
-    #     - node-gyp configure
-    #     - npm run build:dev
-    #   script:
-    #     - npm run test
+before_install:
+  - wget https://github.com/linux-test-project/lcov/releases/download/v1.13/lcov-1.13.tar.gz
+  - tar xf lcov-1.13.tar.gz
+  - sudo make -C lcov-1.13/ install
+
+  # Install lcov
+  - gem install coveralls-lcov
+
+# set the compiler
+compiler:
+  - gcc
+
+before_script:
+  - lcov --directory . --zerocounters
+
+script: 
+  - sh coverage.sh
+  - make lib
+  - zip -r liblymui-${TRAVIS_OS_NAME}-${VERSION}.zip bin
+
+after_success:
+  - lcov --directory . --capture --output-file coverage.info
+  - lcov --remove coverage.info 'tests/*' '/usr/*' 'test-library*' --output-file coverage.info
+  - lcov --list coverage.info
+  - coveralls-lcov  coverage.info
+
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name ${USERNAME}
+  - git config --local user.email ${EMAIL}
+  - git tag -a v${VERSION} -m "Lymui build ${VERSION}"
+  - git push -q https://${GH_TOKEN}@github.com/MarcInthaamnouay/lymui --tags
+
+
+notifications:
+  email:
+    on_success: never
+    on_error: always
+
+deploy:
+  provider: releases
+  api_key: ${GH_TOKEN}
+  file:
+    - liblymui-${TRAVIS_OS_NAME}-${VERSION}.zip
+  skip_cleanup: true
+  on:
+    branch: master
