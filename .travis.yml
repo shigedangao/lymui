@@ -36,7 +36,7 @@ after_success:
 
 before_deploy:
   # Set up git user name and tag this commit
-  - git tag -a v${VERSION} -m "Lymui build ${VERSION}"
+  - git tag -a v${VERSION}-${TRAVIS_OS_NAME} -m "Lymui build ${VERSION} for ${TRAVIS_OS_NAME}"
   - git config --local user.name ${USERNAME}
   - git config --local user.email ${EMAIL}
   - git push -q https://${GH_TOKEN}@github.com/MarcInthaamnouay/lymui --tags
