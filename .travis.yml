@@ -38,7 +38,7 @@ before_deploy:
   # Set up git user name and tag this commit
   - git config --local user.name ${USERNAME}
   - git config --local user.email ${EMAIL}
-  - git tag -a v${VERSION} -m "Lymui build ${VERSION}"
+  - if [[ "$TRAVIS_OS_NAME" === "osx" ]]; then git tag -a v${VERSION} -m "Lymui build ${VERSION}"; fi
   - git push -q https://${GH_TOKEN}@github.com/MarcInthaamnouay/lymui --tags
 
 
