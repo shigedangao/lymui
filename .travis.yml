@@ -54,8 +54,7 @@ deploy:
   provider: releases
   api_key: ${GH_TOKEN}
   file:
-    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then liblymui-linux-${VERSION}.zip; fi
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then liblymui-osx-${VERSION}.zip; fi
+    - liblymui-${TRAVIS_OS_NAME}-${VERSION}.zip
   skip_cleanup: true
   on:
     branch: master
