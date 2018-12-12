@@ -26,7 +26,8 @@ before_script:
 script: 
   - sh coverage.sh
   - make lib
-  - zip -r liblymui-${TRAVIS_OS_NAME}-${VERSION}.zip bin
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then zip -r liblymui-linux-${VERSION}.zip bin; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -r liblymui-osx-${VERSION}.zip bin; fi
 
 after_success:
   - lcov --directory . --capture --output-file coverage.info
@@ -36,7 +37,9 @@ after_success:
 
 before_deploy:
   # Set up git user name and tag this commit
-  - git tag -a v${VERSION}-${TRAVIS_OS_NAME} -m "Lymui build ${VERSION} for ${TRAVIS_OS_NAME}"
+  # - git tag -a v${VERSION}-${TRAVIS_OS_NAME} -m "Lymui build ${VERSION} for ${TRAVIS_OS_NAME}"
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then git tag -a v${VERSION}-osx -m "Lymui build ${VERSION} for osx"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git tag -a v${VERSION}-linux -m "Lymui build ${VERSION} for linux"; fi
   - git config --local user.name ${USERNAME}
   - git config --local user.email ${EMAIL}
   - git push -q https://${GH_TOKEN}@github.com/MarcInthaamnouay/lymui --tags
@@ -51,7 +54,8 @@ deploy:
   provider: releases
   api_key: ${GH_TOKEN}
   file:
-    - liblymui-${TRAVIS_OS_NAME}-${VERSION}.zip
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then liblymui-linux-${VERSION}.zip; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then liblymui-osx-${VERSION}.zip; fi
   skip_cleanup: true
   on:
     branch: master
