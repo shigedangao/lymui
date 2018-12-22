@@ -63,10 +63,21 @@ ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {
     char *hex = {"abcdef"};
     Rgb *uc = getRGBFromHex(hex);
     
-    CTAssertEqual(test, 171, uc->r, "R value expected: 171, value: %ui", 171);
-    CTAssertEqual(test, 205, uc->g, "G value expected: 205, value: %ui", 205);
-    CTAssertEqual(test, 239, uc->b, "B value expected: 239, value: %ui", 239);
+    CTAssertEqual(test, 171, uc->r, "R value expected: 171, value: %i", uc->r);
+    CTAssertEqual(test, 205, uc->g, "G value expected: 205, value: %i", uc->g);
+    CTAssertEqual(test, 239, uc->b, "B value expected: 239, value: %i", uc->b);
 
+    free(uc);
+}
+
+ctest_return_t testHexToRgb(ctest_t *test, void *arg) {
+    char *hex = {"050a62"};
+    Rgb *uc = getRGBFromHex(hex);
+    
+    CTAssertEqual(test, 5, uc->r, "R value expected: 5, value: %i", uc->r);
+    CTAssertEqual(test, 10, uc->g, "G value expected: 10, value: %i", uc->g);
+    CTAssertEqual(test, 98, uc->b, "B value expected: 98, value: %i", uc->b);
+    
     free(uc);
 }
 
@@ -86,6 +97,7 @@ ctcase_t *wrapHexCreationTest() {
     ctest_t *hexCreation  = ctest("Create an Hex from RGB", testHexCreationFromRgb, NULL);
     ctest_t *whiteCreation = ctest("Create white HEX value", testWhiteHexCreationFromRgb, NULL);
     ctest_t *uintCreation = ctest("Create an Uint8 Array from HEX", testUintArrayCreationFromHex, NULL);
+    ctest_t *hexToRgb = ctest("Creation of an Rgb from Hex", testHexToRgb, NULL);
     ctest_t *uintNull = ctest("Create an Uint8 Array from a Null HEX", testUintNullCreationFromHex, NULL);
     ctest_t *uintOtherHex = ctest("Create RGB From String Hex", testUintArrayCreationFromSecHex, NULL);
     
@@ -93,6 +105,7 @@ ctcase_t *wrapHexCreationTest() {
     ctctestadd(hexCase, hexCreation);
     ctctestadd(hexCase, whiteCreation);
     ctctestadd(hexCase, uintCreation);
+    ctctestadd(hexCase, hexToRgb);
     ctctestadd(hexCase, uintNull);
     ctctestadd(hexCase, uintOtherHex);
     

@@ -1,12 +1,14 @@
 language: c
 
-os:
-  - osx
-  - linux
+matrix:
+  include:
+  - os: linux
+    dist: xenial
+  - os: osx
 
 env:
  global:
-  - VERSION=1.1.0
+  - VERSION=1.1.1
 
 before_install:
   - wget https://github.com/linux-test-project/lcov/releases/download/v1.13/lcov-1.13.tar.gz

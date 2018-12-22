@@ -14,6 +14,7 @@
 
 #define HEX_SIZE 7
 #define HEX_GROUP_LEN 2
+#define HEX_BASE 16
 
 /**
  * @brief Create a char array which is the HEX value
