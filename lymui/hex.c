@@ -105,6 +105,11 @@ Rgb *getRGBFromHex(char *hex) {
     char *g = splitSegment(hex, 3);
     char *b = splitSegment(hex, 5);
     
+    if (r == NULL || g == NULL || b == NULL) {
+        rgb->error = MALLOC_ERROR;
+        return rgb;
+    }
+    
     rgb->r = convertPart(r);
     rgb->g = convertPart(g);
     rgb->b = convertPart(b);
