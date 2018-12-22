@@ -456,6 +456,7 @@
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/lib/cunit";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				NEW_SETTING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include /Users/marcintha/.nvm/versions/node/v8.11.3/include/node";
@@ -476,6 +477,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/cunit",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

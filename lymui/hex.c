@@ -62,28 +62,31 @@ char *getHexFromRGB(Rgb *c) {
 }
 
 /**
- * @brief Get the uint8_t value based on each character of the Hex
- * @param c a char array representing the Hex array
- * @param idx an index
- * @return a uint8_t value
+ * @brief cut a hex char value to a segment
+ * @param hex char array
+ * @param segment uint8_t
+ * @return char array
  */
-static uint8_t getUintCharValue(char *c, uint8_t idx) {
-    uint8_t n = 0;
-    switch (tolower(c[idx])) {
-        case 'a': n = 10; break;
-        case 'b': n = 11; break;
-        case 'c': n = 12; break;
-        case 'd': n = 13; break;
-        case 'e': n = 14; break;
-        case 'f': n = 15; break;
+static char* splitSegment(char *hex, uint8_t segment) {
+    char *part = malloc(sizeof(char) * HEX_GROUP_LEN);
+    if (part == NULL) {
+        return NULL;
     }
     
-    if (!n) {
-        char v = c[idx];
-        n = strtol(&v, NULL, 10);
-    }
+    part[0] = hex[segment - 1];
+    part[1] = hex[segment];
     
-    return n;
+    return part;
+}
+
+/**
+ * @brief convert part of hex into a base 10 value
+ * @return uint8_t
+ */
+static uint8_t convertPart(char *part) {
+    int p = (int) strtol(part, NULL, HEX_BASE);
+    
+    return (uint8_t) p;
 }
 
 // Get RGB Value From Hex
@@ -98,22 +101,18 @@ Rgb *getRGBFromHex(char *hex) {
         return rgb;
     }
     
-    uint8_t rgbArr[3];
-    uint8_t idx = 0;
-    // As we use the ushort we set 16 as our flag
-    while (idx < strlen(hex)) {
-        int x = getUintCharValue(hex, idx);
-        int y = getUintCharValue(hex, idx + 1);
-        
-        rgbArr[(idx / 2)] = y + (x * 16);
-        idx = idx + 2;
-    }
+    char *r = splitSegment(hex, 1);
+    char *g = splitSegment(hex, 3);
+    char *b = splitSegment(hex, 5);
     
-    // remove the pointer as we don't need it anymore
-    rgb->r = rgbArr[0];
-    rgb->g = rgbArr[1];
-    rgb->b = rgbArr[2];
+    rgb->r = convertPart(r);
+    rgb->g = convertPart(g);
+    rgb->b = convertPart(b);
     rgb->error = NULL;
+    
+    free(r);
+    free(g);
+    free(b);
     
     return rgb;
 }
