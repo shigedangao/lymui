@@ -1,9 +1,11 @@
 language: c
 
-os:
-  - osx
-  - linux
-
+matrix:
+  include:
+  - os: linux
+    dist: xenial
+  - os: osx
+  
 env:
  global:
   - VERSION=1.1.0
