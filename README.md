@@ -8,7 +8,7 @@ Lymui is a small color conversion library. It's my first project in C !.
 
 ## Status
 
-Version: 1.1.0
+Version: 1.1.1
 
 ## Contribute
 
@@ -54,6 +54,12 @@ A full list of the APIs and it's example usage is available at this link
 [APIs list](https://marcinthaamnouay.github.io/lymui/docs/)
 
 ## Changelogs
+
+* 1.1.1:
+* * Refactor Hex -> Rgb
+* * Fix random wrong value when converting Hex to Rgb
+* * Add more tests cases on Yuv
+* * Update travis config
 
 * 1.1.0: 
 * * Refactor error handling
