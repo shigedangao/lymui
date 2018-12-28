@@ -34,9 +34,12 @@ Hwb *getHwbFromRgb(Rgb *rgb) {
         return hwb;
     }
     
+    double s = hsv->s / 100.0f;
+    double v = hsv->v / 100.0f;
+    
     hwb->h = hsv->h;
-    hwb->w = (1-hsv->s) * hsv->v;
-    hwb->b = 1 - hsv->v;
+    hwb->w = ((1 - s) * v) * 100.0f;
+    hwb->b = (1 - v) * 100.0f;
     
     free(hsv);
     return hwb;

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2FAABC8521D3F67D00D47DE9 /* hwb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FAABC8421D3F67D00D47DE9 /* hwb.c */; };
+		2FAABC8721D3FD8700D47DE9 /* hwb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FAABC8621D3FD8700D47DE9 /* hwb_test.c */; };
 		9F04726F203476D1000639EA /* rgb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04726E203476D1000639EA /* rgb_test.c */; };
 		9F04727120347861000639EA /* hex_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727020347861000639EA /* hex_test.c */; };
 		9F04727320348E67000639EA /* ycbcr_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727220348E67000639EA /* ycbcr_test.c */; };
@@ -60,6 +61,7 @@
 /* Begin PBXFileReference section */
 		2FAABC8321D3F67D00D47DE9 /* hwb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hwb.h; sourceTree = "<group>"; };
 		2FAABC8421D3F67D00D47DE9 /* hwb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hwb.c; sourceTree = "<group>"; };
+		2FAABC8621D3FD8700D47DE9 /* hwb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hwb_test.c; sourceTree = "<group>"; };
 		2FE6F42221A6135E001E3D17 /* errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = errors.h; sourceTree = "<group>"; };
 		2FECDFFA21A7605B008F4DE5 /* xyz_constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xyz_constant.h; sourceTree = "<group>"; };
 		9F04726D203476D1000639EA /* test_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test_header.h; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				9F4186ED20A62B3000CD500A /* lch_test.c */,
 				9F8ABE4220A9925A0001F811 /* lch_lab_test.c */,
 				9F8ABE4720AA22630001F811 /* xyy_test.c */,
+				2FAABC8621D3FD8700D47DE9 /* hwb_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				9F8ABE4820AA22630001F811 /* xyy_test.c in Sources */,
 				9FFE470E20573A7A00EA68D5 /* srgb.c in Sources */,
 				9F4D411D20599E020031CDA5 /* argb_test.c in Sources */,
+				2FAABC8721D3FD8700D47DE9 /* hwb_test.c in Sources */,
 				9FFE46FC20567B8B00EA68D5 /* yuv.c in Sources */,
 				9FC5E6F820A4ED4B00667C61 /* lch.c in Sources */,
 				9F649FBE20580CF10019A8BD /* xyz_test.c in Sources */,
