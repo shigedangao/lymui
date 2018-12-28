@@ -62,11 +62,15 @@ Rgb *getRgbFromHwb(Hwb *hwb) {
         return rgb;
     }
     
+    double w = hwb->w / 100.0f;
+    double b = hwb->b / 100.0f;
+    
     hsv->h = hwb->h;
-    hsv->s = 1 - (hwb->w / 1 - hwb->b);
-    hsv->v = 1 - hwb->b;
+    hsv->s = (1 - (w / (1 - b))) * 100.0f;
+    hsv->v = (1 - b) * 100.0f;
+    
     rgb = getRgbFromHsv(hsv);
     
-    free(rgb);
+    free(hwb);
     return rgb;
 }
