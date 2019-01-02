@@ -89,6 +89,22 @@ static uint8_t convertPart(char *part) {
     return (uint8_t) p;
 }
 
+/**
+ * @brief Transform a hex of 3 char to a 6 cha
+ * @param hex char
+ * @return hex copy
+ */
+static char* unShorten(char *hex) {
+    char *copy = malloc(sizeof(6));
+    if (copy == NULL) {
+        return NULL;
+    }
+    
+    snprintf(copy, sizeof(copy) / sizeof(copy[0]), "%c%c%c%c%c%c",hex[0], hex[0], hex[1], hex[1], hex[2], hex[2]);
+
+    return copy;
+}
+
 // Get RGB Value From Hex
 Rgb *getRGBFromHex(char *hex) {
     Rgb *rgb = initRgb();
@@ -101,9 +117,16 @@ Rgb *getRGBFromHex(char *hex) {
         return rgb;
     }
     
-    char *r = splitSegment(hex, 1);
-    char *g = splitSegment(hex, 3);
-    char *b = splitSegment(hex, 5);
+    char *hexstr = NULL;
+    if (strlen(hex) < 6) {
+        hexstr = unShorten(hex);
+    } else {
+        hexstr = hex;
+    }
+    
+    char *r = splitSegment(hexstr, 1);
+    char *g = splitSegment(hexstr, 3);
+    char *b = splitSegment(hexstr, 5);
     
     if (r == NULL || g == NULL || b == NULL) {
         rgb->error = MALLOC_ERROR;
