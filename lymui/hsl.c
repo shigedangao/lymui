@@ -41,7 +41,6 @@ Hsl *getHslFromRgb(Rgb *rgb) {
     hsl->s = sat * 100.0;
     hsl->l = _l * 100.0;
     hsl->error = NULL;
-    free(rgb);
     
     return hsl;
 }

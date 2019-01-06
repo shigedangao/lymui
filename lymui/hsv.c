@@ -46,7 +46,6 @@ Hsv *getHsvFromRgb(Rgb *rgb) {
         hsv->s = 0.0;
     }
     
-    free(rgb);
     return hsv;
 }
 

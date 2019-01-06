@@ -78,5 +78,6 @@ Rgb *getRgbFromCymk(Cymk *cymk) {
     rgb->error = NULL;
     
     free(value);
+    free(cymk);
     return rgb;
 }

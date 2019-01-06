@@ -41,6 +41,26 @@ ctest_return_t testWhiteHexCreationFromRgb(ctest_t *test, void *arg) {
     free(hex);
 }
 
+ctest_return_t testShorthandHex(ctest_t *test, void *arg) {
+    char *hex = {"fff"};
+    
+    Rgb *rgb = getRGBFromHex(hex);
+    CTAssertEqual(test, 255, rgb->r, "Expect R to be equal to %i but got %i", 255, rgb->r);
+    CTAssertEqual(test, 255, rgb->g, "Expect G to be equal to %i but got %i", 255, rgb->g);
+    CTAssertEqual(test, 255, rgb->b, "Expect B to be equal to %i but got %i", 255, rgb->b);
+    
+    free(rgb);
+}
+
+ctest_return_t testComposedShortHandHex(ctest_t *test, void *arg) {
+    char *hex = {"6f3"};
+    
+    Rgb *rgb = getRGBFromHex(hex);
+    CTAssertEqual(test, 102, rgb->r, "Expect R to be equal to %i but got %i", 102, rgb->r);
+    CTAssertEqual(test, 255, rgb->g, "Expect G to be equal to %i but got %i", 255, rgb->g);
+    CTAssertEqual(test, 51, rgb->b, "Expect B to be equal to %i but got %i", 51, rgb->b);
+}
+
 ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
     char *hex = malloc(sizeof (char) * 6 + 1);
     hex[0] = '0';
@@ -100,6 +120,8 @@ ctcase_t *wrapHexCreationTest() {
     ctest_t *hexToRgb = ctest("Creation of an Rgb from Hex", testHexToRgb, NULL);
     ctest_t *uintNull = ctest("Create an Uint8 Array from a Null HEX", testUintNullCreationFromHex, NULL);
     ctest_t *uintOtherHex = ctest("Create RGB From String Hex", testUintArrayCreationFromSecHex, NULL);
+    ctest_t *shortHandHex = ctest("Create an rgb from a shorthand hex", testShorthandHex, NULL);
+    ctest_t *composedShortHandHex = ctest("Create an rgb from complex shorthand hex", testComposedShortHandHex, NULL);
     
     // Add test to test case
     ctctestadd(hexCase, hexCreation);
@@ -108,6 +130,8 @@ ctcase_t *wrapHexCreationTest() {
     ctctestadd(hexCase, hexToRgb);
     ctctestadd(hexCase, uintNull);
     ctctestadd(hexCase, uintOtherHex);
+    ctctestadd(hexCase, shortHandHex);
+    ctctestadd(hexCase, composedShortHandHex);
     
     return hexCase;
 }

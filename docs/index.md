@@ -1,6 +1,6 @@
 ## Lymui
 
-Lymui is a small C color conversion library which support the following formats:
+Lymui is a small C color conversion library which support the following color space formats:
 
 * [rgb](https://marcinthaamnouay.github.io/lymui/docs/rgb)
 * [hex](https://marcinthaamnouay.github.io/lymui/docs/hex)
@@ -17,8 +17,11 @@ Lymui is a small C color conversion library which support the following formats:
 * [xyy](https://marcinthaamnouay.github.io/lymui/docs/xyy)
 * [ycbcr](https://marcinthaamnouay.github.io/lymui/docs/ycbcr)
 * [yuv](https://marcinthaamnouay.github.io/lymui/docs/yuv)
+* [tsl](https://marcinthaamnouay.github.io/lymui/docs/tsl)
+* [hwb](https://marcinthaamnouay.github.io/lymui/docs/hwb)
+* [grayscale](https://marcinthaamnouay.github.io/lymui/docs/grayscale)
 
-This library is provided as a static library that you can plug to your project
+This library is provided as a static library that you can plug to your project. Note: If you want to use it as a shared library feel free to update the provided makefile.
 
 ## Testing & Generate static lib
 
@@ -49,8 +52,3 @@ The bin folder should contain the following folder & files.
 -- includes
 -- liblymui.a
 ```
-
-### APIs
-
-Below is the list of APIs available
-

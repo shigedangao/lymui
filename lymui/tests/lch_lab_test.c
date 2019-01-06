@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cunit.h>
+#include "test_header.h"
 #include "errors.h"
 #include "lchlab.h"
 
@@ -25,6 +26,7 @@ ctest_return_t testLchFromLab(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, lch->h, 307.23, 0.1, "Expect H to be equal to %f but got %f", 307.23, lch->h);
     
     free(lch);
+    free(xyz);
 }
 
 ctest_return_t testWhiteLchFromLab(ctest_t *test, void *arg) {
@@ -40,6 +42,7 @@ ctest_return_t testWhiteLchFromLab(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, lch->h, 19.24, 0.1, "Expect H to be equal to %f but got %f", 19.24, lch->h);
     
     free(lch);
+    free(xyz);
 }
 
 ctest_return_t testDarkLchFromLab(ctest_t *test, void *arg) {
@@ -55,6 +58,7 @@ ctest_return_t testDarkLchFromLab(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, lch->h, 0.0, 0.1, "Expect H to be equal to %f but got %f", 0.0, lch->h);
     
     free(lch);
+    free(xyz);
 }
 
 
@@ -77,6 +81,7 @@ ctest_return_t testXyzFromLchLab(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.55, nXyz->z, 0.01, "Expect Z to be equal to %f but got %f", 0.56, nXyz->z);
 
     free(nXyz);
+    free(xyz);
 }
 
 ctest_return_t testLabLchNull(ctest_t *test, void *arg) {

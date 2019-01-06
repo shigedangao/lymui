@@ -34,6 +34,9 @@ xyz->y = 1.0;
 xyz->z = 1.088830;
     
 Argb *argb = getArgbFromXyz(xyz);
+
+// xyz will not be freed (so that you can reuse this struct)
+free(xyz);
 ```
 
 It return the Argb struct which you can access the property like the example below

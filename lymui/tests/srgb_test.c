@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cunit.h>
+#include "test_header.h"
 #include "errors.h"
 #include "rgb.h"
 #include "xyz.h"
@@ -29,6 +30,7 @@ ctest_return_t testSRgbCreation(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.37, srgb->b, 0.01, "Expect b to be equal to be equal to 0.37 but got %f", srgb->b);
 
     free(srgb);
+    free(rgb);
 }
 
 ctest_return_t testXyzCreation(ctest_t *test, void *arg) {
@@ -62,6 +64,7 @@ ctest_return_t testWhiteXyzCreation(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 1.0888, nXyz->z, 0.01, "Expect z to be equal to be equal to 1.0888 but got %f", nXyz->z);
     
     free(nXyz);
+    free(xyz);
 }
 
 ctest_return_t testNullSRgbCreation(ctest_t *test, void *arg) {

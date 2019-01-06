@@ -34,6 +34,9 @@ xyz->y = 1.0;
 xyz->z = 1.088830;
     
 Lch *lch  = getLchFromLab(xyz);
+
+// xyz will not be freed (so that you can reuse this struct)
+free(xyz);
 ```
 
 It return the Lch struct which you can access the property like the example below
@@ -74,6 +77,7 @@ lch->l = 100;
 lch->c = 0;
 lch->h = 360;
 
+// lch is being freed automatically
 Xyz *xyz = getXyzFromLchlab(lch);
 ```
 

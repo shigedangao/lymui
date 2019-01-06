@@ -32,6 +32,9 @@ yuv->error = <string>
 uint8_t cvalue[3] = {100, 150, 255};
 Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
 Yuv *yuv = getYuvFromRgb(rgb);
+
+// rgb will not be freed (so that you can reuse this struct)
+free(rgb);
 ```
 
 Yuv return the Yuv struct which you can access the property like the example below
@@ -73,6 +76,7 @@ yuv->y = 0.124;
 yuv->u = 0.122;
 yuv->v = 0.063;
 
+// Yuv is being freed automatically
 Rgb *rgb = getRgbFromYuv(Yuv);
 ```
 

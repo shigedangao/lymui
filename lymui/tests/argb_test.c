@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <cunit.h>
 #include <math.h>
+#include "test_header.h"
 #include "errors.h"
 #include "helper.h"
 #include "rgb.h"
@@ -30,6 +31,7 @@ ctest_return_t testARgbCreation(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.37, argb->b, 0.01, "Expect b to be equal to be equal to 0.37 but got %f", argb->b);
     
     free(argb);
+    free(xyz);
 }
 
 ctest_return_t testARgbEmpty(ctest_t *test, void *arg) {
@@ -46,6 +48,8 @@ ctest_return_t testARgbEmpty(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.0, argb->b, 0.1, "Expect b to be equal to be equal to 0 but got %f", argb->b);
     
     free(argb);
+    free(xyz);
+    free(rgb);
 }
 
 ctest_return_t testMaxARgb(ctest_t *test, void *arg) {
@@ -62,6 +66,8 @@ ctest_return_t testMaxARgb(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 1.0, argb->b, 0.1, "Expect b to be equal to be equal to 0 but got %f", argb->b);
     
     free(argb);
+    free(xyz);
+    free(rgb);
 }
 
 ctest_return_t testNullARgb(ctest_t *test, void *arg) {

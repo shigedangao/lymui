@@ -31,6 +31,9 @@ hsl->error = <string>
 uint8_t cvalue[3] = {100, 150, 255};
 Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
 Hsl *hsl = getHslFromRgb(rgb);
+
+// rgb will not be freed (so that you can reuse this struct)
+free(rgb);
 ```
 
 Hsl return the Hsl struct which you can access the property like the example below
@@ -72,6 +75,7 @@ hsl->h = 0;
 hsl->s = 0;
 hsl->l = 59;
 
+// hsl is being freed automatically
 Rgb *rgb = getRgbFromHsl(hsl);
 ```
 

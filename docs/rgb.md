@@ -36,3 +36,6 @@ With an RGB struct you can convert to the color format below:
 - hsv
 - ycbcr
 - xyz
+- tsl
+- hwb
+- grayscale
