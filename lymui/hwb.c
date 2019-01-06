@@ -40,6 +40,7 @@ Hwb *getHwbFromRgb(Rgb *rgb) {
     hwb->h = hsv->h;
     hwb->w = ((1.0 - s) * v) * 100.0;
     hwb->b = (1.0 - v) * 100.0;
+    hwb->error = NULL;
     
     free(hsv);
     return hwb;
