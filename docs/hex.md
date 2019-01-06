@@ -31,6 +31,8 @@ if (rgb == NULL) {
 }
 
 char *hex = getHexFromRGB(rgb);
+// rgb will not be freed (so that you can reuse this struct)
+free(rgb);
 
 // should print "hex is equal to 050a5f"
 printf("hex is equal to %s", hex);

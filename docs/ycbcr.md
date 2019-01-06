@@ -31,6 +31,9 @@ ycbcr->error = <string>
 uint8_t cvalue[3] = {0, 0, 100};
 Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
 Ycbcr *ycbcr = getYcbcrFromRgb(rgb);
+
+// rgb will not be freed (so that you can reuse this struct)
+free(rgb);
 ```
 
 Ycbcr return the Ycbcr struct which you can access the property like the example below
@@ -72,6 +75,7 @@ ycbcr->y  = 86;
 ycbcr->cb = 186;
 ycbcr->cr = 77;
 
+// Ycbcr is being freed automatically
 Rgb *rgb = getRgbFromYcbcr(Ycbcr);
 ```
 

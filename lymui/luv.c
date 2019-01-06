@@ -73,7 +73,6 @@ Luv *getLuvFromXyz(Xyz *xyz) {
     luv->v = 13.0 * l * (uv[1] - urv[1]);
     luv->error = NULL;
     
-    free(xyz);
     free(urv);
     free(uv);
     

@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <cunit.h>
 #include <math.h>
+#include "test_header.h"
 #include "errors.h"
 #include "helper.h"
 #include "xyz.h"
@@ -29,6 +30,8 @@ ctest_return_t testLabFromXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, -83.43, lab->b, 0.01, "Expect B to be equal to %f but got %f real value is %f", -83.43, lab->b);
 
     free(lab);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testBlackLabFromXyz(ctest_t *test, void *arg) {
@@ -45,6 +48,8 @@ ctest_return_t testBlackLabFromXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.0, lab->b, 0.01, "Expect B to be equal to %f but got %f", 0.0, lab->b);
 
     free(lab);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testWhiteLab(ctest_t *test, void *arg) {
@@ -61,6 +66,8 @@ ctest_return_t testWhiteLab(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.0, lab->b, 0.001, "Expect B to be equal to %f but got %f", 0.0, lab->b);
 
     free(lab);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testNullLab(ctest_t *test, void *arg) {
@@ -85,6 +92,8 @@ ctest_return_t testXyzFromLab(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, xyz->x, nXyz->x, 0.001,"Expect Z to be equal to %f but got %f", xyz->z, nXyz->z);
 
     free(nXyz);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testXyzFromSmallLab(ctest_t *test, void *arg) {
@@ -116,6 +125,8 @@ ctest_return_t testXyzFromLargeLab(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 1.0888, nXyz->z, 0.0001, "Expect Z to be equal to current xyz %f but got %f", 1.0888, nXyz->z);
 
     free(nXyz);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testXyzNullCreation(ctest_t *test, void *arg) {
@@ -139,6 +150,8 @@ ctest_return_t testHunterLabFromXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 31.22, hunterLab->b, 0.01, "Expect B to be equal to %f but got %f", 31.22, hunterLab->b);
 
     free(hunterLab);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testNullHunter(ctest_t *test, void *arg) {

@@ -8,11 +8,13 @@ Lymui is a small color conversion library. It's my first project in C !.
 
 ## Status
 
-Version: 1.1.1
+Version: 1.2.0
 
-## Contribute
+## Support OS
 
-Contributions are always welcomed. Open issue if you want to add an other kind of format and submit a PR if you wish to add an other feature such as a format color and many more...
+- osx
+- linux
+- windows (not supported yet but contribution are welcome)
 
 ## Tests
 
@@ -31,29 +33,20 @@ The project is shipped with a makefile. Below is the command that you can use in
 
 - Output lib: ```make lib```
 
-### Note
-
-If you want to test this project with Xcode you will need to add the **binding** folder to the excluded source file names property of xcode
-
-```bash
-EXCLUDED_SOURCE_FILE_NAMES = lymui/binding/* 
-EXCLUDED_SOURCE_FILE_NAMES = lymui/binding/normalizer/*
-```
-
 ## Usage
 
-Converting a kind of color required you to import a color of type T. From this type T color you will be able to convert into an other type of color. 
+An exhaustive list of examples are available on the link below.
 
-Note that for any color space you have to pass by an Xyz color then to the wanted color. Below is some example of how to use the lib.
-
-**Note**: When converting a color the struct that has been given to a converter will be freed
-
-## APIs
-
-A full list of the APIs and it's example usage is available at this link
 [APIs list](https://marcinthaamnouay.github.io/lymui/docs/)
 
 ## Changelogs
+
+* 1.2.0:
+* * Remove free on rgb & xyz for user's reusability 
+* * Add support for TSL color format
+* * Add support for converting shorthand hex -> rgb
+* * Add support for HWB color format
+* * Add support for grayscale color format
 
 * 1.1.1:
 * * Refactor Hex -> Rgb
@@ -72,3 +65,7 @@ A full list of the APIs and it's example usage is available at this link
 * * Other bug fixes
 
 * 1.0.0: Initial release
+
+## Contributions
+
+Contributions and feedbacks are always welcomed :)

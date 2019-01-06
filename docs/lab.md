@@ -34,6 +34,9 @@ xyz->y = 1.0;
 xyz->z = 1.088830;
     
 Lab *lab  = getLabFromXyz(xyz);
+
+// xyz will not be freed (so that you can reuse this struct)
+free(xyz);
 ```
 
 It return the Lab struct which you can access the property like the example below
@@ -74,6 +77,7 @@ lab->l = 100.0;
 lab->a = 0.0;
 lab->b = 0.0;
 
+// lab is being freed automatically
 Xyz *xyz = getXyzFromLab(Lab);
 ```
 

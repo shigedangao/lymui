@@ -59,8 +59,6 @@ SRgb *getSrgbFromXyz(Xyz *xyz) {
     srgb->b = gammaCorrection(b);
     srgb->error = NULL;
     
-    free(xyz);
-    
     return srgb;
 }
 

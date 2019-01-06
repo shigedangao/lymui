@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <cunit.h>
+#include "test_header.h"
 #include "errors.h"
 #include "yuv.h"
 
@@ -25,6 +26,7 @@ ctest_return_t testCaseCreationYuv(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.063, yuv->v, 0.001, "Expect V to be equal to 0.124 but got %f", yuv->v);
 
     free(yuv);
+    free(rgb);
 }
 
 ctest_return_t testWhiteRgbToYuv(ctest_t *test, void *arg) {
@@ -38,6 +40,9 @@ ctest_return_t testWhiteRgbToYuv(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 1.0, yuv->y, 0.1, "Expect Y to be equal to 1.0 but got %f", yuv->y);
     CTAssertDecimalEqual(test, 0.0, yuv->u, 0.1, "Expect U to be equal to 0.0 but got %f", yuv->u);
     CTAssertDecimalEqual(test, 0.0, yuv->v, 0.1, "Expect V to be equal to 0.0 but got %f", yuv->v);
+    
+    free(rgb);
+    free(yuv);
 }
 
 ctest_return_t testCaseCreationNullYuv(ctest_t *test, void *arg) {
@@ -73,6 +78,8 @@ ctest_return_t testWhiteYuvToRgb(ctest_t *test, void *arg) {
     CTAssertEqual(test, 255, rgb->r, "Expect R to be equal to 255 but got %i", rgb->r);
     CTAssertEqual(test, 255, rgb->g, "Expect G to be equal to 255 but got %i", rgb->g);
     CTAssertEqual(test, 255, rgb->b, "Expect B to be equal to 255 but got %i", rgb->b);
+    
+    free(rgb);
 }
 
 ctest_return_t testCreationRgbNULL(ctest_t *test, void *arg) {
