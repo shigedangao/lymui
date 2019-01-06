@@ -16,10 +16,6 @@ Version: 1.2.0
 - linux
 - windows (not supported yet but contribution are welcome)
 
-## Contribute
-
-Contributions are always welcomed. Open issue if you want to add an other kind of format and submit a PR if you wish to add an other feature such as a format color and many more...
-
 ## Tests
 
 Testing this project required some steps:
@@ -39,15 +35,8 @@ The project is shipped with a makefile. Below is the command that you can use in
 
 ## Usage
 
-Converting a kind of color required you to import a color of type T. From this type T color you will be able to convert into an other type of color. 
+An exhaustive list of examples are available on the link below.
 
-Note that for any color space you have to pass by an Xyz color then to the wanted color. Below is some example of how to use the lib.
-
-**Note**: When converting a color the struct that has been given to a converter will be freed
-
-## APIs
-
-A full list of the APIs and it's example usage is available at this link
 [APIs list](https://marcinthaamnouay.github.io/lymui/docs/)
 
 ## Changelogs
@@ -76,3 +65,7 @@ A full list of the APIs and it's example usage is available at this link
 * * Other bug fixes
 
 * 1.0.0: Initial release
+
+## Contributions
+
+Contributions and feedbacks are always welcomed :)
