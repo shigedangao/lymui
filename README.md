@@ -10,6 +10,12 @@ Lymui is a small color conversion library. It's my first project in C !.
 
 Version: 1.2.0
 
+## Support OS
+
+- osx
+- linux
+- windows (not supported yet but contribution are welcome)
+
 ## Contribute
 
 Contributions are always welcomed. Open issue if you want to add an other kind of format and submit a PR if you wish to add an other feature such as a format color and many more...
@@ -30,15 +36,6 @@ Testing this project required some steps:
 The project is shipped with a makefile. Below is the command that you can use in order to generate different type of build
 
 - Output lib: ```make lib```
-
-### Note
-
-If you want to test this project with Xcode you will need to add the **binding** folder to the excluded source file names property of xcode
-
-```bash
-EXCLUDED_SOURCE_FILE_NAMES = lymui/binding/* 
-EXCLUDED_SOURCE_FILE_NAMES = lymui/binding/normalizer/*
-```
 
 ## Usage
 
