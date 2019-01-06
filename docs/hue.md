@@ -20,6 +20,9 @@ Nil
 uint8_t cvalue[3] = {244, 100, 200};
 Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));    
 Hue hue = getHueFromRgb(rgb);
+
+// rgb will not be freed (so that you can reuse this struct)
+free(rgb);
 ```
 
 ### Note

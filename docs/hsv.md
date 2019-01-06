@@ -32,6 +32,9 @@ hsv->error = <string>
 uint8_t cvalue[3] = {100, 150, 255};
 Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
 Hsv *hsv = getHsvFromRgb(rgb);
+
+// rgb will not be freed (so that you can reuse this struct)
+free(rgb);
 ```
 
 Hsv return the Hsv struct which you can access the property like the example below
@@ -73,6 +76,7 @@ hsv->h = 0.0f;
 hsv->s = 100.0;
 hsv->v = 100.0;
 
+// hsv is being freed automatically
 Rgb *rgb = getRgbFromHsv(Hsv);
 ```
 

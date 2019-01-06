@@ -34,6 +34,9 @@ xyz->y = 1.0;
 xyz->z = 1.088830;
     
 SRgb *srgb  = getSrgbFromXyz(xyz);
+
+// xyz will not be freed (so that you can reuse this struct)
+free(xyz);
 ```
 
 It return the SRgb struct which you can access the property like the example below
@@ -74,6 +77,7 @@ srgb->r = 0.0;
 srgb->g = 0.0;
 srgb->b = 0.0;
 
+// srgb is being freed automatically
 Xyz *xyz = getXyzFromSrgb(srgb);
 ```
 

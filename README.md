@@ -8,7 +8,7 @@ Lymui is a small color conversion library. It's my first project in C !.
 
 ## Status
 
-Version: 1.1.1
+Version: 1.2.0
 
 ## Contribute
 
@@ -54,6 +54,13 @@ A full list of the APIs and it's example usage is available at this link
 [APIs list](https://marcinthaamnouay.github.io/lymui/docs/)
 
 ## Changelogs
+
+* 1.2.0:
+* * Remove free on rgb & xyz for user's reusability 
+* * Add support for TSL color format
+* * Add support for converting shorthand hex -> rgb
+* * Add support for HWB color format
+* * Add support for grayscale color format
 
 * 1.1.1:
 * * Refactor Hex -> Rgb

@@ -17,6 +17,9 @@ Lymui is a small C color conversion library which support the following formats:
 * [xyy](https://marcinthaamnouay.github.io/lymui/docs/xyy)
 * [ycbcr](https://marcinthaamnouay.github.io/lymui/docs/ycbcr)
 * [yuv](https://marcinthaamnouay.github.io/lymui/docs/yuv)
+* [tsl](https://marcinthaamnouay.github.io/lymui/docs/tsl)
+* [hwb](https://marcinthaamnouay.github.io/lymui/docs/hwb)
+* [grayscale](https://marcinthaamnouay.github.io/lymui/docs/grayscale)
 
 This library is provided as a static library that you can plug to your project
 

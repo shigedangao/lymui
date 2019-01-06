@@ -13,7 +13,7 @@
 #include "rgb.h"
 
 /**
- * @brief an uint representing the gray color (from 0 to 100)
+ * @brief an uint representing the gray color (from 0 to 255)
  */
 typedef uint8_t Gray;
 

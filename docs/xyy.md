@@ -34,6 +34,9 @@ xyz->y = 1.0;
 xyz->z = 1.088830;
     
 Xyy *xyy  = getXyyFromXyz(xyz);
+
+// xyz will not be freed (so that you can reuse this struct)
+free(xyz);
 ```
 
 It return the Xyy struct which you can access the property like the example below
@@ -74,6 +77,7 @@ xyy->x = 0.375;
 xyy->y = 0.333;
 xyy->Y = 0.8;
 
+// xyy is being freed automatically
 Xyz *xyz = getXyzFromXyy(xyy);
 ```
 
