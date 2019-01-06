@@ -77,6 +77,7 @@ Tsl *getTslFromRgb(Rgb *rgb) {
     
     tsl->s = sqrt((9.0 / 5.0) * (powf(rDelta, 2.0) + powf(gDelta, 2.0)));
     tsl->l = 0.299 * _r + 0.587 * _g + 0.114 * _b;
+    tsl->error = NULL;
         
     return tsl;
 }
@@ -133,6 +134,7 @@ Rgb *getRgbFromTsl(Tsl *tsl) {
     rgb->r = doubleToUint(_k * _r);
     rgb->g = doubleToUint(_k * _g);
     rgb->b = doubleToUint(_k * (1 - _r - _g));
+    rgb->error = NULL;
     
     free(tsl);
     
