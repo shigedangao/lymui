@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <cunit.h>
 #include "hwb.h"
+#include "errors.h"
 
 ctest_return_t testRgbToHwb(ctest_t *test, void *arg) {
     Rgb *rgb = malloc(sizeof(Rgb));
@@ -102,6 +103,20 @@ ctest_return_t testBlackHwbToRgb(ctest_t *test, void *arg) {
     free(rgb);
 }
 
+ctest_return_t testNullRgbFromHwb(ctest_t *test, void *arg) {
+    Rgb *rgb = getRgbFromHwb(NULL);
+    
+    CTAssertStringEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
+    free(rgb);
+}
+
+ctest_return_t testNullHwbFromRgb(ctest_t *test, void *arg) {
+    Hwb *hwb = getHwbFromRgb(NULL);
+    
+    CTAssertStringEqual(test, hwb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
+    free(hwb);
+}
+
 ctcase_t *wrapHwbCreationTest() {
     ctcase_t *hwbCase = ctcase("Hwb creation test");
     
@@ -114,13 +129,20 @@ ctcase_t *wrapHwbCreationTest() {
     ctest_t *testRgbCreation = ctest("Creation of Rgb", testHwbToRgb, NULL);
     ctest_t *testWhiteRgbCreation = ctest("Creation of white Rgb", testWhiteHwbToRgb, NULL);
     ctest_t *testBlackRgbCreation = ctest("Creation of a black Rgb", testBlackHwbToRgb, NULL);
-                                          
+    
+    // Null cases
+    ctest_t *testNullHwb = ctest("Creation of an error if hwb is null", testNullRgbFromHwb, NULL);
+    ctest_t *testNullRgb = ctest("Creation of an error if rgb is null", testNullHwbFromRgb, NULL);
+
+    
     ctctestadd(hwbCase, testHwbCreation);
     ctctestadd(hwbCase, testHwbWhiteCreation);
     ctctestadd(hwbCase, testHwbBlackCreation);
     ctctestadd(hwbCase, testRgbCreation);
     ctctestadd(hwbCase, testWhiteRgbCreation);
     ctctestadd(hwbCase, testBlackRgbCreation);
+    ctctestadd(hwbCase, testNullHwb);
+    ctctestadd(hwbCase, testNullRgb);
     
     return hwbCase;
 }
