@@ -26,6 +26,7 @@ ctest_return_t testWhiteRgbFromTsl(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 255.0, tsl->l, 0.1, "Expect L to be equal to %f but got %f", 255.0, tsl->l);
     
     free(tsl);
+    free(rgb);
 }
 
 ctest_return_t testBlackRgbFromTsl(ctest_t *test, void *arg) {
@@ -41,6 +42,7 @@ ctest_return_t testBlackRgbFromTsl(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.0, tsl->l, 0.1, "Expect L to be equal to %f but got %f", 0.0, tsl->l);
     
     free(tsl);
+    free(rgb);
 }
 
 ctest_return_t testTslFromRgb(ctest_t *test, void *arg) {
@@ -56,6 +58,7 @@ ctest_return_t testTslFromRgb(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 35.412, tsl->l, 0.001, "Expect L to be equal to %f but got %f", 35.412, tsl->l);
     
     free(tsl);
+    free(rgb);
 }
 
 ctest_return_t testOtherTslFromRgb(ctest_t *test, void *arg) {
@@ -69,6 +72,9 @@ ctest_return_t testOtherTslFromRgb(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.0764, tsl->t, 0.0001, "Expect T to be equal to %f but got %f", 0.0764, tsl->t);
     CTAssertDecimalEqual(test, 0.1361, tsl->s, 0.001, "Expect S to be equal to %f but got %f", 0.1361, tsl->s);
     CTAssertDecimalEqual(test, 178.244, tsl->l, 0.001, "Expect L to be equal to %f but got %f", 178.244, tsl->l);
+    
+    free(tsl);
+    free(rgb);
 }
 
 ctest_return_t testNullRgbParam(ctest_t *test, void *arg) {

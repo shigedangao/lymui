@@ -29,6 +29,8 @@ ctest_return_t testLuvFromXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, -34.829, luv->v, 0.001, "Expect V to be equal to %f but got %f", -34.829, luv->v);
 
     free(luv);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testSuperiorYLuvFromXyz(ctest_t *test, void *arg) {
@@ -45,6 +47,8 @@ ctest_return_t testSuperiorYLuvFromXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, -5.983, luv->v, 0.001, "Expect V to be equal to %f but got %f", -5.983, luv->v);
     
     free(luv);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testWhiteLuvFromXyz(ctest_t *test, void *arg) {
@@ -61,6 +65,8 @@ ctest_return_t testWhiteLuvFromXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.0, luv->v, 0.01, "Expect V to be equal to %f but got %f", 0.0, luv->v);
 
     free(luv);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testInferiorYLuvFromXyz(ctest_t *test, void *arg) {
@@ -77,6 +83,8 @@ ctest_return_t testInferiorYLuvFromXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.442, luv->v, 0.001, "Expect V to be equal to %f but got %f", 0.442, luv->v);
 
     free(luv);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testNullLuv(ctest_t *test, void *arg) {
@@ -118,6 +126,8 @@ ctest_return_t testHighXyzFromLuv(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 1.0890, nXyz->z, 0.001, "Expect Z to be equal to %f but got %f", 1.0890, nXyz->z);
 
     free(nXyz);
+    free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testNullXyz(ctest_t *test, void *arg) {

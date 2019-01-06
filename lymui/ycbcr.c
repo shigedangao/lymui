@@ -98,6 +98,7 @@ Rgb *getRgbFromYcbcr(Ycbcr *cb) {
     rgb->b = b;
     rgb->error = NULL;
     
-    // don't forget to free when not needed anymore
+    free(cb);
+    
     return rgb;
 }
