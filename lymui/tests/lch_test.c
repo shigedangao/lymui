@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <cunit.h>
+#include "test_header.h"
 #include "errors.h"
 #include "lch.h"
 

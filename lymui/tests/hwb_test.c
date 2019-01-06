@@ -6,10 +6,10 @@
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
-#include "test_header.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <cunit.h>
+#include "test_header.h"
 #include "hwb.h"
 #include "errors.h"
 

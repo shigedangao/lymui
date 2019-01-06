@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F7BBA6221E21F8900E835EF /* grayscale.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F7BBA6121E21F8900E835EF /* grayscale.c */; };
+		2F7BBA6421E2326700E835EF /* grayscale_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F7BBA6321E2326700E835EF /* grayscale_test.c */; };
 		2FAABC8521D3F67D00D47DE9 /* hwb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FAABC8421D3F67D00D47DE9 /* hwb.c */; };
 		2FAABC8721D3FD8700D47DE9 /* hwb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FAABC8621D3FD8700D47DE9 /* hwb_test.c */; };
 		2FCEF9E621E1472700F3A80B /* tsl.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FCEF9E521E1472700F3A80B /* tsl.c */; };
@@ -64,6 +65,7 @@
 /* Begin PBXFileReference section */
 		2F7BBA6021E21F8900E835EF /* grayscale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = grayscale.h; sourceTree = "<group>"; };
 		2F7BBA6121E21F8900E835EF /* grayscale.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = grayscale.c; sourceTree = "<group>"; };
+		2F7BBA6321E2326700E835EF /* grayscale_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = grayscale_test.c; sourceTree = "<group>"; };
 		2FAABC8321D3F67D00D47DE9 /* hwb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hwb.h; sourceTree = "<group>"; };
 		2FAABC8421D3F67D00D47DE9 /* hwb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hwb.c; sourceTree = "<group>"; };
 		2FAABC8621D3FD8700D47DE9 /* hwb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hwb_test.c; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				9F8ABE4720AA22630001F811 /* xyy_test.c */,
 				2FAABC8621D3FD8700D47DE9 /* hwb_test.c */,
 				2FCEF9E721E151CA00F3A80B /* tsl_test.c */,
+				2F7BBA6321E2326700E835EF /* grayscale_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				9F04727120347861000639EA /* hex_test.c in Sources */,
 				9F8ABE4820AA22630001F811 /* xyy_test.c in Sources */,
 				9FFE470E20573A7A00EA68D5 /* srgb.c in Sources */,
+				2F7BBA6421E2326700E835EF /* grayscale_test.c in Sources */,
 				9F4D411D20599E020031CDA5 /* argb_test.c in Sources */,
 				2FAABC8721D3FD8700D47DE9 /* hwb_test.c in Sources */,
 				9FFE46FC20567B8B00EA68D5 /* yuv.c in Sources */,
