@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F7BBA6221E21F8900E835EF /* grayscale.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F7BBA6121E21F8900E835EF /* grayscale.c */; };
+		2F7BBA6421E2326700E835EF /* grayscale_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F7BBA6321E2326700E835EF /* grayscale_test.c */; };
 		2FAABC8521D3F67D00D47DE9 /* hwb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FAABC8421D3F67D00D47DE9 /* hwb.c */; };
 		2FAABC8721D3FD8700D47DE9 /* hwb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FAABC8621D3FD8700D47DE9 /* hwb_test.c */; };
 		2FCEF9E621E1472700F3A80B /* tsl.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FCEF9E521E1472700F3A80B /* tsl.c */; };
@@ -61,6 +63,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2F7BBA6021E21F8900E835EF /* grayscale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = grayscale.h; sourceTree = "<group>"; };
+		2F7BBA6121E21F8900E835EF /* grayscale.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = grayscale.c; sourceTree = "<group>"; };
+		2F7BBA6321E2326700E835EF /* grayscale_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = grayscale_test.c; sourceTree = "<group>"; };
 		2FAABC8321D3F67D00D47DE9 /* hwb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hwb.h; sourceTree = "<group>"; };
 		2FAABC8421D3F67D00D47DE9 /* hwb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hwb.c; sourceTree = "<group>"; };
 		2FAABC8621D3FD8700D47DE9 /* hwb_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hwb_test.c; sourceTree = "<group>"; };
@@ -161,6 +166,7 @@
 				9F8ABE4720AA22630001F811 /* xyy_test.c */,
 				2FAABC8621D3FD8700D47DE9 /* hwb_test.c */,
 				2FCEF9E721E151CA00F3A80B /* tsl_test.c */,
+				2F7BBA6321E2326700E835EF /* grayscale_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -208,6 +214,7 @@
 				9F8ABE4520A9BAE10001F811 /* xyy.c */,
 				2FAABC8421D3F67D00D47DE9 /* hwb.c */,
 				2FCEF9E521E1472700F3A80B /* tsl.c */,
+				2F7BBA6121E21F8900E835EF /* grayscale.c */,
 			);
 			path = lymui;
 			sourceTree = "<group>";
@@ -224,6 +231,7 @@
 		9F70D72F2032EB1D0002E3F3 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				2F7BBA6021E21F8900E835EF /* grayscale.h */,
 				2FCEF9E421E1472700F3A80B /* tsl.h */,
 				2FAABC8321D3F67D00D47DE9 /* hwb.h */,
 				9F8ABE4420A9BAE10001F811 /* xyy.h */,
@@ -317,6 +325,7 @@
 				9F04727120347861000639EA /* hex_test.c in Sources */,
 				9F8ABE4820AA22630001F811 /* xyy_test.c in Sources */,
 				9FFE470E20573A7A00EA68D5 /* srgb.c in Sources */,
+				2F7BBA6421E2326700E835EF /* grayscale_test.c in Sources */,
 				9F4D411D20599E020031CDA5 /* argb_test.c in Sources */,
 				2FAABC8721D3FD8700D47DE9 /* hwb_test.c in Sources */,
 				9FFE46FC20567B8B00EA68D5 /* yuv.c in Sources */,
@@ -338,6 +347,7 @@
 				2FAABC8521D3F67D00D47DE9 /* hwb.c in Sources */,
 				9F04979C204D485200173243 /* hsv_test.c in Sources */,
 				9F83F44020358ACF00F16CF6 /* cymk.c in Sources */,
+				2F7BBA6221E21F8900E835EF /* grayscale.c in Sources */,
 				9F83F4422035922A00F16CF6 /* cymk_test.c in Sources */,
 				2FCEF9E821E151CA00F3A80B /* tsl_test.c in Sources */,
 				9FB09146203DE0B000249EEB /* hsl.c in Sources */,

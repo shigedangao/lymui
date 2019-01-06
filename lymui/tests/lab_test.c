@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <cunit.h>
 #include <math.h>
+#include "test_header.h"
 #include "errors.h"
 #include "helper.h"
 #include "xyz.h"

@@ -36,6 +36,7 @@ int main(int argc, const char * argv[]) {
     ctcase_t  *xyy   = wrapXyyCreationTest();
     ctcase_t  *hwb   = wrapHwbCreationTest();
     ctcase_t  *tsl   = wrapTslCreationTest();
+    ctcase_t  *gray  = wrapGrayscaleCreationTest();
     
     // Launch suite
     ctscaseadd(suite, rgb);
@@ -56,6 +57,7 @@ int main(int argc, const char * argv[]) {
     ctscaseadd(suite, xyy);
     ctscaseadd(suite, hwb);
     ctscaseadd(suite, tsl);
+    ctscaseadd(suite, gray);
     ctsrun(suite);
     
     uint8_t failNb = suite->failed;
