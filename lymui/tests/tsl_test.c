@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <cunit.h>
 #include "tsl.h"
+#include "errors.h"
 
 ctest_return_t testWhiteRgbFromTsl(ctest_t *test, void *arg) {
     Rgb *rgb = malloc(sizeof(Rgb));
@@ -67,6 +68,13 @@ ctest_return_t testOtherTslFromRgb(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.0764, tsl->t, 0.0001, "Expect T to be equal to %f but got %f", 0.0764, tsl->t);
     CTAssertDecimalEqual(test, 0.1361, tsl->s, 0.001, "Expect S to be equal to %f but got %f", 0.1361, tsl->s);
     CTAssertDecimalEqual(test, 178.244, tsl->l, 0.001, "Expect L to be equal to %f but got %f", 178.244, tsl->l);
+}
+
+ctest_return_t testNullRgbParam(ctest_t *test, void *arg) {
+    Tsl *tsl = getTslFromRgb(NULL);
+    
+    CTAssertEqual(test, tsl->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
+    free(tsl);
 }
 
 ctest_return_t testRgbFromTsl(ctest_t *test, void *arg) {
@@ -129,18 +137,31 @@ ctest_return_t testRgbFromDarkTsl(ctest_t *test, void *arg) {
     free(rgb);
 }
 
+ctest_return_t testNullTslParam(ctest_t *test, void *arg) {
+    Rgb *rgb = getRgbFromTsl(NULL);
+    
+    CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
+    free(rgb);
+}
+
 ctcase_t *wrapTslCreationTest() {
     ctcase_t *tslCase = ctcase("Tsl color case");
     
+    // rgb -> tsl
     ctest_t *whiteTsl = ctest("Create a TSL from a White RGB value", testWhiteRgbFromTsl, NULL);
     ctest_t *blackTsl = ctest("Create a TSL from a Black RGB value", testBlackRgbFromTsl, NULL);
     ctest_t *regularTsl = ctest("Create TSL from a regular RGB", testTslFromRgb, NULL);
     ctest_t *otherTsl = ctest("Create an other TSL from RGB", testOtherTslFromRgb, NULL);
     
+    // tsl -> rgb
     ctest_t *tslToRgb = ctest("Create RGB from TSL", testRgbFromTsl, NULL);
     ctest_t *testOTslRgb = ctest("Create other RGB from TSL", testRgbFromOtherTsl, NULL);
     ctest_t *tslToBrightRgb = ctest("Create White RGB from Bright TSL", testRgbFromBrightTsl, NULL);
     ctest_t *tslToDarkRgb = ctest("Create Black RGB from Dark TSL", testRgbFromDarkTsl, NULL);
+    
+    // empty cases
+    ctest_t *rgbEmptyParam = ctest("Check null rgb param error", testNullRgbParam, NULL);
+    ctest_t *tslEmptyParam = ctest("Check null tsl param error", testNullTslParam, NULL);
     
     ctctestadd(tslCase, whiteTsl);
     ctctestadd(tslCase, blackTsl);
@@ -151,6 +172,9 @@ ctcase_t *wrapTslCreationTest() {
     ctctestadd(tslCase, testOTslRgb);
     ctctestadd(tslCase, tslToBrightRgb);
     ctctestadd(tslCase, tslToDarkRgb);
+    
+    ctctestadd(tslCase, rgbEmptyParam);
+    ctctestadd(tslCase, tslEmptyParam);
     
     return tslCase;
 }

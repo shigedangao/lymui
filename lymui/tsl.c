@@ -96,8 +96,6 @@ static double calculateGDelta(Tsl *tsl) {
     
     if (tsl->t > 0.5) {
         return -g;
-    } else if (tsl->t < 0.5) {
-        return g;
     } else {
         return g;
     }
