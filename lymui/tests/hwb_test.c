@@ -21,9 +21,9 @@ ctest_return_t testRgbToHwb(ctest_t *test, void *arg) {
     
     Hwb *hwb = getHwbFromRgb(rgb);
     
-    CTAssertDecimalEqual(test, hwb->h, 244.0f, 0.01f, "Expect H to be equal to %f but got %f", 244.0f, hwb->h);
-    CTAssertDecimalEqual(test, hwb->w, 4.7f, 0.01f, "Expect W to be equal to %f but got %f", 4.7f, hwb->w);
-    CTAssertDecimalEqual(test, hwb->b, 63.52f, 0.01f, "Expect B to be equal to %f but got %f", 63.5f, hwb->b);
+    CTAssertDecimalEqual(test, hwb->h, 244.0, 0.01, "Expect H to be equal to %f but got %f", 244.0, hwb->h);
+    CTAssertDecimalEqual(test, hwb->w, 4.7, 0.01, "Expect W to be equal to %f but got %f", 4.7, hwb->w);
+    CTAssertDecimalEqual(test, hwb->b, 63.52, 0.01, "Expect B to be equal to %f but got %f", 63.5, hwb->b);
     
     free(hwb);
     free(rgb);
@@ -37,9 +37,9 @@ ctest_return_t testWhiteRgbToHwb(ctest_t *test, void *arg) {
     
     Hwb *hwb = getHwbFromRgb(rgb);
     
-    CTAssertDecimalEqual(test, hwb->h, 0.0f, 0.01f, "Expect H to be equal to %f but got %f", 0.0f, hwb->h);
-    CTAssertDecimalEqual(test, hwb->w, 100.0f, 0.01f, "Expect W to be equal to %f but got %f", 100.0f, hwb->w);
-    CTAssertDecimalEqual(test, hwb->b, 0.0f, 0.01f, "Expect B to be equal to %f but got %f", 0.0f, hwb->b);
+    CTAssertDecimalEqual(test, hwb->h, 0.0, 0.01, "Expect H to be equal to %f but got %f", 0.0, hwb->h);
+    CTAssertDecimalEqual(test, hwb->w, 100.0, 0.01, "Expect W to be equal to %f but got %f", 100.0, hwb->w);
+    CTAssertDecimalEqual(test, hwb->b, 0.0, 0.01, "Expect B to be equal to %f but got %f", 0.0, hwb->b);
 
     free(hwb);
     free(rgb);
@@ -53,9 +53,9 @@ ctest_return_t testBlackRgbToHwb(ctest_t *test, void *arg) {
     
     Hwb *hwb = getHwbFromRgb(rgb);
     
-    CTAssertDecimalEqual(test, hwb->h, 0.0f, 0.01f, "Expect H to be equal to %f but got %f", 0.0f, hwb->h);
-    CTAssertDecimalEqual(test, hwb->w, 0.0f, 0.01f, "Expect W to be equal to %f but got %f", 0.0f, hwb->w);
-    CTAssertDecimalEqual(test, hwb->b, 100.0f, 0.01f, "Expect B to be equal to %f but got %f", 100.0f, hwb->b);
+    CTAssertDecimalEqual(test, hwb->h, 0.0, 0.01, "Expect H to be equal to %f but got %f", 0.0, hwb->h);
+    CTAssertDecimalEqual(test, hwb->w, 0.0, 0.01, "Expect W to be equal to %f but got %f", 0.0, hwb->w);
+    CTAssertDecimalEqual(test, hwb->b, 100.0, 0.01, "Expect B to be equal to %f but got %f", 100.0, hwb->b);
     
     free(hwb);
     free(rgb);
@@ -63,9 +63,9 @@ ctest_return_t testBlackRgbToHwb(ctest_t *test, void *arg) {
 
 ctest_return_t testHwbToRgb(ctest_t *test, void *arg) {
     Hwb *hwb = malloc(sizeof(Hwb));
-    hwb->h = 244.0f;
-    hwb->w = 4.705f;
-    hwb->b = 63.52f;
+    hwb->h = 244.0;
+    hwb->w = 4.705;
+    hwb->b = 63.52;
     
     Rgb *rgb = getRgbFromHwb(hwb);
     
@@ -78,9 +78,9 @@ ctest_return_t testHwbToRgb(ctest_t *test, void *arg) {
 
 ctest_return_t testWhiteHwbToRgb(ctest_t *test, void *arg) {
     Hwb *hwb = malloc(sizeof(Hwb));
-    hwb->h = 0.0f;
-    hwb->w = 100.0f;
-    hwb->b = 0.0f;
+    hwb->h = 0.0;
+    hwb->w = 100.0;
+    hwb->b = 0.0;
     
     Rgb *rgb = getRgbFromHwb(hwb);
     
@@ -93,9 +93,9 @@ ctest_return_t testWhiteHwbToRgb(ctest_t *test, void *arg) {
 
 ctest_return_t testBlackHwbToRgb(ctest_t *test, void *arg) {
     Hwb *hwb = malloc(sizeof(Hwb));
-    hwb->h = 0.0f;
-    hwb->w = 0.0f;
-    hwb->b = 100.0f;
+    hwb->h = 0.0;
+    hwb->w = 0.0;
+    hwb->b = 100.0;
     
     Rgb *rgb = getRgbFromHwb(hwb);
     
