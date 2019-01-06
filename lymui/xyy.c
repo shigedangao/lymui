@@ -37,8 +37,6 @@ Xyy *getXyyFromXyz(Xyz *xyz) {
     xyy->Y = xyz->y;
     xyy->error = NULL;
     
-    free(xyz);
-    
     return xyy;
 }
 
@@ -52,7 +50,6 @@ Xyz *getXyzFromXyy(Xyy *xyy) {
         xyz->error = NULL_INPUT_STRUCT;
         return xyz;
     }
-    
     
     if (!xyy->y) {
         xyz->x = 0.0;

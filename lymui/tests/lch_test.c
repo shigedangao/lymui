@@ -26,6 +26,7 @@ ctest_return_t testLchFromXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, lch->h, 37.5, 0.01, "Expect H to be equal to %f but got %f", 37.5, lch->h);
     
     free(lch);
+    free(xyz);
 }
 
 ctest_return_t testLchFromMaxXyz(ctest_t *test, void *arg) {
@@ -41,6 +42,7 @@ ctest_return_t testLchFromMaxXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, lch->h, 22.85, 0.01, "Expect H to be equal to %f but got %f", 22.85, lch->h);
 
     free(lch);
+    free(xyz);
 }
 
 ctest_return_t testLchFromFullWhiteXyz(ctest_t *test, void *arg) {
@@ -56,6 +58,7 @@ ctest_return_t testLchFromFullWhiteXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, lch->h, 360.0, 0.1, "Expect H to be equal to %f but got %f", 360.0, lch->h);
     
     free(lch);
+    free(xyz);
 }
 
 ctest_return_t testLchFromMinXyz(ctest_t *test, void *arg) {
@@ -71,6 +74,7 @@ ctest_return_t testLchFromMinXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, lch->h, 180.0, 0.1, "Expect H to be equal to 0 but got %f", lch->h);
 
     free(lch);
+    free(xyz);
 }
 
 ctest_return_t testNullLch(ctest_t *test, void *arg) {
@@ -93,6 +97,7 @@ ctest_return_t testLchToXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, nXyz->z, 0.510, 0.001, "Expect Z to be equal to 0.501f but got %f", nXyz->z);
     
     free(nXyz);
+    free(xyz);
 }
 
 ctest_return_t testBrightLchToXyz(ctest_t *test, void *arg) {
@@ -109,6 +114,7 @@ ctest_return_t testBrightLchToXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, nXyz->z, 1.088, 0.001, "Expect Z to be equal to 1.088 but got %f", nXyz->z);
     
     free(nXyz);
+    free(xyz);
 }
 
 ctest_return_t testDarkLchToXyz(ctest_t *test, void *arg) {
@@ -125,6 +131,7 @@ ctest_return_t testDarkLchToXyz(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, nXyz->z, 0, 0.001, "Expect Z to be equal to 0 but got %f", nXyz->z);
     
     free(nXyz);
+    free(xyz);
 }
 
 

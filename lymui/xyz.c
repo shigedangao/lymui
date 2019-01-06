@@ -138,7 +138,6 @@ Xyz *getXyzFromRgb(Rgb *rgb, enum Matrix m) {
     xyz->z = value[2];
     xyz->error = NULL;
     
-    free(rgb);
     free(value);
     
     return xyz;
@@ -149,7 +148,7 @@ Xyz *getXyzFromRgb(Rgb *rgb, enum Matrix m) {
  * @param xyz * Xyz
  * @param m Matrix
  */
-static double * calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
+static double *calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
     double *linearRGB = malloc(sizeof(double) * 3);
     if (linearRGB == NULL) {
         return NULL;
@@ -173,9 +172,7 @@ static double * calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
         linearRGB[1] = unpivotARGB(sg);
         linearRGB[2] = unpivotARGB(sb);
     }
-    
-    
-    free(xyz);
+        
     return linearRGB;
 }
 

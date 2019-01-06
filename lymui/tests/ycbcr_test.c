@@ -49,7 +49,6 @@ ctest_return_t testUintCreationFromYcbcr(ctest_t *test, void *arg) {
     CTAssertEqual(test, 100, rgb->g, "Expect G to be equal to %i but got %i", 100, rgb->g);
     CTAssertEqual(test, 199, rgb->b, "Expect B to be equal to %i but got %i", 198, rgb->b);
     
-    free(ycbcr);
     free(rgb);
 }
 

@@ -77,9 +77,7 @@ Tsl *getTslFromRgb(Rgb *rgb) {
     
     tsl->s = sqrt((9.0 / 5.0) * (powf(rDelta, 2.0) + powf(gDelta, 2.0)));
     tsl->l = 0.299 * _r + 0.587 * _g + 0.114 * _b;
-    
-    free(rgb);
-    
+        
     return tsl;
 }
 

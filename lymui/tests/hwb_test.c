@@ -26,6 +26,7 @@ ctest_return_t testRgbToHwb(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, hwb->b, 63.52f, 0.01f, "Expect B to be equal to %f but got %f", 63.5f, hwb->b);
     
     free(hwb);
+    free(rgb);
 }
 
 ctest_return_t testWhiteRgbToHwb(ctest_t *test, void *arg) {
@@ -41,6 +42,7 @@ ctest_return_t testWhiteRgbToHwb(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, hwb->b, 0.0f, 0.01f, "Expect B to be equal to %f but got %f", 0.0f, hwb->b);
 
     free(hwb);
+    free(rgb);
 }
 
 ctest_return_t testBlackRgbToHwb(ctest_t *test, void *arg) {
@@ -56,6 +58,7 @@ ctest_return_t testBlackRgbToHwb(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, hwb->b, 100.0f, 0.01f, "Expect B to be equal to %f but got %f", 100.0f, hwb->b);
     
     free(hwb);
+    free(rgb);
 }
 
 ctest_return_t testHwbToRgb(ctest_t *test, void *arg) {

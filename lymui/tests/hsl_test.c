@@ -23,6 +23,7 @@ ctest_return_t testHslCreation(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 19.6, hsl->l, 0.1, "Expect L to be equal to 19.6 but got %f", hsl->l);
 
     free(hsl);
+    free(rgb);
 }
 
 ctest_return_t testHighSaturationHsl(ctest_t *test, void *arg) {
@@ -35,6 +36,7 @@ ctest_return_t testHighSaturationHsl(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 69.6, hsl->l, 0.1, "Expect L to be equal to 69.6 but got %f", hsl->l);
     
     free(hsl);
+    free(rgb);
 }
 
 ctest_return_t testLowSaturationHsl(ctest_t *test, void *arg) {
@@ -47,6 +49,7 @@ ctest_return_t testLowSaturationHsl(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 2.0, hsl->l, 0.1, "Expect L to be equal to 2.0 but got %f", hsl->l);
     
     free(hsl);
+    free(rgb);
 }
 
 ctest_return_t testBlackHsl(ctest_t *test, void *arg) {
@@ -59,6 +62,7 @@ ctest_return_t testBlackHsl(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.0, hsl->l, 0.1, "Expect L to be equal to 0 but got %f", hsl->l);
     
     free(hsl);
+    free(rgb);
 }
 
 ctest_return_t testWhiteHsl(ctest_t *test, void *arg) {
@@ -71,6 +75,7 @@ ctest_return_t testWhiteHsl(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 100.0, hsl->l, 0.1, "Expect L to be equal to 100.0 but got %f", hsl->l);
     
     free(hsl);
+    free(rgb);
 }
 
 ctest_return_t testRgbGrayCreationFromHsv(ctest_t *test, void *arg) {
