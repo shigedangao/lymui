@@ -56,6 +56,19 @@ ctest_return_t testTslFromRgb(ctest_t *test, void *arg) {
     free(tsl);
 }
 
+ctest_return_t testOtherTslFromRgb(ctest_t *test, void *arg) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 128;
+    rgb->g = 200;
+    rgb->b = 198;
+    
+    Tsl *tsl = getTslFromRgb(rgb);
+    
+    CTAssertDecimalEqual(test, 0.0764, tsl->t, 0.0001, "Expect T to be equal to %f but got %f", 0.0764, tsl->t);
+    CTAssertDecimalEqual(test, 0.1361, tsl->s, 0.001, "Expect S to be equal to %f but got %f", 0.1361, tsl->s);
+    CTAssertDecimalEqual(test, 178.244, tsl->l, 0.001, "Expect L to be equal to %f but got %f", 178.244, tsl->l);
+}
+
 ctest_return_t testRgbFromTsl(ctest_t *test, void *arg) {
     Tsl *tsl = malloc(sizeof(Tsl));
     tsl->t = 0.787;
@@ -68,6 +81,21 @@ ctest_return_t testRgbFromTsl(ctest_t *test, void *arg) {
     CTAssertEqual(test, rgb->g, 10, "Expect G to be equal to %i but got %i", 10, rgb->g);
     CTAssertEqual(test, rgb->b, 128, "Expect B to be equal to %i but got %i", 128, rgb->b);
 
+    free(rgb);
+}
+
+ctest_return_t testRgbFromOtherTsl(ctest_t *test, void *arg) {
+    Tsl *tsl = malloc(sizeof(Tsl));
+    tsl->t = 0.0764;
+    tsl->s = 0.1361;
+    tsl->l = 178.244;
+    
+    Rgb *rgb = getRgbFromTsl(tsl);
+    
+    CTAssertEqual(test, rgb->r, 128, "Expect R to be equal to %i but got %i", 128, rgb->r);
+    CTAssertEqual(test, rgb->g, 200, "Expect G to be equal to %i but got %i", 200, rgb->g);
+    CTAssertEqual(test, rgb->b, 198, "Expect B to be equal to %i but got %i", 198, rgb->b);
+    
     free(rgb);
 }
 
@@ -104,17 +132,23 @@ ctest_return_t testRgbFromDarkTsl(ctest_t *test, void *arg) {
 ctcase_t *wrapTslCreationTest() {
     ctcase_t *tslCase = ctcase("Tsl color case");
     
-    ctest_t *whiteTsl = ctest("White Rgb -> TSL case", testWhiteRgbFromTsl, NULL);
-    ctest_t *blackTsl = ctest("Black Rgb -> TSL case", testBlackRgbFromTsl, NULL);
-    ctest_t *regularTsl = ctest("Regular Rgb -> TSL case", testTslFromRgb, NULL);
+    ctest_t *whiteTsl = ctest("Create a TSL from a White RGB value", testWhiteRgbFromTsl, NULL);
+    ctest_t *blackTsl = ctest("Create a TSL from a Black RGB value", testBlackRgbFromTsl, NULL);
+    ctest_t *regularTsl = ctest("Create TSL from a regular RGB", testTslFromRgb, NULL);
+    ctest_t *otherTsl = ctest("Create an other TSL from RGB", testOtherTslFromRgb, NULL);
+    
     ctest_t *tslToRgb = ctest("Create RGB from TSL", testRgbFromTsl, NULL);
+    ctest_t *testOTslRgb = ctest("Create other RGB from TSL", testRgbFromOtherTsl, NULL);
     ctest_t *tslToBrightRgb = ctest("Create White RGB from Bright TSL", testRgbFromBrightTsl, NULL);
     ctest_t *tslToDarkRgb = ctest("Create Black RGB from Dark TSL", testRgbFromDarkTsl, NULL);
     
     ctctestadd(tslCase, whiteTsl);
     ctctestadd(tslCase, blackTsl);
     ctctestadd(tslCase, regularTsl);
+    ctctestadd(tslCase, otherTsl);
+    
     ctctestadd(tslCase, tslToRgb);
+    ctctestadd(tslCase, testOTslRgb);
     ctctestadd(tslCase, tslToBrightRgb);
     ctctestadd(tslCase, tslToDarkRgb);
     
