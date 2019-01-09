@@ -59,6 +59,7 @@ Tsl *getTslFromRgb(Rgb *rgb) {
         tsl->t = 0.0;
         tsl->s = 0.0;
         tsl->l = 0.0;
+        tsl->error = NULL;
         
         return tsl;
     }
