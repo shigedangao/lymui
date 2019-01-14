@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include "errors.h"
 #include "argb.h"
-#include "rgb.h"
 #include "xyz_constant.h"
 
 /**
