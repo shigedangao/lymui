@@ -97,12 +97,12 @@ static uint8_t convertPart(char *part) {
  * @return hex copy
  */
 static char *unShorten(char *hex) {
-    char *copy = malloc(sizeof(6));
+    char *copy = malloc(sizeof(char) * HEX_SIZE);
     if (copy == NULL) {
         return NULL;
     }
     
-    snprintf(copy, sizeof(copy) / sizeof(copy[0]), "%c%c%c%c%c%c",hex[0], hex[0], hex[1], hex[1], hex[2], hex[2]);
+    snprintf(copy, HEX_SIZE, "%c%c%c%c%c%c",hex[0], hex[0], hex[1], hex[1], hex[2], hex[2]);
 
     return copy;
 }
