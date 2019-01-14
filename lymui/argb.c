@@ -10,9 +10,11 @@
 #include <stdlib.h>
 #include "errors.h"
 #include "argb.h"
+#include "rgb.h"
+#include "xyz_constant.h"
 
 /**
- * @discussion Adobe Gamma Correction adjust the double value to based generated
+ * @brief Adobe Gamma Correction adjust the double value to based generated
  * @param c double
  * @return c double
  */
@@ -24,6 +26,23 @@ static double adobeGammaCorrection(double c) {
         return 1.0;
     
     return pow(c, 1 / 2.19921875);
+}
+
+/**
+ * @brief Reverse ARgb Gamma
+ * @param c double
+ * @return c double
+ */
+static double reverseARgbGamma(double c) {
+    if (c <= 0.0) {
+        return 0.0;
+    }
+    
+    if (c >= 1.0) {
+        return 1.0;
+    }
+    
+    return pow(c, 2.19921875);
 }
 
 Argb *getARgbFromXyz(Xyz *xyz) {
@@ -47,4 +66,29 @@ Argb *getARgbFromXyz(Xyz *xyz) {
     argb->error = NULL;
         
     return argb;
+}
+
+Xyz *getXyzFromARgb(Argb *argb) {
+    Xyz *xyz = malloc(sizeof(Xyz));
+    if (xyz == NULL) {
+        return NULL;
+    }
+
+    if (argb == NULL) {
+        xyz->error = NULL_INPUT_PARAM;
+        return xyz;
+    }
+
+    double _r = reverseARgbGamma(argb->r);
+    double _g = reverseARgbGamma(argb->g);
+    double _b = reverseARgbGamma(argb->b);
+
+    xyz->x = _r * axr + _g * axg + _b * axb;
+    xyz->y = _r * ayr + _g * ayg + _b * ayb;
+    xyz->z = _r * azr + _g * azg + _b * azb;
+    xyz->error = NULL;
+    
+    free(argb);
+    
+    return xyz;
 }

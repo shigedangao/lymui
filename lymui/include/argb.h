@@ -41,4 +41,11 @@ typedef struct Argb {
  */
 Argb *getARgbFromXyz(Xyz *xyz);
 
+/**
+ * @brief Get Xyz from ARgb
+ * @param argb ARgb
+ * @return xyz
+ */
+Xyz *getXyzFromARgb(Argb *argb);
+
 #endif /* argb_h */
