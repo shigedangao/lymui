@@ -68,13 +68,15 @@ char *getHexFromRGB(Rgb *c) {
  * @return char array
  */
 static char* splitSegment(char *hex, uint8_t segment) {
-    char *part = malloc(sizeof(char) * HEX_GROUP_LEN);
+    char *part = malloc(sizeof(char *) * HEX_GROUP_LEN);
     if (part == NULL) {
         return NULL;
     }
     
     part[0] = hex[segment - 1];
     part[1] = hex[segment];
+    part[2] = '\0';
+    
     
     return part;
 }
