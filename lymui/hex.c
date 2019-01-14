@@ -67,14 +67,16 @@ char *getHexFromRGB(Rgb *c) {
  * @param segment uint8_t
  * @return char array
  */
-static char* splitSegment(char *hex, uint8_t segment) {
-    char *part = malloc(sizeof(char) * HEX_GROUP_LEN);
+static char *splitSegment(char *hex, uint8_t segment) {
+    char *part = malloc(sizeof(char *) * HEX_GROUP_LEN);
     if (part == NULL) {
         return NULL;
     }
     
     part[0] = hex[segment - 1];
     part[1] = hex[segment];
+    part[2] = '\0';
+    
     
     return part;
 }
@@ -94,7 +96,7 @@ static uint8_t convertPart(char *part) {
  * @param hex char
  * @return hex copy
  */
-static char* unShorten(char *hex) {
+static char *unShorten(char *hex) {
     char *copy = malloc(sizeof(6));
     if (copy == NULL) {
         return NULL;
