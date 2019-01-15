@@ -8,7 +8,7 @@ matrix:
 
 env:
  global:
-  - VERSION=1.2.0
+  - VERSION=1.2.1
 
 before_install:
   - wget https://github.com/linux-test-project/lcov/releases/download/v1.13/lcov-1.13.tar.gz

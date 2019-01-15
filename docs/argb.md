@@ -47,3 +47,45 @@ double g = argb->g;
 double b = argb->b;
 char *error = Argb->error;
 ```
+
+## Argb to Xyz
+
+Use the method **getXyzFromARgb**. This method return an Xyz struct or NULL.
+
+### Error handling
+
+This method will return NULL when:
+
+- Xyz struct can't be allocated
+
+The method *can return an Xyz struct containing an error property*
+
+- SRgb property not passed
+
+### Parameter
+
+- SRgb pointer struct
+
+### Usage Example
+
+```c
+#include "xyz.h"
+#include "argb.h"
+
+Argb *argb = malloc(sizeof(SRgb));
+argb->r = 1.0;
+argb->g = 1.0;
+argb->b = 1.0;
+
+// srgb is being freed automatically
+Xyz *xyz = getXyzFromARgb(argb);
+```
+
+The method will return an Xyz struct which you can access it's property like the example below
+
+```c
+double x = xyz->x;
+double y = xyz->y;
+double z = xyz->z;
+char *error = xyz->error;
+```

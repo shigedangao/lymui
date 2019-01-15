@@ -13,7 +13,7 @@
 #include "rgb.h"
 
 #define HEX_SIZE 7
-#define HEX_GROUP_LEN 2
+#define HEX_GROUP_LEN 3
 #define HEX_BASE 16
 
 /**
