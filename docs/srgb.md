@@ -50,7 +50,7 @@ char *error = SRgb->error;
 
 ## SRgb to Xyz
 
-Use the method **getXyzFromSrgb**. This method return an RGB struct or NULL.
+Use the method **getXyzFromSrgb**. This method return an Xyz struct or NULL.
 
 ### Error handling
 
