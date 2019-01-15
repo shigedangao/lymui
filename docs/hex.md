@@ -59,6 +59,9 @@ The method *can return an RGB struct containing an error property*
 #include "hex.h"
 
 char *hex = {"050a5f"};
+// you can also pass a short hand hex
+
+char *shortHex = {"fff"};
 Rgb *rgb = getRGBFromHex(hex);
 
 // RGB will contain R, G, B or an error message
