@@ -23,21 +23,19 @@
  */
 static char *uintToHex(uint8_t color) {
     char *tmp = malloc(sizeof(char) * HEX_GROUP_LEN + 1);
-    char *hex = malloc(sizeof(char) * HEX_GROUP_LEN + 1);
-    if (tmp == NULL || hex == NULL) {
+    if (tmp == NULL) {
         return NULL;
     }
     
     sprintf(tmp, "%x", color);
     if (!tmp[1]) {
-        strcpy(hex, "0");
-        strcat(hex, &tmp[0]);
-        
-        free(tmp);
-        return hex;
+        tmp[1] = tmp[0];
+        tmp[0] = '0';
+        tmp[2] = '\0';
+
+        return tmp;
     }
     
-    free(hex);
     return tmp;
 }
 

@@ -65,6 +65,7 @@ ctest_return_t testWhiteXyzCreation(ctest_t *test, void *arg) {
     
     free(nXyz);
     free(xyz);
+    free(rgb);
 }
 
 ctest_return_t testNullSRgbCreation(ctest_t *test, void *arg) {
