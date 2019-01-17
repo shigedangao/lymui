@@ -56,6 +56,10 @@ char *getHexFromRGB(Rgb *c) {
     }
     
     snprintf(hex, HEX_SIZE, "%s%s%s", r, g, b);
+    
+    free(r);
+    free(g);
+    free(b);
     return hex;
 }
 
