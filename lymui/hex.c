@@ -121,8 +121,9 @@ Rgb *getRGBFromHex(char *hex) {
         return rgb;
     }
     
+    size_t len = strlen(hex);
     char *hexstr = NULL;
-    if (strlen(hex) < 6) {
+    if (len < 6) {
         hexstr = unShorten(hex);
     } else {
         hexstr = hex;
@@ -131,6 +132,10 @@ Rgb *getRGBFromHex(char *hex) {
     char *r = splitSegment(hexstr, 1);
     char *g = splitSegment(hexstr, 3);
     char *b = splitSegment(hexstr, 5);
+    
+    if (len < 6) {
+        free(hexstr);
+    }
     
     if (r == NULL || g == NULL || b == NULL) {
         rgb->error = MALLOC_ERROR;
