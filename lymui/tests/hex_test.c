@@ -76,6 +76,7 @@ ctest_return_t testUintArrayCreationFromHex(ctest_t *test, void *arg) {
     CTAssertEqual(test, 95, uc->b, "B value is %d where as it should be 95", uc->b);
     
     free(uc);
+    free(hex);
 }
 
 ctest_return_t testUintArrayCreationFromSecHex(ctest_t *test, void *arg) {

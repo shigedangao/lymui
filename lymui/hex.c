@@ -133,10 +133,6 @@ Rgb *getRGBFromHex(char *hex) {
     char *g = splitSegment(hexstr, 3);
     char *b = splitSegment(hexstr, 5);
     
-    if (len < 6) {
-        free(hexstr);
-    }
-    
     if (r == NULL || g == NULL || b == NULL) {
         rgb->error = MALLOC_ERROR;
         return rgb;
