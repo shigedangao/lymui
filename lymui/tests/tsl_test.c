@@ -80,7 +80,7 @@ ctest_return_t testOtherTslFromRgb(ctest_t *test, void *arg) {
 ctest_return_t testNullRgbParam(ctest_t *test, void *arg) {
     Tsl *tsl = getTslFromRgb(NULL);
     
-    CTAssertEqual(test, tsl->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s but got %s", NULL_INPUT_PARAM, tsl->error);
+    CTAssertStringEqual(test, tsl->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s but got %s", NULL_INPUT_PARAM, tsl->error);
     free(tsl);
 }
 
@@ -147,7 +147,7 @@ ctest_return_t testRgbFromDarkTsl(ctest_t *test, void *arg) {
 ctest_return_t testNullTslParam(ctest_t *test, void *arg) {
     Rgb *rgb = getRgbFromTsl(NULL);
     
-    CTAssertEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s but got %s", NULL_INPUT_PARAM, rgb->error);
+    CTAssertStringEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s but got %s", NULL_INPUT_PARAM, rgb->error);
     free(rgb);
 }
 
