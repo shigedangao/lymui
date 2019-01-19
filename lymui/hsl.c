@@ -146,6 +146,7 @@ Rgb *getRgbFromHsl(Hsl *hsl) {
     rgb->g = calculateEachColorValue(temp_rgb[1], temp_lum, temp_lum_s);
     rgb->b = calculateEachColorValue(temp_rgb[2], temp_lum, temp_lum_s);
     rgb->error = NULL;
+    free(temp_rgb);
     
     free(hsl);
     
