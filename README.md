@@ -43,6 +43,8 @@ An exhaustive list of examples are available on the link below.
 
 * 1.2.2
 * * Fix potentials memory leaks
+* * Fix tsl test on debian
+* * Refactor ycbcr calculation process (simplifcation)
 
 * 1.2.1
 * * Fix short hand hex which cause some random generated value
