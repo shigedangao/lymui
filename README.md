@@ -8,7 +8,7 @@ Lymui is a small color conversion library. It's my first project in C !.
 
 ## Status
 
-Version: 1.2.1
+Version: 1.2.2
 
 ## Support OS
 
@@ -40,6 +40,9 @@ An exhaustive list of examples are available on the link below.
 [APIs list](https://marcinthaamnouay.github.io/lymui/docs/)
 
 ## Changelogs
+
+* 1.2.2
+* * Fix potentials memory leaks
 
 * 1.2.1
 * * Fix short hand hex which cause some random generated value
