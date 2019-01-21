@@ -24,8 +24,8 @@ ctest_return_t testHexCreationFromRgb(ctest_t *test, void *arg) {
     // As the lib does not support the hex test yet
     CTAssertStringEqual(test, value, hex, "%s is not equal to %s", value, hex);
     
-    free(lym);
     free(hex);
+    free(lym);
 }
 
 ctest_return_t testWhiteHexCreationFromRgb(ctest_t *test, void *arg) {

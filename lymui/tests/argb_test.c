@@ -32,6 +32,7 @@ ctest_return_t testARgbCreation(ctest_t *test, void *arg) {
     
     free(argb);
     free(xyz);
+    free(rgb);
 }
 
 ctest_return_t testARgbEmpty(ctest_t *test, void *arg) {

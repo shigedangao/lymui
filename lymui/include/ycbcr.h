@@ -23,6 +23,20 @@ typedef struct Ycbcr {
     char *error;
 } Ycbcr;
 
+// Struct YcbcrBridge use for calculating indermediary value
+typedef struct YcbcrBridge {
+    double l;
+    double y;
+    double m;
+} YBridge;
+
+// Enum use to define what to calculate
+typedef enum YcbcrKind {
+    y,
+    cb,
+    cr,
+} YcbcrKind;
+
 /**
  * @brief Create a Ycbcr struct pointer from an Rgb struct
  * @param rgb a RGB structure

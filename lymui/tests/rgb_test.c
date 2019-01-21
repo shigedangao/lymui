@@ -54,6 +54,7 @@ ctest_return_t testCreationRgbFromPtrArr(ctest_t *test, void *arg) {
     CTAssertEqual(test, 200, rgb->b, "Expect B to be equal to %i but got %i", 100, rgb->b);
     
     free(rgb);
+    free(uc);
 }
 
 // Wrap Rgb Creation Test

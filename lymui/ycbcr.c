@@ -17,37 +17,31 @@ const double crValue[] = {0.439, 0.368, 0.071};
 const double cbValue[] = {0.148, 0.291, 0.439};
 
 /**
- * @brief Make Value calculate the value of the y cb cr based on the pass rgb structure
+ * @brief Calculate By Indices
  * @param rgb an Rgb struct
- * @return **v a multidimensonal array
+ * @param k YcbcrKind
+ * @return YBridge
  */
-static double ** makeValue(Rgb *rgb) {
-    double **v = malloc(3 * 3 * sizeof(double));
-    if (v == NULL) {
-        return NULL;
+static YBridge calculateByIndices(Rgb *rgb, YcbcrKind k) {
+    YBridge bridge;
+    switch (k) {
+        case y:
+            bridge.l = rgb->r * yValue[0];
+            bridge.y = rgb->g * yValue[1];
+            bridge.m = rgb->b * yValue[2];
+            break;
+        case cb:
+            bridge.l = rgb->r * cbValue[0];
+            bridge.y = rgb->g * cbValue[1];
+            bridge.m = rgb->b * cbValue[2];
+            break;
+        case cr:
+            bridge.l = rgb->r * crValue[0];
+            bridge.y = rgb->g * crValue[1];
+            bridge.m = rgb->b * crValue[2];
     }
     
-    // init the multi dimensional array
-    v[0] = malloc(sizeof(double) * 3);
-    v[1] = malloc(sizeof(double) * 3);
-    v[2] = malloc(sizeof(double) * 3);
-    
-    // Set the YValue
-    v[0][0] = rgb->r * yValue[0];
-    v[0][1] = rgb->g * yValue[1];
-    v[0][2] = rgb->b * yValue[2];
-    
-    // Set the CRValue
-    v[1][0] = rgb->r * cbValue[0];
-    v[1][1] = rgb->g * cbValue[1];
-    v[1][2] = rgb->b * cbValue[2];
-    
-    // Set the CBValue
-    v[2][0] = rgb->r * crValue[0];
-    v[2][1] = rgb->g * crValue[1];
-    v[2][2] = rgb->b * crValue[2];
-    
-    return v;
+    return bridge;
 }
 
 Ycbcr *getYcbcrFromRgb(Rgb *rgb) {
@@ -61,23 +55,19 @@ Ycbcr *getYcbcrFromRgb(Rgb *rgb) {
         return v;
     }
     
-    double **colors = makeValue(rgb);
-    if (colors == NULL) {
-        v->error = MALLOC_ERROR;
-        return v;
-    }
+    YBridge yy = calculateByIndices(rgb, y);
+    YBridge yc = calculateByIndices(rgb, cb);
+    YBridge yr = calculateByIndices(rgb, cr);
     
-    uint8_t y  = doubleToUint(16  + (colors[0][0] + colors[0][1] + colors[0][2]));
-    uint8_t cb = doubleToUint(128 + (- colors[1][0] - colors[1][1] + colors[1][2]));
-    uint8_t cr = doubleToUint(128 + (colors[2][0]  - colors[2][1] - colors[2][2]));
+    uint8_t y  = doubleToUint(16  + (yy.l + yy.y + yy.m));
+    uint8_t cb = doubleToUint(128 + (- yc.l - yc.y + yc.m));
+    uint8_t cr = doubleToUint(128 + (yr.l  - yr.y - yr.m));
     
     v->y  = y;
     v->cb = cb;
     v->cr = cr;
     v->error = NULL;
     
-    // don't forget to free when not needed anymore
-    free(colors);
     return v;
 }
 

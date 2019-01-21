@@ -23,21 +23,19 @@
  */
 static char *uintToHex(uint8_t color) {
     char *tmp = malloc(sizeof(char) * HEX_GROUP_LEN + 1);
-    char *hex = malloc(sizeof(char) * HEX_GROUP_LEN + 1);
-    if (tmp == NULL || hex == NULL) {
+    if (tmp == NULL) {
         return NULL;
     }
     
     sprintf(tmp, "%x", color);
     if (!tmp[1]) {
-        strcpy(hex, "0");
-        strcat(hex, &tmp[0]);
-        
-        free(tmp);
-        return hex;
+        tmp[1] = tmp[0];
+        tmp[0] = '0';
+        tmp[2] = '\0';
+
+        return tmp;
     }
     
-    free(hex);
     return tmp;
 }
 
@@ -58,6 +56,10 @@ char *getHexFromRGB(Rgb *c) {
     }
     
     snprintf(hex, HEX_SIZE, "%s%s%s", r, g, b);
+    
+    free(r);
+    free(g);
+    free(b);
     return hex;
 }
 
@@ -119,8 +121,9 @@ Rgb *getRGBFromHex(char *hex) {
         return rgb;
     }
     
+    size_t len = strlen(hex);
     char *hexstr = NULL;
-    if (strlen(hex) < 6) {
+    if (len < 6) {
         hexstr = unShorten(hex);
     } else {
         hexstr = hex;
