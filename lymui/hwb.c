@@ -47,22 +47,23 @@ Hwb *getHwbFromRgb(Rgb *rgb) {
 }
 
 Rgb *getRgbFromHwb(Hwb *hwb) {
-    Rgb *rgb = initRgb();
-    if (rgb == NULL) {
+    Rgb *rgberr = initRgb();
+    if (rgberr == NULL) {
         return NULL;
     }
     
     if (hwb == NULL) {
-        rgb->error = NULL_INPUT_PARAM;
-        return rgb;
+        rgberr->error = NULL_INPUT_PARAM;
+        return rgberr;
     }
     
     Hsv *hsv = malloc(sizeof(Hsv));
     if (hsv == NULL) {
-        rgb->error = MALLOC_ERROR;
-        return rgb;
+        rgberr->error = MALLOC_ERROR;
+        return rgberr;
     }
     
+    free(rgberr);
     double w = hwb->w / 100.0;
     double b = hwb->b / 100.0;
     
@@ -70,7 +71,7 @@ Rgb *getRgbFromHwb(Hwb *hwb) {
     hsv->s = (1.0 - (w / (1 - b))) * 100.0;
     hsv->v = (1.0 - b) * 100.0;
     
-    rgb = getRgbFromHsv(hsv);
+    Rgb *rgb = getRgbFromHsv(hsv);
     
     free(hwb);
     return rgb;

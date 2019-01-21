@@ -31,6 +31,7 @@ ctest_return_t testSRgbCreation(ctest_t *test, void *arg) {
 
     free(srgb);
     free(rgb);
+    free(xyz);
 }
 
 ctest_return_t testXyzCreation(ctest_t *test, void *arg) {
@@ -47,6 +48,7 @@ ctest_return_t testXyzCreation(ctest_t *test, void *arg) {
     CTAssertDecimalEqual(test, 0.1138, nXyz->z, 0.01, "Expect z to be equal to be equal to 0.1138 but got %f", nXyz->z);
     
     free(nXyz);
+    free(xyz);
 }
 
 ctest_return_t testWhiteXyzCreation(ctest_t *test, void *arg) {
@@ -65,6 +67,7 @@ ctest_return_t testWhiteXyzCreation(ctest_t *test, void *arg) {
     
     free(nXyz);
     free(xyz);
+    free(rgb);
 }
 
 ctest_return_t testNullSRgbCreation(ctest_t *test, void *arg) {
