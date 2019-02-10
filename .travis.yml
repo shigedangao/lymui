@@ -14,8 +14,8 @@ env:
 before_install:
   - wget https://github.com/linux-test-project/lcov/releases/download/v1.13/lcov-1.13.tar.gz
   - tar xf lcov-1.13.tar.gz
-  - if [[ "$TRAVIS_OS_NAME" != "windows "]]; then sudo make -C lcov-1.13/ install; fi
-  - if [[ "$TRAVIS_OS_NAME" == "windows "]]; then make -C lcov-1.13/ install; fi
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then sudo make -C lcov-1.13/ install; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then make -C lcov-1.13/ install; fi
 
   # Install lcov
   - gem install coveralls-lcov
