@@ -5,6 +5,7 @@ matrix:
   - os: linux
     dist: xenial
   - os: osx
+  - os: windows
 
 env:
  global:
@@ -18,6 +19,9 @@ before_install:
   # Install lcov
   - gem install coveralls-lcov
 
+  # Install cygwin on Windows
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install cygwin; fi
+
 # set the compiler
 compiler:
   - gcc
@@ -30,6 +34,7 @@ script:
   - make lib
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then zip -r liblymui-linux-${VERSION}.zip bin; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -r liblymui-osx-${VERSION}.zip bin; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -r liblymui-windows-${VERSION}.zip bin; fi
 
 after_success:
   - lcov --directory . --capture --output-file coverage.info
@@ -42,6 +47,7 @@ before_deploy:
   # - git tag -a v${VERSION}-${TRAVIS_OS_NAME} -m "Lymui build ${VERSION} for ${TRAVIS_OS_NAME}"
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then git tag -a v${VERSION}-osx -m "Lymui build ${VERSION} for osx"; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git tag -a v${VERSION}-linux -m "Lymui build ${VERSION} for linux"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then git tag -a v${VERSION}-windows -m "Lymui build ${VERSION} for windows"; fi
   - git config --local user.name ${USERNAME}
   - git config --local user.email ${EMAIL}
   - git push -q https://${GH_TOKEN}@github.com/MarcInthaamnouay/lymui --tags
