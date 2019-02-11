@@ -27,7 +27,7 @@ compiler:
   - gcc
 
 before_script:
-  - lcov --directory . --zerocounters
+  # - lcov --directory . --zerocounters
 
 script: 
   # - sh coverage.sh
