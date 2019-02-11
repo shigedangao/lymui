@@ -16,11 +16,8 @@ before_install:
   - tar xf lcov-1.13.tar.gz
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then sudo make -C lcov-1.13/ install; fi
 
-  # Install cygwin on Windows
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then choco install cygwin; fi
-
   # Launch cmd for windows
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then make -C lcov-1.13/ install; fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then mingw32-make.exe -C lcov-1.13/ install; fi
 
   # Install lcov
   - gem install coveralls-lcov
@@ -34,7 +31,11 @@ before_script:
 
 script: 
   - sh coverage.sh
-  - make lib
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
+      make lib; 
+    else
+      mingw32-make.exe lib
+    fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then zip -r liblymui-linux-${VERSION}.zip bin; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -r liblymui-osx-${VERSION}.zip bin; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -r liblymui-windows-${VERSION}.zip bin; fi
