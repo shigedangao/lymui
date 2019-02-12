@@ -27,10 +27,11 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then lcov --directory . --zerocounters; fi
 
 script: 
-  - sh coverage.sh
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
+        sh coverage.sh &&
         make lib;
       else
+        sh coverage.sh window
         mingw32-make.exe lib;
       fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then zip -r liblymui-linux-${VERSION}.zip bin; fi
