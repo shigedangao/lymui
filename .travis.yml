@@ -27,7 +27,7 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then lcov --directory . --zerocounters; fi
 
 script: 
-  # - sh coverage.sh
+  - sh coverage.sh
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
         make lib;
       else
@@ -45,7 +45,7 @@ after_success:
 
 before_deploy:
   # Set up git user name and tag this commit
-  # - git tag -a v${VERSION}-${TRAVIS_OS_NAME} -m "Lymui build ${VERSION} for ${TRAVIS_OS_NAME}"
+  - git tag -a v${VERSION}-${TRAVIS_OS_NAME} -m "Lymui build ${VERSION} for ${TRAVIS_OS_NAME}"
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then git tag -a v${VERSION}-osx -m "Lymui build ${VERSION} for osx"; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git tag -a v${VERSION}-linux -m "Lymui build ${VERSION} for linux"; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then git tag -a v${VERSION}-windows -m "Lymui build ${VERSION} for windows"; fi
