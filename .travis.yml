@@ -39,10 +39,12 @@ script:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -r liblymui-windows-${VERSION}.zip bin; fi
 
 after_success:
-  #- lcov --directory . --capture --output-file coverage.info
-  #- lcov --remove coverage.info 'tests/*' '/usr/*' 'test-library*' --output-file coverage.info
-  #- lcov --list coverage.info
-  #- coveralls-lcov  coverage.info
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+      lcov --directory . --capture --output-file coverage.info &&
+      lcov --remove coverage.info 'tests/*' '/usr/*' 'test-library*' --output-file coverage.info &&
+      lcov --list coverage.info &&
+      coveralls-lcov  coverage.info
+    fi
 
 before_deploy:
   # Set up git user name and tag this commit
