@@ -14,20 +14,17 @@ env:
 before_install:
   - wget https://github.com/linux-test-project/lcov/releases/download/v1.13/lcov-1.13.tar.gz
   - tar xf lcov-1.13.tar.gz
-  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then sudo make -C lcov-1.13/ install; fi
-
-  # Launch cmd for windows
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then mingw32-make.exe -C lcov-1.13/ install; fi
-
-  # Install lcov
-  # - gem install coveralls-lcov
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
+      sudo make -C lcov-1.13/ install &&
+      gem install coveralls-lcov;
+    fi
 
 # set the compiler
 compiler:
   - gcc
 
 before_script:
-  # - lcov --directory . --zerocounters
+  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then lcov --directory . --zerocounters; fi
 
 script: 
   # - sh coverage.sh
