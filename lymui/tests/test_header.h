@@ -12,6 +12,15 @@
 #include <stdio.h>
 #include <ctcase.h>
 
+/**
+ * Round Up
+ *  Round up just round the value to the nearest value
+ * @param value double
+ * @param cell double
+ * @return double
+ */
+double roundup(double value, double cell);
+
 ctcase_t *wrapRgbCreationTest(void);
 
 ctcase_t *wrapHexCreationTest(void);
@@ -49,5 +58,7 @@ ctcase_t *wrapHwbCreationTest(void);
 ctcase_t *wrapTslCreationTest(void);
 
 ctcase_t *wrapGrayscaleCreationTest(void);
+
+void wrapHclTest(void);
 
 #endif /* rgb_test_h */

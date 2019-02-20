@@ -62,6 +62,9 @@ int main(int argc, const char * argv[]) {
     
     uint8_t failNb = suite->failed;
     
+    // testing Minunit
+    wrapHclTest();
+    
     // free the suite
     ctsfree(suite);
     

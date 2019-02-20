@@ -48,7 +48,6 @@ Hcl *getHclFromRgb(Rgb *rgb) {
     hcl->l = luv->l;
     hcl->error = NULL;
     
-    free(rgb);
     free(xyz);
     free(luv);
     
