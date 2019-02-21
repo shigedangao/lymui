@@ -4,16 +4,15 @@
 //
 //  Created by Marc Intha on 13/02/2019.
 //  Copyright © 2019 Marc. All rights reserved.
+//  The implementation is based on the python-colorspace lib: https://github.com/retostauffer/python-colorspace/blob/da56c170fbaa8a6ca27f9483954ac3e2f51af617/colorspace/colorlib.py#L1318
+//  Credits to retostauffer for the original implementation.
 //
 
 #ifndef hcl_h
 #define hcl_h
 
 #include <stdio.h>
-#include "rgb.h"
-
-#define XYZ_ERR "Unable to generate intermediary Xyz value"
-#define LUV_ERR "Unable to generate intermediary Luv value"
+#include "luv.h"
 
 /**
  * @brief Hcl struct
@@ -26,17 +25,17 @@ typedef struct Hcl {
 } Hcl;
 
 /**
- * @brief Retrieve HCL struct from an RGB this color is based actually the polar representation of the CIE-LUV color
- * @param rgb Rgb*
+ * @brief Retrieve HCL struct from a Luv this color is based actually the polar representation of the CIE-LUV color
+ * @param luv Luv*
  * @return Hcl*
  */
-Hcl *getHclFromRgb(Rgb *rgb);
+Hcl *getHclFromLuv(Luv *luv);
 
 /**
  * @brief Retrieve Rgb From Hcl
  * @param hcl Hcl*
- * @return Rgb*
+ * @return Luv*
  */
-Rgb *getRgbFromHcl(Hcl *hcl);
+Luv *getLuvFromHcl(Hcl *hcl);
 
 #endif /* hcl_h */
