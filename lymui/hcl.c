@@ -57,6 +57,10 @@ Hcl *getHclFromLuv(Luv *luv) {
 Luv *getLuvFromHcl(Hcl *hcl) {
     Luv *luv = malloc(sizeof(Luv));
     if (luv == NULL) {
+        return NULL;
+    }
+    
+    if (hcl == NULL) {
         luv->error = NULL_INPUT_PARAM;
         return luv;
     }
