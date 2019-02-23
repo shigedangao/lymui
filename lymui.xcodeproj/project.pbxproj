@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2F14302B2214C6E7003A348B /* hcl.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F14302A2214C6E7003A348B /* hcl.c */; };
+		2F4B891D221DFD7700FF0BCD /* test_helper.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F4B891C221DFD7700FF0BCD /* test_helper.c */; };
+		2F5AD93F221DFA2F00687557 /* hcl_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F5AD93E221DFA2F00687557 /* hcl_test.c */; };
 		2F7BBA6221E21F8900E835EF /* grayscale.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F7BBA6121E21F8900E835EF /* grayscale.c */; };
 		2F7BBA6421E2326700E835EF /* grayscale_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F7BBA6321E2326700E835EF /* grayscale_test.c */; };
 		2FAABC8521D3F67D00D47DE9 /* hwb.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FAABC8421D3F67D00D47DE9 /* hwb.c */; };
@@ -66,6 +68,8 @@
 /* Begin PBXFileReference section */
 		2F1430292214C6E7003A348B /* hcl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hcl.h; sourceTree = "<group>"; };
 		2F14302A2214C6E7003A348B /* hcl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcl.c; sourceTree = "<group>"; };
+		2F4B891C221DFD7700FF0BCD /* test_helper.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = test_helper.c; sourceTree = "<group>"; };
+		2F5AD93E221DFA2F00687557 /* hcl_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hcl_test.c; sourceTree = "<group>"; };
 		2F7BBA6021E21F8900E835EF /* grayscale.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = grayscale.h; sourceTree = "<group>"; };
 		2F7BBA6121E21F8900E835EF /* grayscale.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = grayscale.c; sourceTree = "<group>"; };
 		2F7BBA6321E2326700E835EF /* grayscale_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = grayscale_test.c; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 				2FAABC8621D3FD8700D47DE9 /* hwb_test.c */,
 				2FCEF9E721E151CA00F3A80B /* tsl_test.c */,
 				2F7BBA6321E2326700E835EF /* grayscale_test.c */,
+				2F5AD93E221DFA2F00687557 /* hcl_test.c */,
+				2F4B891C221DFD7700FF0BCD /* test_helper.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -319,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F4B891D221DFD7700FF0BCD /* test_helper.c in Sources */,
 				9F8ABE4620A9BAE10001F811 /* xyy.c in Sources */,
 				9F4D411B20599A590031CDA5 /* argb.c in Sources */,
 				2F14302B2214C6E7003A348B /* hcl.c in Sources */,
@@ -348,6 +355,7 @@
 				9F10A9BD20605C7F00692EA8 /* lab.c in Sources */,
 				9FA29B5820757F6B009DC625 /* luv.c in Sources */,
 				9F9AA8AB202A546B008A28B8 /* hex.c in Sources */,
+				2F5AD93F221DFA2F00687557 /* hcl_test.c in Sources */,
 				9F04727320348E67000639EA /* ycbcr_test.c in Sources */,
 				9F41ED57207CD80E00B8B644 /* luv_test.c in Sources */,
 				2FAABC8521D3F67D00D47DE9 /* hwb.c in Sources */,
@@ -485,11 +493,13 @@
 				"HEADER_SEARCH_PATHS[arch=*]" = (
 					"$(SRCROOT)/lib/cunit/include",
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
+					/Users/marcintha/workspace/minunit,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/cunit",
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
+					/Users/marcintha/workspace/minunit,
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/lib/cunit";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
@@ -508,10 +518,12 @@
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/lib/cunit/include",
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
+					/Users/marcintha/workspace/minunit,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/cunit",
+					/Users/marcintha/workspace/minunit,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				NEW_SETTING = "";
