@@ -134,4 +134,5 @@ MU_TEST_SUITE(hcl_suite) {
 void wrapHclTest() {
     MU_RUN_SUITE(hcl_suite);
     MU_REPORT();
+    printf("End of HCL test \n");
 }

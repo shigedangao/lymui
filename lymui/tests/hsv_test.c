@@ -171,5 +171,6 @@ MU_TEST_SUITE(hsv_test) {
 void wrapHsvTest() {
     MU_RUN_SUITE(hsv_test);
     MU_REPORT();
+    printf("End of HSV test \n");
 }
 

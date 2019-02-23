@@ -8,84 +8,80 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <cunit.h>
+#include <minunit.h>
 #include "test_header.h"
 #include "grayscale.h"
 
-ctest_return_t getLightnessGrayScale(ctest_t *test, void *arg) {
+MU_TEST(lightness) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 255;
     rgb->g = 0;
     rgb->b = 0;
     
     uint8_t gray = getGrayScale(rgb, Lightness);
+    mu_assert_int_eq(128, gray);
     
-    CTAssertEqual(test, 128, gray, "Expect gray lightness to be equal to %i but got %i", 128, gray);
     free(rgb);
 }
 
-ctest_return_t getLumuinositryGrayScale(ctest_t *test, void *arg) {
+MU_TEST(luminosity) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 255;
     rgb->g = 0;
     rgb->b = 0;
     
     uint8_t gray = getGrayScale(rgb, Luminosity);
+    mu_assert_int_eq(54, gray);
     
-    CTAssertEqual(test, 54, gray, "Expect gray to be equal to %i but got %i", 54, gray);
     free(rgb);
 }
 
-ctest_return_t getAverageGrayScale(ctest_t *test, void *arg) {
+MU_TEST(average) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 255;
     rgb->g = 0;
     rgb->b = 0;
     
     uint8_t gray = getGrayScale(rgb, Average);
+    mu_assert_int_eq(85, gray);
     
-    CTAssertEqual(test, 85, gray, "Expect gray to be equal to %i but got %i", 85, gray);
     free(rgb);
 }
 
-ctest_return_t getbt709GrayScale(ctest_t *test, void *arg) {
+MU_TEST(bt_709) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 255;
     rgb->g = 0;
     rgb->b = 0;
     
     uint8_t gray = getGrayScale(rgb, bt709);
+    mu_assert_int_eq(54, gray);
     
-    CTAssertEqual(test, 54, gray, "Expect gray to be equal to %i but got %i", 54, gray);
     free(rgb);
 }
 
-ctest_return_t getbt2100GrayScale(ctest_t *test, void *arg) {
+MU_TEST(bt_2100) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 255;
     rgb->g = 0;
     rgb->b = 0;
     
     uint8_t gray = getGrayScale(rgb, bt2100);
+    mu_assert_int_eq(67, gray);
     
-    CTAssertEqual(test, 67, gray, "Expect gray to be equal to %i but got %i", 67, gray);
     free(rgb);
 }
 
-ctcase_t *wrapGrayscaleCreationTest() {
-    ctcase_t *grayCase = ctcase("Grayscale test");
-    
-    ctest_t *lightness  = ctest("Lightness case", getLightnessGrayScale, NULL);
-    ctest_t *luminosity = ctest("Luminosity case", getLumuinositryGrayScale, NULL);
-    ctest_t *average    = ctest("Average case", getAverageGrayScale, NULL);
-    ctest_t *bt709      = ctest("bt709 case", getbt709GrayScale, NULL);
-    ctest_t *bt2100     = ctest("bt2100 case", getbt2100GrayScale, NULL);
-    
-    ctctestadd(grayCase, lightness);
-    ctctestadd(grayCase, luminosity);
-    ctctestadd(grayCase, average);
-    ctctestadd(grayCase, bt709);
-    ctctestadd(grayCase, bt2100);
-    
-    return grayCase;
+MU_TEST_SUITE(grayscale_suite) {
+    MU_RUN_TEST(lightness);
+    MU_RUN_TEST(luminosity);
+    MU_RUN_TEST(average);
+    MU_RUN_TEST(bt_709);
+    MU_RUN_TEST(bt_2100);    
+}
+
+void wrapGrayScaleTest() {
+    MU_RUN_SUITE(grayscale_suite);
+    MU_REPORT();
+    printf("End of Grayscale test \n");
 }

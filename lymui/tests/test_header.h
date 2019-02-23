@@ -55,9 +55,9 @@ ctcase_t *wrapHwbCreationTest(void);
 
 ctcase_t *wrapTslCreationTest(void);
 
-ctcase_t *wrapGrayscaleCreationTest(void);
-
 void wrapHsvTest(void);
+
+void wrapGrayScaleTest(void);
 
 void wrapHclTest(void);
 
