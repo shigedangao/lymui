@@ -173,4 +173,3 @@ void wrapHsvTest() {
     MU_REPORT();
     printf("End of HSV test \n");
 }
-

@@ -25,8 +25,6 @@ ctcase_t *wrapRgbCreationTest(void);
 
 ctcase_t *wrapHexCreationTest(void);
 
-ctcase_t *wrapYcbcrCreationTest(void);
-
 ctcase_t *wrapCymkCreationTest(void);
 
 ctcase_t *wrapHueCreationTest(void);
@@ -54,6 +52,8 @@ ctcase_t *wrapXyyCreationTest(void);
 ctcase_t *wrapHwbCreationTest(void);
 
 ctcase_t *wrapTslCreationTest(void);
+
+void wrapYcbcrTest(void);
 
 void wrapHsvTest(void);
 
