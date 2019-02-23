@@ -24,7 +24,6 @@ int main(int argc, const char * argv[]) {
     ctcase_t  *cymk  = wrapCymkCreationTest();
     ctcase_t  *hue   = wrapHueCreationTest();
     ctcase_t  *hsl   = wrapHslCreationTest();
-    ctcase_t  *hsv   = wrapHsvCreationTest();
     ctcase_t  *yuv   = wrapYuvCreationTest();
     ctcase_t  *srgb  = wrapSRgbCreationTest();
     ctcase_t  *xyz   = wrapXyzCreationTest();
@@ -45,7 +44,6 @@ int main(int argc, const char * argv[]) {
     ctscaseadd(suite, cymk);
     ctscaseadd(suite, hue);
     ctscaseadd(suite, hsl);
-    ctscaseadd(suite, hsv);
     ctscaseadd(suite, yuv);
     ctscaseadd(suite, srgb);
     ctscaseadd(suite, xyz);
@@ -62,7 +60,7 @@ int main(int argc, const char * argv[]) {
     
     uint8_t failNb = suite->failed;
     
-    // testing Minunit
+    wrapHsvTest();
     wrapHclTest();
     
     // free the suite

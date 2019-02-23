@@ -33,8 +33,6 @@ ctcase_t *wrapHueCreationTest(void);
 
 ctcase_t *wrapHslCreationTest(void);
 
-ctcase_t *wrapHsvCreationTest(void);
-
 ctcase_t *wrapYuvCreationTest(void);
 
 ctcase_t *wrapSRgbCreationTest(void);
@@ -58,6 +56,8 @@ ctcase_t *wrapHwbCreationTest(void);
 ctcase_t *wrapTslCreationTest(void);
 
 ctcase_t *wrapGrayscaleCreationTest(void);
+
+void wrapHsvTest(void);
 
 void wrapHclTest(void);
 
