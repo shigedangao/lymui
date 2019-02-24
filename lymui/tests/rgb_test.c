@@ -10,68 +10,60 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <cunit.h>
+#include <minunit.h>
 #include "errors.h"
 #include "rgb.h"
 
-// For instance the test are done in the main file
-// Test Rgb Creation
-ctest_return_t testRgbCreationFromArr(ctest_t *test, void *arg) {
+MU_TEST(rgb_creation) {
     uint8_t uc[] = {0, 100, 200};
     Rgb *rgb = makeRGB(uc, sizeof(uc));
     
-    CTAssertEqual(test, 0, rgb->r, "Expect R to be equal to %i but got %i", 0, rgb->r);
-    CTAssertEqual(test, 100, rgb->g, "Expect G to be equal to %i but got %i", 100, rgb->g);
-    CTAssertEqual(test, 200, rgb->b, "Expect B to be equal to %i but got %i", 200, rgb->b);
+    mu_assert_int_eq(0, rgb->r);
+    mu_assert_int_eq(100, rgb->g);
+    mu_assert_int_eq(200, rgb->b);
     
     free(rgb);
 }
 
-// Test fail Rgb Creation
-ctest_return_t testFailRgbCreation(ctest_t *test, void *arg) {
+MU_TEST(rgb_error_creation) {
     uint8_t uc[] = {0, 100};
     Rgb *rgb = makeRGB(uc, sizeof(uc));
     
-    CTAssertStringEqual(test, rgb->error, WRONG_INPUT_PARAM, "Expect RGB to be return a string error %s", WRONG_INPUT_PARAM);
+    mu_assert_string_eq(rgb->error, WRONG_INPUT_PARAM);
     free(rgb);
 }
 
-ctest_return_t testNullRgbCreation(ctest_t *test, void *arg) {
+MU_TEST(rgb_empty_params) {
     Rgb *rgb = makeRGB(NULL, 0);
-    
-    CTAssertStringEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect RGB to be return a string error %s", NULL_INPUT_PARAM);
+
+    mu_assert_string_eq(rgb->error, NULL_INPUT_PARAM);
     free(rgb);
 }
 
-ctest_return_t testCreationRgbFromPtrArr(ctest_t *test, void *arg) {
+MU_TEST(rgb_from_ptr) {
     uint8_t *uc = malloc(sizeof(uint8_t) * 3);
     uc[0] = 100;
     uc[1] = 152;
     uc[2] = 200;
     
     Rgb *rgb = makeRGB(uc, 3);
-    CTAssertEqual(test, 100, rgb->r, "Expect R to be equal to %i but got %i", 100, rgb->r);
-    CTAssertEqual(test, 152, rgb->g, "Expect G to be equal to %i but got %i", 152, rgb->g);
-    CTAssertEqual(test, 200, rgb->b, "Expect B to be equal to %i but got %i", 100, rgb->b);
+    
+    mu_assert_int_eq(100, rgb->r);
+    mu_assert_int_eq(152, rgb->g);
+    mu_assert_int_eq(200, rgb->b);
     
     free(rgb);
-    free(uc);
 }
 
-// Wrap Rgb Creation Test
-ctcase_t *wrapRgbCreationTest() {
-    // Create test case
-    ctcase_t *rgbCase = ctcase("Rgb creation test case");
-    
-    // Create test
-    ctest_t *testRgbCreation = ctest("Creation of a RGB from a null uint8_t array", testRgbCreationFromArr, NULL);
-    ctest_t *testRgbFailure  = ctest("Creation of a NULL RGB from a NULL uint8_t array", testFailRgbCreation, NULL);
-    ctest_t *testRgbFromArr  = ctest("Creation of a RGB from uint8_t array", testCreationRgbFromPtrArr, NULL);
-    ctest_t *testEmptyRgb    = ctest("Creation of a RGB from a NULL array and length", testNullRgbCreation, NULL);
-    
-    ctctestadd(rgbCase, testRgbCreation);
-    ctctestadd(rgbCase, testRgbFailure);
-    ctctestadd(rgbCase, testRgbFromArr);
-    ctctestadd(rgbCase, testEmptyRgb);
-    
-    return rgbCase;
+MU_TEST_SUITE(rgb_suite) {
+    MU_RUN_TEST(rgb_creation);
+    MU_RUN_TEST(rgb_error_creation);
+    MU_RUN_TEST(rgb_empty_params);
+    MU_RUN_TEST(rgb_from_ptr);
+}
+
+void wrapRgbTest() {
+    MU_RUN_SUITE(rgb_suite);
+    MU_REPORT();
+    printf("End of RGB test \n");
 }
