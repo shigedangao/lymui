@@ -12,10 +12,6 @@
 #include "helper.h"
 
 
-
-// Make RGB
-// Return RGB struct pointer
-// Params : Array of ushort length 3
 Rgb *makeRGB(uint8_t c[], size_t length) {
     Rgb *color = malloc(sizeof(Rgb));
     if (color == NULL) {
@@ -27,7 +23,7 @@ Rgb *makeRGB(uint8_t c[], size_t length) {
         return color;
     }
     
-    uint8_t isArrayInvalidValid = length != 3;
+    uint8_t isArrayInvalidValid = length != RGB_ARRAY_LEN;
     if (isArrayInvalidValid) {
         color->error = WRONG_INPUT_PARAM;
         return color;
