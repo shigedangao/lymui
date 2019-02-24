@@ -9,7 +9,6 @@
 #include "test_header.h"
 #include <stdlib.h>
 #include <stdint.h>
-#include <cunit.h>
 #include <minunit.h>
 #include "errors.h"
 #include "rgb.h"
