@@ -9,108 +9,159 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <cunit.h>
+#include <minunit.h>
 #include "test_header.h"
 #include "errors.h"
 #include "rgb.h"
 #include "cymk.h"
 
-ctest_return_t testCymkCreation(ctest_t *test, void *arg) {
-    uint8_t uc[] = {255, 55, 102};
-    Rgb *rgb = makeRGB(uc, 3);
+MU_TEST(cymk_creation) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 255;
+    rgb->g = 55;
+    rgb->b = 102;
+    
     Cymk *cymk = getCymkFromRgb(rgb);
-    
-    CTAssertDecimalEqual(test, 0.0, cymk->c, 0.1, "Expect C to be equal to %f but got %f", 0.0, cymk->c);
-    CTAssertDecimalEqual(test, 0.6, cymk->y, 0.1, "Expect Y to be equal to %f but got %f", 0.0, cymk->y);
-    CTAssertDecimalEqual(test, 0.8, cymk->m, 0.1, "Expect M to be equal to %f but got %f", 0.0, cymk->m);
-    CTAssertDecimalEqual(test, 0.0, cymk->k, 0.1, "Expect K to be equal to %f but got %f", 0.0, cymk->k);
-    
-    free(cymk);
-    free(rgb);
-}
 
-ctest_return_t testCymkBlackCreation(ctest_t *test, void *arg) {
-    uint8_t uc[] = {0, 0, 0};
-    Rgb *rgb = makeRGB(uc, 3);
-    Cymk *cymk = getCymkFromRgb(rgb);
-    
-    CTAssertDecimalEqual(test, 0.0, cymk->c, 0.1, "Expect C to be equal to %f but got %f", 0.0, cymk->c);
-    CTAssertDecimalEqual(test, 0.0, cymk->y, 0.1, "Expect Y to be equal to %f but got %f", 0.0, cymk->y);
-    CTAssertDecimalEqual(test, 0.0, cymk->m, 0.1, "Expect M to be equal to %f but got %f", 0.0, cymk->m);
-    CTAssertDecimalEqual(test, 1.0, cymk->k, 0.1, "Expect K to be equal to %f but got %f", 0.0, cymk->k);
+    mu_assert_double_eq(0.0, cymk->c);
+    mu_assert_double_eq(0.6, roundup(cymk->y, 100));
+    mu_assert_double_eq(0.79, roundup(cymk->m, 100));
+    mu_assert_double_eq(0.0, cymk->k);
     
     free(rgb);
     free(cymk);
 }
 
-ctest_return_t testCymkNullCreation(ctest_t *test, void *arg) {
+MU_TEST(cymk_dark_creation) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 0;
+    rgb->g = 0;
+    rgb->b = 0;
+    
+    Cymk *cymk = getCymkFromRgb(rgb);
+    
+    mu_assert_double_eq(0.0, cymk->c);
+    mu_assert_double_eq(0.0, cymk->y);
+    mu_assert_double_eq(0.0, cymk->m);
+    mu_assert_double_eq(1.0, cymk->k);
+    
+    free(rgb);
+    free(cymk);
+}
+
+MU_TEST(cymk_bright_creation) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 255;
+    rgb->g = 255;
+    rgb->b = 255;
+    
+    Cymk *cymk = getCymkFromRgb(rgb);
+    
+    mu_assert_double_eq(0.0, cymk->c);
+    mu_assert_double_eq(0.0, cymk->y);
+    mu_assert_double_eq(0.0, cymk->m);
+    mu_assert_double_eq(0.0, cymk->k);
+    
+    free(rgb);
+    free(cymk);
+}
+
+MU_TEST(cymk_empty_param) {
     Cymk *cymk = getCymkFromRgb(NULL);
     
-    CTAssertStringEqual(test, NULL_INPUT_STRUCT, cymk->error, "Expected cymk to return an error of message %s", NULL_INPUT_STRUCT);
-    
+    mu_assert_string_eq("The imput param is empty", cymk->error);
     free(cymk);
 }
 
-ctest_return_t testCymkToRgbColor(ctest_t *test, void *arg) {
+MU_TEST(rgb_automn_creation) {
     Cymk *cymk = malloc(sizeof(Cymk));
-    cymk->c = 0.973f;
-    cymk->y = 0.0f;
-    cymk->m = 0.949f;
-    cymk->k = 0.223f;
+    cymk->c = 0.973;
+    cymk->y = 0.0;
+    cymk->m = 0.949;
+    cymk->k = 0.223;
     
-    Rgb * rgb = getRgbFromCymk(cymk);
+    Rgb *rgb = getRgbFromCymk(cymk);
     
-    CTAssertEqual(test, 5, rgb->r, "Expect R to be equal to %i but got %i", 5, rgb->r);
-    CTAssertEqual(test, 10, rgb->g, "Expect G to be equal to %i but got %i", 10, rgb->g);
-    CTAssertEqual(test, 198, rgb->b, "Expect B to be equal to %i but got %i", 198, rgb->b);
+    mu_assert_int_eq(5, rgb->r);
+    mu_assert_int_eq(10, rgb->g);
+    mu_assert_int_eq(198, rgb->b);
     
     free(rgb);
 }
 
-ctest_return_t testCymkToRgb(ctest_t *test, void *arg) {
+MU_TEST(rgb_creation) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 255;
+    rgb->g = 55;
+    rgb->b = 102;
+    
+    Cymk *cymk = getCymkFromRgb(rgb);
+    Rgb *nrgb = getRgbFromCymk(cymk);
+    
+    mu_assert_int_eq(rgb->r, nrgb->r);
+    mu_assert_int_eq(rgb->g, nrgb->g);
+    mu_assert_int_eq(rgb->b, nrgb->b);
+    
+    free(rgb);
+    free(nrgb);
+}
+
+MU_TEST(rgb_dark_creation) {
     Cymk *cymk = malloc(sizeof(Cymk));
     cymk->c = 0.0f;
     cymk->y = 0.0f;
     cymk->m = 0.0f;
     cymk->k = 1.0f;
     
-    Rgb *color = getRgbFromCymk(cymk);
+    Rgb *rgb = getRgbFromCymk(cymk);
     
-    CTAssertEqual(test, 0, color->r, "Expect R to be equal to %i but got %i", 0, color->r);
-    CTAssertEqual(test, 0, color->g, "Expect G to be equal to %i but got %i", 0, color->g);
-    CTAssertEqual(test, 0, color->b, "Expect B to be equal to %i but got %i", 0, color->b);
-
-    free(color);
+    mu_assert_int_eq(0, rgb->r);
+    mu_assert_int_eq(0, rgb->g);
+    mu_assert_int_eq(0, rgb->b);
+    
+    free(rgb);
 }
 
-ctest_return_t testCymkToUintNull(ctest_t *test, void *arg) {
-    Rgb *colors = getRgbFromCymk(NULL);
+MU_TEST(rgb_bright_creation) {
+    Cymk *cymk = malloc(sizeof(Cymk));
+    cymk->c = 0.0f;
+    cymk->y = 0.0f;
+    cymk->m = 0.0f;
+    cymk->k = 0.0f;
     
-    CTAssertStringEqual(test, colors->error, NULL_INPUT_PARAM, "Expect to return a string message error", NULL_INPUT_PARAM);
+    Rgb *rgb = getRgbFromCymk(cymk);
     
-    free(colors);
+    mu_assert_int_eq(255, rgb->r);
+    mu_assert_int_eq(255, rgb->g);
+    mu_assert_int_eq(255, rgb->b);
+    
+    free(rgb);
 }
 
-ctcase_t *wrapCymkCreationTest() {
-    // Create case
-    ctcase_t *cymkCase = ctcase("Cymk test case");
+MU_TEST(rgb_empty_param) {
+    Rgb *rgb = getRgbFromCymk(NULL);
     
-    // Create test
-    ctest_t *testCymk     = ctest("Creation of a Cymk From RGB", testCymkCreation, NULL);
-    ctest_t *testBlack    = ctest("Creation of a Cymk from RGB Black value", testCymkBlackCreation, NULL);
-    ctest_t *testCymkNull = ctest("Creation of a NULL Cymk from a RGB NULL", testCymkNullCreation, NULL);
-    ctest_t *testRgbCymk  = ctest("Creation of a RGB from a black CYMK", testCymkToRgb, NULL);
-    ctest_t *testRgbCymkC = ctest("Creation of a RGB from a normal CYMK", testCymkToRgbColor, NULL);
-    ctest_t *testRgbNull  = ctest("Creation of a NULL RGB from a NULL Cymk", testCymkToUintNull, NULL);
+    mu_assert_string_eq("The imput param is empty", rgb->error);
+    free(rgb);
+}
 
+MU_TEST_SUITE(cymk_suite) {
+    // Rgb -> Cymk
+    MU_RUN_TEST(cymk_creation);
+    MU_RUN_TEST(cymk_dark_creation);
+    MU_RUN_TEST(cymk_bright_creation);
+    MU_RUN_TEST(cymk_empty_param);
     
-    // add test to cases
-    ctctestadd(cymkCase, testCymk);
-    ctctestadd(cymkCase, testBlack);
-    ctctestadd(cymkCase, testCymkNull);
-    ctctestadd(cymkCase, testRgbCymk);
-    ctctestadd(cymkCase, testRgbCymkC);
-    ctctestadd(cymkCase, testRgbNull);
-    
-    return cymkCase;
+    // Cymk -> Rgb
+    MU_RUN_TEST(rgb_creation);
+    MU_RUN_TEST(rgb_automn_creation);
+    MU_RUN_TEST(rgb_dark_creation);
+    MU_RUN_TEST(rgb_bright_creation);
+    MU_RUN_TEST(rgb_empty_param);
+}
+
+void wrapCymkTest() {
+    MU_RUN_SUITE(cymk_suite);
+    MU_REPORT();
+    printf("End of CYMK test \n");
 }

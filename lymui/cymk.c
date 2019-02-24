@@ -21,7 +21,7 @@ Cymk *getCymkFromRgb(Rgb *rgb) {
     }
     
     if (rgb == NULL) {
-        cymk->error = NULL_INPUT_STRUCT;
+        cymk->error = NULL_INPUT_PARAM;
         return cymk;
     }
     
