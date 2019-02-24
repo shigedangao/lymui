@@ -8,7 +8,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <cunit.h>
 #include <minunit.h>
 #include "test_header.h"
 #include "rgb.h"
