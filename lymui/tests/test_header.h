@@ -23,8 +23,6 @@ double roundup(double value, double cell);
 
 ctcase_t *wrapSRgbCreationTest(void);
 
-ctcase_t *wrapARgbCreationTest(void);
-
 ctcase_t *wrapLabCreationTest(void);
 
 ctcase_t *wrapLuvCreationTest(void);
@@ -56,6 +54,8 @@ void wrapHsvTest(void);
 void wrapYuvTest(void);
 
 void wrapXyzTest(void);
+
+void wrapArgbTest(void);
 
 void wrapGrayScaleTest(void);
 

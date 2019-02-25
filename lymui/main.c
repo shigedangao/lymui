@@ -19,7 +19,6 @@ int main(int argc, const char * argv[]) {
     // Create suite case
     ctsuite_t *suite = ctsuite("Lymui test");
     ctcase_t  *srgb  = wrapSRgbCreationTest();
-    ctcase_t  *argb  = wrapARgbCreationTest();
     ctcase_t  *lab   = wrapLabCreationTest();
     ctcase_t  *luv   = wrapLuvCreationTest();
     ctcase_t  *lch   = wrapLchCreationTest();
@@ -30,7 +29,6 @@ int main(int argc, const char * argv[]) {
     
     // Launch suite
     ctscaseadd(suite, srgb);
-    ctscaseadd(suite, argb);
     ctscaseadd(suite, lab);
     ctscaseadd(suite, luv);
     ctscaseadd(suite, lch);
@@ -54,6 +52,7 @@ int main(int argc, const char * argv[]) {
     wrapHclTest();
     
     wrapXyzTest();
+    wrapArgbTest();
     
     // free the suite
     ctsfree(suite);
