@@ -37,13 +37,6 @@ typedef struct Lab {
 Lab *getLabFromXyz(Xyz *xyz);
 
 /**
- * @brief Get Huntere Lab From Xyz return a new Lab struct based on HunterLab calculation..
- * @param xyz Xyz struct
- * @return Lab struct
- */
-Lab *getHunterLabFromXyz(Xyz *xyz);
-
-/**
  * @discussion Get Xyz From Lab return a new Xyz struct from a Lab struct
  */
 Xyz *getXyzFromLab(Lab *lab);
