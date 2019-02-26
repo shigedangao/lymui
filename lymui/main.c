@@ -53,6 +53,7 @@ int main(int argc, const char * argv[]) {
     
     wrapXyzTest();
     wrapArgbTest();
+    wrapLabTest();
     
     // free the suite
     ctsfree(suite);

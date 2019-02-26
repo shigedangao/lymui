@@ -26,9 +26,9 @@ MU_TEST(argb_creation) {
     Xyz *xyz   = getXyzFromRgb(rgb, adobeRgb);
     Argb *argb = getARgbFromXyz(xyz);
     
-    mu_assert_double_eq(0.197, roundup(argb->r, 1000));
-    mu_assert_double_eq(0.04, roundup(argb->g, 1000));
-    mu_assert_double_eq(0.373, roundup(argb->b, 1000));
+    mu_assert_double_eq(0.196, roundup(argb->r, 1000));
+    mu_assert_double_eq(0.039, roundup(argb->g, 1000));
+    mu_assert_double_eq(0.372, roundup(argb->b, 1000));
     
     free(rgb);
     free(xyz);
@@ -102,8 +102,8 @@ MU_TEST(xyz_bright_creation) {
     Xyz *xyz = getXyzFromARgb(argb);
     
     mu_assert_double_eq(0.9505, roundup(xyz->x, 10000));
-    mu_assert_double_eq(1.0001, roundup(xyz->y, 10000));
-    mu_assert_double_eq(1.0889, roundup(xyz->z, 10000));
+    mu_assert_double_eq(1.0000, roundup(xyz->y, 10000));
+    mu_assert_double_eq(1.0888, roundup(xyz->z, 10000));
 
     free(xyz);
 }

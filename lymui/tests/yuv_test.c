@@ -21,9 +21,9 @@ MU_TEST(yuv_creation) {
     
     Yuv *yuv = getYuvFromRgb(rgb);
     
-    mu_assert_double_eq(0.125, roundup(yuv->y, 1000));
-    mu_assert_double_eq(0.123, roundup(yuv->u, 1000));
-    mu_assert_double_eq(0.064, roundup(yuv->v, 1000));
+    mu_assert_double_eq(0.124, roundup(yuv->y, 1000));
+    mu_assert_double_eq(0.122, roundup(yuv->u, 1000));
+    mu_assert_double_eq(0.063, roundup(yuv->v, 1000));
     
     free(yuv);
     free(rgb);

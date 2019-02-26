@@ -22,7 +22,7 @@ MU_TEST(hcl_creation) {
     Hcl *hcl = getHclFromLuv(luv);
     
     mu_assert_double_eq(184.68, roundup(hcl->h, 1000));
-    mu_assert_double_eq(34.946, roundup(hcl->c, 1000));
+    mu_assert_double_eq(34.945, roundup(hcl->c, 1000));
     mu_assert_double_eq(9.603, roundup(hcl->l, 1000));
 
     

@@ -25,7 +25,7 @@ MU_TEST(cymk_creation) {
 
     mu_assert_double_eq(0.0, cymk->c);
     mu_assert_double_eq(0.6, roundup(cymk->y, 100));
-    mu_assert_double_eq(0.79, roundup(cymk->m, 100));
+    mu_assert_double_eq(0.78, roundup(cymk->m, 100));
     mu_assert_double_eq(0.0, cymk->k);
     
     free(rgb);

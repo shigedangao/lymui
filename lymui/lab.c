@@ -36,7 +36,7 @@ Lab *getLabFromXyz(Xyz *xyz) {
     }
     
     if (xyz == NULL) {
-        lab->error = NULL_INPUT_STRUCT;
+        lab->error = NULL_INPUT_PARAM;
         return lab;
     }
     
@@ -73,11 +73,11 @@ Lab *getHunterLabFromXyz(Xyz *xyz) {
     }
     
     if (xyz == NULL) {
-        lab->error = NULL_INPUT_STRUCT;
+        lab->error = NULL_INPUT_PARAM;
         return lab;
     }
     
-    double * kAkB = getKaKb();
+    double *kAkB = getKaKb();
     if (kAkB == NULL) {
         lab->error = MALLOC_ERROR;
         return lab;
@@ -114,7 +114,7 @@ Xyz *getXyzFromLab(Lab *lab) {
     }
     
     if (lab == NULL) {
-        xyz->error = NULL_INPUT_STRUCT;
+        xyz->error = NULL_INPUT_PARAM;
         return xyz;
     }
     

@@ -20,7 +20,7 @@ MU_TEST(hsl_creation) {
     
     mu_assert_double_eq(237.0, roundup(hsl->h, 10));
     mu_assert_double_eq(90.0, roundup(hsl->s, 10));
-    mu_assert_double_eq(19.7, roundup(hsl->l, 10));
+    mu_assert_double_eq(19.6, roundup(hsl->l, 10));
 
     free(hsl);
     free(rgb);
@@ -33,7 +33,7 @@ MU_TEST(hsl_high_saturation_creation) {
     
     mu_assert_double_eq(221.0, roundup(hsl->h, 10));
     mu_assert_double_eq(100.0, roundup(hsl->s, 10));
-    mu_assert_double_eq(69.7, roundup(hsl->l, 10));
+    mu_assert_double_eq(69.6, roundup(hsl->l, 10));
     
     free(hsl);
     free(rgb);

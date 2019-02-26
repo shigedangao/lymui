@@ -72,7 +72,7 @@ MU_TEST(hsv_other_color_creation) {
     
     mu_assert_double_eq(81.0, roundup(hsv->h, 10));
     mu_assert_double_eq(99.6, roundup(hsv->s, 10));
-    mu_assert_double_eq(93.4, roundup(hsv->v, 10));
+    mu_assert_double_eq(93.3, roundup(hsv->v, 10));
     
     free(rgb);
     free(hsv);

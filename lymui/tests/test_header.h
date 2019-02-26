@@ -53,12 +53,14 @@ void wrapHsvTest(void);
 
 void wrapYuvTest(void);
 
+void wrapGrayScaleTest(void);
+
+void wrapHclTest(void);
+
 void wrapXyzTest(void);
 
 void wrapArgbTest(void);
 
-void wrapGrayScaleTest(void);
-
-void wrapHclTest(void);
+void wrapLabTest(void);
 
 #endif /* rgb_test_h */
