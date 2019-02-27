@@ -21,8 +21,6 @@
  */
 double roundup(double value, double cell);
 
-ctcase_t *wrapLuvCreationTest(void);
-
 ctcase_t *wrapLchCreationTest(void);
 
 ctcase_t *wrapLchLabCreationTest(void);

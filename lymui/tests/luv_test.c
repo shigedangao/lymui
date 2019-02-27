@@ -8,32 +8,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <cunit.h>
 #include <minunit.h>
 #include "test_header.h"
 #include "errors.h"
 #include "xyz.h"
 #include "luv.h"
 #include "helper.h"
-
-ctest_return_t testNullXyz(ctest_t *test, void *arg) {
-    Xyz *xyz = getXyzFromLuv(NULL);
-    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
-
-    
-    free(xyz);
-}
-
-ctcase_t * wrapLuvCreationTest() {
-    ctcase_t *luvCase = ctcase("Luv creation test");
-    
-    // test case Luv -> Xyz
-    ctest_t *testEmptyXyz= ctest("Creation of an Xyz NULL", testNullXyz, NULL);
-    
-    ctctestadd(luvCase, testEmptyXyz);
-    
-    return luvCase;
-}
 
 MU_TEST(luv_creation) {
     Rgb *rgb = malloc(sizeof(Rgb));
