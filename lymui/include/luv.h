@@ -30,6 +30,25 @@ typedef struct Luv {
 } Luv;
 
 /**
+ * @brief Xyz Compounds store the generated compounds value need for the Caclulation of the Xyz
+ */
+typedef struct XyzCompounds {
+    double a;
+    double b;
+    double c;
+    double d;
+    double y;
+} XyzCompounds;
+
+/**
+ * @brief Luv Compounds store the generated luv compounds
+ */
+typedef struct LuvCompounds {
+    double u;
+    double v;
+} LuvCompounds;
+
+/**
  * @description Get Luv From Rgb calculate a Luv struct based on the RGB struct
  * @param xyz struct Rgb pointer
  * @return Luv struct

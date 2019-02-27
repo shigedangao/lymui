@@ -52,6 +52,7 @@ int main(int argc, const char * argv[]) {
     wrapSrgbTest();
     wrapLabTest();
     wrapHLabTest();
+    wrapLuvTest();
     
     // free the suite
     ctsfree(suite);

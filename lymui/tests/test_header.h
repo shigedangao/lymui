@@ -63,4 +63,6 @@ void wrapLabTest(void);
 
 void wrapHLabTest(void);
 
+void wrapLuvTest(void);
+
 #endif /* rgb_test_h */
