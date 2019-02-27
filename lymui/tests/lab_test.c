@@ -150,60 +150,6 @@ MU_TEST(xyz_empty_params) {
     free(xyz);
 }
 
-MU_TEST(hunterlab_creation) {
-    Rgb *rgb = malloc(sizeof(Rgb));
-    rgb->r = 50;
-    rgb->g = 10;
-    rgb->b = 195;
-    
-    Xyz *xyz = getXyzFromRgb(rgb, srgb);
-    Lab *lab = getHunterLabFromXyz(xyz);
-    
-    mu_assert_double_eq(21.987, roundup(lab->l, 1000));
-    mu_assert_double_eq(55.063, roundup(lab->a, 1000));
-    mu_assert_double_eq(-130.759, roundup(lab->b, 1000));
-    
-    free(rgb);
-    free(xyz);
-    free(lab);
-}
-
-MU_TEST(hunterlab_dark_creation) {
-    Rgb *rgb = malloc(sizeof(Rgb));
-    rgb->r = 0;
-    rgb->g = 0;
-    rgb->b = 0;
-    
-    Xyz *xyz = getXyzFromRgb(rgb, srgb);
-    Lab *lab = getHunterLabFromXyz(xyz);
-    
-    mu_assert_double_eq(0.0, roundup(lab->l, 1000));
-    mu_assert_double_eq(0.0, roundup(lab->a, 1000));
-    mu_assert_double_eq(0.0, roundup(lab->b, 1000));
-    
-    free(rgb);
-    free(xyz);
-    free(lab);
-}
-
-MU_TEST(hunterlab_bright_creation) {
-    Rgb *rgb = malloc(sizeof(Rgb));
-    rgb->r = 255;
-    rgb->g = 255;
-    rgb->b = 255;
-    
-    Xyz *xyz = getXyzFromRgb(rgb, srgb);
-    Lab *lab = getHunterLabFromXyz(xyz);
-    
-    mu_assert_double_eq(100.0, roundup(lab->l, 1000));
-    mu_assert_double_eq(0.0, roundup(lab->a, 1000));
-    mu_assert_double_eq(0.0, roundup(lab->b, 1000));
-    
-    free(rgb);
-    free(xyz);
-    free(lab);
-}
-
 MU_TEST_SUITE(lab_suite) {
     // Xyz -> Lab
     MU_RUN_TEST(lab_creation);
@@ -217,11 +163,6 @@ MU_TEST_SUITE(lab_suite) {
     MU_RUN_TEST(xyz_dark_creation);
     MU_RUN_TEST(xyz_bright_creation);
     MU_RUN_TEST(xyz_empty_params);
-    
-    // Xyz -> HunterLab
-    MU_RUN_TEST(hunterlab_creation);
-    MU_RUN_TEST(hunterlab_dark_creation);
-    MU_RUN_TEST(hunterlab_bright_creation);
 }
 
 void wrapLabTest() {
