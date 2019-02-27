@@ -61,12 +61,6 @@ Rgb *getRgbFromCymk(Cymk *cymk) {
         return rgb;
     }
     
-    uint8_t *value = malloc(sizeof(uint8_t) * 3);
-    if (value == NULL) {
-        rgb->error = MALLOC_ERROR;
-        return rgb;
-    }
-    
     double _kv = 1.0 - cymk->k;
     double r = 255.0 * (1.0 - cymk->c) * _kv;
     double g = 255.0 * (1.0 - cymk->m) * _kv;
@@ -77,7 +71,6 @@ Rgb *getRgbFromCymk(Cymk *cymk) {
     rgb->b = doubleToUint(b);
     rgb->error = NULL;
     
-    free(value);
     free(cymk);
     return rgb;
 }
