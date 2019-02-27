@@ -46,7 +46,7 @@ SRgb *getSrgbFromXyz(Xyz *xyz) {
     }
     
     if (xyz == NULL) {
-        srgb->error = NULL_INPUT_STRUCT;
+        srgb->error = NULL_INPUT_PARAM;
         return srgb;
     }
     
@@ -69,7 +69,7 @@ Xyz *getXyzFromSrgb(SRgb *srgb) {
     }
     
     if (srgb == NULL) {
-        xyz->error = NULL_INPUT_STRUCT;
+        xyz->error = NULL_INPUT_PARAM;
         return xyz;
     }
     
