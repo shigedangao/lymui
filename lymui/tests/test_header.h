@@ -10,7 +10,6 @@
 #define rgb_test_h
 
 #include <stdio.h>
-#include <ctcase.h>
 
 /**
  * Round Up
