@@ -211,9 +211,11 @@ MU_TEST_SUITE(xyz_suite) {
     MU_RUN_TEST(rgb_empty_params);
 }
 
-void wrapXyzTest() {
+int wrapXyzTest() {
     MU_RUN_SUITE(xyz_suite);
     MU_REPORT();
     printf("End of XYZ test \n");
+    
+    return minunit_fail;
 }
 

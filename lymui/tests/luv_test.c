@@ -190,9 +190,11 @@ MU_TEST_SUITE(luv_suite) {
     MU_RUN_TEST(xyz_empty_params);
 }
 
-void wrapLuvTest() {
+int wrapLuvTest() {
     MU_RUN_SUITE(luv_suite);
     MU_REPORT();
     printf("End of Luv test \n");
+    
+    return minunit_fail;
 }
 

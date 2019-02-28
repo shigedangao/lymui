@@ -21,48 +21,48 @@
  */
 double roundup(double value, double cell);
 
-void wrapRgbTest(void);
+int wrapRgbTest(void);
 
-void wrapHexTest(void);
+int wrapHexTest(void);
 
-void wrapHueTest(void);
+int wrapHueTest(void);
 
-void wrapCymkTest(void);
+int wrapCymkTest(void);
 
-void wrapYcbcrTest(void);
+int wrapYcbcrTest(void);
 
-void wrapHslTest(void);
+int wrapHslTest(void);
 
-void wrapHsvTest(void);
+int wrapHsvTest(void);
 
-void wrapYuvTest(void);
+int wrapYuvTest(void);
 
-void wrapGrayScaleTest(void);
+int wrapGrayScaleTest(void);
 
-void wrapHclTest(void);
+int wrapHclTest(void);
 
-void wrapHwbTest(void);
+int wrapHwbTest(void);
 
-void wrapTslTest(void);
+int wrapTslTest(void);
 
-void wrapXyzTest(void);
+int wrapXyzTest(void);
 
 
 
-void wrapArgbTest(void);
+int wrapArgbTest(void);
 
-void wrapSrgbTest(void);
+int wrapSrgbTest(void);
 
-void wrapLabTest(void);
+int wrapLabTest(void);
 
-void wrapHLabTest(void);
+int wrapHLabTest(void);
 
-void wrapLuvTest(void);
+int wrapLuvTest(void);
 
-void wrapLchTest(void);
+int wrapLchTest(void);
 
-void wrapLchLabTest(void);
+int wrapLchLabTest(void);
 
-void wrapXyyTest(void);
+int wrapXyyTest(void);
 
 #endif /* rgb_test_h */

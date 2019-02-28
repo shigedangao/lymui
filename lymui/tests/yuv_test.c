@@ -132,8 +132,10 @@ MU_TEST_SUITE(yuv_suite) {
     MU_RUN_TEST(rgb_empty_params);
 }
 
-void wrapYuvTest() {
+int wrapYuvTest() {
     MU_RUN_SUITE(yuv_suite);
     MU_REPORT();
     printf("End of YUV test \n");
+    
+    return minunit_fail;
 }

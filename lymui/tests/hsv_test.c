@@ -168,8 +168,10 @@ MU_TEST_SUITE(hsv_test) {
     MU_RUN_TEST(rgb_empty_param);
 }
 
-void wrapHsvTest() {
+int wrapHsvTest() {
     MU_RUN_SUITE(hsv_test);
     MU_REPORT();
     printf("End of HSV test \n");
+    
+    return minunit_fail;
 }

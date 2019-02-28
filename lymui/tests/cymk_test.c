@@ -160,8 +160,10 @@ MU_TEST_SUITE(cymk_suite) {
     MU_RUN_TEST(rgb_empty_param);
 }
 
-void wrapCymkTest() {
+int wrapCymkTest() {
     MU_RUN_SUITE(cymk_suite);
     MU_REPORT();
     printf("End of CYMK test \n");
+    
+    return minunit_fail;
 }

@@ -185,8 +185,10 @@ MU_TEST_SUITE(hsl_suite) {
     MU_RUN_TEST(rgb_empty_params);
 }
 
-void wrapHslTest() {
+int wrapHslTest() {
     MU_RUN_SUITE(hsl_suite);
     MU_REPORT();
     printf("End of HSL test \n");
+    
+    return minunit_fail;
 }

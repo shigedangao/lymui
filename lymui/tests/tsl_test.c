@@ -134,7 +134,10 @@ MU_TEST_SUITE(tsl_suite) {
     MU_RUN_TEST(rgb_empty_params);
 }
 
-void wrapTslTest() {
+int wrapTslTest() {
     MU_RUN_TEST(tsl_suite);
     MU_REPORT();
+    printf("End of Tsl test \n");
+    
+    return minunit_fail;
 }

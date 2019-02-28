@@ -77,8 +77,10 @@ MU_TEST_SUITE(hue_suite) {
     MU_RUN_TEST(hue_empty_param);
 }
 
-void wrapHueTest() {
+int wrapHueTest() {
     MU_RUN_SUITE(hue_suite);
     MU_REPORT();
     printf("End of Hue test \n");
+    
+    return minunit_fail;
 }

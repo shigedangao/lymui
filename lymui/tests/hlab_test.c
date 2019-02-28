@@ -83,8 +83,10 @@ MU_TEST_SUITE(hlab_suite) {
     MU_RUN_TEST(hlab_empty_params);
 }
 
-void wrapHLabTest() {
+int wrapHLabTest() {
     MU_RUN_SUITE(hlab_suite);
     MU_REPORT();
     printf("End of Hunter Lab test \n");
+    
+    return minunit_fail;
 }

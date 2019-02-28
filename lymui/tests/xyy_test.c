@@ -133,8 +133,10 @@ MU_TEST_SUITE(xyy_suite) {
     MU_RUN_TEST(xyz_empty_params);
 }
 
-void wrapXyyTest() {
+int wrapXyyTest() {
     MU_RUN_SUITE(xyy_suite);
     MU_REPORT();
     printf("End of Xyy test \n");
+    
+    return minunit_fail;
 }

@@ -135,8 +135,10 @@ MU_TEST_SUITE(hwb_suite) {
     MU_RUN_TEST(rgb_empty_params);
 }
 
-void wrapHwbTest() {
+int wrapHwbTest() {
     MU_RUN_SUITE(hwb_suite);
     MU_REPORT();
     printf("End of HWB test \n");
+    
+    return minunit_fail;
 }

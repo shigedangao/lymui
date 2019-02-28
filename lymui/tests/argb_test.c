@@ -144,8 +144,10 @@ MU_TEST_SUITE(argb_suite) {
     MU_RUN_TEST(xyz_empty_param);
 }
 
-void wrapArgbTest() {
+int wrapArgbTest() {
     MU_RUN_SUITE(argb_suite);
     MU_REPORT();
     printf("End of Argb test \n");
+    
+    return minunit_fail;
 }

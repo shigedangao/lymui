@@ -131,8 +131,10 @@ MU_TEST_SUITE(hcl_suite) {
 }
 
 // use minunit_status
-void wrapHclTest() {
+int wrapHclTest() {
     MU_RUN_SUITE(hcl_suite);
     MU_REPORT();
     printf("End of HCL test \n");
+    
+    return minunit_fail;
 }

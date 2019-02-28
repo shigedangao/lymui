@@ -122,10 +122,12 @@ MU_TEST_SUITE(hex_suite) {
     MU_RUN_TEST(rgb_empty_params);
 }
 
-void wrapHexTest() {
+int wrapHexTest() {
     MU_RUN_SUITE(hex_suite);
     MU_REPORT();
     printf("End of Hex test \n");
+    
+    return minunit_fail;
 }
 
 

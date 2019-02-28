@@ -70,8 +70,10 @@ MU_TEST_SUITE(ycbcr_suite) {
     MU_RUN_SUITE(rgb_empty_param);
 }
 
-void wrapYcbcrTest() {
+int wrapYcbcrTest() {
     MU_RUN_SUITE(ycbcr_suite);
     MU_REPORT();
     printf("End of Ycbcr test \n");
+    
+    return minunit_fail;
 }

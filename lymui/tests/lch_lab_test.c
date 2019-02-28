@@ -105,8 +105,10 @@ MU_TEST_SUITE(lchlab_suite) {
     MU_RUN_TEST(xyz_empty_params);
 }
 
-void wrapLchLabTest() {
+int wrapLchLabTest() {
     MU_RUN_SUITE(lchlab_suite);
     MU_REPORT();
     printf("End of LCH_LAB test \n");
+    
+    return minunit_fail;
 }

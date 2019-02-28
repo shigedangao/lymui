@@ -61,8 +61,10 @@ MU_TEST_SUITE(rgb_suite) {
     MU_RUN_TEST(rgb_from_ptr);
 }
 
-void wrapRgbTest() {
+int wrapRgbTest() {
     MU_RUN_SUITE(rgb_suite);
     MU_REPORT();
     printf("End of RGB test \n");
+    
+    return minunit_fail;
 }

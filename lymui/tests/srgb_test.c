@@ -153,8 +153,10 @@ MU_TEST_SUITE(srgb_suite) {
     MU_RUN_TEST(xyz_empty_params);
 }
 
-void wrapSrgbTest() {
+int wrapSrgbTest() {
     MU_RUN_SUITE(srgb_suite);
     MU_REPORT();
     printf("End of Srgb test \n");
+    
+    return minunit_fail;
 }

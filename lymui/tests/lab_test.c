@@ -165,8 +165,10 @@ MU_TEST_SUITE(lab_suite) {
     MU_RUN_TEST(xyz_empty_params);
 }
 
-void wrapLabTest() {
+int wrapLabTest() {
     MU_RUN_SUITE(lab_suite);
     MU_REPORT();
     printf("End of Lab test \n");
+    
+    return minunit_fail;
 }

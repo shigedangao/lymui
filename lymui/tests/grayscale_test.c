@@ -80,8 +80,10 @@ MU_TEST_SUITE(grayscale_suite) {
     MU_RUN_TEST(bt_2100);    
 }
 
-void wrapGrayScaleTest() {
+int wrapGrayScaleTest() {
     MU_RUN_SUITE(grayscale_suite);
     MU_REPORT();
     printf("End of Grayscale test \n");
+    
+    return minunit_fail;
 }
