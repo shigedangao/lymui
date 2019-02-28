@@ -8,13 +8,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <cunit.h>
+#include <minunit.h>
 #include "test_header.h"
 #include "errors.h"
 #include "xyz.h"
 #include "xyy.h"
 
-ctest_return_t testXyyFromXyz(ctest_t *test, void *arg) {
+MU_TEST(xyy_creation) {
     Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 0.9;
     xyz->y = 0.8;
@@ -22,15 +22,15 @@ ctest_return_t testXyyFromXyz(ctest_t *test, void *arg) {
     
     Xyy *xyy = getXyyFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 0.375, xyy->x, 0.001, "Expect x to be equal to 0.375 but got %f", xyy->x);
-    CTAssertDecimalEqual(test, 0.333, xyy->y, 0.001, "Expect y to be equal to 0.333 but got %f", xyy->y);
-    CTAssertDecimalEqual(test, 0.8, xyy->Y, 0.01, "Expect Y to be equal to 0.8 but got %f", xyy->Y);
-
+    mu_assert_double_eq(0.375, roundup(xyy->x, 1000));
+    mu_assert_double_eq(0.333, roundup(xyy->y, 1000));
+    mu_assert_double_eq(0.8, roundup(xyy->Y, 100));
+    
     free(xyy);
     free(xyz);
 }
 
-ctest_return_t testXyyFromZeroXyz(ctest_t *test, void *arg) {
+MU_TEST(xyy_dark_creation) {
     Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 0.0;
     xyz->y = 0.0;
@@ -38,15 +38,36 @@ ctest_return_t testXyyFromZeroXyz(ctest_t *test, void *arg) {
     
     Xyy *xyy = getXyyFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 0.312, xyy->x, 0.001, "Expect x to be equal to 0.312 but got %f", xyy->x);
-    CTAssertDecimalEqual(test, 0.329, xyy->y, 0.001, "Expect y to be equal to 0.329 but got %f", xyy->y);
-    CTAssertDecimalEqual(test, 0.0, xyy->Y, 0.01, "Expect Y to be equal to 0.0f but got %f", xyy->Y);
+    mu_assert_double_eq(0.313, roundup(xyy->x, 1000));
+    mu_assert_double_eq(0.329, roundup(xyy->y, 1000));
+    mu_assert_double_eq(0.0, xyy->Y);
     
     free(xyy);
     free(xyz);
 }
 
-ctest_return_t testXyzFromXyy(ctest_t *test, void *arg) {
+MU_TEST(xyy_bright_creation) {
+    Xyz *xyz = malloc(sizeof(Xyz));
+    xyz->x = 0.95047;
+    xyz->y = 1.0;
+    xyz->z = 1.08883;
+    
+    Xyy *xyy = getXyyFromXyz(xyz);
+    
+    mu_assert_double_eq(0.313, roundup(xyy->x, 1000));
+    mu_assert_double_eq(0.329, roundup(xyy->y, 1000));
+    mu_assert_double_eq(1.0, xyy->Y);
+    
+    free(xyy);
+    free(xyz);
+}
+
+MU_TEST(xyy_empty_params) {
+    Xyy *xyy = getXyyFromXyz(NULL);
+    mu_assert_string_eq(NULL_INPUT_PARAM, xyy->error);
+}
+
+MU_TEST(xyz_creation) {
     Xyy *xyy = malloc(sizeof(Xyy));
     xyy->x = 0.375;
     xyy->y = 0.333;
@@ -54,63 +75,66 @@ ctest_return_t testXyzFromXyy(ctest_t *test, void *arg) {
     
     Xyz *xyz = getXyzFromXyy(xyy);
     
-    CTAssertDecimalEqual(test, 0.9, xyz->x, 0.1, "Expect X to be equal to %f but got %f", 0.9, xyz->x);
-    CTAssertDecimalEqual(test, 0.8, xyz->y, 0.1, "Expect Y to be equal to %f but got %f", 0.8, xyz->y);
-    CTAssertDecimalEqual(test, 0.7, xyz->z, 0.1, "Expect Z to be equal to %f but got %f", 0.7, xyz->z);
-
+    mu_assert_double_eq(0.9, roundup(xyz->x, 10));
+    mu_assert_double_eq(0.8, roundup(xyz->y, 10));
+    mu_assert_double_eq(0.7, roundup(xyz->z, 10));
+    
     free(xyz);
 }
 
-ctest_return_t testXyzFromXyyZero(ctest_t *test, void *arg) {
+MU_TEST(xyz_bright_creation) {
     Xyy *xyy = malloc(sizeof(Xyy));
-    xyy->x = 1.0f;
-    xyy->y = 0.0f;
-    xyy->Y = 0.9f;
+    xyy->x = 0.313;
+    xyy->y = 0.329;
+    xyy->Y = 1.0;
     
     Xyz *xyz = getXyzFromXyy(xyy);
     
-    CTAssertDecimalEqual(test, 0.0f, xyz->x, 0.1f, "Expect X to be equal to %f but got %f", 0.0f, xyz->x);
-    CTAssertDecimalEqual(test, 0.0f, xyz->y, 0.1f, "Expect Y to be equal to %f but got %f", 0.0f, xyz->y);
-    CTAssertDecimalEqual(test, 0.0f, xyz->z, 0.1f, "Expect Z to be equal to %f but got %f", 0.0f, xyz->z);
+    mu_assert_double_eq(0.95, roundup(xyz->x, 100));
+    mu_assert_double_eq(1.0, roundup(xyz->y, 100));
+    mu_assert_double_eq(1.09, roundup(xyz->z, 100));
     
     free(xyz);
 }
 
-ctest_return_t testNullXyzXyy(ctest_t *test, void *arg) {
-    Xyy *xyy = getXyyFromXyz(NULL);
+MU_TEST(xyz_dark_creation) {
+    Xyy *xyy = malloc(sizeof(Xyy));
+    xyy->x = 0.313;
+    xyy->y = 0.329;
+    xyy->Y = 0.0;
     
-    CTAssertStringEqual(test, xyy->error, NULL_INPUT_STRUCT,  "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
-    free(xyy);
+    Xyz *xyz = getXyzFromXyy(xyy);
+    
+    mu_assert_double_eq(0.0, xyz->x);
+    mu_assert_double_eq(0.0, xyz->y);
+    mu_assert_double_eq(0.0, xyz->z);
+    
+    free(xyz);
 }
 
-ctest_return_t testNullXyyXyz(ctest_t *test, void *arg) {
+MU_TEST(xyz_empty_params) {
     Xyz *xyz = getXyzFromXyy(NULL);
+    mu_assert_string_eq(NULL_INPUT_PARAM, xyz->error);
     
-    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT,  "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
     free(xyz);
 }
 
-ctcase_t * wrapXyyCreationTest() {
-    ctcase_t * xyyCase = ctcase("Xyy test case");
+MU_TEST_SUITE(xyy_suite) {
+    // Xyz -> Xyy
+    MU_RUN_TEST(xyy_creation);
+    MU_RUN_TEST(xyy_dark_creation);
+    MU_RUN_TEST(xyy_bright_creation);
+    MU_RUN_TEST(xyy_empty_params);
     
-    // Creation of Xyy
-    ctest_t *testXyzXyy  = ctest("Creation of a Xyy from a Xyz struct", testXyyFromXyz, NULL);
-    ctest_t *testZeroXyy = ctest("Creation of a Xyy from a zero value Xyz struct", testXyyFromZeroXyz, NULL);
-    
-    // Creation of Xyz
-    ctest_t *testXyz     = ctest("Creation of a Xyz from a Xyy struct", testXyzFromXyy, NULL);
-    ctest_t *testZeroXyz = ctest("Creation of a Xyz from a zero Y Xyy struct", testXyzFromXyyZero, NULL);
-    
-    // Nullability
-    ctest_t *testXyyXyzNull = ctest("Creation of a NULL Xyy", testNullXyzXyy, NULL);
-    ctest_t *testXyzXyyNull = ctest("Creation of a NULL Xyz", testNullXyyXyz, NULL);
+    // Xyy -> Xyz
+    MU_RUN_TEST(xyz_creation);
+    MU_RUN_TEST(xyz_bright_creation);
+    MU_RUN_TEST(xyz_dark_creation);
+    MU_RUN_TEST(xyz_empty_params);
+}
 
-    ctctestadd(xyyCase, testXyzXyy);
-    ctctestadd(xyyCase, testZeroXyy);
-    ctctestadd(xyyCase, testXyz);
-    ctctestadd(xyyCase, testZeroXyz);
-    ctctestadd(xyyCase, testXyyXyzNull);
-    ctctestadd(xyyCase, testXyzXyyNull);
-
-    return xyyCase;
+void wrapXyyTest() {
+    MU_RUN_SUITE(xyy_suite);
+    MU_REPORT();
+    printf("End of Xyy test \n");
 }
