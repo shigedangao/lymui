@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <cunit.h>
 #include "rgb.h"
 #include "hex.h"
 #include "ycbcr.h"
@@ -17,14 +16,6 @@
 
 int main(int argc, const char * argv[]) {
     // Create suite case
-    ctsuite_t *suite = ctsuite("Lymui test");
-    ctcase_t  *tsl   = wrapTslCreationTest();
-    
-    // Launch suite
-    ctscaseadd(suite, tsl);
-    ctsrun(suite);
-    
-    uint8_t failNb = suite->failed;
     
     wrapRgbTest();
     wrapHexTest();
@@ -36,6 +27,7 @@ int main(int argc, const char * argv[]) {
     wrapYuvTest();
     wrapGrayScaleTest();
     wrapHclTest();
+    wrapHwbTest();
     
     wrapXyzTest();
     wrapArgbTest();
@@ -46,13 +38,7 @@ int main(int argc, const char * argv[]) {
     wrapLchTest();
     wrapLchLabTest();
     wrapXyyTest();
-    wrapHwbTest();
-    
-    // free the suite
-    ctsfree(suite);
-    
-    if (failNb > 0)
-        return -1;
+    wrapTslTest();
     
     return 0;
 }
