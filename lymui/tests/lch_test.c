@@ -8,7 +8,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <cunit.h>
 #include <minunit.h>
 #include "test_header.h"
 #include "errors.h"
