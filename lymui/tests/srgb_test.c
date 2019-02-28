@@ -103,10 +103,10 @@ MU_TEST(xyz_bright_creation) {
     Xyz *xyz = getXyzFromRgb(rgb, srgb);
     SRgb *srgb = getSrgbFromXyz(xyz);
     Xyz *nXyz = getXyzFromSrgb(srgb);
-    
-    mu_assert_double_eq(xyz->x, nXyz->x);
-    mu_assert_double_eq(xyz->y, nXyz->y);
-    mu_assert_double_eq(xyz->z, nXyz->z);
+
+    mu_assert_double_eq(0.95047, roundup(nXyz->x, 100000));
+    mu_assert_double_eq(1.0000, roundup(nXyz->y, 1000));
+    mu_assert_double_eq(1.08883, roundup(nXyz->z, 100000));
     
     free(rgb);
     free(xyz);
