@@ -9,11 +9,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <cunit.h>
+#include <minunit.h>
 #include "test_header.h"
 #include "hwb.h"
 #include "errors.h"
 
-ctest_return_t testRgbToHwb(ctest_t *test, void *arg) {
+MU_TEST(hwb_creation) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 17;
     rgb->g = 12;
@@ -21,15 +22,15 @@ ctest_return_t testRgbToHwb(ctest_t *test, void *arg) {
     
     Hwb *hwb = getHwbFromRgb(rgb);
     
-    CTAssertDecimalEqual(test, hwb->h, 244.0, 0.01, "Expect H to be equal to %f but got %f", 244.0, hwb->h);
-    CTAssertDecimalEqual(test, hwb->w, 4.7, 0.01, "Expect W to be equal to %f but got %f", 4.7, hwb->w);
-    CTAssertDecimalEqual(test, hwb->b, 63.52, 0.01, "Expect B to be equal to %f but got %f", 63.5, hwb->b);
-    
-    free(hwb);
+    mu_assert_double_eq(244.0, roundup(hwb->h, 10));
+    mu_assert_double_eq(4.7, roundup(hwb->w, 10));
+    mu_assert_double_eq(63.53, roundup(hwb->b, 100));
+
     free(rgb);
+    free(hwb);
 }
 
-ctest_return_t testWhiteRgbToHwb(ctest_t *test, void *arg) {
+MU_TEST(hwb_bright_creation) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 255;
     rgb->g = 255;
@@ -37,15 +38,15 @@ ctest_return_t testWhiteRgbToHwb(ctest_t *test, void *arg) {
     
     Hwb *hwb = getHwbFromRgb(rgb);
     
-    CTAssertDecimalEqual(test, hwb->h, 0.0, 0.01, "Expect H to be equal to %f but got %f", 0.0, hwb->h);
-    CTAssertDecimalEqual(test, hwb->w, 100.0, 0.01, "Expect W to be equal to %f but got %f", 100.0, hwb->w);
-    CTAssertDecimalEqual(test, hwb->b, 0.0, 0.01, "Expect B to be equal to %f but got %f", 0.0, hwb->b);
-
-    free(hwb);
+    mu_assert_double_eq(0.0, roundup(hwb->h, 10));
+    mu_assert_double_eq(100.0, roundup(hwb->w, 10));
+    mu_assert_double_eq(0.0, roundup(hwb->b, 100));
+    
     free(rgb);
+    free(hwb);
 }
 
-ctest_return_t testBlackRgbToHwb(ctest_t *test, void *arg) {
+MU_TEST(hwb_dark_creation) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 0;
     rgb->g = 0;
@@ -53,15 +54,22 @@ ctest_return_t testBlackRgbToHwb(ctest_t *test, void *arg) {
     
     Hwb *hwb = getHwbFromRgb(rgb);
     
-    CTAssertDecimalEqual(test, hwb->h, 0.0, 0.01, "Expect H to be equal to %f but got %f", 0.0, hwb->h);
-    CTAssertDecimalEqual(test, hwb->w, 0.0, 0.01, "Expect W to be equal to %f but got %f", 0.0, hwb->w);
-    CTAssertDecimalEqual(test, hwb->b, 100.0, 0.01, "Expect B to be equal to %f but got %f", 100.0, hwb->b);
+    mu_assert_double_eq(0.0, roundup(hwb->h, 10));
+    mu_assert_double_eq(0.0, roundup(hwb->w, 10));
+    mu_assert_double_eq(100.0, roundup(hwb->b, 100));
     
-    free(hwb);
     free(rgb);
+    free(hwb);
 }
 
-ctest_return_t testHwbToRgb(ctest_t *test, void *arg) {
+MU_TEST(hwb_empty_params) {
+    Hwb *hwb = getHwbFromRgb(NULL);
+    mu_assert_string_eq(NULL_INPUT_PARAM, hwb->error);
+    
+    free(hwb);
+}
+
+MU_TEST(rgb_creation) {
     Hwb *hwb = malloc(sizeof(Hwb));
     hwb->h = 244.0;
     hwb->w = 4.705;
@@ -69,14 +77,14 @@ ctest_return_t testHwbToRgb(ctest_t *test, void *arg) {
     
     Rgb *rgb = getRgbFromHwb(hwb);
     
-    CTAssertEqual(test, rgb->r, 17, "Expect R to be equal to %i but got %i", 17, rgb->r);
-    CTAssertEqual(test, rgb->g, 12, "Expect G to be equal to %i but got %i", 12, rgb->g);
-    CTAssertEqual(test, rgb->b, 93, "Expect B to be equal to %i but got %i", 93, rgb->b);
+    mu_assert_int_eq(17, rgb->r);
+    mu_assert_int_eq(12, rgb->g);
+    mu_assert_int_eq(93, rgb->b);
 
     free(rgb);
 }
 
-ctest_return_t testWhiteHwbToRgb(ctest_t *test, void *arg) {
+MU_TEST(rgb_bright_creation) {
     Hwb *hwb = malloc(sizeof(Hwb));
     hwb->h = 0.0;
     hwb->w = 100.0;
@@ -84,14 +92,14 @@ ctest_return_t testWhiteHwbToRgb(ctest_t *test, void *arg) {
     
     Rgb *rgb = getRgbFromHwb(hwb);
     
-    CTAssertEqual(test, rgb->r, 255, "Expect R to be equal to %i but got %i", 255, rgb->r);
-    CTAssertEqual(test, rgb->g, 255, "Expect G to be equal to %i but got %i", 255, rgb->g);
-    CTAssertEqual(test, rgb->b, 255, "Expect B to be equal to %i but got %i", 255, rgb->b);
+    mu_assert_int_eq(255, rgb->r);
+    mu_assert_int_eq(255, rgb->g);
+    mu_assert_int_eq(255, rgb->b);
     
     free(rgb);
 }
 
-ctest_return_t testBlackHwbToRgb(ctest_t *test, void *arg) {
+MU_TEST(rgb_dark_creation) {
     Hwb *hwb = malloc(sizeof(Hwb));
     hwb->h = 0.0;
     hwb->w = 0.0;
@@ -99,53 +107,36 @@ ctest_return_t testBlackHwbToRgb(ctest_t *test, void *arg) {
     
     Rgb *rgb = getRgbFromHwb(hwb);
     
-    CTAssertEqual(test, rgb->r, 0, "Expect R to be equal to %i but got %i", 0, rgb->r);
-    CTAssertEqual(test, rgb->g, 0, "Expect G to be equal to %i but got %i", 0, rgb->g);
-    CTAssertEqual(test, rgb->b, 0, "Expect B to be equal to %i but got %i", 0, rgb->b);
+    mu_assert_int_eq(0, rgb->r);
+    mu_assert_int_eq(0, rgb->g);
+    mu_assert_int_eq(0, rgb->b);
     
     free(rgb);
 }
 
-ctest_return_t testNullRgbFromHwb(ctest_t *test, void *arg) {
+MU_TEST(rgb_empty_params) {
     Rgb *rgb = getRgbFromHwb(NULL);
+    mu_assert_string_eq(NULL_INPUT_PARAM, rgb->error);
     
-    CTAssertStringEqual(test, rgb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
     free(rgb);
 }
 
-ctest_return_t testNullHwbFromRgb(ctest_t *test, void *arg) {
-    Hwb *hwb = getHwbFromRgb(NULL);
+MU_TEST_SUITE(hwb_suite) {
+    // Rgb -> Hwb
+    MU_RUN_TEST(hwb_creation);
+    MU_RUN_TEST(hwb_bright_creation);
+    MU_RUN_TEST(hwb_dark_creation);
+    MU_RUN_TEST(hwb_empty_params);
     
-    CTAssertStringEqual(test, hwb->error, NULL_INPUT_PARAM, "Expect Error to be equal to %s", NULL_INPUT_PARAM);
-    free(hwb);
+    // Hwb -> Rgb
+    MU_RUN_TEST(rgb_creation);
+    MU_RUN_TEST(rgb_bright_creation);
+    MU_RUN_TEST(rgb_dark_creation);
+    MU_RUN_TEST(rgb_empty_params);
 }
 
-ctcase_t *wrapHwbCreationTest() {
-    ctcase_t *hwbCase = ctcase("Hwb creation test");
-    
-    // rgb to hwb
-    ctest_t *testHwbCreation = ctest("Creation of hwb", testRgbToHwb, NULL);
-    ctest_t *testHwbWhiteCreation = ctest("Creation of a white hwb", testWhiteRgbToHwb, NULL);
-    ctest_t *testHwbBlackCreation = ctest("Creation of a black hwb", testBlackRgbToHwb, NULL);
-    
-    // hwb to rgb
-    ctest_t *testRgbCreation = ctest("Creation of Rgb", testHwbToRgb, NULL);
-    ctest_t *testWhiteRgbCreation = ctest("Creation of white Rgb", testWhiteHwbToRgb, NULL);
-    ctest_t *testBlackRgbCreation = ctest("Creation of a black Rgb", testBlackHwbToRgb, NULL);
-    
-    // Null cases
-    ctest_t *testNullHwb = ctest("Creation of an error if hwb is null", testNullRgbFromHwb, NULL);
-    ctest_t *testNullRgb = ctest("Creation of an error if rgb is null", testNullHwbFromRgb, NULL);
-
-    
-    ctctestadd(hwbCase, testHwbCreation);
-    ctctestadd(hwbCase, testHwbWhiteCreation);
-    ctctestadd(hwbCase, testHwbBlackCreation);
-    ctctestadd(hwbCase, testRgbCreation);
-    ctctestadd(hwbCase, testWhiteRgbCreation);
-    ctctestadd(hwbCase, testBlackRgbCreation);
-    ctctestadd(hwbCase, testNullHwb);
-    ctctestadd(hwbCase, testNullRgb);
-    
-    return hwbCase;
+void wrapHwbTest() {
+    MU_RUN_SUITE(hwb_suite);
+    MU_REPORT();
+    printf("End of HWB test \n");
 }
