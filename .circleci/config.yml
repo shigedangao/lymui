@@ -24,3 +24,8 @@ jobs:
           command: make run_coverage
       - codecov/upload:
           file: coverage.info
+workflows:
+  version: 2
+    test_and_build:
+      jobs:
+        - test
