@@ -6,15 +6,14 @@ OBJ_DIR = obj
 BIN_DIR = bin
 TEST_DIR = tests
 
-# CUnit directories & tests
-
-INC_LIB_DIR = lib/cunit/include
+# Minunit test configuration
+INC_LIB_DIR = ../minunit
 INC_LIB_TT  = lymui/tests
 
 # Compiler
 
 CC = gcc
-CFLAGS = -fprofile-arcs -ftest-coverage
+CFLAGS = --coverage
 CFLAG_LIB = -Wall -O2 -I$(INC_DIR)
 INC_TT = -I$(INC_DIR) -I$(INC_LIB_DIR) -I$(INC_LIB_TT) -Wall $(CFLAGS)
 
@@ -29,24 +28,37 @@ OBJECTS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(LM_SOURCES))
 
 LM_MAIN = $(SRC_DIR)/main.c
 LM_TESTS_ALL = $(LM_MAIN) $(LM_SOURCES) $(LM_TESTS_C)
-LIB_FLAGS += -Llib/cunit
-LIB_LINK  += -lcunit
 
 # Rules specific for tests cases
 
 lymdir:
 	mkdir -p $(TEST_DIR)
 
+# Build executable for unit test
+
 lym: $(LM_TESTS_ALL)
-	$(CC) -o $@ $^ $(INC_TT) $(LIB_FLAGS) $(LIB_LINK) -lm -pthread
+	$(CC) -o $@ $^ $(INC_TT)
 
 test:
 	./lym
 
+prepare_coverage:
+	for cname in $(wildcard $(SRC_DIR)/*.c); do \
+		gcov $${cname} --object-directory ./; \
+	done
+
+build_gcov:
+	for gcdo in $(wildcard ./*.gcno); do \
+		gcov $${gcdo} -b; \
+	done
+
+run_coverage:
+	lcov --directory . --capture --output-file coverage.info
+
 cleanTest:
 	rm -rf /*o *~core *.o *.gcda *.gcno *.gcov
 
-# Rules for other tasks
+# Rules for other tasks e.g Build the library
 
 all: cleanTest clean lib
 
