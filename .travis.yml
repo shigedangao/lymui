@@ -2,55 +2,36 @@ language: c
 
 matrix:
   include:
-  - os: linux
-    dist: xenial
   - os: osx
   - os: windows
 
 env:
  global:
-  - VERSION=1.2.2
-
-before_install:
-  - wget https://github.com/linux-test-project/lcov/releases/download/v1.13/lcov-1.13.tar.gz
-  - tar xf lcov-1.13.tar.gz
-  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
-      sudo make -C lcov-1.13/ install &&
-      gem install coveralls-lcov;
-    fi
+  - VERSION=1.3.0
 
 # set the compiler
 compiler:
   - gcc
 
-before_script:
-  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then lcov --directory . --zerocounters; fi
-
 script: 
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
-        sh coverage.sh &&
+        make lym
+        make test
+        make cleanTest
         make lib;
       else
-        sh coverage.sh window
+        mingw32-make.exe lym
+        mingw32-make.exe lib
+        mingw32-make.exe cleanTest
         mingw32-make.exe lib;
       fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then zip -r liblymui-linux-${VERSION}.zip bin; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -r liblymui-osx-${VERSION}.zip bin; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -r liblymui-windows-${VERSION}.zip bin; fi
-
-after_success:
-  - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
-      lcov --directory . --capture --output-file coverage.info &&
-      lcov --remove coverage.info 'tests/*' '/usr/*' 'test-library*' --output-file coverage.info &&
-      lcov --list coverage.info &&
-      coveralls-lcov  coverage.info
-    fi
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then zip -r liblymui-windows-${VERSION}.zip bin; fi
 
 before_deploy:
   # Set up git user name and tag this commit
   - git tag -a v${VERSION}-${TRAVIS_OS_NAME} -m "Lymui build ${VERSION} for ${TRAVIS_OS_NAME}"
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then git tag -a v${VERSION}-osx -m "Lymui build ${VERSION} for osx"; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then git tag -a v${VERSION}-linux -m "Lymui build ${VERSION} for linux"; fi
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then git tag -a v${VERSION}-windows -m "Lymui build ${VERSION} for windows"; fi
   - git config --local user.name ${USERNAME}
   - git config --local user.email ${EMAIL}
