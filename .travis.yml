@@ -14,7 +14,8 @@ compiler:
   - gcc
 
 before_script:
-  - git clone https://github.com/siu/minunit.git
+  - mkdir lib
+  - git clone https://github.com/siu/minunit.git lib
 
 script: 
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
@@ -39,7 +40,6 @@ before_deploy:
   - git config --local user.name ${USERNAME}
   - git config --local user.email ${EMAIL}
   - git push -q https://${GH_TOKEN}@github.com/MarcInthaamnouay/lymui --tags
-
 
 notifications:
   email:

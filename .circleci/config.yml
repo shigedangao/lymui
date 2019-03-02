@@ -4,7 +4,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: dockeryellowman/lymui-bobba:v1
+      - image: dockeryellowman/lymui-bobba:v2
     steps:
       - checkout
       - run:

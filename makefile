@@ -7,11 +7,10 @@ BIN_DIR = bin
 TEST_DIR = tests
 
 # Minunit test configuration
-INC_LIB_DIR = ../minunit
+INC_LIB_DIR = lib
 INC_LIB_TT  = lymui/tests
 
 # Compiler
-
 CC = gcc
 CFLAGS = --coverage
 CFLAG_LIB = -Wall -O2 -I$(INC_DIR)
