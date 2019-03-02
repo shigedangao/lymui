@@ -1,0 +1,26 @@
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
+jobs:
+  test:
+    docker:
+      - image: dockeryellowman/lymui-bobba:v1
+    steps:
+      - checkout
+      - run:
+          name: Build the library
+          command: make lym
+      - run:
+          name: Launch the tests
+          command: make test
+      - run:
+          name: Prepare the coverage
+          command: make prepare_coverage
+      - run:
+          name: Build the coverage
+          command: make build_coverage
+      - run:
+          name: Create coverage file
+          command: make run_coverage
+      - codecov/upload:
+          file: coverage.info
