@@ -13,6 +13,9 @@ env:
 compiler:
   - gcc
 
+before_script:
+  - git clone https://github.com/siu/minunit.git
+
 script: 
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
         make lym
