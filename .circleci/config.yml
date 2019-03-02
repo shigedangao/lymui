@@ -26,6 +26,6 @@ jobs:
           file: coverage.info
 workflows:
   version: 2
-    test_and_build:
-      jobs:
-        - test
+  test_and_build:
+    jobs:
+      - test
