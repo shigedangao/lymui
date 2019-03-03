@@ -66,7 +66,7 @@ MU_TEST(rgb_composite_hex_shorthand) {
 }
 
 MU_TEST(rgb_creation) {
-    char *hex = malloc(sizeof(char) * 6);
+    char *hex = malloc(sizeof(char) * 7);
     strcpy(hex, "050a5f");
     
     Rgb *rgb = getRGBFromHex(hex);
