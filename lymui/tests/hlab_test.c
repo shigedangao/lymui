@@ -60,7 +60,7 @@ MU_TEST(hunterlab_bright_creation) {
     HLab *lab = getHLabFromXyz(xyz);
 
     mu_assert_double_eq(100.0, roundup(lab->l, 1000));
-    mu_assert_double_eq(100.0, roundup(lab->a, 1000));
+    mu_assert_double_eq(0.0, roundup(lab->a, 1000));
     mu_assert_double_eq(0.0, roundup(lab->b, 1000));
     
     free(rgb);
