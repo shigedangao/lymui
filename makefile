@@ -36,9 +36,9 @@ lymdir:
 # Build executable for unit test
 
 lym: $(LM_TESTS_ALL)
-	$(CC) -o $@ $^ $(INC_TT)
+	$(CC) -o $@ $^ $(INC_TT) -lm
 
-test:
+tests:
 	./lym
 
 prepare_coverage:
