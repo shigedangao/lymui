@@ -20,7 +20,7 @@ Lch *getLchFromXyz(Xyz *xyz) {
     }
     
     if (xyz == NULL) {
-        lch->error = NULL_INPUT_STRUCT;
+        lch->error = NULL_INPUT_PARAM;
         return lch;
     }
     
@@ -48,7 +48,7 @@ Xyz *getXyzFromLch(Lch *lch) {
     }
     
     if (lch == NULL) {
-        errXyz->error = NULL_INPUT_STRUCT;
+        errXyz->error = NULL_INPUT_PARAM;
         return errXyz;
     }
     

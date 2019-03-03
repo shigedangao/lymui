@@ -36,7 +36,7 @@ Lab *getLabFromXyz(Xyz *xyz) {
     }
     
     if (xyz == NULL) {
-        lab->error = NULL_INPUT_STRUCT;
+        lab->error = NULL_INPUT_PARAM;
         return lab;
     }
     
@@ -44,51 +44,6 @@ Lab *getLabFromXyz(Xyz *xyz) {
     lab->a = 500.0 * (calculateDomain(xyz->x / refX) - calculateDomain(xyz->y / refY));
     lab->b = 200.0 * (calculateDomain(xyz->y / refY) - calculateDomain(xyz->z / refZ));
     lab->error = NULL;
-    
-    return lab;
-}
-
-/////// HunterLab calculation
-
-/**
- * @brief Get Ka Kb return the Ka Kb value based on the Xyz value (should exposed ?)
- * @return double Array
- */
-static double *getKaKb() {
-    double *kAkB = malloc(sizeof(double) * 2);
-    if (kAkB == NULL) {
-        return NULL;
-    }
-    
-    kAkB[0] = (175.0 / 198.04) * (Yn + Xn);
-    kAkB[1] = (70.0 / 218.11) * (Yn + Zn);
-    
-    return kAkB;
-}
-
-Lab *getHunterLabFromXyz(Xyz *xyz) {
-    Lab *lab = malloc(sizeof(Lab));
-    if (lab == NULL) {
-        return NULL;
-    }
-    
-    if (xyz == NULL) {
-        lab->error = NULL_INPUT_STRUCT;
-        return lab;
-    }
-    
-    double * kAkB = getKaKb();
-    if (kAkB == NULL) {
-        lab->error = MALLOC_ERROR;
-        return lab;
-    }
-    
-    lab->l = 100.0 * sqrt(xyz->y / Yn);
-    lab->a = 100.0 * kAkB[0] * ((xyz->x / Xn - xyz->y / Yn) / sqrtf(xyz->y / Yn));
-    lab->b = 100.0 * kAkB[1] * ((xyz->y / Yn - xyz->z / Zn) / sqrtf(xyz->y / Yn));
-    lab->error = NULL;
-    
-    free(kAkB);
     
     return lab;
 }
@@ -114,7 +69,7 @@ Xyz *getXyzFromLab(Lab *lab) {
     }
     
     if (lab == NULL) {
-        xyz->error = NULL_INPUT_STRUCT;
+        xyz->error = NULL_INPUT_PARAM;
         return xyz;
     }
     

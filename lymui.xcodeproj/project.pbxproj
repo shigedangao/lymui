@@ -16,6 +16,8 @@
 		2FAABC8721D3FD8700D47DE9 /* hwb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FAABC8621D3FD8700D47DE9 /* hwb_test.c */; };
 		2FCEF9E621E1472700F3A80B /* tsl.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FCEF9E521E1472700F3A80B /* tsl.c */; };
 		2FCEF9E821E151CA00F3A80B /* tsl_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FCEF9E721E151CA00F3A80B /* tsl_test.c */; };
+		2FE3247F2225E6B600EFA414 /* hunterlab.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FE3247E2225E6B600EFA414 /* hunterlab.c */; };
+		2FE324812225EBB800EFA414 /* hlab_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 2FE324802225EBB800EFA414 /* hlab_test.c */; };
 		9F04726F203476D1000639EA /* rgb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04726E203476D1000639EA /* rgb_test.c */; };
 		9F04727120347861000639EA /* hex_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727020347861000639EA /* hex_test.c */; };
 		9F04727320348E67000639EA /* ycbcr_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F04727220348E67000639EA /* ycbcr_test.c */; };
@@ -32,7 +34,6 @@
 		9F6F0FD0203F6FDE00113349 /* hsl_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F6F0FCF203F6FDE00113349 /* hsl_test.c */; };
 		9F83F44020358ACF00F16CF6 /* cymk.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F83F43F20358ACF00F16CF6 /* cymk.c */; };
 		9F83F4422035922A00F16CF6 /* cymk_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F83F4412035922A00F16CF6 /* cymk_test.c */; };
-		9F87675620333B1C00578E08 /* libcunit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3E797E203336B600152E72 /* libcunit.a */; };
 		9F8ABE4120A982270001F811 /* lchlab.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8ABE4020A982270001F811 /* lchlab.c */; };
 		9F8ABE4320A9925A0001F811 /* lch_lab_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8ABE4220A9925A0001F811 /* lch_lab_test.c */; };
 		9F8ABE4620A9BAE10001F811 /* xyy.c in Sources */ = {isa = PBXBuildFile; fileRef = 9F8ABE4520A9BAE10001F811 /* xyy.c */; };
@@ -79,6 +80,9 @@
 		2FCEF9E421E1472700F3A80B /* tsl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tsl.h; sourceTree = "<group>"; };
 		2FCEF9E521E1472700F3A80B /* tsl.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tsl.c; sourceTree = "<group>"; };
 		2FCEF9E721E151CA00F3A80B /* tsl_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tsl_test.c; sourceTree = "<group>"; };
+		2FE3247D2225E6B600EFA414 /* hunterlab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hunterlab.h; sourceTree = "<group>"; };
+		2FE3247E2225E6B600EFA414 /* hunterlab.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hunterlab.c; sourceTree = "<group>"; };
+		2FE324802225EBB800EFA414 /* hlab_test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hlab_test.c; sourceTree = "<group>"; };
 		2FE6F42221A6135E001E3D17 /* errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = errors.h; sourceTree = "<group>"; };
 		2FECDFFA21A7605B008F4DE5 /* xyz_constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xyz_constant.h; sourceTree = "<group>"; };
 		9F04726D203476D1000639EA /* test_header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test_header.h; sourceTree = "<group>"; };
@@ -144,7 +148,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F87675620333B1C00578E08 /* libcunit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +179,7 @@
 				2F7BBA6321E2326700E835EF /* grayscale_test.c */,
 				2F5AD93E221DFA2F00687557 /* hcl_test.c */,
 				2F4B891C221DFD7700FF0BCD /* test_helper.c */,
+				2FE324802225EBB800EFA414 /* hlab_test.c */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -206,6 +210,7 @@
 				9F3A07B12028891300CB2311 /* main.c */,
 				9F05AC0C2029208B00734C15 /* rgb.c */,
 				9F9AA8A62029DE74008A28B8 /* helper.c */,
+				2FE3247E2225E6B600EFA414 /* hunterlab.c */,
 				9F9AA8AA202A546B008A28B8 /* hex.c */,
 				9FC4EB8520319B990083637E /* ycbcr.c */,
 				9F83F43F20358ACF00F16CF6 /* cymk.c */,
@@ -264,6 +269,7 @@
 				9FFE470C20573A5300EA68D5 /* srgb.h */,
 				2FE6F42221A6135E001E3D17 /* errors.h */,
 				2FECDFFA21A7605B008F4DE5 /* xyz_constant.h */,
+				2FE3247D2225E6B600EFA414 /* hunterlab.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -326,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F4B891D221DFD7700FF0BCD /* test_helper.c in Sources */,
+				2FE3247F2225E6B600EFA414 /* hunterlab.c in Sources */,
 				9F8ABE4620A9BAE10001F811 /* xyy.c in Sources */,
 				9F4D411B20599A590031CDA5 /* argb.c in Sources */,
 				2F14302B2214C6E7003A348B /* hcl.c in Sources */,
@@ -333,6 +340,7 @@
 				2FCEF9E621E1472700F3A80B /* tsl.c in Sources */,
 				9FFE470B20572EE800EA68D5 /* xyz.c in Sources */,
 				9F8ABE4320A9925A0001F811 /* lch_lab_test.c in Sources */,
+				2FE324812225EBB800EFA414 /* hlab_test.c in Sources */,
 				9F3A07B22028891300CB2311 /* main.c in Sources */,
 				9F04726F203476D1000639EA /* rgb_test.c in Sources */,
 				9F04727120347861000639EA /* hex_test.c in Sources */,
@@ -486,26 +494,20 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
-				"EXCLUDED_SOURCE_FILE_NAMES[arch=*]" = (
-					"lymui/binding/*",
-					"lymui/binding/normalizer/*",
-				);
 				"HEADER_SEARCH_PATHS[arch=*]" = (
-					"$(SRCROOT)/lib/cunit/include",
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
 					/Users/marcintha/workspace/minunit,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/lib/cunit",
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
 					/Users/marcintha/workspace/minunit,
 				);
-				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/lib/cunit";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				NEW_SETTING = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include /Users/marcintha/.nvm/versions/node/v8.11.3/include/node";
+				USER_HEADER_SEARCH_PATHS = /Users/marcintha/.nvm/versions/node/v8.11.3/include/node;
 				lol = "";
 			};
 			name = Debug;
@@ -516,20 +518,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				EXCLUDED_SOURCE_FILE_NAMES = "";
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/lib/cunit/include",
 					/Users/marcintha/.nvm/versions/node/v8.11.3/include/node,
 					/Users/marcintha/workspace/minunit,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/lib/cunit",
 					/Users/marcintha/workspace/minunit,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				NEW_SETTING = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/cunit/include /Users/marcintha/.nvm/versions/node/v8.11.3/include/node";
+				USER_HEADER_SEARCH_PATHS = /Users/marcintha/.nvm/versions/node/v8.11.3/include/node;
 				lol = "";
 			};
 			name = Release;

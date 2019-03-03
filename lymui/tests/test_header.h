@@ -10,7 +10,6 @@
 #define rgb_test_h
 
 #include <stdio.h>
-#include <ctcase.h>
 
 /**
  * Round Up
@@ -21,44 +20,48 @@
  */
 double roundup(double value, double cell);
 
-ctcase_t *wrapRgbCreationTest(void);
+int wrapRgbTest(void);
 
-ctcase_t *wrapHexCreationTest(void);
+int wrapHexTest(void);
 
-ctcase_t *wrapYcbcrCreationTest(void);
+int wrapHueTest(void);
 
-ctcase_t *wrapCymkCreationTest(void);
+int wrapCymkTest(void);
 
-ctcase_t *wrapHueCreationTest(void);
+int wrapYcbcrTest(void);
 
-ctcase_t *wrapHslCreationTest(void);
+int wrapHslTest(void);
 
-ctcase_t *wrapHsvCreationTest(void);
+int wrapHsvTest(void);
 
-ctcase_t *wrapYuvCreationTest(void);
+int wrapYuvTest(void);
 
-ctcase_t *wrapSRgbCreationTest(void);
+int wrapGrayScaleTest(void);
 
-ctcase_t *wrapXyzCreationTest(void);
+int wrapHclTest(void);
 
-ctcase_t *wrapARgbCreationTest(void);
+int wrapHwbTest(void);
 
-ctcase_t *wrapLabCreationTest(void);
+int wrapTslTest(void);
 
-ctcase_t *wrapLuvCreationTest(void);
+int wrapXyzTest(void);
 
-ctcase_t *wrapLchCreationTest(void);
 
-ctcase_t *wrapLchLabCreationTest(void);
 
-ctcase_t *wrapXyyCreationTest(void);
+int wrapArgbTest(void);
 
-ctcase_t *wrapHwbCreationTest(void);
+int wrapSrgbTest(void);
 
-ctcase_t *wrapTslCreationTest(void);
+int wrapLabTest(void);
 
-ctcase_t *wrapGrayscaleCreationTest(void);
+int wrapHLabTest(void);
 
-void wrapHclTest(void);
+int wrapLuvTest(void);
+
+int wrapLchTest(void);
+
+int wrapLchLabTest(void);
+
+int wrapXyyTest(void);
 
 #endif /* rgb_test_h */

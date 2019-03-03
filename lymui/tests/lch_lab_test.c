@@ -8,12 +8,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <cunit.h>
+#include <minunit.h>
 #include "test_header.h"
 #include "errors.h"
 #include "lchlab.h"
 
-ctest_return_t testLchFromLab(ctest_t *test, void *arg) {
+MU_TEST(lchlab_creation) {
     Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 0.1161;
     xyz->y = 0.0497;
@@ -21,15 +21,15 @@ ctest_return_t testLchFromLab(ctest_t *test, void *arg) {
     
     LchLab *lch = getLchFromLab(xyz);
     
-    CTAssertDecimalEqual(test, lch->l, 26.64, 0.01, "Expect L to be equal to %f but got %f", 26.64, lch->l);
-    CTAssertDecimalEqual(test, lch->c, 106.18, 0.01, "Expect C to be equal to %f but got %f", 106.18, lch->c);
-    CTAssertDecimalEqual(test, lch->h, 307.23, 0.1, "Expect H to be equal to %f but got %f", 307.23, lch->h);
-    
-    free(lch);
+    mu_assert_double_eq(26.65, roundup(lch->l, 100));
+    mu_assert_double_eq(106.19, roundup(lch->c, 100));
+    mu_assert_double_eq(307.24, roundup(lch->h, 100));
+
     free(xyz);
+    free(lch);
 }
 
-ctest_return_t testWhiteLchFromLab(ctest_t *test, void *arg) {
+MU_TEST(lchlab_bright_creation) {
     Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 0.9505;
     xyz->y = 1.0;
@@ -37,15 +37,15 @@ ctest_return_t testWhiteLchFromLab(ctest_t *test, void *arg) {
     
     LchLab *lch = getLchFromLab(xyz);
     
-    CTAssertDecimalEqual(test, lch->l, 100.0, 0.1, "Expect L to be equal to %f but got %f", 100.0, lch->l);
-    CTAssertDecimalEqual(test, lch->c, 0.0, 0.01, "Expect C to be equal to %f but got %f", 0.0, lch->c);
-    CTAssertDecimalEqual(test, lch->h, 19.24, 0.1, "Expect H to be equal to %f but got %f", 19.24, lch->h);
+    mu_assert_double_eq(100.0, roundup(lch->l, 100));
+    mu_assert_double_eq(0.006, roundup(lch->c, 1000));
+    mu_assert_double_eq(19.25, roundup(lch->h, 100));
     
-    free(lch);
     free(xyz);
+    free(lch);
 }
 
-ctest_return_t testDarkLchFromLab(ctest_t *test, void *arg) {
+MU_TEST(lchlab_dark_creation) {
     Xyz *xyz = malloc(sizeof(Xyz));
     xyz->x = 0.0;
     xyz->y = 0.0;
@@ -53,72 +53,62 @@ ctest_return_t testDarkLchFromLab(ctest_t *test, void *arg) {
     
     LchLab *lch = getLchFromLab(xyz);
     
-    CTAssertDecimalEqual(test, lch->l, 0.0, 0.1, "Expect L to be equal to %f but got %f", 0.0, lch->l);
-    CTAssertDecimalEqual(test, lch->c, 0.0, 0.1, "Expect C to be equal to %f but got %f", 0.0, lch->c);
-    CTAssertDecimalEqual(test, lch->h, 0.0, 0.1, "Expect H to be equal to %f but got %f", 0.0, lch->h);
+    mu_assert_double_eq(0.0, lch->l);
+    mu_assert_double_eq(0.0, lch->c);
+    mu_assert_double_eq(0.0, lch->h);
     
-    free(lch);
     free(xyz);
+    free(lch);
 }
 
+MU_TEST(lchlab_empty_params) {
+    LchLab *lch = getLchFromLab(NULL);
+    mu_assert_string_eq(NULL_INPUT_PARAM, lch->error);
+    
+    free(lch);
+}
 
-ctest_return_t testXyzFromLchLab(ctest_t *test, void *arg) {
+MU_TEST(xyz_creation) {
     Xyz *xyz = malloc(sizeof(Xyz));
-    xyz->x = 0.51;
-    xyz->y = 0.52;
-    xyz->z = 0.55;
+    xyz->x = 0.1161;
+    xyz->y = 0.0497;
+    xyz->z = 0.5376;
     
     LchLab *lch = getLchFromLab(xyz);
-    CTAssertDecimalEqual(test, 77.28, lch->l, 0.01, "Expect L to be equal to %f but got %f", 77.28, lch->l);
-    CTAssertDecimalEqual(test, 4.50, lch->c, 0.01, "Expect C to be equal to %f but got %f", 4.50, lch->c);
-    CTAssertDecimalEqual(test, 20.10, lch->h, 0.01, "Expect H to be equal to %f but got %f", 20.10, lch->h);
-
-    
     Xyz *nXyz = getXyzFromLchlab(lch);
     
-    CTAssertDecimalEqual(test, 0.51, nXyz->x, 0.01, "Expect X to be equal to %f but got %f", 0.51, nXyz->x);
-    CTAssertDecimalEqual(test, 0.52, nXyz->y, 0.01, "Expect Y to be equal to %f but got %f", 0.52, nXyz->y);
-    CTAssertDecimalEqual(test, 0.55, nXyz->z, 0.01, "Expect Z to be equal to %f but got %f", 0.56, nXyz->z);
-
-    free(nXyz);
-    free(xyz);
-}
-
-ctest_return_t testLabLchNull(ctest_t *test, void *arg) {
-    LchLab *lch = getLchFromLab(NULL);
-    CTAssertStringEqual(test, lch->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+    mu_assert_double_eq(0.1161, roundup(xyz->x, 10000));
+    mu_assert_double_eq(0.0497, roundup(xyz->y, 10000));
+    mu_assert_double_eq(0.5376, roundup(xyz->z, 10000));
     
+    free(xyz);
     free(lch);
+    free(nXyz);
 }
 
-ctest_return_t testXyzLchlabNull(ctest_t *test, void *arg) {
+MU_TEST(xyz_empty_params) {
     Xyz *xyz = getXyzFromLchlab(NULL);
-    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
-
+    mu_assert_string_eq(NULL_INPUT_PARAM, xyz->error);
+    
     free(xyz);
 }
 
-
-ctcase_t * wrapLchLabCreationTest() {
-    ctcase_t *lchLabCase = ctcase("Lch Lab test case");
+MU_TEST_SUITE(lchlab_suite) {
+    // Xyz -> LchLab
+    MU_RUN_TEST(lchlab_creation);
+    MU_RUN_TEST(lchlab_bright_creation);
+    MU_RUN_TEST(lchlab_dark_creation);
+    MU_RUN_TEST(lchlab_empty_params);
     
-    // lch test case
-    ctest_t *testLchLab = ctest("Creation of a LchLab from an Xyz struct", testLchFromLab, NULL);
-    ctest_t *testWhiteLchLab = ctest("Creation of a white LchLab from an Xyz struct", testWhiteLchFromLab, NULL);
-    ctest_t *testDarkLchLab = ctest("Creation of a dark LchLab from XYZ struct", testDarkLchFromLab, NULL);
-    // xyz to lch test case
-    ctest_t *testXyzLchlab = ctest("Creation of a Xyz from an Lchlab struct", testXyzFromLchLab, NULL);
-    
-    ctest_t *testLablchNull    = ctest("Creation of a NULL Lch from a NULL Xyz", testLabLchNull, NULL);
-    ctest_t *testXyzLchlabNull = ctest("Creation of a NULL Lch from a NULL Xyz", testLabLchNull, NULL);
-
-    ctctestadd(lchLabCase, testLchLab);
-    ctctestadd(lchLabCase, testWhiteLchLab);
-    ctctestadd(lchLabCase, testDarkLchLab);
-    ctctestadd(lchLabCase, testXyzLchlab);
-    ctctestadd(lchLabCase, testLablchNull);
-    ctctestadd(lchLabCase, testXyzLchlabNull);
-    
-    return lchLabCase;
+    // LchLab -> Xyz
+    MU_RUN_TEST(xyz_creation);
+    MU_RUN_TEST(xyz_empty_params);
 }
 
+int wrapLchLabTest() {
+    MU_RUN_SUITE(lchlab_suite);
+    MU_REPORT();
+    printf("End of LCH_LAB test \n");
+    
+    return minunit_fail;
+}

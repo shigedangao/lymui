@@ -51,7 +51,7 @@ Argb *getARgbFromXyz(Xyz *xyz) {
     }
     
     if (xyz == NULL) {
-        argb->error = NULL_INPUT_STRUCT;
+        argb->error = NULL_INPUT_PARAM;
         return argb;
     }
     

@@ -11,5 +11,5 @@
 #include "test_header.h"
 
 double roundup(double value, double cell) {
-    return ceilf(value * cell) / cell;
+    return round(value * cell) / cell;
 }

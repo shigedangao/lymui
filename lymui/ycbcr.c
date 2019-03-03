@@ -51,7 +51,7 @@ Ycbcr *getYcbcrFromRgb(Rgb *rgb) {
     }
     
     if (rgb == NULL) {
-        v->error = NULL_INPUT_STRUCT;
+        v->error = NULL_INPUT_PARAM;
         return v;
     }
     
@@ -75,7 +75,7 @@ Ycbcr *getYcbcrFromRgb(Rgb *rgb) {
 Rgb *getRgbFromYcbcr(Ycbcr *cb) {
     Rgb *rgb = initRgb();
     if (cb == NULL) {
-        rgb->error = NULL_INPUT_STRUCT;
+        rgb->error = NULL_INPUT_PARAM;
         return rgb;
     }
     

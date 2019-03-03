@@ -10,6 +10,13 @@
 #include "errors.h"
 #include "xyy.h"
 
+/**
+ * @brief Calculate the x & y value
+ * @param v double
+ * @param xyz *Xyz
+ * @param x uint8_t
+ * @return double
+ */
 static double calculateXyyValue(double v, Xyz *xyz, uint8_t x) {
     uint8_t cond = !xyz->x && !xyz->y && !xyz->z;
     if (!cond)
@@ -22,13 +29,13 @@ static double calculateXyyValue(double v, Xyz *xyz, uint8_t x) {
 }
 
 Xyy *getXyyFromXyz(Xyz *xyz) {
-    Xyy * xyy = malloc(sizeof(Xyy));
+    Xyy *xyy = malloc(sizeof(Xyy));
     if (xyy == NULL) {
         return NULL;
     }
     
     if (xyz == NULL) {
-        xyy->error = NULL_INPUT_STRUCT;
+        xyy->error = NULL_INPUT_PARAM;
         return xyy;
     }
     
@@ -47,7 +54,7 @@ Xyz *getXyzFromXyy(Xyy *xyy) {
     }
     
     if (xyy == NULL) {
-        xyz->error = NULL_INPUT_STRUCT;
+        xyz->error = NULL_INPUT_PARAM;
         return xyz;
     }
     

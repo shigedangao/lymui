@@ -1,1 +1,0 @@
-Folder should contain cunit generate includes
