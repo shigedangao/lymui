@@ -22,8 +22,12 @@ pool:
   vmImage: $(imageName)
 
 steps:
-- script: sudo apt-get install lcov
-  displayName: 'install lcov'
+- bash: sudo apt-get install lcov
+  condition: eq( variables['Agent.OS'], 'Linux' )
+  displayName: 'install lcov for linux'
+- bash: brew install lcov
+  condition: eq( variables['Agent.OS'], 'Darwin' )
+  displayName: 'install lcov for osx'
 - script: git clone https://github.com/siu/minunit lib
   displayName: 'clone minunit test lib'
 - script: sh cover.sh
