@@ -19,14 +19,14 @@ before_script:
 
 script: 
   - if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then 
-        make lym
-        make test
-        make cleanTest
+        make lym && \
+        make test && \
+        make cleanTest && \
         make lib;
       else
-        mingw32-make.exe lym
-        mingw32-make.exe lib
-        mingw32-make.exe cleanTest
+        mingw32-make.exe lym && \
+        mingw32-make.exe lib && \
+        mingw32-make.exe cleanTest && \
         mingw32-make.exe lib;
       fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then zip -r liblymui-osx-${VERSION}.zip bin; fi
