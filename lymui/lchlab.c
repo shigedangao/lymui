@@ -20,7 +20,7 @@ LchLab *getLchFromLab(Xyz *xyz) {
     }
     
     if (xyz == NULL) {
-        lch->error = NULL_INPUT_STRUCT;
+        lch->error = NULL_INPUT_PARAM;
         return lch;
     }
     
@@ -34,6 +34,7 @@ LchLab *getLchFromLab(Xyz *xyz) {
     lch->c = sqrt(pow(lab->a, 2.0) + pow(lab->b, 2.0));
     lch->error = NULL;
     double h = getDegFromRad(atan2(lab->b, lab->a));
+    
     if (h >= 0.0) {
         lch->h = h;
     } else {
@@ -52,7 +53,7 @@ Xyz *getXyzFromLchlab(LchLab *lch) {
     }
     
     if (lch == NULL) {
-        errXyz->error = NULL_INPUT_STRUCT;
+        errXyz->error = NULL_INPUT_PARAM;
         return errXyz;
     }
     // Get the lab first

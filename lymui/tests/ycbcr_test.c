@@ -7,72 +7,73 @@
 //
 
 #include <stdio.h>
-#include <cunit.h>
 #include <stdlib.h>
+#include <minunit.h>
 #include "test_header.h"
 #include "errors.h"
 #include "ycbcr.h"
 #include "rgb.h"
 
-ctest_return_t testYcbcrCreation(ctest_t *test, void *arg) {
-    uint8_t uc[] = {0, 100, 200};
-    Rgb *rgb     = makeRGB(uc, 3);
+MU_TEST(ycbcr_creation) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 0;
+    rgb->g = 100;
+    rgb->b = 200;
+    
     Ycbcr *ycbcr = getYcbcrFromRgb(rgb);
     
-    CTAssertEqual(test, 86, ycbcr->y, "Expect Y to be equal to %i but got %i", ycbcr->y, 86);
-    CTAssertEqual(test, 187, ycbcr->cb, "Expect Cb to be equal to %i but got %i", ycbcr->cb, 186);
-    CTAssertEqual(test, 77, ycbcr->cr, "Expect Cr to be equal to %i but got %i", ycbcr->cr, 100);
-    
+    mu_assert_int_eq(86, ycbcr->y);
+    mu_assert_int_eq(187, ycbcr->cb);
+    mu_assert_int_eq(77, ycbcr->cr);
+
     free(rgb);
     free(ycbcr);
 }
 
-ctest_return_t testYcbcrNullCreation(ctest_t *test, void *arg) {
-    Rgb *rgb = NULL;
-    Ycbcr *ycbcr = getYcbcrFromRgb(rgb);
+MU_TEST(ycbcr_empty_param) {
+    Ycbcr *ycbcr = getYcbcrFromRgb(NULL);
+    mu_assert_string_eq("The imput param is empty", ycbcr->error);
     
-    CTAssertStringEqual(test, ycbcr->error, NULL_INPUT_STRUCT, "Expect to return a string message error", NULL_INPUT_STRUCT);
-    
-    free(rgb);
     free(ycbcr);
 }
 
-ctest_return_t testUintCreationFromYcbcr(ctest_t *test, void *arg) {
-    Ycbcr *ycbcr = malloc(sizeof( Ycbcr));
+MU_TEST(rgb_creation) {
+    Ycbcr *ycbcr = malloc(sizeof(Ycbcr));
     
     ycbcr->y  = 86;
     ycbcr->cb = 186;
     ycbcr->cr = 77;
     
     Rgb *rgb = getRgbFromYcbcr(ycbcr);
-    CTAssertEqual(test, 0, rgb->r, "Expect R to be equal to %i but got %i", 0, rgb->r);
-    CTAssertEqual(test, 100, rgb->g, "Expect G to be equal to %i but got %i", 100, rgb->g);
-    CTAssertEqual(test, 199, rgb->b, "Expect B to be equal to %i but got %i", 198, rgb->b);
+    
+    mu_assert_int_eq(0, rgb->r);
+    mu_assert_int_eq(100, rgb->g);
+    mu_assert_int_eq(199, rgb->b);
     
     free(rgb);
 }
 
-ctest_return_t testUintNullCreationFromYcbcr(ctest_t *test, void *arg) {
+MU_TEST(rgb_empty_param) {
     Rgb *rgb = getRgbFromYcbcr(NULL);
-    CTAssertStringEqual(test, rgb->error, NULL_INPUT_STRUCT, "Expect to return a string message error", NULL_INPUT_STRUCT);
+    mu_assert_string_eq("The imput param is empty", rgb->error);
     
     free(rgb);
 }
 
-ctcase_t *wrapYcbcrCreationTest() {
-    ctcase_t *ycbcrTest = ctcase("Ycbcr test case");
+MU_TEST_SUITE(ycbcr_suite) {
+    // Rgb -> ycbcr
+    MU_RUN_TEST(ycbcr_creation);
+    MU_RUN_TEST(ycbcr_empty_param);
     
-    // Create test case
-    ctest_t *testYcbcr = ctest("Creation of a YCbCr from RGB", testYcbcrCreation, NULL);
-    ctest_t *testYcbcrNull = ctest("Creation of a NULL YCbCr from NULL Rgb", testYcbcrNullCreation, NULL);
-    ctest_t *testRgb = ctest("Create of a RGB from YCbCr", testUintCreationFromYcbcr, NULL);
-    ctest_t *testRgbNull = ctest("Create of a NULL RGB from NULL YCbCr", testUintNullCreationFromYcbcr, NULL);
+    // Ycbcr -> rgb
+    MU_RUN_TEST(rgb_creation);
+    MU_RUN_SUITE(rgb_empty_param);
+}
+
+int wrapYcbcrTest() {
+    MU_RUN_SUITE(ycbcr_suite);
+    MU_REPORT();
+    printf("End of Ycbcr test \n");
     
-    // add test case
-    ctctestadd(ycbcrTest, testYcbcr);
-    ctctestadd(ycbcrTest, testYcbcrNull);
-    ctctestadd(ycbcrTest, testRgb);
-    ctctestadd(ycbcrTest, testRgbNull);
-    
-    return ycbcrTest;
+    return minunit_fail;
 }

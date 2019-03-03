@@ -17,28 +17,21 @@
  * @param x double
  * @param y double
  * @param z double
- * @return params double * array
+ * @return LuvCompounds
  */
-static double *calculateParams(double x, double y, double z) {
-    double *params = malloc(sizeof(double) * 2);
-    if (params == NULL) {
-        return NULL;
-    }
-    
+static LuvCompounds calculateParams(double x, double y, double z) {
+    LuvCompounds compounds;
     if (!x && !y && !z) {
-        params[0] = 0.0;
-        params[1] = 0.0;
+        compounds.u = 0.0;
+        compounds.v = 0.0;
         
-        return params;
+        return compounds;
     }
     
-    double u = (4.0 * x) / (x + 15.0 * y + 3.0 * z);
-    double v = (9.0 * y) / (x + 15.0 * y + 3.0 * z);
+    compounds.u = (4.0 * x) / (x + 15.0 * y + 3.0 * z);
+    compounds.v = (9.0 * y) / (x + 15.0 * y + 3.0 * z);
     
-    params[0] = u;
-    params[1] = v;
-    
-    return params;
+    return compounds;
 }
 
 Luv *getLuvFromXyz(Xyz *xyz) {
@@ -48,20 +41,15 @@ Luv *getLuvFromXyz(Xyz *xyz) {
     }
     
     if (xyz == NULL) {
-        luv->error = NULL_INPUT_STRUCT;
+        luv->error = NULL_INPUT_PARAM;
         return luv;
     }
     
     double l = 0.0f;
     // Calculate the nYr value
     double y = xyz->y / Yn;
-    double *uv  = calculateParams(xyz->x, xyz->y, xyz->z);
-    double *urv = calculateParams(Xn, Yn, Zn);
-    
-    if (uv == NULL && urv == NULL) {
-        luv->error = MALLOC_ERROR;
-        return luv;
-    }
+    LuvCompounds uv  = calculateParams(xyz->x, xyz->y, xyz->z);
+    LuvCompounds urv = calculateParams(Xn, Yn, Zn);
     
     if (y > e)
         l = 116.0 * powf(y, 1.0 / 3.0) - 16.0;
@@ -69,12 +57,9 @@ Luv *getLuvFromXyz(Xyz *xyz) {
         l = ko * y;
     
     luv->l = l;
-    luv->u = 13.0 * l * (uv[0] - urv[0]);
-    luv->v = 13.0 * l * (uv[1] - urv[1]);
+    luv->u = 13.0 * l * (uv.u - urv.u);
+    luv->v = 13.0 * l * (uv.v - urv.v);
     luv->error = NULL;
-    
-    free(urv);
-    free(uv);
     
     return luv;
 }
@@ -94,31 +79,20 @@ static double calculateYValue(double l) {
 /**
  * @discussion Calculate Xyz Params Calculate the required params for converting a luv to an xyz
  * @param luv  Luv pointer
- * @return *double params
+ * @return XyzCompounds
  */
-static double *calculateXyzParams(Luv *luv) {
+static XyzCompounds calculateXyzParams(Luv *luv) {
+    XyzCompounds compounds;
+    
     // calculate the u0 and v0 value
-    double *ur = calculateParams(Xn, Yn, Zn);
-    double y = calculateYValue(luv->l);
-    double a = (1.0 / 3.0) * ((52.0 * luv->l) / (luv->u + 13.0 * luv->l * ur[0]) - 1.0);
-    double b = -5.0 * y;
-    double c = -1.0 / 3.0;
-    double d = y * ((39.0 * luv->l) / (luv->v + 13.0 * luv->l * ur[1]) - 5.0);
+    LuvCompounds ur = calculateParams(Xn, Yn, Zn);
+    compounds.y = calculateYValue(luv->l);
+    compounds.a = (1.0 / 3.0) * ((52.0 * luv->l) / (luv->u + 13.0 * luv->l * ur.u) - 1.0);
+    compounds.b = -5.0 * compounds.y;
+    compounds.c = -1.0 / 3.0;
+    compounds.d = compounds.y * ((39.0 * luv->l) / (luv->v + 13.0 * luv->l * ur.v) - 5.0);
     
-    double *params = malloc(sizeof(double) * 5);
-    if (params == NULL) {
-        return NULL;
-    }
-    
-    params[0] = a;
-    params[1] = b;
-    params[2] = c;
-    params[3] = d;
-    params[4] = y;
-    
-    free(ur);
-    
-    return params;
+    return compounds;
 }
 
 Xyz *getXyzFromLuv(Luv *luv) {
@@ -128,17 +102,12 @@ Xyz *getXyzFromLuv(Luv *luv) {
     }
     
     if (luv == NULL) {
-        xyz->error = NULL_INPUT_STRUCT;
+        xyz->error = NULL_INPUT_PARAM;
         return xyz;
     }
     
     // Calculate the Y value use by other formula...
-    double *params = calculateXyzParams(luv);
-    if (params == NULL) {
-        xyz->error = MALLOC_ERROR;
-        return xyz;
-    }
-    
+    XyzCompounds compounds = calculateXyzParams(luv);
     xyz->error = NULL;
     if (!luv->u && !luv->l) {
         xyz->x = 0;
@@ -148,15 +117,13 @@ Xyz *getXyzFromLuv(Luv *luv) {
         return xyz;
     }
     
-    double tempX = (params[3] - params[1]) / (params[0] - params[2]);
-    
+    double tempX = (compounds.d - compounds.b) / (compounds.a - compounds.c);
     xyz->x = tempX;
-    xyz->y = params[4];
-    xyz->z = (tempX * params[0] + params[1]);
+    xyz->y = compounds.y;
+    xyz->z = (tempX * compounds.a + compounds.b);
     xyz->error = NULL;
     
     free(luv);
-    free(params);
     
     return xyz;
 }

@@ -9,65 +9,49 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <cunit.h>
 #include "rgb.h"
 #include "hex.h"
 #include "ycbcr.h"
 #include "test_header.h"
 
 int main(int argc, const char * argv[]) {
+    uint8_t idx = 0;
+    int fail = 0;
+    int suites[21];
     // Create suite case
-    ctsuite_t *suite = ctsuite("Lymui test");
-    ctcase_t  *rgb   = wrapRgbCreationTest();
-    ctcase_t  *hex   = wrapHexCreationTest();
-    ctcase_t  *ycbcr = wrapYcbcrCreationTest();
-    ctcase_t  *cymk  = wrapCymkCreationTest();
-    ctcase_t  *hue   = wrapHueCreationTest();
-    ctcase_t  *hsl   = wrapHslCreationTest();
-    ctcase_t  *hsv   = wrapHsvCreationTest();
-    ctcase_t  *yuv   = wrapYuvCreationTest();
-    ctcase_t  *srgb  = wrapSRgbCreationTest();
-    ctcase_t  *xyz   = wrapXyzCreationTest();
-    ctcase_t  *argb  = wrapARgbCreationTest();
-    ctcase_t  *lab   = wrapLabCreationTest();
-    ctcase_t  *luv   = wrapLuvCreationTest();
-    ctcase_t  *lch   = wrapLchCreationTest();
-    ctcase_t  *lchLab= wrapLchLabCreationTest();
-    ctcase_t  *xyy   = wrapXyyCreationTest();
-    ctcase_t  *hwb   = wrapHwbCreationTest();
-    ctcase_t  *tsl   = wrapTslCreationTest();
-    ctcase_t  *gray  = wrapGrayscaleCreationTest();
     
-    // Launch suite
-    ctscaseadd(suite, rgb);
-    ctscaseadd(suite, hex);
-    ctscaseadd(suite, ycbcr);
-    ctscaseadd(suite, cymk);
-    ctscaseadd(suite, hue);
-    ctscaseadd(suite, hsl);
-    ctscaseadd(suite, hsv);
-    ctscaseadd(suite, yuv);
-    ctscaseadd(suite, srgb);
-    ctscaseadd(suite, xyz);
-    ctscaseadd(suite, argb);
-    ctscaseadd(suite, lab);
-    ctscaseadd(suite, luv);
-    ctscaseadd(suite, lch);
-    ctscaseadd(suite, lchLab);
-    ctscaseadd(suite, xyy);
-    ctscaseadd(suite, hwb);
-    ctscaseadd(suite, tsl);
-    ctscaseadd(suite, gray);
-    ctsrun(suite);
+    suites[0] = wrapRgbTest();
+    suites[1] = wrapHexTest();
+    suites[2] = wrapHueTest();
+    suites[3] = wrapCymkTest();
+    suites[4] = wrapYcbcrTest();
+    suites[5] = wrapHslTest();
+    suites[6] = wrapHsvTest();
+    suites[7] = wrapYuvTest();
+    suites[8] = wrapGrayScaleTest();
+    suites[9] = wrapHclTest();
+    suites[10] = wrapHwbTest();
     
-    uint8_t failNb = suite->failed;
+    suites[11] = wrapXyzTest();
+    suites[12] = wrapArgbTest();
+    suites[13] = wrapSrgbTest();
+    suites[14] = wrapLabTest();
+    suites[15] = wrapHLabTest();
+    suites[16] = wrapLuvTest();
+    suites[17] = wrapLchTest();
+    suites[18] = wrapLchLabTest();
+    suites[19] = wrapXyyTest();
+    suites[20] = wrapTslTest();
+
+    while (idx < sizeof(suites) / sizeof(suites[0])) {
+        if (suites[idx]) {
+            fail = -1;
+            idx = sizeof(suites) + 2;
+        }
+        
+        idx++;
+    }
     
-    // free the suite
-    ctsfree(suite);
-    
-    if (failNb > 0)
-        return -1;
-    
-    return 0;
+    return fail;
 }
 

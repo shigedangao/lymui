@@ -111,7 +111,7 @@ Xyz *getXyzFromRgb(Rgb *rgb, enum Matrix m) {
     }
     
     if (rgb == NULL) {
-        xyz->error = NULL_INPUT_STRUCT;
+        xyz->error = NULL_INPUT_PARAM;
         return xyz;
     }
     
@@ -183,7 +183,7 @@ Rgb *getRgbFromXyz(Xyz * xyz, Matrix m) {
     }
     
     if (xyz == NULL) {
-        rgb->error = NULL_INPUT_STRUCT;
+        rgb->error = NULL_INPUT_PARAM;
         return rgb;
     }
     

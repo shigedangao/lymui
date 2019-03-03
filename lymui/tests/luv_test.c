@@ -8,14 +8,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <cunit.h>
+#include <minunit.h>
 #include "test_header.h"
 #include "errors.h"
 #include "xyz.h"
 #include "luv.h"
 #include "helper.h"
 
-ctest_return_t testLuvFromXyz(ctest_t *test, void *arg) {
+MU_TEST(luv_creation) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 5;
     rgb->g = 10;
@@ -24,16 +24,16 @@ ctest_return_t testLuvFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 9.603, luv->l, 0.001, "Expect L to be equal to %f but got %f", 9.603, luv->l);
-    CTAssertDecimalEqual(test, -2.851, luv->u, 0.001, "Expect u to be equal to %f but got %f", -2.851, luv->u);
-    CTAssertDecimalEqual(test, -34.829, luv->v, 0.001, "Expect V to be equal to %f but got %f", -34.829, luv->v);
+    mu_assert_double_eq(9.603, roundup(luv->l, 1000));
+    mu_assert_double_eq(-2.851, roundup(luv->u, 1000));
+    mu_assert_double_eq(-34.829, roundup(luv->v, 1000));
 
-    free(luv);
     free(rgb);
     free(xyz);
+    free(luv);
 }
 
-ctest_return_t testSuperiorYLuvFromXyz(ctest_t *test, void *arg) {
+MU_TEST(luv_superior_y_creation) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 200;
     rgb->g = 255;
@@ -42,34 +42,16 @@ ctest_return_t testSuperiorYLuvFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 96.417, luv->l, 0.001, "Expect L to be equal to %f but got %f", 96.417, luv->l);
-    CTAssertDecimalEqual(test, -27.734, luv->u, 0.001, "Expect U to be equal to %f but got %f", -27.734, luv->u);
-    CTAssertDecimalEqual(test, -5.983, luv->v, 0.001, "Expect V to be equal to %f but got %f", -5.983, luv->v);
+    mu_assert_double_eq(96.417, roundup(luv->l, 1000));
+    mu_assert_double_eq(-27.735, roundup(luv->u, 1000));
+    mu_assert_double_eq(-5.983, roundup(luv->v, 1000));
     
-    free(luv);
     free(rgb);
     free(xyz);
-}
-
-ctest_return_t testWhiteLuvFromXyz(ctest_t *test, void *arg) {
-    Rgb * rgb = malloc(sizeof(Rgb));
-    rgb->r = 255;
-    rgb->g = 255;
-    rgb->b = 255;
-    
-    Xyz *xyz = getXyzFromRgb(rgb, srgb);
-    Luv *luv = getLuvFromXyz(xyz);
-    
-    CTAssertDecimalEqual(test, 100.0, luv->l, 0.01, "Expect L to be equal to %f but got %f", 100.0, luv->l);
-    CTAssertDecimalEqual(test, 0.0, luv->u, 0.01, "Expect U to be equal to %f but got %f", 0.0, luv->u);
-    CTAssertDecimalEqual(test, 0.0, luv->v, 0.01, "Expect V to be equal to %f but got %f", 0.0, luv->v);
-
     free(luv);
-    free(rgb);
-    free(xyz);
 }
 
-ctest_return_t testInferiorYLuvFromXyz(ctest_t *test, void *arg) {
+MU_TEST(luv_inferior_y_creation) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 5;
     rgb->g = 1;
@@ -78,38 +60,16 @@ ctest_return_t testInferiorYLuvFromXyz(ctest_t *test, void *arg) {
     Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
     
-    CTAssertDecimalEqual(test, 0.487, luv->l, 0.001, "Expect L to be equal to %f but got %f", 0.487, luv->l);
-    CTAssertDecimalEqual(test, 0.808, luv->u, 0.001, "Expect U to be equal to %f but got %f", 0.808, luv->u);
-    CTAssertDecimalEqual(test, 0.442, luv->v, 0.001, "Expect V to be equal to %f but got %f", 0.442, luv->v);
-
-    free(luv);
+    mu_assert_double_eq(0.488, roundup(luv->l, 1000));
+    mu_assert_double_eq(0.809, roundup(luv->u, 1000));
+    mu_assert_double_eq(0.442, roundup(luv->v, 1000));
+    
     free(rgb);
     free(xyz);
-}
-
-ctest_return_t testNullLuv(ctest_t *test, void *arg) {
-    Luv *luv = getLuvFromXyz(NULL);
-    CTAssertStringEqual(test, luv->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
-    
     free(luv);
 }
 
-ctest_return_t testXyzFromLuv(ctest_t *test, void *arg) {
-    Luv *luv = malloc(sizeof(Luv));
-    luv->l = 5.0;
-    luv->u = 1.0;
-    luv->v = 0.0;
-    
-    Xyz *xyz = getXyzFromLuv(luv);
-    
-    CTAssertDecimalEqual(test, 0.00567, xyz->x, 0.0001, "Expect X to be equal to %f but got %f", 0.00567, xyz->x);
-    CTAssertDecimalEqual(test, 0.00554, xyz->y, 0.0001, "Expect Y to be equal to %f but got %f", 0.00554, xyz->y);
-    CTAssertDecimalEqual(test, 0.00589, xyz->z, 0.0001, "Expect Z to be equal to %f but got %f", 0.00589, xyz->z);
-    
-    free(xyz);
-}
-
-ctest_return_t testHighXyzFromLuv(ctest_t *test, void *arg) {
+MU_TEST(luv_bright_creation) {
     Rgb *rgb = malloc(sizeof(Rgb));
     rgb->r = 255;
     rgb->g = 255;
@@ -117,54 +77,124 @@ ctest_return_t testHighXyzFromLuv(ctest_t *test, void *arg) {
     
     Xyz *xyz = getXyzFromRgb(rgb, srgb);
     Luv *luv = getLuvFromXyz(xyz);
+    
+    mu_assert_double_eq(100.0, roundup(luv->l, 1000));
+    mu_assert_double_eq(0.0, roundup(luv->u, 1000));
+    mu_assert_double_eq(0.0, roundup(luv->v, 1000));
+    
+    free(rgb);
+    free(xyz);
+    free(luv);
+}
 
+MU_TEST(luv_dark_creation) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 0;
+    rgb->g = 0;
+    rgb->b = 0;
+    
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
+    Luv *luv = getLuvFromXyz(xyz);
+    
+    mu_assert_double_eq(0.0, roundup(luv->l, 1000));
+    mu_assert_double_eq(0.0, roundup(luv->u, 1000));
+    mu_assert_double_eq(0.0, roundup(luv->v, 1000));
+    
+    free(rgb);
+    free(xyz);
+    free(luv);
+}
+
+MU_TEST(luv_empty_params) {
+    Luv *luv = getLuvFromXyz(NULL);
+    mu_assert_string_eq(NULL_INPUT_PARAM, luv->error);
+    
+    free(luv);
+}
+
+MU_TEST(xyz_creation) {
+    Luv *luv = malloc(sizeof(Luv));
+    luv->l = 5.0;
+    luv->u = 1.0;
+    luv->v = 0.0;
+    
+    Xyz *xyz = getXyzFromLuv(luv);
+    
+    mu_assert_double_eq(0.00567, roundup(xyz->x, 100000));
+    mu_assert_double_eq(0.00554, roundup(xyz->y, 100000));
+    mu_assert_double_eq(0.00589, roundup(xyz->z, 100000));
+    
+    free(xyz);
+}
+
+MU_TEST(xyz_bright_creation) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 255;
+    rgb->g = 255;
+    rgb->b = 255;
+    
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
+    Luv *luv = getLuvFromXyz(xyz);
     // get back the xyz
     Xyz *nXyz = getXyzFromLuv(luv);
     
-    CTAssertDecimalEqual(test, 0.950, nXyz->x, 0.001, "Expect X to be equal to %f but got %f", 0.950, nXyz->x);
-    CTAssertDecimalEqual(test, 0.9998, nXyz->y, 0.001, "Expect Y to be equal to %f but got %f", 0.9998, nXyz->y);
-    CTAssertDecimalEqual(test, 1.0890, nXyz->z, 0.001, "Expect Z to be equal to %f but got %f", 1.0890, nXyz->z);
-
-    free(nXyz);
+    mu_assert_double_eq(0.9505, roundup(nXyz->x, 10000));
+    mu_assert_double_eq(1.0000, roundup(nXyz->y, 10000));
+    mu_assert_double_eq(1.0888, roundup(nXyz->z, 10000));
+    
     free(rgb);
     free(xyz);
+    free(nXyz);
 }
 
-ctest_return_t testNullXyz(ctest_t *test, void *arg) {
-    Xyz *xyz = getXyzFromLuv(NULL);
-    CTAssertStringEqual(test, xyz->error, NULL_INPUT_STRUCT, "Expect Error to be equal to %s", NULL_INPUT_STRUCT);
+MU_TEST(xyz_dark_creation) {
+    Rgb *rgb = malloc(sizeof(Rgb));
+    rgb->r = 0;
+    rgb->g = 0;
+    rgb->b = 0;
+    
+    Xyz *xyz = getXyzFromRgb(rgb, srgb);
+    Luv *luv = getLuvFromXyz(xyz);
+    // get back the xyz
+    Xyz *nXyz = getXyzFromLuv(luv);
+    
+    mu_assert_double_eq(0.0, roundup(nXyz->x, 10));
+    mu_assert_double_eq(0.0, roundup(nXyz->y, 10));
+    mu_assert_double_eq(0.0, roundup(nXyz->z, 10));
+    
+    free(rgb);
+    free(xyz);
+    free(nXyz);
+}
 
+MU_TEST(xyz_empty_params) {
+    Xyz *xyz = getXyzFromLuv(NULL);
+    mu_assert_string_eq(NULL_INPUT_PARAM, xyz->error);
     
     free(xyz);
 }
 
-ctcase_t * wrapLuvCreationTest() {
-    ctcase_t *luvCase = ctcase("Luv creation test");
+MU_TEST_SUITE(luv_suite) {
+    // Xyz -> Luv
+    MU_RUN_TEST(luv_creation);
+    MU_RUN_TEST(luv_superior_y_creation);
+    MU_RUN_TEST(luv_bright_creation);
+    MU_RUN_TEST(luv_inferior_y_creation);
+    MU_RUN_TEST(luv_dark_creation);
+    MU_RUN_TEST(luv_empty_params);
     
-    // test case Xyz -> Luv
-    ctest_t *testLuv      = ctest("Creation of a Luv from Xyz", testLuvFromXyz, NULL);
-    ctest_t *testSupLuv   = ctest("Creation of an Superior Y Luv from Xyz", testSuperiorYLuvFromXyz, NULL);
-    ctest_t *testInfLuv   = ctest("Creation of an Inferior Y Luv from Xyz", testInferiorYLuvFromXyz, NULL);
-    ctest_t *testEmptyLuv = ctest("Creation of an NULL Luv from an empty Xyz", testNullLuv, NULL);
-    ctest_t *testWhiteLuv = ctest("Creation of a White Luv from a White RGB", testWhiteLuvFromXyz, NULL);
-    
-    // test case Luv -> Xyz
-    ctest_t *testXyz     = ctest("Creation of an Xyz from a Luv", testXyzFromLuv, NULL);
-    ctest_t *testHighXyz = ctest("Creation of an Xyz from a Luv RGB", testHighXyzFromLuv, NULL);
-    ctest_t *testEmptyXyz= ctest("Creation of an Xyz NULL", testNullXyz, NULL);
-    
-    // add test to test case
-    ctctestadd(luvCase, testLuv);
-    ctctestadd(luvCase, testSupLuv);
-    ctctestadd(luvCase, testInfLuv);
-    ctctestadd(luvCase, testEmptyLuv);
-    ctctestadd(luvCase, testWhiteLuv);
-    
-    ctctestadd(luvCase, testXyz);
-    ctctestadd(luvCase, testHighXyz);
-    ctctestadd(luvCase, testEmptyXyz);
-    
-    return luvCase;
+    // Luv -> Xyz
+    MU_RUN_TEST(xyz_creation);
+    MU_RUN_TEST(xyz_bright_creation);
+    MU_RUN_TEST(xyz_dark_creation);
+    MU_RUN_TEST(xyz_empty_params);
 }
 
+int wrapLuvTest() {
+    MU_RUN_SUITE(luv_suite);
+    MU_REPORT();
+    printf("End of Luv test \n");
+    
+    return minunit_fail;
+}
 

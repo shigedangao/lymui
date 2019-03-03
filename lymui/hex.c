@@ -41,6 +41,10 @@ static char *uintToHex(uint8_t color) {
 
 // Get Hex From RGB
 char *getHexFromRGB(Rgb *c) {
+    if (c == NULL) {
+        return NULL;
+    }
+    
     char *r = uintToHex(c->r);
     char *g = uintToHex(c->g);
     char *b = uintToHex(c->b);

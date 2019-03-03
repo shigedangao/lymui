@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#define RGB_ARRAY_LEN 3;
+
 /**
  * @brief Rgb structure Object
  */
