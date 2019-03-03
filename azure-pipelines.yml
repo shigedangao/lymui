@@ -4,12 +4,22 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
 
 trigger:
-- master
+- version/*
+- feat/*
+- tests/*
 
 pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: |
-    make lym
-  displayName: 'make'
+- script: git clone https://github.com/siu/minunit lib
+  displayName: 'clone minunit test lib'
+- script: make lym
+  displayName: 'create the test library'
+- script: make tests
+  displayName: 'run the test'
+- script: make prepare_coverage
+  displayName: 'prepare the coverage'
+- script: make run_coverage
+  displayName: 'run the coverage'
+
