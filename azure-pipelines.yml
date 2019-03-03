@@ -12,7 +12,7 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: apt-get install lcov
+- script: sudo apt-get install lcov
   displayName: 'install lcov'
 - script: git clone https://github.com/siu/minunit lib
   displayName: 'clone minunit test lib'
