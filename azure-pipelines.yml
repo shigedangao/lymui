@@ -3,6 +3,13 @@
 # Add steps that publish test results, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
 
+strategy:
+  matrix:
+    linux:
+      imageName: 'ubuntu-16.04'
+    mac:
+      imageName: 'macos-10.13'
+
 variables:
   CODECOV_TOKEN: bebec6e3-5228-4058-9e99-18b2ff70a161
 
@@ -12,7 +19,7 @@ trigger:
 - tests/*
 
 pool:
-  vmImage: 'Ubuntu-16.04'
+  vmImage: $(imageName)
 
 steps:
 - script: sudo apt-get install lcov
