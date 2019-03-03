@@ -9,7 +9,7 @@ trigger:
 - tests/*
 
 pool:
-  vmImage: 'Ubuntu-18.04'
+  vmImage: 'Ubuntu-16.04'
 
 steps:
 - script: apt-get install lcov
