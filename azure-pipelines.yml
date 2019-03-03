@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
 
 variables:
-  CODECOV_TOKEN="bebec6e3-5228-4058-9e99-18b2ff70a161"
+  CODECOV_TOKEN: bebec6e3-5228-4058-9e99-18b2ff70a161
 
 trigger:
 - version/*
