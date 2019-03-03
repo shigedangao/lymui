@@ -3,6 +3,9 @@
 # Add steps that publish test results, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
 
+variables:
+  CODECOV_TOKEN="bebec6e3-5228-4058-9e99-18b2ff70a161"
+
 trigger:
 - version/*
 - feat/*
@@ -18,4 +21,6 @@ steps:
   displayName: 'clone minunit test lib'
 - script: sh cover.sh
   displayName: 'run the coverage build process'
+- script: bash <(curl -s https://codecov.io/bash)
+  displayName: 'Upload codecoverage'
 
