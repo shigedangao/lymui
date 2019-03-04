@@ -6,11 +6,6 @@ variables:
   CODECOV_TOKEN: bebec6e3-5228-4058-9e99-18b2ff70a161
   version: 1.3.0
 
-trigger:
-  branches:
-    include:
-    - *
-
 jobs:
 # test jobs
 - job: Linux_tests
