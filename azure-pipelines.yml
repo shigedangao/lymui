@@ -12,13 +12,13 @@ trigger:
 - master
 
 jobs:
-- job: Linux-test
+- job: Linux_tests
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
   - template: templates/unit-tests-steps.yml
 
-- job: MacOS-test
+- job: MacOS_tests
   pool:
     vmImage: 'macos-10.13'
   steps:
