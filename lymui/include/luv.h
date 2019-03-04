@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "xyz.h"
 
-#define e 0.008856
+#define exponent 0.008856
 #define ko 903.3
 
 /**

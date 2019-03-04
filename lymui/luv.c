@@ -51,7 +51,7 @@ Luv *getLuvFromXyz(Xyz *xyz) {
     LuvCompounds uv  = calculateParams(xyz->x, xyz->y, xyz->z);
     LuvCompounds urv = calculateParams(Xn, Yn, Zn);
     
-    if (y > e)
+    if (y > exponent)
         l = 116.0 * powf(y, 1.0 / 3.0) - 16.0;
     else
         l = ko * y;
@@ -70,7 +70,7 @@ Luv *getLuvFromXyz(Xyz *xyz) {
  * @return double
  */
 static double calculateYValue(double l) {
-    if (l > (ko * e))
+    if (l > (ko * exponent))
         return powf((l + 16.0) / 116.0, 3.0);
     
     return l / ko;
