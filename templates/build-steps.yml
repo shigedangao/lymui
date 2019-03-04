@@ -2,4 +2,8 @@ steps:
   - script: make lib
     displayName: 'build the library'
   - script: zip -r liblymui-$(Agent.OS)-$(version).zip bin
-    displayName: 'zip the library of lymui'
+    conditions: ne(variables['Agent.OS'], 'Windows')
+    displayName: 'zip the library of lymui for linux and osx'
+  - script: powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('iblymui-$(Agent.OS)-$(version).zip', 'bin'); }"
+    conditions: eq(variables['Agent.OS'], 'Windows')
+    displayName: 'zip the library of lymui for windows'
