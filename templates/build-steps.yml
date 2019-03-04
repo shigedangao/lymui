@@ -1,0 +1,5 @@
+steps:
+  - script: make lib
+    displayName: 'build the library'
+  - script: zip -r liblymui-$(Agent.OS)-$(version)
+    displayName: 'zip the library of lymui'

@@ -4,14 +4,15 @@
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
 variables:
   CODECOV_TOKEN: bebec6e3-5228-4058-9e99-18b2ff70a161
+  version: 1.3.0
 
 trigger:
-- version/*
-- feat/*
-- tests/*
-- master
+  branches:
+    include:
+    - *
 
 jobs:
+# test jobs
 - job: Linux_tests
   pool:
     vmImage: 'ubuntu-16.04'
@@ -32,4 +33,9 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
   - template: templates/unit-tests-steps.yml
-  
+
+- job: MacOS_build
+  pool:
+    vmImage: 'macos-10.13'
+  steps:
+  - template: templates/build-steps.yml
