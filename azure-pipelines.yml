@@ -22,5 +22,14 @@ jobs:
   pool:
     vmImage: 'macos-10.13'
   steps:
+  - bash: brew install lcov
   - template: templates/unit-tests-steps.yml
+  - script: sh cover.sh
+  - script: bash <(curl -s https://codecov.io/bash)
 
+- job: Windows_tests
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - template: templates/unit-tests-steps.yml
+  
