@@ -2,14 +2,6 @@
 # Build your C/C++ project with GCC using make.
 # Add steps that publish test results, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
-
-strategy:
-  matrix:
-    linux:
-      imageName: 'ubuntu-16.04'
-    mac:
-      imageName: 'macos-10.13'
-
 variables:
   CODECOV_TOKEN: bebec6e3-5228-4058-9e99-18b2ff70a161
 
@@ -17,27 +9,18 @@ trigger:
 - version/*
 - feat/*
 - tests/*
+- master
 
-pool:
-  vmImage: $(imageName)
+jobs:
+- job: Linux-test
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+    template: templates/unit-tests-steps.yml
 
-steps:
-- bash: sudo apt-get install lcov
-  condition: eq( variables['Agent.OS'], 'Linux' )
-  displayName: 'install lcov for linux'
-- bash: brew install lcov
-  condition: eq( variables['Agent.OS'], 'Darwin' )
-  displayName: 'install lcov for osx'
-- script: git clone https://github.com/siu/minunit lib
-  displayName: 'clone minunit test lib'
-- script: make lym
-  displayName: 'Building lym executable'
-- script: make tests
-  displayName: 'Launching unit test'
-- script: sh cover.sh
-  condition: eq( variables['Agent.OS'], 'Darwin' )
-  displayName: 'run the coverage build process'
-- script: bash <(curl -s https://codecov.io/bash)
-  condition: eq( variables['Agent.OS'], 'Darwin' )
-  displayName: 'Upload codecoverage'
+- job: MacOS-test
+  pool:
+    vmImage: 'macos-10.13'
+  steps:
+    template: template/unit-tests-steps.yml
 
