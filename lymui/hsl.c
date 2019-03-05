@@ -63,29 +63,38 @@ static Rgb *getShadeOfGray(Hsl *hsl, Rgb *rgb) {
 }
 
 /**
- * @brief Get an array of temp _rgb value
- * @param hue a double describing the hue
- * @return an array of double rgb color
+ * @brief Update Constraint
+ * @param v double
+ * @return double
  */
-static double *getTempRgbValue(Hue hue) {
-    double * _rgb = malloc(sizeof(double) * 3);
-    if (_rgb == NULL) {
-        return NULL;
-    }
+static double updateConstraint(double v) {
+    if (v < 0.0)
+        v = v + 1.0f;
+    else if (v > 1.0)
+        v = v - 1.0f;
     
-    double _hue  = hue / 360.0;
-    
-    // red
-    _rgb[0] = _hue + 0.333;
-    // green
-    _rgb[1] = _hue;
-    // blue
-    _rgb[2] = _hue - 0.333;
-    
-    return updateConstraintValue(_rgb, 3);
+    return v;
 }
 
-/*!
+/**
+ * @brief Get an array of temp _rgb value
+ * @param hue a double describing the hue
+ * @return RgbInter
+ */
+static RgbInter getTempRgbValue(Hue hue) {
+    RgbInter inter;
+    double _hue  = hue / 360.0;
+    // red
+    inter.ri = updateConstraint(hue + 0.333);
+    // green
+    inter.gi = updateConstraint(_hue);
+    // blue
+    inter.bi = updateConstraint(_hue - 0.333);
+    
+    return inter;
+}
+
+/**
  * @discussion Calculate the based on each _temp c pass
  * @param c a double temp color
  * @param temp_m a temporary luminance based on the value of the luminace
@@ -136,17 +145,12 @@ Rgb *getRgbFromHsl(Hsl *hsl) {
     
     // get other temp value
     double temp_lum_s = 2.0f * _l - temp_lum;
-    double *temp_rgb  = getTempRgbValue(hsl->h);
-    if (temp_rgb == NULL) {
-        rgb->error = MALLOC_ERROR;
-        return rgb;
-    }
+    RgbInter inter = getTempRgbValue(hsl->h);
     
-    rgb->r = calculateEachColorValue(temp_rgb[0], temp_lum, temp_lum_s);
-    rgb->g = calculateEachColorValue(temp_rgb[1], temp_lum, temp_lum_s);
-    rgb->b = calculateEachColorValue(temp_rgb[2], temp_lum, temp_lum_s);
+    rgb->r = calculateEachColorValue(inter.ri, temp_lum, temp_lum_s);
+    rgb->g = calculateEachColorValue(inter.gi, temp_lum, temp_lum_s);
+    rgb->b = calculateEachColorValue(inter.bi, temp_lum, temp_lum_s);
     rgb->error = NULL;
-    free(temp_rgb);
     
     free(hsl);
     

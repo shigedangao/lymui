@@ -27,22 +27,6 @@ double getSaturation(double min, double max, double l) {
     return (max - min) / (max + min);
 }
 
-double *updateConstraintValue(double *value, uint8_t size) {
-    size_t idx = size;
-    
-    while(idx > 0) {
-        double tmp = value[idx - 1];
-        if (tmp < 0.0)
-            value[idx - 1] = tmp + 1.0f;
-        else if (tmp > 1.0)
-            value[idx - 1] = tmp - 1.0f;
-        
-        idx--;
-    }
-        
-    return value;
-}
-
 double getDegFromRad(double r) {
     return 180.0 * r / M_PI;
 }
