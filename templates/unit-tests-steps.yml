@@ -1,0 +1,8 @@
+# File: templates/unit-tests-steps.yml
+steps:
+- script: git clone https://github.com/siu/minunit lib
+  displayName: 'clone minunit test lib'
+- script: make lym
+  displayName: 'Building lym executable'
+- script: make tests
+  displayName: 'Launching unit test'
