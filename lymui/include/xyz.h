@@ -28,6 +28,15 @@ typedef struct Xyz {
 } Xyz;
 
 /**
+ * @brief LinearRGB struct. Use for calculating the linear RGB
+ */
+typedef struct LinearRGB {
+    double sr;
+    double sg;
+    double sb;
+} LinearRGB;
+
+/**
  * @brief enum which define the value of the matrix for converting the matrix
  */
 typedef enum Matrix {

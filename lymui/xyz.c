@@ -71,20 +71,16 @@ static double unpivotARGB(double c) {
  * @param r double
  * @param g double
  * @param b double
- * @param arr double
+ * @param xyz Xyz pointer
  */
-static void calculateXyzRgb(double r, double g, double b, double *arr) {
+static void calculateXyzRgb(double r, double g, double b, Xyz *xyz) {
     r = pivotRGB(r);
     g = pivotRGB(g);
     b = pivotRGB(b);
     
-    double x = xr * r + xg * g + xb * b;
-    double y = yr * r + yg * g + yb * b;
-    double z = zr * r + zg * g + zb * b;
-    
-    arr[0] = x;
-    arr[1] = y;
-    arr[2] = z;
+    xyz->x = xr * r + xg * g + xb * b;
+    xyz->y = yr * r + yg * g + yb * b;
+    xyz->z = zr * r + zg * g + zb * b;
 }
 
 /**
@@ -92,16 +88,16 @@ static void calculateXyzRgb(double r, double g, double b, double *arr) {
  * @param r double
  * @param g double
  * @param b double
- * @param arr double
+ * @param xyz Xyz pointer
  */
-static void calculateXyzAdobeRgb(double r, double g, double b, double *arr) {
+static void calculateXyzAdobeRgb(double r, double g, double b, Xyz *xyz) {
     r = pivotAdobeRGB(r);
     g = pivotAdobeRGB(g);
     b = pivotAdobeRGB(b);
     
-    arr[0] = axr * r + axg * g + axb * b;
-    arr[1] = ayr * r + ayg * g + ayb * b;
-    arr[2] = azr * r + azg * g + azb * b;
+    xyz->x = axr * r + axg * g + axb * b;
+    xyz->y = ayr * r + ayg * g + ayb * b;
+    xyz->z = azr * r + azg * g + azb * b;
 }
 
 Xyz *getXyzFromRgb(Rgb *rgb, enum Matrix m) {
@@ -119,26 +115,20 @@ Xyz *getXyzFromRgb(Rgb *rgb, enum Matrix m) {
     double _g = (double) rgb->g / 255.0;
     double _b = (double) rgb->b / 255.0;
     
-    double *value = malloc(sizeof(double) * 3);
-    
     switch(m) {
         case srgb:
-            calculateXyzRgb(_r, _g, _b, value);
+            calculateXyzRgb(_r, _g, _b, xyz);
             break;
         case adobeRgb:
-            calculateXyzAdobeRgb(_r, _g, _b, value);
+            calculateXyzAdobeRgb(_r, _g, _b, xyz);
             break;
         default:
             free(rgb);
+            free(xyz);
             return NULL;
     }
     
-    xyz->x = value[0];
-    xyz->y = value[1];
-    xyz->z = value[2];
     xyz->error = NULL;
-    
-    free(value);
     
     return xyz;
 }
@@ -147,12 +137,10 @@ Xyz *getXyzFromRgb(Rgb *rgb, enum Matrix m) {
  * @brief calculate the linear rgb to xyz based on the matrix
  * @param xyz * Xyz
  * @param m Matrix
+ * @return LinearRGB
  */
-static double *calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
-    double *linearRGB = malloc(sizeof(double) * 3);
-    if (linearRGB == NULL) {
-        return NULL;
-    }
+static LinearRGB calculateLinearRgbToXyz(Xyz *xyz, Matrix m) {
+    LinearRGB linear;
     
     double sr, sg, sb;
     if (m == srgb) {
@@ -160,20 +148,22 @@ static double *calculateLinearRgbToXyz(Xyz * xyz, Matrix m) {
         sg = xyz->x * yx + xyz->y * yy + xyz->z * yz;
         sb = xyz->x * zx + xyz->y * zy + xyz->z * zz;
         
-        linearRGB[0] = unpivotRGB(sr);
-        linearRGB[1] = unpivotRGB(sg);
-        linearRGB[2] = unpivotRGB(sb);
-    } else {
-        sr = xyz->x * axx + xyz->y * axy + xyz->z * axz;
-        sg = xyz->x * ayx + xyz->y * ayy + xyz->z * ayz;
-        sb = xyz->x * azx + xyz->y * azy + xyz->z * azz;
+        linear.sr = unpivotRGB(sr);
+        linear.sg = unpivotRGB(sg);
+        linear.sb = unpivotRGB(sb);
         
-        linearRGB[0] = unpivotARGB(sr);
-        linearRGB[1] = unpivotARGB(sg);
-        linearRGB[2] = unpivotARGB(sb);
+        return linear;
     }
+    
+    sr = xyz->x * axx + xyz->y * axy + xyz->z * axz;
+    sg = xyz->x * ayx + xyz->y * ayy + xyz->z * ayz;
+    sb = xyz->x * azx + xyz->y * azy + xyz->z * azz;
+    
+    linear.sr = unpivotARGB(sr);
+    linear.sg = unpivotARGB(sg);
+    linear.sb = unpivotARGB(sb);
         
-    return linearRGB;
+    return linear;
 }
 
 Rgb *getRgbFromXyz(Xyz * xyz, Matrix m) {
@@ -187,18 +177,11 @@ Rgb *getRgbFromXyz(Xyz * xyz, Matrix m) {
         return rgb;
     }
     
-    double *matrixValue = calculateLinearRgbToXyz(xyz, m);
-    if (matrixValue == NULL) {
-        rgb->error = MALLOC_ERROR;
-        return rgb;
-    }
-    
-    rgb->r = doubleToUint(matrixValue[0] * 255);
-    rgb->g = doubleToUint(matrixValue[1] * 255);
-    rgb->b = doubleToUint(matrixValue[2] * 255);
+    LinearRGB matrixValue = calculateLinearRgbToXyz(xyz, m);
+    rgb->r = doubleToUint(matrixValue.sr * 255);
+    rgb->g = doubleToUint(matrixValue.sg * 255);
+    rgb->b = doubleToUint(matrixValue.sb * 255);
     rgb->error = NULL;
-    
-    free(matrixValue);
     
     return rgb;
 }

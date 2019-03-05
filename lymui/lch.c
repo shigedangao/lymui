@@ -27,7 +27,7 @@ Lch *getLchFromXyz(Xyz *xyz) {
     Luv *luv = getLuvFromXyz(xyz);
     if (luv == NULL) {
         lch->error = MALLOC_ERROR;
-        return NULL;
+        return lch;
     }
     
     double H = getDegFromRad(atan2(luv->v, luv->u));
