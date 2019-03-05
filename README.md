@@ -1,45 +1,38 @@
-##  Lymui
+## Lymui
 
-Lymui is a small color conversion library. It's my first project in C !.
+Lymui is a static color conversion library. It's my first project in C !.
 
 [![codecov](https://codecov.io/gh/MarcInthaamnouay/lymui/branch/master/graph/badge.svg)](https://codecov.io/gh/MarcInthaamnouay/lymui)
 [![Build Status](https://dev.azure.com/androidgs2/lymui/_apis/build/status/MarcInthaamnouay.lymui?branchName=master)](https://dev.azure.com/androidgs2/lymui/_build/latest?definitionId=1&branchName=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c443f9099d024a81b2c56b42edf0b147)](https://www.codacy.com/app/mintha/lymui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MarcInthaamnouay/lymui&amp;utm_campaign=Badge_Grade)
 
-## Status
+## Version
 
-Version: 1.2.2
+Version: 1.3.0a
 
 ## Support OS
 
-- osx
-- linux
-- windows (not supported yet but contribution are welcome)
+- OSX
+- Linux
+- Windows 
 
-## Tests
+## Quick start
 
-Testing this project required some steps:
-
-- Clone the cunit library available at this link [Cunit library](https://github.com/itzseven/cunit.git)
-- Go into cunit folder and run ```make lib```
-- Copy the **content** of the **bin** folder and paste it into the **lib/cunit** folder
-- Then run: ```make lym && make test```
-
-*Note*: If you are on OSX you can open xcode and run the test from there
-
-## Install & Compile the project
-
-The project is shipped with a makefile. Below is the command that you can use in order to generate different type of build
-
-- Output lib: ```make lib```
-
-## Usage
-
-An exhaustive list of examples are available on the link below.
-
-[APIs list](https://marcinthaamnouay.github.io/lymui/docs/)
+@TODO do the quick start
 
 ## Changelogs
+
+* 1.3.0
+* * Add support for HCL color format
+* * Flatten error message
+* * Fix unhandled NULL char when converting to an RGB
+* * Refactor Xyz
+* * Refactor HSL
+* * Refactor LUV
+* * Move HunterLab to it's own color type 
+* * Fix memory leak in Xyz & Lch
+* * Change unit test library
+* * Move from travis to azure pipelines & coveralls -> codecov
 
 * 1.2.2
 * * Fix potentials memory leaks
