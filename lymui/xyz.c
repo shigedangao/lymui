@@ -115,17 +115,10 @@ Xyz *getXyzFromRgb(Rgb *rgb, enum Matrix m) {
     double _g = (double) rgb->g / 255.0;
     double _b = (double) rgb->b / 255.0;
     
-    switch(m) {
-        case srgb:
-            calculateXyzRgb(_r, _g, _b, xyz);
-            break;
-        case adobeRgb:
-            calculateXyzAdobeRgb(_r, _g, _b, xyz);
-            break;
-        default:
-            free(rgb);
-            free(xyz);
-            return NULL;
+    if (m == adobeRgb) {
+        calculateXyzAdobeRgb(_r, _g, _b, xyz);
+    } else {
+        calculateXyzRgb(_r, _g, _b, xyz);
     }
     
     xyz->error = NULL;
