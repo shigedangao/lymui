@@ -1,21 +1,13 @@
 ## Lymui
 
-### Totoro is going to review your PR
+### Mitsuha is reviewing this PR
 
-![Totoro](https://cdn.dribbble.com/users/77598/screenshots/3893621/totoro_family.png)
+<p align="center">
+  <img src="https://image.dhgate.com/0x0/f2/albu/g6/M00/E1/EF/rBVaSFsV8RiAG5syAAUxi6XxDWM324.jpg" alt="drawing" width="450"/>
+</p>
 
 ### What does this PR accomplish
 
 - [ ] Add a new feature supporting a new color type
-- [ ] Add a new binding supporting for a type color
 - [ ] Provide a fix to the current project
 - [ ] Add new test
-
-### We will check that
-
-- [ ] Make sure to have unit test
-- [ ] Make sure that any test is passing
-- [ ] Make sure to respect that when converting a ```type T``` to return a ```type T Rgb``` 
-
-🐷 Thanks for contributing ! 🐷
-
