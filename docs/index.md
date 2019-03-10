@@ -60,3 +60,5 @@ Many resources has been used for making this library. Especially regarding the c
 [EasyRGB](http://www.easyrgb.com/en/)
 
 [Color NodeJS library](https://github.com/Qix-/color)
+
+[Niwa.nu](http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/)

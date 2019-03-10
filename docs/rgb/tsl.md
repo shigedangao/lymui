@@ -1,95 +1,75 @@
-## Tsl APIs
+## Tsl API
 
-The Tsl API allow you to create an Tsl color from an RGB based color. The Tsl APIs allow you ton convert back and forth the value
+The Tsl api allow you to create a Tsl color from an [Rgb](rgb.md) color.
 
-## RGB to Tsl
+### Datatype
 
-Use the method **getTslFromRgb**. This method return an Tsl struct or NULL
+The api return an Tsl struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Tsl struct can't be allocated
-
-The method can return an error char which can be accessible within the `error` property
-
-```c
-tsl->error = <string>
+```yaml
+- t: double
+- s: double
+- l: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Rgb pointer struct
+#### Rgb -> Tsl
 
-### Usage Example
+- Rgb -> Tsl: getTslFromRgb
+- *Params*: Rgb* structure
+- *Return*: Tsl* Structure
+
+#### Tsl -> Rgb
+
+- Hsl -> Rgb: getRgbFromTsl
+- *Params*: Tsl* structure
+- *Return*: Rgb* Structure
+
+### Example Rgb to Tsl
 
 ```c
-#include "rgb.h"
-#include "tsl.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <tsl.h>
 
 Rgb *rgb = malloc(sizeof(Rgb));
-rgb->r = 255;
-rgb->g = 255;
-rgb->b = 255;
+rgb->r = 50;
+rgb->g = 10;
+rgb->b = 128;
 
 Tsl *tsl = getTslFromRgb(rgb);
-
-// rgb will not be freed (so that you can reuse this struct)
-free(rgb);
+/**
+ * Output
+ * tsl->t = 0.788
+ * tsl->s = 0.387
+ * tsl->l = 35.412
+ */
 ```
 
-Hsl return the Hsl struct which you can access the property like the example below
+### Example Rgb to Tsl
 
 ```c
-double t = tsl->h;
-double s = tsl->s;
-double l = tsl->l;
-char *error = tsl->error;
-```
-
-## Tsl to RGB
-
-Use the method **getRgbFromTsl**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Rgb struct can't be allocated
-
-The method *can return an RGB struct containing an error property*
-
-- Hsl property not passed
-- When an error happened during the conversion process
-
-### Parameter
-
-- Tsl pointer struct
-
-### Usage Example
-
-```c
-#include "rgb.h"
-#include "tsl.h"
-
 Tsl *tsl = malloc(sizeof(Tsl));
-tsl->t = 0.0;
-tsl->s = 0.0;
-tsl->l = 255.0;
+tsl->t = 0.787;
+tsl->s = 0.386;
+tsl->l = 35.412;
 
-// tsl is being freed automatically
 Rgb *rgb = getRgbFromTsl(tsl);
+/**
+ * Output
+ * rgb->r = 50
+ * rgb->g = 10
+ * rgb->b = 128
+ */
 ```
 
-The method will return an Rgb struct which you can access it's property like the example below
+### Handling errors
 
-```c
-uint8_t r = rgb->r;
-uint8_t g = rgb->g;
-uint8_t b = rgb->b;
-char *error = rgb->error;
-```
+The API support 2 types of error
 
+- ```NULL```: This mean that the library has not been able to allocate the structure
 
-
+- ```tsl->error```: The tsl hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

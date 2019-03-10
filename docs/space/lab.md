@@ -1,95 +1,83 @@
-## Lab APIs
+## Lab API
 
-The Lab API allow you to create an Lab color from an Xyz based color. The Lab APIs allow you ton convert back and forth the value
+The Lab api allow you to create a Lab color from an [Xyz](xyz.md) color.
 
-## Xyz to Lab
+### Datatype
 
-Use the method **getLabFromXyz**. This method return an Lab struct or NULL
+The api return a Lab struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Lab struct can't be allocated
-
-This method take as a param an Lab struct with an **error** parameter like so
-
-```c
-lab->error = <string>
+```yaml
+- l: double
+- a: double
+- b: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Xyz pointer struct
+#### Xyz -> Lab
 
-### Usage Example
+- Xyz -> Lab: getLabFromXyz
+- *Params*: Xyz* structure
+- *Return*: Lab* Structure
+
+#### Lab -> Xyz
+
+- Lab -> Xyz: getXyzFromLab
+- *Params*: Lab* structure
+- *Return*: Xyz* Structure
+
+### Example Xyz to Lab
 
 ```c
-#include "xyz.h"
-#include "lab.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <xyz.h>
+#include <lab.h>
 
-Xyz *xyz = malloc(sizeof(Xyz));
-xyz->x = 0.950470;
-xyz->y = 1.0;
-xyz->z = 1.088830;
-    
-Lab *lab  = getLabFromXyz(xyz);
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 255;
+rgb->g = 255;
+rgb->b = 255;
 
-// xyz will not be freed (so that you can reuse this struct)
-free(xyz);
+Xyz *xyz = getXyzFromRgb(rgb, srgb);
+Lab *lab = getLabFromXyz(xyz);
+/**
+ * Output
+ * lab->l = 100.0
+ * lab->a = 0.0
+ * lab->b = 0.0
+ */
 ```
 
-It return the Lab struct which you can access the property like the example below
+### Example Lab to Xyz
 
 ```c
-double l = lab->l;
-double a = lab->a;
-double b = lab->b;
-char *error = lab->error;
-```
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <xyz.h>
+#include <lab.h>
 
-## Lab to Xyz
-
-Use the method **getXyzFromLab**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Xyz struct can't be allocated
-
-The method *can return an Xyz struct containing an error property*
-
-- Lab property not passed
-
-### Parameter
-
-- Lab pointer struct
-
-### Usage Example
-
-```c
-#include "xyz.h"
-#include "lab.h"
-
-Lab *Lab = malloc(sizeof(Lab));
-lab->l = 100.0;
+Lab *lab  = malloc(sizeof(Lab));
+lab->l = 0.0;
 lab->a = 0.0;
 lab->b = 0.0;
 
-// lab is being freed automatically
-Xyz *xyz = getXyzFromLab(Lab);
+Xyz *xyz = getXyzFromLab(lab);
+/**
+ * Output
+ * xyz->x = 0.0
+ * xyz->y = 0.0
+ * xyz->z = 0.0
+ */
 ```
 
-The method will return an Xyz struct which you can access it's property like the example below
+### Handling errors
 
-```c
-double x = xyz->x;
-double y = xyz->y;
-double z = xyz->z;
-char *error = xyz->error;
-```
+The API support 2 types of error
 
-## Xyz to Hunter Lab
+- ```NULL```: This mean that the library has not been able to allocate the structure
 
-Use the method **getHunterLabFromXyz**. Refer to the Xyz to Lab section for usage the process is the same.
+- ```lab->error```: The lab hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

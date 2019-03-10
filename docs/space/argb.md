@@ -1,91 +1,77 @@
-## Argb APIs (adobe rgb from xyz)
+## Argb API
 
-The Argb API allow you to create an Argb color from an Xyz based color. The Argb APIs allow you ton convert back and forth the value
+The Argb api allow you to create an Argb color from an [Xyz](rgb.md) color.
 
-## Xyz to Argb
+### Datatype
 
-Use the method **getARgbFromXyz**. This method return an Argb struct or NULL
+The api return an Argb struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Argb struct can't be allocated
-
-This method take as a param an Argb struct with an **error** parameter like so
-
-```c
-Argb->error = <string>
+```yaml
+- r: double
+- g: double
+- b: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Xyz pointer struct
+#### Xyz -> Argb
 
-### Usage Example
+- Rgb -> Argb: getXyzFromRgb
+- *Params*: Xyz* structure
+- *Return*: Argb* Structure
+
+#### Argb -> Xyz
+
+- Argb -> Rgb: getRgbFromHsl
+- *Params*: Argb* structure
+- *Return*: Xyz* Structure
+
+### Example Xyz to Argb
 
 ```c
-#include "xyz.h"
-#include "argb.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <xyz.h>
+#include <argb.h>
 
-Xyz *xyz = malloc(sizeof(Xyz));
-xyz->x = 0.950470;
-xyz->y = 1.0;
-xyz->z = 1.088830;
-    
-Argb *argb = getArgbFromXyz(xyz);
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 50;
+rgb->g = 10;
+rgb->b = 95;
 
-// xyz will not be freed (so that you can reuse this struct)
-free(xyz);
+Xyz *xyz   = getXyzFromRgb(rgb, adobeRgb);
+Argb *argb = getARgbFromXyz(xyz);
+/**
+ * Output
+ * argb->r = 0.196
+ * argb->g = 0.039
+ * argb->b = 0.372
+ */
 ```
 
-It return the Argb struct which you can access the property like the example below
+### Example Argb to Xyz
 
 ```c
-double r = argb->r;
-double g = argb->g;
-double b = argb->b;
-char *error = Argb->error;
-```
+Argb *argb = malloc(sizeof(Argb));
+argb->r = 0.196089;
+argb->g = 0.039087;
+argb->b = 0.372496;
 
-## Argb to Xyz
-
-Use the method **getXyzFromARgb**. This method return an Xyz struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Xyz struct can't be allocated
-
-The method *can return an Xyz struct containing an error property*
-
-- SRgb property not passed
-
-### Parameter
-
-- SRgb pointer struct
-
-### Usage Example
-
-```c
-#include "xyz.h"
-#include "argb.h"
-
-Argb *argb = malloc(sizeof(SRgb));
-argb->r = 1.0;
-argb->g = 1.0;
-argb->b = 1.0;
-
-// srgb is being freed automatically
 Xyz *xyz = getXyzFromARgb(argb);
-```
+/**
+ * Output
+ * xyz->x = 0.0376
+ * xyz->y = 0.0173
+ * xyz->z = 0.1137
+ */
 
-The method will return an Xyz struct which you can access it's property like the example below
-
-```c
-double x = xyz->x;
-double y = xyz->y;
-double z = xyz->z;
-char *error = xyz->error;
 ```
+### Handling errors
+
+The API support 2 types of error
+
+- ```NULL```: This mean that the library has not been able to allocate the structure
+
+- ```argb->error```: The Argb hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

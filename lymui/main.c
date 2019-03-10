@@ -18,8 +18,8 @@ int main(int argc, const char * argv[]) {
     uint8_t idx = 0;
     int fail = 0;
     int suites[21];
-    // Create suite case
     
+    // Rgb case
     suites[0] = wrapRgbTest();
     suites[1] = wrapHexTest();
     suites[2] = wrapHueTest();
@@ -29,19 +29,22 @@ int main(int argc, const char * argv[]) {
     suites[6] = wrapHsvTest();
     suites[7] = wrapYuvTest();
     suites[8] = wrapGrayScaleTest();
-    suites[9] = wrapHclTest();
-    suites[10] = wrapHwbTest();
+    suites[9] = wrapHwbTest();
+    suites[10] = wrapTslTest();
+
+    // Luv case
+    suites[11] = wrapHclTest();
     
-    suites[11] = wrapXyzTest();
-    suites[12] = wrapArgbTest();
-    suites[13] = wrapSrgbTest();
-    suites[14] = wrapLabTest();
-    suites[15] = wrapHLabTest();
-    suites[16] = wrapLuvTest();
-    suites[17] = wrapLchTest();
-    suites[18] = wrapLchLabTest();
-    suites[19] = wrapXyyTest();
-    suites[20] = wrapTslTest();
+    // Xyz case
+    suites[12] = wrapXyzTest();
+    suites[13] = wrapArgbTest();
+    suites[14] = wrapSrgbTest();
+    suites[15] = wrapLabTest();
+    suites[16] = wrapHLabTest();
+    suites[17] = wrapLuvTest();
+    suites[18] = wrapLchTest();
+    suites[19] = wrapLchLabTest();
+    suites[20] = wrapXyyTest();
 
     while (idx < sizeof(suites) / sizeof(suites[0])) {
         if (suites[idx]) {

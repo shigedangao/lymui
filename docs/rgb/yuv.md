@@ -1,93 +1,75 @@
-## Yuv APIs
+## Yuv API
 
-The Yuv API allow you to create an Yuv color from an RGB based color. The Yuv APIs allow you ton convert back and forth the value
+The Yuv api allow you to create a Yuv color from an [Rgb](rgb.md) color.
 
-## RGB to Yuv
+### Datatype
 
-Use the method **getYuvFromRgb**. This method return an Yuv struct or NULL
+The api return a Yuv struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Yuv struct can't be allocated
-
-This method take as a param an Yuv struct with an **error** parameter like so
-
-```c
-yuv->error = <string>
+```yaml
+- y: double
+- u: double
+- v: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Rgb pointer struct
+#### Rgb -> Yuv
 
+- Rgb -> Yuv: getYuvFromRgb
+- *Params*: Rgb* structure
+- *Return*: Yuv* Structure
 
-### Usage Example
+#### Yuv -> Rgb
+
+- Yuv -> Rgb: getRgbFromYuv
+- *Params*: Yuv* structure
+- *Return*: Rgb* Structure
+
+### Example Rgb to Yuv
 
 ```c
-#include "rgb.h"
-#include "yuv.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <yuv.h>
 
-uint8_t cvalue[3] = {100, 150, 255};
-Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 50;
+rgb->g = 10;
+rgb->b = 95;
+
 Yuv *yuv = getYuvFromRgb(rgb);
-
-// rgb will not be freed (so that you can reuse this struct)
-free(rgb);
+/**
+ * Output
+ * yuv->y = 0.124
+ * yuv->u = 0.122
+ * yuv->v = 0.063
+ */
 ```
 
-Yuv return the Yuv struct which you can access the property like the example below
+### Example Yuv to Rgb
 
 ```c
-double y = yuv->h;
-double u = yuv->s;
-double v = yuv->l;
-char *error = yuv->error;
-```
-
-## Yuv to RGB
-
-Use the method **getRgbFromYuv**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Rgb struct can't be allocated
-
-The method *can return an RGB struct containing an error property*
-
-- Yuv property not passed
-- When an error happened during the conversion process
-
-### Parameter
-
-- Yuv pointer struct
-
-### Usage Example
-
-```c
-#include "rgb.h"
-#include "yuv.h"
-
 Yuv *yuv = malloc(sizeof(Yuv));
 yuv->y = 0.124;
 yuv->u = 0.122;
 yuv->v = 0.063;
 
-// Yuv is being freed automatically
-Rgb *rgb = getRgbFromYuv(Yuv);
+Rgb *rgb = getRgbFromYuv(yuv);
+/**
+ * Output
+ * rgb->r = 50
+ * rgb->g = 10
+ * rgb->b = 95
+ */
 ```
 
-The method will return an Rgb struct which you can access it's property like the example below
+### Handling errors
 
-```c
-uint8_t r = rgb->r;
-uint8_t g = rgb->g;
-uint8_t b = rgb->b;
-char *error = rgb->error;
-```
+The API support 2 types of error
 
+- ```NULL```: This mean that the library has not been able to allocate the structure
 
-
+- ```yuv->error```: The yuv hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

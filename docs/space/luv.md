@@ -1,91 +1,83 @@
-## Luv APIs
+## Luv API
 
-The Luv API allow you to create an Luv color from an Xyz based color. The Luv APIs allow you ton convert back and forth the value
+The Luv api allow you to create a Luv color from an [Xyz](xyz.md) color.
 
-## Xyz to Luv
+### Datatype
 
-Use the method **getLuvFromXyz**. This method return an Luv struct or NULL
+The api return a Luv struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Luv struct can't be allocated
-
-This method take as a param an Luv struct with an **error** parameter like so
-
-```c
-luv->error = <string>
+```yaml
+- l: double
+- u: double
+- v: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Xyz pointer struct
+#### Xyz -> Luv
 
-### Usage Example
+- Xyz -> Luv: getLuvFromXyz
+- *Params*: Xyz* structure
+- *Return*: Luv* Structure
+
+#### Luv -> Xyz
+
+- Luv -> Xyz: getLuvFromXyz
+- *Params*: Luv* structure
+- *Return*: Xyz* Structure
+
+### Example Xyz to Luv
 
 ```c
-#include "xyz.h"
-#include "luv.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <xyz.h>
+#include <luv.h>
 
-Xyz *xyz = malloc(sizeof(Xyz));
-xyz->x = 0.950470;
-xyz->y = 1.0;
-xyz->z = 1.088830;
-    
-Luv *luv  = getLuvFromXyz(xyz);
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 5;
+rgb->g = 10;
+rgb->b = 95;
 
-// xyz will not be freed (so that you can reuse this struct)
-free(xyz);
+Xyz *xyz = getXyzFromRgb(rgb, srgb);
+Luv *luv = getLuvFromXyz(xyz);
+/**
+ * Output
+ * luv->l = 9.603
+ * luv->u = -2.851
+ * luv->v = -34.829
+ */
 ```
 
-It return the Luv struct which you can access the property like the example below
+### Example Luv to Xyz
 
 ```c
-double l = luv->l;
-double u = luv->u;
-double v = luv->v;
-char *error = luv->error;
-```
-
-## Luv to Xyz
-
-Use the method **getXyzFromLuv**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Xyz struct can't be allocated
-
-The method *can return an Xyz struct containing an error property*
-
-- Luv property not passed
-
-### Parameter
-
-- Luv pointer struct
-
-### Usage Example
-
-```c
-#include "xyz.h"
-#include "luv.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <xyz.h>
+#include <luv.h>
 
 Luv *luv = malloc(sizeof(Luv));
 luv->l = 5.0;
 luv->u = 1.0;
 luv->v = 0.0;
 
-// luv is being freed automatically
-Xyz *xyz = getXyzFromLuv(Luv);
+Xyz *xyz = getXyzFromLuv(luv);
+/**
+ * Output
+ * xyz->x = 0.00567
+ * xyz->y = 0.00554
+ * xyz->z = 0.00589
+ */
 ```
 
-The method will return an Xyz struct which you can access it's property like the example below
+### Handling errors
 
-```c
-double x = xyz->x;
-double y = xyz->y;
-double z = xyz->z;
-char *error = xyz->error;
-```
+The API support 2 types of error
+
+- ```NULL```: This mean that the library has not been able to allocate the structure
+
+- ```luv->error```: The luv hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

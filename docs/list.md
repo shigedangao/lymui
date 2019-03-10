@@ -10,10 +10,13 @@ The library is supporting multiples colors. Below is the list of supported color
 - [hsl](rgb/hsl.md)
 - [hue](rgb/hue.md)
 - [hwb](rgb/hwb.md)
-- [hcl](rgb/hcl.md)
 - [tsl](rgb/tsl.md)
 - [ycbcr](rgb/ycbcr.md)
 - [yuv](rgb/yuv.md)
+
+### Based on Luv
+
+- [hcl](rgb/hcl.md)
 
 ### Based on Xyz
 

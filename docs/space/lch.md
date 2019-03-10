@@ -1,94 +1,80 @@
-## Lch APIs
+## Lch API
 
-The Lch API allow you to create an Lch color from an Xyz based color. The Lch APIs allow you ton convert back and forth the value
+The Lch api allow you to create a Lch color from an [Xyz](xyz.md) color.
 
-## Xyz to Lch
+### Datatype
 
-Use the method **getLchFromXyz**. This method return an Lch struct or NULL
+The api return a Lch struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Lch struct can't be allocated
-
-This method take as a param an Lch struct with an **error** parameter like so
-
-```c
-Lch->error = <string>
+```yaml
+- l: double
+- c: double
+- h: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Xyz pointer struct
+#### Xyz -> Lch
 
-### Usage Example
+- Xyz -> Lch: getLabFromXyz
+- *Params*: Xyz* structure
+- *Return*: Lch* Structure
+
+#### Lch -> Xyz
+
+- Lch -> Xyz: getXyzFromLab
+- *Params*: Lch* structure
+- *Return*: Xyz* Structure
+
+### Example Xyz to Lch
 
 ```c
-#include "xyz.h"
-#include "lch.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <xyz.h>
+#include <lch.h>
 
 Xyz *xyz = malloc(sizeof(Xyz));
-xyz->x = 0.950470;
-xyz->y = 1.0;
-xyz->z = 1.088830;
-    
-Lch *lch  = getLchFromXyz(xyz);
+xyz->x = 0.51;
+xyz->y = 0.52;
+xyz->z = 0.510;
 
-// xyz will not be freed (so that you can reuse this struct)
-free(xyz);
+Lch *lch = getLchFromXyz(xyz);
+/**
+ * Output
+ * lch->l = 77.28
+ * lch->c = 12.0
+ * lch->h = 37.5
+ */
 ```
 
-It return the Lch struct which you can access the property like the example below
+### Example Lch to Xyz
 
 ```c
-double l = lch->l;
-double c = lch->c;
-double h = lch->h;
-char *error = lch->error;
-```
-
-## Lch to Xyz
-
-Use the method **getXyzFromLch**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Xyz struct can't be allocated
-
-The method *can return an Xyz struct containing an error property*
-
-- Lch property not passed
-
-### Parameter
-
-- Lch pointer struct
-
-### Usage Example
-
-```c
-#include "xyz.h"
-#include "lch.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <xyz.h>
+#include <lch.h>
 
 Lch *lch = malloc(sizeof(Lch));
-lch->l = 100;
-lch->c = 0;
-lch->h = 360;
+lch->l = 0.0;
+lch->c = 0.0;
+lch->h = 180.0;
 
-// lch is being freed automatically
-Xyz *xyz = getXyzFromXyy(lch);
+Xyz *xyz = getXyzFromLch(lch);
+/**
+ * Output
+ * xyz->x = 0.0
+ * xyz->y = 0.0
+ * xyz->z = 0.0
+ */
 ```
 
-The method will return an Xyz struct which you can access it's property like the example below
+### Handling errors
 
-```c
-double x = xyz->x;
-double y = xyz->y;
-double z = xyz->z;
-char *error = xyz->error;
-```
+The API support 2 types of error
 
+- ```NULL```: This mean that the library has not been able to allocate the structure
 
-
+- ```lch->error```: The lch hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

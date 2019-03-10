@@ -1,92 +1,81 @@
-## Ycbcr APIs
+## Ycbcr API
 
-The Ycbcr API allow you to create an Ycbcr color from an RGB based color. The Ycbcr APIs allow you ton convert back and forth the value
+The Ycbcr api allow you to create an Ycbcr color from an [Rgb](rgb.md) color.
 
-## RGB to Ycbcr
+### Datatype
 
-Use the method **getYcbcrFromRgb**. This method return an Ycbcr struct or NULL
+The api return a Ycbcr struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Ycbcr struct can't be allocated
-
-This method take as a param an Ycbcr struct with an **error** parameter like so
-
-```c
-ycbcr->error = <string>
+```yaml
+- y: uint8_t
+- cb: uint8_t
+- cr: uint8_t
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Rgb pointer struct
+#### Rgb -> Ycbcr
 
-### Usage Example
+- Rgb -> Ycbcr: getYcbcrFromRgb
+- *Params*: Rgb* structure
+- *Return*: Ycbcr* Structure
+
+#### Ycbcr -> Rgb
+
+- Ycbcr -> Rgb: getRgbFromYcbcr
+- *Params*: Ycbcr* structure
+- *Return*: Rgb* Structure
+
+### Example Rgb to Ycbcr
 
 ```c
-#include "rgb.h"
-#include "ycbcr.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <ycbcr.h>
 
-uint8_t cvalue[3] = {0, 0, 100};
-Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 0;
+rgb->g = 100;
+rgb->b = 200;
+
 Ycbcr *ycbcr = getYcbcrFromRgb(rgb);
-
-// rgb will not be freed (so that you can reuse this struct)
-free(rgb);
+/**
+ * Output
+ * ycbcr->y = 86
+ * ycbcr->cb = 187
+ * ycbcr->cr = 77
+ */
 ```
 
-Ycbcr return the Ycbcr struct which you can access the property like the example below
+### Example Ycbcr to Rgb
 
 ```c
-uint8_t y = ycbcr->y;
-uint8_t cb = ycbcr->cb;
-uint8_t cr = ycbcr->cr;
-char *error = ycbcr->error;
-```
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <ycbcr.h>
 
-## Ycbcr to RGB
-
-Use the method **getRGBFromYcbcr**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Rgb struct can't be allocated
-
-The method *can return an RGB struct containing an error property*
-
-- Ycbcr property not passed
-- When an error happened during the conversion process
-
-### Parameter
-
-- Ycbcr pointer struct
-
-### Usage Example
-
-```c
-#include "rgb.h"
-#include "ycbcr.h"
-
-Ycbcr *Ycbcr = malloc(sizeof(Ycbcr));
+Ycbcr *ycbcr = malloc(sizeof(Ycbcr));
 ycbcr->y  = 86;
 ycbcr->cb = 186;
 ycbcr->cr = 77;
 
-// Ycbcr is being freed automatically
-Rgb *rgb = getRgbFromYcbcr(Ycbcr);
+Rgb *rgb = getRgbFromYcbcr(ycbcr);
+/**
+ * Output
+ * ycbcr->y = 0
+ * ycbcr->cb = 100
+ * ycbcr->cr = 199
+ */
 ```
 
-The method will return an Rgb struct which you can access it's property like the example below
+### Handling errors
 
-```c
-uint8_t r = rgb->r;
-uint8_t g = rgb->g;
-uint8_t b = rgb->b;
-char *error = rgb->error;
-```
+The API support 2 types of error
 
+- ```NULL```: This mean that the library has not been able to allocate the structure
 
+- ```ycbcr->error```: The ycbcr hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)
 

@@ -1,94 +1,80 @@
-## LchLab APIs
+## Lch(Lab) API
 
-The LchLab API allow you to create an LchLab color from an Xyz based color. The LchLab APIs allow you ton convert back and forth the value
+The Lch(Lab) api allow you to create a Lch color from an [Xyz](xyz.md) color.
 
-## Xyz to LchLab
+### Datatype
 
-Use the method **getLchFromLab**. This method return an LchLab struct or NULL
+The api return a Lch(Lab) struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- LchLab struct can't be allocated
-
-This method take as a param an Lch struct with an **error** parameter like so
-
-```c
-lch->error = <string>
+```yaml
+- l: double
+- c: double
+- h: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Xyz pointer struct
+#### Xyz -> Lch(Lab)
 
-### Usage Example
+- Xyz -> Lch: getLchFromLab
+- *Params*: Xyz* structure
+- *Return*: Lch* Structure
+
+#### Lch(Lab) -> Xyz
+
+- Lch -> Xyz: getXyzFromLchlab
+- *Params*: Lch* structure
+- *Return*: Xyz* Structure
+
+### Example Xyz to Lch(Lab)
 
 ```c
-#include "xyz.h"
-#include "lchlab.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <xyz.h>
+#include <lchlab.h>
 
 Xyz *xyz = malloc(sizeof(Xyz));
-xyz->x = 0.950470;
-xyz->y = 1.0;
-xyz->z = 1.088830;
-    
-Lch *lch  = getLchFromLab(xyz);
+xyz->x = 0.1161;
+xyz->y = 0.0497;
+xyz->z = 0.5376;
 
-// xyz will not be freed (so that you can reuse this struct)
-free(xyz);
+LchLab *lch = getLchFromLab(xyz);
+/**
+ * Output
+ * lch->l = 26.65
+ * lch->c = 106.19
+ * lch->h = 307.24
+ */
 ```
 
-It return the Lch struct which you can access the property like the example below
+### Example Lch(Lab) to Xyz
 
 ```c
-double l = lch->l;
-double c = lch->c;
-double h = lch->h;
-char *error = lch->error;
+#include <stdio.h>
+#include <stdlib.h>
+#include <xyz.h>
+#include <lchlab.h>
+
+LchLab *lch = malloc(sizeof(LchLab));
+lch->l = 0.0;
+lch->c = 0.0;
+lch->h = 0.0;
+
+Xyz *xyz = getXyzFromLch(lch);
+/**
+ * Output
+ * xyz->x = 0.0
+ * xyz->y = 0.0
+ * xyz->z = 0.0
+ */
 ```
 
-## LchLab to Xyz
+### Handling errors
 
-Use the method **getXyzFromLchlab**. This method return an RGB struct or NULL.
+The API support 2 types of error
 
-### Error handling
+- ```NULL```: This mean that the library has not been able to allocate the structure
 
-This method will return NULL when:
-
-- Xyz struct can't be allocated
-
-The method *can return an Xyz struct containing an error property*
-
-- LchLab property not passed
-
-### Parameter
-
-- LchLab pointer struct
-
-### Usage Example
-
-```c
-#include "xyz.h"
-#include "lchlab.h"
-
-Lch *lch = malloc(sizeof(Lch));
-lch->l = 100;
-lch->c = 0;
-lch->h = 360;
-
-// lch is being freed automatically
-Xyz *xyz = getXyzFromLchlab(lch);
-```
-
-The method will return an Xyz struct which you can access it's property like the example below
-
-```c
-double x = xyz->x;
-double y = xyz->y;
-double z = xyz->z;
-char *error = xyz->error;
-```
-
-
-
+- ```lch->error```: The lch hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

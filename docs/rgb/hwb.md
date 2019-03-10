@@ -1,92 +1,79 @@
-## Hwb APIs
+## Hwb API
 
-The Hwb API allow you to create an Hwb color from an RGB based color. The Hwb APIs allow you ton convert back and forth the value
+The Hwb api allow you to create an Hwb color from an [Rgb](rgb.md) color.
 
-## RGB to Hwb
+### Datatype
 
-Use the method **getHwbFromRgb**. This method return an Hwb struct or NULL
+The api return an Hwb struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Hwb struct can't be allocated
-
-The method can return an error char which can be accessible within the `error` property
-
-```c
-Hwb->error = <string>
+```yaml
+- h: double
+- w: double
+- b: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Rgb pointer struct
+#### Rgb -> Hwb
 
-### Usage Example
+- Rgb -> Hwb: getHwbFromRgb()
+- *Params*: Rgb* structure
+- *Return*: Hwb* Structure
+
+#### Hwb -> Rgb
+
+- Hwb -> Rgb: getRgbFromHwb
+- *Params*: Hwb structure
+- *Return*: Rgb Structure
+
+### Example Rgb to Hwb
 
 ```c
-#include "rgb.h"
-#include "Hwb.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <hwb.h>
 
 Rgb *rgb = malloc(sizeof(Rgb));
-rgb->r = 255;
-rgb->g = 255;
-rgb->b = 255;
+rgb->r = 17;
+rgb->g = 12;
+rgb->b = 93;
 
 Hwb *hwb = getHwbFromRgb(rgb);
-
-// rgb will not be freed (so that you can reuse this struct)
-free(rgb);
+/**
+ * Output (rounded)
+ * hsl->h = 244.0
+ * hsl->s = 4.7
+ * hsl->l = 63.53
+ */
 ```
 
-Hsl return the Hsl struct which you can access the property like the example below
+### Example Hwb to Rgb
 
 ```c
-double h = hwb->h;
-double w = hwb->s;
-double b = hwb->l;
-char *error = Hwb->error;
-```
-
-## Hwb to RGB
-
-Use the method **getRgbFromHwb**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Rgb struct can't be allocated
-
-The method *can return an RGB struct containing an error property*
-
-- Hsl property not passed
-- When an error happened during the conversion process
-
-### Parameter
-
-- Hwb pointer struct
-
-### Usage Example
-
-```c
-#include "rgb.h"
-#include "Hwb.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <hwb.h>
 
 Hwb *hwb = malloc(sizeof(Hwb));
 hwb->h = 0.0;
-hwb->w = 100.0;
-hwb->b = 0.0;
+hwb->w = 0.0;
+hwb->b = 100.0;
 
-// Hwb is being freed automatically
-Rgb *rgb = getRgbFromHwb(Hwb);
+Rgb *rgb = getRgbFromHwb(hwb);
+/**
+ * Output
+ * rgb->r = 0
+ * rgb->g = 0
+ * rgb->b = 0
+ */
 ```
+### Handling errors
 
-The method will return an Rgb struct which you can access it's property like the example below
+The API support 2 types of error
 
-```c
-uint8_t r = rgb->r;
-uint8_t g = rgb->g;
-uint8_t b = rgb->b;
-char *error = rgb->error;
-```
+- ```NULL```: This mean that the library has not been able to allocate the structure
+
+- ```hwb->error```: The hwb hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

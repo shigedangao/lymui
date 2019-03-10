@@ -23,9 +23,9 @@ The api return an Hsl struct which contain these fields
 
 #### Hsl -> Rgb
 
-- Hsl -> Rb: getRgbFromHsl
-- *Params*: Hsl structure
-- *Return*: Rgb Structure
+- Hsl -> Rgb: getRgbFromHsl
+- *Params*: Hsl* structure
+- *Return*: Rgb* Structure
 
 ### Example Rgb to Hsl
 
@@ -63,6 +63,12 @@ hsl->s = 0.0;
 hsl->l = 59.0;
 
 Rgb *rgb = getRgbFromHsl(hsl);
+/**
+ * Output
+ * rgb->r = 150
+ * rgb->g = 150
+ * rgb->b = 150
+ */
 ```
 
 ### Handling errors
