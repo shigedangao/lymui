@@ -1,93 +1,69 @@
-## Hsv APIs
+## Hsv API
 
-The Hsv API allow you to create an HSV color from an RGB based color. The HSV APIs allow you ton convert back and forth the value
+The HSV api allow you to create an HSV color from the [Rgb](rgb.md) color.
 
-## RGB to Hsv
+### Datatype
 
-Use the method **getHsvFromRgb**. This method return an Hsv struct or NULL
+The api return an Hsv struct whch contains these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Hsv struct can't be allocated
-
-This method take as a param an Hsv struct with an **error** parameter like so
-
-```c
-hsv->error = <string>
+```yaml
+- h: double
+- s: double
+- v: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Rgb pointer struct
+#### Rgb from uint8_t array
 
+- Rgb -> Hsv: getHsvFromRgb()
+- *Params*: Rgb* structure
+- *Return*: Hsv* structure
 
-### Usage Example
+### Example Rgb to Hsv
 
 ```c
-#include "rgb.h"
-#include "hsv.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <hsv.h>
 
-uint8_t cvalue[3] = {100, 150, 255};
-Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 5;
+rgb->g = 100;
+rgb->b = 100;
+
 Hsv *hsv = getHsvFromRgb(rgb);
-
-// rgb will not be freed (so that you can reuse this struct)
-free(rgb);
+/**
+ * Output
+ * hsl->h = 180.0
+ * hsl->s = 50.0
+ * hsl->v = 39.216
+ */
 ```
 
-Hsv return the Hsv struct which you can access the property like the example below
+### Example Hsv to RGB
 
 ```c
-double h = hsv->h;
-double s = hsv->s;
-double v = hsv->l;
-char *error = hsv->error;
-```
-
-## Hsv to RGB
-
-Use the method **getRgbFromHsv**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Rgb struct can't be allocated
-
-The method *can return an RGB struct containing an error property*
-
-- Hsv property not passed
-- When an error happened during the conversion process
-
-### Parameter
-
-- Hsv pointer struct
-
-### Usage Example
-
-```c
-#include "rgb.h"
-#include "hsv.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <hsv.h>
 
 Hsv *hsv = malloc(sizeof(Hsv));
-hsv->h = 0.0f;
-hsv->s = 100.0;
-hsv->v = 100.0;
+hsv->h = 180.0;
+hsv->s = 50.0;
+hsv->v = 39.216;
 
-// hsv is being freed automatically
-Rgb *rgb = getRgbFromHsv(Hsv);
+Rgb *rgb = getRgbFromHsv(hsv);
 ```
 
-The method will return an Rgb struct which you can access it's property like the example below
+### Handling errors
 
-```c
-uint8_t r = rgb->r;
-uint8_t g = rgb->g;
-uint8_t b = rgb->b;
-char *error = rgb->error;
-```
+The API support 2 types of error
 
+- ```NULL```: This mean that the library has not been able to allocate the structure
 
+- ```hsv->error```: The hsl hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)
 

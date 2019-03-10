@@ -18,7 +18,27 @@ Version: 1.3.0a
 
 ## Quick start
 
-@TODO do the quick start
+The library is a static library which come with an ```includes``` folder and a ```liblymui.a``` file. In order to use the project just link thoses files to your project.
+
+You can then use the library like so
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <rgb.h>
+#include <hex.h>
+
+int main(int argc, const char *argv[]) {
+  Rgb *rgb = malloc(sizeof(Rgb));
+  rgb->r = 10;
+  rgb->g = 20;
+  rgb->b = 30;
+
+  char *hex = getHexFromRgb(rgb);
+  // do something with the hex
+}
+```
 
 ## Changelogs
 

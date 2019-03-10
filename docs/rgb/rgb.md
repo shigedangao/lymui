@@ -1,41 +1,54 @@
-### RGB APIs
+## Rgb API
 
-The library provide you 2 way of creating an RGB:
-- Allocating the **Rgb** struct by yourself and set it's value
-- Pass an array of **uint8_t** to the **makeRGB** method
+The Rgb api allow you to create an RGB color from 2 endpoint. You can either pass an uint8_t array or allocate directly the color.
 
-### Examples
+### Datatype
 
-Example with malloc
+The api return an RGB struct which contains these fields
+
+```yaml
+- r: uint8_t
+- g: uint8_t
+- b: uint8_t
+- error: char*
+```
+
+### Methods signatures
+
+#### Rgb from uint8_t array
+
+- Rgb -> Hsl: makeRGB()
+- *Params*: uint8_t array
+- *Params*: size_t length
+- *Return*: Rgb* structure
+
+### Example with uint8_t array
 
 ```c
-#include "rgb.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+
+uint8_t uc[] = {0, 100, 200};
+Rgb *rgb = makeRGB(uc, sizeof(uc));
+```
+
+### Example with allocation
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
 
 Rgb *rgb = malloc(sizeof(Rgb));
-rgb->r = 50;
+rgb->r = 10;
 rgb->g = 10;
-rgb->b = 98;
+rgb->b = 10;
 ```
+### Handling errors
 
-Example with makeRGB
+The API support 2 types of error
 
-```c
-uint8_t colors = {5, 10, 98};
-Rgb *rgb = makeRGB(colors, sizeof(colors));
-```
+- ```NULL```: This mean that the library has not been able to allocate the structure
 
-### Targeted colors
-
-With an RGB struct you can convert to the color format below:
-
-- hex
-- cymk
-- hue
-- yuv
-- hsl
-- hsv
-- ycbcr
-- xyz
-- tsl
-- hwb
-- grayscale
+- ```rgb->error```: The hsl hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

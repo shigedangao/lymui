@@ -11,7 +11,7 @@ These methods are following this pattern: ```get<Target>From<Source>```
 
 ```c
 #include <stdlib.h>
-#include "lch.h"
+#include <lch.h>
 
 Lch *lch = malloc(sizeof(Lch));
 lch->l = 0.0;

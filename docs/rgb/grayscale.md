@@ -1,43 +1,40 @@
-## Grayscale APIs
+## Grayscale API
 
-The Grayscale API allow you to create an Grayscale color from an RGB based color.
+The grayscale api allow you to generate a GrayScale from an [RGB](rgb.md) value.
 
-## RGB to Grayscale
+## Datatype
 
-Use the method **getGrayScale**. This method return a Grayscale uint8_t value ranging from 0 to 255
+The api return an uint8_t which represent the grayscale value
 
-### Error handling
+### Methods signatures
 
-This method will return NULL when:
+#### Rgb -> Hsl
 
-- Parameter is NULL
+- Rgb -> Hsl: getHslFromRgb()
+- *Params*: Rgb structure
+- *Return*: Hsl Structure
 
-### Parameter
+### Supported algorithms
 
-- Rgb pointer struct
-- Strategy enum
-
-The Strategy enum support the following grayscale calculation options:
-
-- Lightness,
-- Average,
-- Luminosity,
-- bt709,
+- Average
+- Lightness
+- Luminosity
+- bt709
 - bt2100
 
-### Usage Example
+### Example
 
 ```c
-#include "rgb.h"
-#include "grayscale.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <grayscale.h>
 
 Rgb *rgb = malloc(sizeof(Rgb));
 rgb->r = 255;
-rgb->g = 255;
-rgb->b = 255;
-
+rgb->g = 0;
+rgb->b = 0;
 uint8_t gray = getGrayScale(rgb, Lightness);
 
-// rgb will not be freed (so that you can reuse this struct)
-free(rgb);
+// Output 128
 ```

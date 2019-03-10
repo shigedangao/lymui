@@ -1,92 +1,74 @@
-## Hsl APIs
+## Hsl API
 
-The Hsl API allow you to create an HSL color from an RGB based color. The HSL APIs allow you ton convert back and forth the value
+The Hsl api allow you to create an Hsl color from an [Rgb](rgb.md) color.
 
-## RGB to Hsl
+### Datatype
 
-Use the method **getHslFromRgb**. This method return an Hsl struct or NULL
+The api return an Hsl struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Hsl struct can't be allocated
-
-This method take as a param an Hsl struct with an **error** parameter like so
-
-```c
-hsl->error = <string>
+```yaml
+- h: double
+- s: double
+- l: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Rgb pointer struct
+#### Rgb -> Hsl
 
-### Usage Example
+- Rgb -> Hsl: getHslFromRgb()
+- *Params*: Rgb* structure
+- *Return*: Hsl* Structure
+
+#### Hsl -> Rgb
+
+- Hsl -> Rb: getRgbFromHsl
+- *Params*: Hsl structure
+- *Return*: Rgb Structure
+
+### Example Rgb to Hsl
 
 ```c
-#include "rgb.h"
-#include "hsl.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <hsl.h>
 
-uint8_t cvalue[3] = {100, 150, 255};
-Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 5;
+rgb->g = 10;
+rgb->b = 95;
+
 Hsl *hsl = getHslFromRgb(rgb);
-
-// rgb will not be freed (so that you can reuse this struct)
-free(rgb);
+/**
+ * Output
+ * hsl->h = 237.0
+ * hsl->s = 90.0
+ * hsl->l = 19.6
+ */
 ```
 
-Hsl return the Hsl struct which you can access the property like the example below
+### Example Hsl to RGB
 
 ```c
-double h = hsl->h;
-double s = hsl->s;
-double l = hsl->l;
-char *error = hsl->error;
-```
-
-## Hsl to RGB
-
-Use the method **getRgbFromHsl**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Rgb struct can't be allocated
-
-The method *can return an RGB struct containing an error property*
-
-- Hsl property not passed
-- When an error happened during the conversion process
-
-### Parameter
-
-- Hsl pointer struct
-
-### Usage Example
-
-```c
-#include "rgb.h"
-#include "hsl.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <hsl.h>
 
 Hsl *hsl = malloc(sizeof(Hsl));
-hsl->h = 0;
-hsl->s = 0;
-hsl->l = 59;
+hsl->h = 0.0;
+hsl->s = 0.0;
+hsl->l = 59.0;
 
-// hsl is being freed automatically
 Rgb *rgb = getRgbFromHsl(hsl);
 ```
 
-The method will return an Rgb struct which you can access it's property like the example below
+### Handling errors
 
-```c
-uint8_t r = rgb->r;
-uint8_t g = rgb->g;
-uint8_t b = rgb->b;
-char *error = rgb->error;
-```
+The API support 2 types of error
 
+- ```NULL```: This mean that the library has not been able to allocate the structure
 
-
+- ```hsl->error```: The hsl hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

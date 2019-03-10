@@ -1,30 +1,7 @@
-## Hue APIs
+## Hue API
 
-The Hue API allow you to create an Hue color from an RGB based color. The Hue APIs allow you ton convert back and forth the value
+The HUE api allow you to generate a Hue value from an [Rgb](rgb.md) color.
 
-## RGB to Hue
+### Datatype
 
-Use the method **getHueFromRgb**. This method return an Hue double or NULL
-
-### Error handling
-
-Nil
-
-### Parameter
-
-- Rgb pointer struct
-
-### Usage Example
-
-```c
-uint8_t cvalue[3] = {244, 100, 200};
-Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));    
-Hue hue = getHueFromRgb(rgb);
-
-// rgb will not be freed (so that you can reuse this struct)
-free(rgb);
-```
-
-### Note
-
-When a **NULL** Rgb struct is pass the method will not fail and instead return 0.0
+The api return a double which represent the hue value
