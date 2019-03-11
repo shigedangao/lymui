@@ -23,21 +23,21 @@ docs:
   - title: Xyz colors
     children:
       - title: Xyz
-        url:   /xyz/xyz
+        url:   /space/xyz
       - title: Argb
-        url:   /xyz/argb
+        url:   /space/argb
       - title: Lab
-        url:   /xyz/lab
+        url:   /space/lab
       - title: Hunter lab
-        url:   /xyz/hlab
+        url:   /space/hlab
       - title: Lch
-        url:   /xyz/lch
+        url:   /space/lch
       - title: Lchlab
-        url:   /xyz/lchlab
+        url:   /space/lchlab
       - title: Luv
-        url:   /xyz/luv
+        url:   /space/luv
       - title: Srgb
-        url:   /xyz/srgb
+        url:   /space/srgb
       - title: Xyy
-        url:   /xyz/xyy
+        url:   /space/xyy
     
