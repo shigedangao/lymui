@@ -2,42 +2,42 @@ docs:
   - title: Rgb colors
     children:
       - title: Rgb
-        url:   /rgb/rgb.md
+        url:   /rgb/rgb
       - title: Grayscale
-        url:   /rgb/grayscale.md
+        url:   /rgb/grayscale
       - title: Hex
-        url:   /rgb/hex.md
+        url:   /rgb/hex
       - title: Hsl
-        url:   /rgb/hsl.md
+        url:   /rgb/hsl
       - title: Hue
-        url:   /rgb/hue.md
+        url:   /rgb/hue
       - title: Hwb
-        url:   /rgb/hwb.md
+        url:   /rgb/hwb
       - title: Tsl
-        url:   /rgb/tsl.md
+        url:   /rgb/tsl
       - title: Ycbcr
-        url:   /rgb/ycbcr.md
+        url:   /rgb/ycbcr
       - title: Yuv
-        url:   /rgb/yuv.md
+        url:   /rgb/yuv
 
   - title: Xyz colors
     children:
       - title: Xyz
-        url:   /xyz/xyz.md
+        url:   /xyz/xyz
       - title: Argb
-        url:   /xyz/argb.md
+        url:   /xyz/argb
       - title: Lab
-        url:   /xyz/lab.md
+        url:   /xyz/lab
       - title: Hunter lab
-        url:   /xyz/hlab.md
+        url:   /xyz/hlab
       - title: Lch
-        url:   /xyz/lch.md
+        url:   /xyz/lch
       - title: Lchlab
-        url:   /xyz/lchlab.md
+        url:   /xyz/lchlab
       - title: Luv
-        url:   /xyz/luv.md
+        url:   /xyz/luv
       - title: Srgb
-        url:   /xyz/srgb.md
+        url:   /xyz/srgb
       - title: Xyy
-        url:   /xyz/xyy.md
+        url:   /xyz/xyy
     
