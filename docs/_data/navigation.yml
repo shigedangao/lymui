@@ -1,0 +1,43 @@
+docs:
+  - title: Rgb colors
+    children:
+      - title: Rgb
+        url:   /rgb/rgb.md
+      - title: Grayscale
+        url:   /rgb/grayscale.md
+      - title: Hex
+        url:   /rgb/hex.md
+      - title: Hsl
+        url:   /rgb/hsl.md
+      - title: Hue
+        url:   /rgb/hue.md
+      - title: Hwb
+        url:   /rgb/hwb.md
+      - title: Tsl
+        url:   /rgb/tsl.md
+      - title: Ycbcr
+        url:   /rgb/ycbcr.md
+      - title: Yuv
+        url:   /rgb/yuv.md
+
+  - title: Xyz colors
+    children:
+      - title: Xyz
+        url:   /xyz/xyz.md
+      - title: Argb
+        url:   /xyz/argb.md
+      - title: Lab
+        url:   /xyz/lab.md
+      - title: Hunter lab
+        url:   /xyz/hlab.md
+      - title: Lch
+        url:   /xyz/lch.md
+      - title: Lchlab
+        url:   /xyz/lchlab.md
+      - title: Luv
+        url:   /xyz/luv.md
+      - title: Srgb
+        url:   /xyz/srgb.md
+      - title: Xyy
+        url:   /xyz/xyy.md
+    

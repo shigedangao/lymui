@@ -1,79 +1,48 @@
-##  Lymui
+## Lymui
 
-Lymui is a small color conversion library. It's my first project in C !.
+Lymui is a static color conversion library. It's my first project in C !.
 
 [![codecov](https://codecov.io/gh/MarcInthaamnouay/lymui/branch/master/graph/badge.svg)](https://codecov.io/gh/MarcInthaamnouay/lymui)
 [![Build Status](https://dev.azure.com/androidgs2/lymui/_apis/build/status/MarcInthaamnouay.lymui?branchName=master)](https://dev.azure.com/androidgs2/lymui/_build/latest?definitionId=1&branchName=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c443f9099d024a81b2c56b42edf0b147)](https://www.codacy.com/app/mintha/lymui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MarcInthaamnouay/lymui&amp;utm_campaign=Badge_Grade)
 
-## Status
+## Version
 
-Version: 1.2.2
+Version: 1.3.0a
 
 ## Support OS
 
-- osx
-- linux
-- windows (not supported yet but contribution are welcome)
+- OSX
+- Linux
+- Windows 
 
-## Tests
+## Quick start
 
-Testing this project required some steps:
+The library is a static library which come with an ```includes``` folder and a ```liblymui.a``` file. In order to use the project just link thoses files to your project.
 
-- Clone the cunit library available at this link [Cunit library](https://github.com/itzseven/cunit.git)
-- Go into cunit folder and run ```make lib```
-- Copy the **content** of the **bin** folder and paste it into the **lib/cunit** folder
-- Then run: ```make lym && make test```
+You can then use the library like so
 
-*Note*: If you are on OSX you can open xcode and run the test from there
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <rgb.h>
+#include <hex.h>
 
-## Install & Compile the project
+int main(int argc, const char *argv[]) {
+  Rgb *rgb = malloc(sizeof(Rgb));
+  rgb->r = 10;
+  rgb->g = 20;
+  rgb->b = 30;
 
-The project is shipped with a makefile. Below is the command that you can use in order to generate different type of build
-
-- Output lib: ```make lib```
-
-## Usage
-
-An exhaustive list of examples are available on the link below.
-
-[APIs list](https://marcinthaamnouay.github.io/lymui/docs/)
+  char *hex = getHexFromRgb(rgb);
+  // do something with the hex
+}
+```
 
 ## Changelogs
 
-* 1.2.2
-* * Fix potentials memory leaks
-* * Fix tsl test on debian
-* * Refactor ycbcr calculation process (simplifcation)
-
-* 1.2.1
-* * Fix short hand hex which cause some random generated value
-* * Add missing support for argb -> xyz
-
-* 1.2.0:
-* * Remove free on rgb & xyz for user's reusability 
-* * Add support for TSL color format
-* * Add support for converting shorthand hex -> rgb
-* * Add support for HWB color format
-* * Add support for grayscale color format
-
-* 1.1.1:
-* * Refactor Hex -> Rgb
-* * Fix random wrong value when converting Hex to Rgb
-* * Add more tests cases on Yuv
-* * Update travis config
-
-* 1.1.0: 
-* * Refactor error handling
-* * Change decimal type to double
-* * Fix hex random wrong output issue
-* * Fix miscalculation for XYZ type colors
-* * Reviewed lab, lch, lchuv color calculation
-* * Remove useless use malloc (internal)
-* * Update tests
-* * Other bug fixes
-
-* 1.0.0: Initial release
+You can consult the changelog [here](docs/changelog.md).
 
 ## Contributions
 
