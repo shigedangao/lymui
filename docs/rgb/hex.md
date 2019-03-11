@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Hex API
 
 The HEX api allow you to generated an hexadecimal value from an [Rgb](rgb.md) struct.

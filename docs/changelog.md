@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Changelog
 
 * 1.3.0

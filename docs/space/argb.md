@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Argb API
 
 The Argb api allow you to create an Argb color from an [Xyz](xyz.md) color.

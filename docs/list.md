@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Supported colors
 
 The library is supporting multiples colors. Below is the list of supported colors.

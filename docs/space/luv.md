@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Luv API
 
 The Luv api allow you to create a Luv color from an [Xyz](xyz.md) color.

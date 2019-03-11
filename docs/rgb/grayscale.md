@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Grayscale API
 
 The grayscale api allow you to generate a GrayScale from an [RGB](rgb.md) value.

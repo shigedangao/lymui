@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Hsl API
 
 The Hsl api allow you to create an Hsl color from an [Rgb](rgb.md) color.

@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Lab API
 
 The Lab api allow you to create a Lab color from an [Xyz](xyz.md) color.

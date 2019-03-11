@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Hwb API
 
 The Hwb api allow you to create an Hwb color from an [Rgb](rgb.md) color.

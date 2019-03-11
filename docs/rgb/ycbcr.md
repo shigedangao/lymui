@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Ycbcr API
 
 The Ycbcr api allow you to create an Ycbcr color from an [Rgb](rgb.md) color.
