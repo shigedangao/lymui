@@ -8,18 +8,12 @@ The library support these Operating Systems below:
 - OSX
 - Windows
 
-### Installation
+### Package
 
-The library is easily pluggable. The library when unziped contains the files below:
+The library contains the following files:
 
 - includes/*.c (.h files)
 - liblymui.a
-
-Just link them in your project in your makefile with the -I and the -l command. Below is an example
-
-```makefile
-@TODO do example
-```
 
 ### Usage
 
