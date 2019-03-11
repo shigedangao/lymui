@@ -19,14 +19,6 @@
  */
 uint8_t doubleToUint(double value);
 
-/*
- * @discussion Update Constraint Value
- * @TODO This method need to be redone
- * @param value the float array
- * @return an array of float
- */
-double *updateConstraintValue(double *value, uint8_t size);
-
 /**
  * @brief Get the saturation between 2 values
  * @param min double value of the rgb struct

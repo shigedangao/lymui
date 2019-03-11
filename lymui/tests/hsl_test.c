@@ -123,7 +123,7 @@ MU_TEST(rgb_another_creation) {
     
     Rgb *rgb = getRgbFromHsl(hsl);
     
-    mu_assert_int_eq(250, rgb->r);
+    mu_assert_int_eq(249, rgb->r);
     mu_assert_int_eq(249, rgb->g);
     mu_assert_int_eq(249, rgb->b);
     

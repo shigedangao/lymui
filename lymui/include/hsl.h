@@ -24,6 +24,15 @@ typedef struct Hsl {
 } Hsl;
 
 /**
+ * @brief RgbInter struct use to calculate the intermediary value for hsl -> rgb
+ */
+typedef struct RgbInter {
+    double ri;
+    double gi;
+    double bi;
+} RgbInter;
+
+/**
  * @brief Create an Hsl struct from an Rgb Struct
  * @param rgb an rgb struct pointer
  * @return a struct Hsl pointer

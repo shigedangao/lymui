@@ -1,54 +1,58 @@
-## Lymui
+## Introduction
 
-Lymui is a small C color conversion library which support the following color space formats:
+Lymui is a static C library that convert color in several format that you can find on this link [supported colors format](list.md)
 
-* [rgb](https://marcinthaamnouay.github.io/lymui/docs/rgb)
-* [hex](https://marcinthaamnouay.github.io/lymui/docs/hex)
-* [hsl](https://marcinthaamnouay.github.io/lymui/docs/hsl)
-* [hsv](https://marcinthaamnouay.github.io/lymui/docs/hsv)
-* [hue](https://marcinthaamnouay.github.io/lymui/docs/hue)
-* [lab](https://marcinthaamnouay.github.io/lymui/docs/lab)
-* [lch(uv)](https://marcinthaamnouay.github.io/lymui/docs/lch)
-* [lch(lab)](https://marcinthaamnouay.github.io/lymui/docs/lchlab)
-* [luv](https://marcinthaamnouay.github.io/lymui/docs/luv)
-* [sRGB](https://marcinthaamnouay.github.io/lymui/docs/srgb)
-* [aRGB](https://marcinthaamnouay.github.io/lymui/docs/argb)
-* [xyz](https://marcinthaamnouay.github.io/lymui/docs/xyz)
-* [xyy](https://marcinthaamnouay.github.io/lymui/docs/xyy)
-* [ycbcr](https://marcinthaamnouay.github.io/lymui/docs/ycbcr)
-* [yuv](https://marcinthaamnouay.github.io/lymui/docs/yuv)
-* [tsl](https://marcinthaamnouay.github.io/lymui/docs/tsl)
-* [hwb](https://marcinthaamnouay.github.io/lymui/docs/hwb)
-* [grayscale](https://marcinthaamnouay.github.io/lymui/docs/grayscale)
+The library support these Operating Systems below:
 
-This library is provided as a static library that you can plug to your project. Note: If you want to use it as a shared library feel free to update the provided makefile.
+- Linux
+- OSX
+- Windows
 
-## Testing & Generate static lib
+### Package
 
-Clone this repository.
-Testing on MacOSX & Linux based should be pretty straightforward
+The library contains the following files:
 
-The test are made with **cunit library**. the provided lib has been build for OSX.
+- includes/*.c (.h files)
+- liblymui.a
 
-### For OSX Users
+### Usage
 
-I recommended you to download Xcode. As the project is made using Xcode it will be easier for you to run it right away.
+The usage is pretty simple. Please refer to the [API explanation](api.md)
 
-By using Xcode you will be able to launch the tests directly by running the project. Every tests are referenced on the ```main.c``` file.
+### List of colors list
 
-### For Linux user
+The library is supporting multiples colors. Please refer to the [colors list doc](list.md) for the supported list of colors.
 
-A makefile is available at the root of the folder. Launch the following commands
+### Unit test
 
-- ```make lym``` --> this is going to create an executable file
-- ```make test``` --> this is going to run the test
+The project has been test with [Minunit](https://github.com/siu/minunit) in these platforms on Azure:
 
-### Generate static lib
+- Linux (ubuntu-16.04)
+- OSX (macOS-10.13)
+- Windows
 
-On both MacOSX & Linux run the command ```make lib``` this should create a static library within the **bin** folder. 
-The bin folder should contain the following folder & files.
+The coverage is available on [Codecov](https://codecov.io/gh/MarcInthaamnouay/lymui)
 
-```shell
--- includes
--- liblymui.a
-```
+The code is also checked by [Codacy](https://app.codacy.com/project/mintha/lymui/dashboard) in order to check for any bad memory leakage and other C error (Note, this might not prevent everything but still help a lot)
+
+### Resources
+
+Many resources has been used for making this library. Especially regarding the calculation of the color formats. Below is the resources that I used. All credits goes to them.
+
+[Bruce Lindbloom, colorspace](http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html)
+
+[CIE calcuator](http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_Lab.html)
+
+[Wikipedia](https://en.wikipedia.org/wiki/RGB_color_model)
+
+[ColorMine](http://colormine.org/)
+
+[Python color conversion library](https://github.com/retostauffer/python-colorspace)
+
+[RapidTables](https://www.rapidtables.com/)
+
+[EasyRGB](http://www.easyrgb.com/en/)
+
+[Color NodeJS library](https://github.com/Qix-/color)
+
+[Niwa.nu](http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/)
