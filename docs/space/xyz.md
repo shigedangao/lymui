@@ -1,104 +1,81 @@
-## Xyz APIs
+## Xyy API
 
-The Xyz API allow you to create an Xyz color from an RGB based color. The Xyz APIs allow you ton convert back and forth the value
+The Xyy api allow you to create an Xyy color from an [Rgb](rgb.md) color.
 
-## RGB to Xyz
+### Datatype
 
-Use the method **getXyzFromRgb**. This method return an Xyz struct or NULL
+The api return an Xyz struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Xyz struct can't be allocated
-
-This method take as a param an Xyz struct with an **error** parameter like so
-
-```c
-yyz->error = <string>
+```yaml
+- x: double
+- y: double
+- z: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Rgb pointer struct
-- Enum Matrix m (value: srgb or adobeRgb)
+#### Rgb -> Xyz
 
+- Rgb -> Xyz: getXyzFromRgb
+- *Params*: Rgb* structure
+- *Params*: Matrix m (srgb|adobeRgb)
+- *Return*: Xyz* Structure
 
-### Usage Example
+#### Xyz -> Rgb
 
-```c
-#include "rgb.h"
-#include "xyz.h"
+- Xyz -> Rgb: getRgbFromXyz
+- *Params*: Xyz* structure
+- *Return*: Rgb* Structure
 
-uint8_t cvalue[3] = {100, 150, 255};
-Rgb *rgb = makeRGB(cvalue, sizeof(cvalue) / sizeof(cvalue[0]));
-Xyz *Xyz = getXyzFromRgb(rgb, srgb);
-```
-
-Xyz return the Xyz struct which you can access the property like the example below
+### Example Xyz to Xyy
 
 ```c
-double x = xyz->x;
-double y = xyz->y;
-double z = xyz->z;
-char *error = Xyz->error;
+#include <stdio.h>
+#include <stdlib.h>
+#include <xyz.h>
+#include <rgb.h>
+
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 50;
+rgb->g = 10;
+rgb->b = 95;
+
+Xyz *xyz = getXyzFromRgb(rgb, srgb);
+/**
+ * Output
+ * xyz->x = 0.0349
+ * xyz->y = 0.0172
+ * xyz->z = 0.1097
+ */
 ```
 
-## Xyz to RGB
-
-Use the method **getRgbFromXyz**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Rgb struct can't be allocated
-
-The method *can return an RGB struct containing an error property*
-
-- Xyz property not passed
-- When an error happened during the conversion process
-
-### Parameter
-
-- Xyz pointer struct
-- Enum Matrix m (value: srgb or adobeRgb)
-
-
-### Usage Example
+### Example Xyz to Rgb
 
 ```c
-#include "rgb.h"
-#include "xyz.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <xyz.h>
+#include <rgb.h>
 
-Xyz *xyz = malloc(sizeof(Xyz));
-xyz->x = 0.0348,
-xyz->y = 0.0172,
-xyz->z = 0.1097
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 50;
+rgb->g = 10;
+rgb->b = 95;
 
-Rgb *rgb = getRgbFromXyz(xyz, srgb);
+Xyz *xyz = getXyzFromRgb(rgb, srgb);
+Rgb *n = getRgbFromXyz(xyz, srgb);
+/**
+ * Output
+ * rgb->r = 50
+ * rgb->g = 10
+ * rgb->b = 95
+ */
 ```
+### Handling errors
 
-The method will return an Rgb struct which you can access it's property like the example below
+The API support 2 types of error
 
-```c
-uint8_t r = rgb->r;
-uint8_t g = rgb->g;
-uint8_t b = rgb->b;
-char *error = rgb->error;
-```
+- ```NULL```: This mean that the library has not been able to allocate the structure
 
-### Targeted colors
-
-With an Xyz struct you can convert to the color format below:
-
-- lab
-- luv
-- lch
-- lchlab
-- xyy
-- srgb
-- argb
-
-
-
+- ```xyz->error```: The Xyz hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

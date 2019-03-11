@@ -1,6 +1,6 @@
 ## Argb API
 
-The Argb api allow you to create an Argb color from an [Xyz](rgb.md) color.
+The Argb api allow you to create an Argb color from an [Xyz](xyz.md) color.
 
 ### Datatype
 

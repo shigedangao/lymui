@@ -1,91 +1,79 @@
-## Xyy APIs
+## Xyy API
 
-The Xyy API allow you to create an Xyy color from an Xyz based color. The Xyy APIs allow you ton convert back and forth the value
+The Xyy api allow you to create an Xyy color from an [Xyz](xyz.md) color.
 
-## Xyz to Xyy
+### Datatype
 
-Use the method **getXyyFromXyz**. This method return an Xyy struct or NULL
+The api return an Xyy struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- Xyy struct can't be allocated
-
-This method take as a param an Xyy struct with an **error** parameter like so
-
-```c
-xyy->error = <string>
+```yaml
+- x: double
+- y: double
+- y: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Xyz pointer struct
+#### Xyz -> Xyy
 
-### Usage Example
+- Rgb -> Xyy: getXyzFromRgb
+- *Params*: Xyz* structure
+- *Return*: Xyy* Structure
+
+#### Xyy -> Xyz
+
+- Xyy -> Rgb: getRgbFromHsl
+- *Params*: Xyy* structure
+- *Return*: Xyz* Structure
+
+### Example Xyz to Xyy
 
 ```c
-#include "xyz.h"
-#include "xyy.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <xyz.h>
+#include <xyy.h>
 
 Xyz *xyz = malloc(sizeof(Xyz));
-xyz->x = 0.950470;
-xyz->y = 1.0;
-xyz->z = 1.088830;
-    
-Xyy *xyy  = getXyyFromXyz(xyz);
+xyz->x = 0.9;
+xyz->y = 0.8;
+xyz->z = 0.7;
 
-// xyz will not be freed (so that you can reuse this struct)
-free(xyz);
+Xyy *xyy = getXyyFromXyz(xyz);
+/**
+ * Output
+ * xyy->x = 0.375
+ * xyy->y = 0.333
+ * xyy->Y = 0.8
+ */
 ```
 
-It return the Xyy struct which you can access the property like the example below
+### Example Xyy to Xyz
 
 ```c
-double x = xyy->x;
-double y = xyy->y;
-double Y = xyy->Y;
-char *error = Xyy->error;
-```
-
-## Xyy to Xyz
-
-Use the method **getXyzFromXyy**. This method return an RGB struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Xyz struct can't be allocated
-
-The method *can return an Xyz struct containing an error property*
-
-- Xyy property not passed
-
-### Parameter
-
-- Xyy pointer struct
-
-### Usage Example
-
-```c
-#include "xyz.h"
-#include "xyy.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <xyz.h>
+#include <xyy.h>
 
 Xyy *xyy = malloc(sizeof(Xyy));
-xyy->x = 0.375;
-xyy->y = 0.333;
-xyy->Y = 0.8;
+xyy->x = 0.313;
+xyy->y = 0.329;
+xyy->Y = 0.0;
 
-// xyy is being freed automatically
 Xyz *xyz = getXyzFromXyy(xyy);
+/**
+ * Output
+ * xyz->x = 0.0
+ * xyz->y = 0.0
+ * xyz->z = 0.0
+ */
 ```
+### Handling errors
 
-The method will return an Xyz struct which you can access it's property like the example below
+The API support 2 types of error
 
-```c
-double x = xyz->x;
-double y = xyz->y;
-double z = xyz->z;
-char *error = xyz->error;
-```
+- ```NULL```: This mean that the library has not been able to allocate the structure
+
+- ```xyy->error```: The Xyy hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)

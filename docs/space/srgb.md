@@ -1,91 +1,77 @@
-## SRgb APIs
+## Srgb API
 
-The SRgb API allow you to create an SRgb color from an Xyz based color. The SRgb APIs allow you ton convert back and forth the value
+The Srgb api allow you to create an Srgb color from an [Xyz](xyz.md) color.
 
-## Xyz to SRgb
+### Datatype
 
-Use the method **getSRgbFromXyz**. This method return an SRgb struct or NULL
+The api return an Srgb struct which contain these fields
 
-### Error handling
-
-This method will return NULL when:
-
-- SRgb struct can't be allocated
-
-This method take as a param an SRgb struct with an **error** parameter like so
-
-```c
-SRgb->error = <string>
+```yaml
+- r: double
+- g: double
+- b: double
+- error: char*
 ```
 
-### Parameter
+### Methods signatures
 
-- Xyz pointer struct
+#### Xyz -> Srgb
 
-### Usage Example
+- Xyz -> Srgb: getXyzFromRgb
+- *Params*: Xyz* structure
+- *Return*: Srgb* Structure
 
-```c
-#include "xyz.h"
-#include "srgb.h"
+#### Srgb -> Xyz
 
-Xyz *xyz = malloc(sizeof(Xyz));
-xyz->x = 0.950470;
-xyz->y = 1.0;
-xyz->z = 1.088830;
-    
-SRgb *srgb  = getSrgbFromXyz(xyz);
+- Srgb -> Xyz: getXyzFromSrgb
+- *Params*: Srgb* structure
+- *Return*: Xyz* Structure
 
-// xyz will not be freed (so that you can reuse this struct)
-free(xyz);
-```
-
-It return the SRgb struct which you can access the property like the example below
+### Example Xyz to Srgb
 
 ```c
-double r = srgb->r;
-double g = srgb->g;
-double b = srgb->b;
-char *error = SRgb->error;
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <xyz.h>
+#include <srgb.h>
+
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 50;
+rgb->g = 10;
+rgb->b = 95;
+
+Xyz *xyz   = getXyzFromRgb(rgb, adobeRgb);
+Srgb *srgb = getSrgbFromXyz(xyz);
+/**
+ * Output
+ * Srgb->r = 0.196
+ * Srgb->g = 0.039
+ * Srgb->b = 0.372
+ */
 ```
 
-## SRgb to Xyz
-
-Use the method **getXyzFromSrgb**. This method return an Xyz struct or NULL.
-
-### Error handling
-
-This method will return NULL when:
-
-- Xyz struct can't be allocated
-
-The method *can return an Xyz struct containing an error property*
-
-- SRgb property not passed
-
-### Parameter
-
-- SRgb pointer struct
-
-### Usage Example
+### Example Srgb to Xyz
 
 ```c
-#include "xyz.h"
-#include "srgb.h"
+Srgb *Srgb = malloc(sizeof(Srgb));
+srgb->r = 0.196089;
+srgb->g = 0.039087;
+srgb->b = 0.372496;
 
-SRgb *srgb = malloc(sizeof(SRgb));
-srgb->r = 0.0;
-srgb->g = 0.0;
-srgb->b = 0.0;
+Xyz *xyz = getXyzFromSrgb(Srgb);
+/**
+ * Output
+ * xyz->x = 0.0376
+ * xyz->y = 0.0173
+ * xyz->z = 0.1137
+ */
 
-// srgb is being freed automatically
-Xyz *xyz = getXyzFromSrgb(srgb);
 ```
+### Handling errors
 
-The method will return an Xyz struct which you can access it's property like the example below
+The API support 2 types of error
 
-```c
-double x = xyz->x;
-double y = xyz->y;
-double z = xyz->z;
-char *error = xyz->error;
-```
+- ```NULL```: This mean that the library has not been able to allocate the structure
+
+- ```srgb->error```: The srgb hold the ```error``` field which contain a stringify error. The list of errors is available [here](../errors.md)
