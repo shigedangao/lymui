@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Xyy API
 
 The Xyy api allow you to create an Xyy color from an [Xyz](xyz.md) color.

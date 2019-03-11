@@ -40,9 +40,13 @@ int main(int argc, const char *argv[]) {
 }
 ```
 
+## Documentation
+
+For further information you can find the documentation [here](https://marcinthaamnouay.github.io/lymui)
+
 ## Changelogs
 
-You can consult the changelog [here](docs/changelog.md).
+You can consult the changelog [here](https://marcinthaamnouay.github.io/lymui/changelog).
 
 ## Contributions
 

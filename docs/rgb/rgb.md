@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Rgb API
 
 The Rgb api allow you to create an RGB color from 2 endpoint. You can either pass an uint8_t array or allocate directly the color.

@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Hsv API
 
 The HSV api allow you to create an HSV color from the [Rgb](rgb.md) color.

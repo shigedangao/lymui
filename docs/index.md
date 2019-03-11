@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Introduction
 
 Lymui is a static C library that convert color in several format that you can find on this link [supported colors format](list.md)

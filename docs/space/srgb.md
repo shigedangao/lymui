@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Srgb API
 
 The Srgb api allow you to create an Srgb color from an [Xyz](xyz.md) color.

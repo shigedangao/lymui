@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Hcl API
 
 The Hcl api allow you to create an Hcl color from an [Rgb](rgb.md) color

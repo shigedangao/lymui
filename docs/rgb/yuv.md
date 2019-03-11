@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Yuv API
 
 The Yuv api allow you to create a Yuv color from an [Rgb](rgb.md) color.

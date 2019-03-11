@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Lch API
 
 The Lch api allow you to create a Lch color from an [Xyz](xyz.md) color.

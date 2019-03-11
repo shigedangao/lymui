@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## API
 
 The API is pretty simple the color library is exposing generally ```2 methods``` for each types of color.

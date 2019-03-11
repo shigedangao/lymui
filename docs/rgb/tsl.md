@@ -1,3 +1,11 @@
+---
+layout: single
+classes: wide
+title: Lymui
+sidebar:
+  nav: "docs"
+---
+
 ## Tsl API
 
 The Tsl api allow you to create a Tsl color from an [Rgb](rgb.md) color.
