@@ -34,18 +34,19 @@ jobs:
     vmImage: 'macos-10.13'
   steps:
   - template: templates/build-steps.yml
-  - template: templates/artifact-steps.yml
 
 - job: Linux_build
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
   - template: templates/build-steps.yml
-  - template: templates/artifact-steps.yml
 
 - job: Windows_build
   pool:
     vmImage: 'vs2017-win2016'
   steps:
   - template: templates/build-steps.yml
-  - template: templates/artifact-steps.yml
+
+- job: Publish to github
+  steps:
+  - template: templates/github-steps.yml

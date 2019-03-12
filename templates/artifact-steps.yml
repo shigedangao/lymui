@@ -1,5 +1,0 @@
-steps:
-  - task: PublishBuildArtifacts@1
-    inputs: 
-      PathtoPublish: '$(System.DefaultWorkingDirectory)'
-      name: 'drop'

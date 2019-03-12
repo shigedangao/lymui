@@ -5,4 +5,4 @@ steps:
     displayName: 'archive lymui library'
     inputs:
       rootFolderOrFile: bin
-      archiveFile: '$(System.DefaultWorkingDirectory)/liblymui-$(Agent.OS)-$(version).zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/liblymui-$(Agent.OS)-$(version).zip'
