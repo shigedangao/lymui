@@ -34,6 +34,7 @@ jobs:
     vmImage: 'macos-10.13'
   steps:
   - template: templates/build-steps.yml
+  - template: templates/github-steps.yml
 
 - job: Linux_build
   pool:
@@ -46,7 +47,3 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
   - template: templates/build-steps.yml
-
-- job: Publish_to_github
-  steps:
-  - template: templates/github-steps.yml
