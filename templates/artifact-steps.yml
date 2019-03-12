@@ -1,5 +1,6 @@
 steps:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish artifact'
-    PathtoPublish: '$(System.DefaultWorkingDirectory)'
-    name: 'drop'
+    inputs:
+      PathtoPublish: '$(System.DefaultWorkingDirectory)'
+      name: 'drop'
