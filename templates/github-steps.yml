@@ -1,8 +1,0 @@
-steps:
-  - task: GithubRelease@0
-    displayName: 'Create lymui release'
-    inputs:
-      githubConnection: MarcInthaamnouay
-      repositoryName: MarcInthaamnouay/lymui
-      tag: $(version)
-      assets: $(Build.ArtifactStagingDirectory)/*.zip
