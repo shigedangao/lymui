@@ -41,9 +41,11 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
   - template: templates/build-steps.yml
+  - template: templates/github-steps.yml
 
 - job: Windows_build
   pool:
     vmImage: 'vs2017-win2016'
   steps:
   - template: templates/build-steps.yml
+  - template: templates/github-steps.yml
