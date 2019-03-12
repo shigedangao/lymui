@@ -47,6 +47,6 @@ jobs:
   steps:
   - template: templates/build-steps.yml
 
-- job: Publish to github
+- job: Publish_to_github
   steps:
   - template: templates/github-steps.yml
