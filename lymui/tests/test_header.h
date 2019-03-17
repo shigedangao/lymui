@@ -38,15 +38,11 @@ int wrapYuvTest(void);
 
 int wrapGrayScaleTest(void);
 
-int wrapHclTest(void);
-
 int wrapHwbTest(void);
 
 int wrapTslTest(void);
 
 int wrapXyzTest(void);
-
-
 
 int wrapArgbTest(void);
 
