@@ -33,6 +33,8 @@ Hsl **getDarkerShade(Rgb *rgb) {
         array[idx] = malloc(sizeof(Hsl));
         if (array[idx] == NULL) {
             idx = it + 1;
+            
+            free(baseHsl);
             free(array);
             return NULL;
         }
