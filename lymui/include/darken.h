@@ -14,6 +14,8 @@
 #include "hsv.h"
 #include "rgb.h"
 
-Hsl **getDarkerShade(Rgb *rgb, int shadeNb);
+#define it 10
+
+Hsl **getDarkerShade(Rgb *rgb);
 
 #endif /* darken_h */

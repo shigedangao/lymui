@@ -60,4 +60,6 @@ int wrapLchLabTest(void);
 
 int wrapXyyTest(void);
 
+int wrapDarkenTest(void);
+
 #endif /* rgb_test_h */

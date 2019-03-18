@@ -9,43 +9,48 @@
 #include "darken.h"
 #include <stdlib.h>
 
-Hsl **getDarkerShade(Rgb *rgb, int it) {
+Hsl **getDarkerShade(Rgb *rgb) {
     int idx = 0;
     if (rgb == NULL) {
         return NULL;
     }
     
-    Hsl **ptrList = malloc(it * sizeof(Hsl));
-    if (ptrList == NULL) {
-        return NULL;
-    }
-    
+    Hsl **array = malloc(it * sizeof(Hsl*));
     Hsl *baseHsl = getHslFromRgb(rgb);
     if (baseHsl == NULL) {
+        free(array);
         return NULL;
     }
     
-    // @TODO maybe print to a log ?
     if (baseHsl->error != NULL) {
-        free(ptrList);
+        free(array);
         free(baseHsl);
         return NULL;
     }
     
+    double lum = baseHsl->l;
     while (idx < it) {
-        ptrList[idx] = malloc(sizeof(Hsl));
-        if (ptrList[idx] == NULL) {
+        array[idx] = malloc(sizeof(Hsl));
+        if (array[idx] == NULL) {
             idx = it + 1;
+            free(array);
             return NULL;
         }
         
-        // @TODO need to define if it's possible to use user's step value of need to have define somewhere
-        ptrList[idx]->h = baseHsl->h;
-        ptrList[idx]->s = baseHsl->s;
-        ptrList[idx]->l = baseHsl->l;
+        array[idx]->h = baseHsl->h;
+        array[idx]->s = baseHsl->s;
+        
+        lum = lum - (baseHsl->l / (double) it);
+        if (!lum || lum < 0.0) {
+            array[idx]->l = 0.0;
+        } else {
+            array[idx]->l = lum;
+        }
         
         idx++;
     }
     
-    return ptrList;
+    free(baseHsl);
+    
+    return array;
 }
