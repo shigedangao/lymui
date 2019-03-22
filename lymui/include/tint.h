@@ -26,7 +26,7 @@ typedef struct Tint {
 /**
  * @brief Generate a tint
  * @param rgb Rgb
- * @return Tint*
+ * @return Tint ptr
  */
 Tint *getTint(Rgb *rgb);
 

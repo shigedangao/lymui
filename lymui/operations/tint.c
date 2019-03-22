@@ -78,7 +78,8 @@ Tint *getTint(Rgb *rgb) {
     free(hsl);
 
     // assign the tint array to the tint
-    tint->tint = array;
+    tint->tint  = array;
+    tint->error = NULL;
 
     return tint;
 }

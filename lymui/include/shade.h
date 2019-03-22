@@ -16,6 +16,19 @@
 
 #define it 10
 
-Hsl **getShade(Rgb *rgb);
+/**
+ * @brief generating a shade
+ */
+typedef struct Shade {
+    Hsl **shade;
+    char *error;
+} Shade;
+
+/**
+ * @brief generate a shade
+ * @param rgb Rgb
+ * @return Shade ptr
+ */
+Shade *getShade(Rgb *rgb);
 
 #endif /* shade_h */

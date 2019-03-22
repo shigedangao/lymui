@@ -8,41 +8,52 @@
 
 #include "shade.h"
 #include <stdlib.h>
+#include "errors.h"
 
-Hsl **getShade(Rgb *rgb) {
+Shade *getShade(Rgb *rgb) {
+    Shade *shade = malloc(sizeof(Shade));
+    if (shade == NULL) {
+        return NULL;
+    }
+    
     int idx = 0;
     if (rgb == NULL) {
-        return NULL;
+        shade->error = NULL_INPUT_PARAM;
+        return shade;
     }
     
     Hsl **array = malloc(it * sizeof(Hsl*));
-    Hsl *baseHsl = getHslFromRgb(rgb);
-    if (baseHsl == NULL) {
+    Hsl *hsl = getHslFromRgb(rgb);
+    if (hsl == NULL) {
+        shade->error = MALLOC_ERROR;
         free(array);
-        return NULL;
+        return shade;
     }
     
-    if (baseHsl->error != NULL) {
+    if (hsl->error != NULL) {
+        shade->error = hsl->error;
         free(array);
-        free(baseHsl);
-        return NULL;
+        free(hsl);
+        return shade;
     }
     
-    double lum = baseHsl->l;
+    double lum = hsl->l;
     while (idx < it) {
         array[idx] = malloc(sizeof(Hsl));
         if (array[idx] == NULL) {
-            idx = it + 1;
-            
-            free(baseHsl);
+            free(hsl);
             free(array);
-            return NULL;
+            shade->error = MALLOC_ERROR;
+            return shade;
         }
         
-        array[idx]->h = baseHsl->h;
-        array[idx]->s = baseHsl->s;
+        array[idx]->h = hsl->h;
+        array[idx]->s = hsl->s;
         
-        lum = lum - (baseHsl->l / (double) it);
+        if (idx) {
+            lum = lum - (hsl->l / (double) it);
+        }
+        
         if (!lum || lum < 0.0) {
             array[idx]->l = 0.0;
         } else {
@@ -52,7 +63,10 @@ Hsl **getShade(Rgb *rgb) {
         idx++;
     }
     
-    free(baseHsl);
+    free(hsl);
     
-    return array;
+    shade->shade = array;
+    shade->error = NULL;
+    
+    return shade;
 }
