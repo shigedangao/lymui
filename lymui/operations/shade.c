@@ -22,7 +22,12 @@ Shade *getShade(Rgb *rgb) {
         return shade;
     }
     
-    Hsl **array = malloc(it * sizeof(Hsl*));
+    Hsl **array = malloc(it * sizeof(Hsl));
+    if (array == NULL) {
+        shade->error = MALLOC_ERROR;
+        return shade;
+    }
+    
     Hsl *hsl = getHslFromRgb(rgb);
     if (hsl == NULL) {
         shade->error = MALLOC_ERROR;
