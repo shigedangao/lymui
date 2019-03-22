@@ -1,15 +1,15 @@
 //
-//  darken.c
+//  shade.c
 //  lymui
 //
 //  Created by Marc Intha on 17/03/2019.
 //  Copyright © 2019 Marc. All rights reserved.
 //
 
-#include "darken.h"
+#include "shade.h"
 #include <stdlib.h>
 
-Hsl **getDarkerShade(Rgb *rgb) {
+Hsl **getShade(Rgb *rgb) {
     int idx = 0;
     if (rgb == NULL) {
         return NULL;

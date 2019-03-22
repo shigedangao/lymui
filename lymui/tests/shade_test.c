@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <minunit.h>
 #include "test_header.h"
-#include "darken.h"
+#include "shade.h"
 #include "rgb.h"
 
 MU_TEST(darken) {
@@ -19,7 +19,7 @@ MU_TEST(darken) {
     rgb->g = 150;
     rgb->b = 255;
     
-    Hsl **hsl = getDarkerShade(rgb);
+    Hsl **hsl = getShade(rgb);
     
     mu_assert_double_eq(221.0, hsl[0]->h);
     mu_assert_double_eq(100.0, hsl[0]->s);
@@ -43,7 +43,7 @@ MU_TEST(darken_bright_test) {
     rgb->g = 255;
     rgb->b = 255;
     
-    Hsl **hsl = getDarkerShade(rgb);
+    Hsl **hsl = getShade(rgb);
 
     mu_assert_double_eq(0.0, hsl[0]->h);
     mu_assert_double_eq(0.0, hsl[0]->s);
@@ -68,7 +68,7 @@ MU_TEST(darken_dark_test) {
     rgb->g = 0;
     rgb->b = 0;
     
-    Hsl **hsl = getDarkerShade(rgb);
+    Hsl **hsl = getShade(rgb);
     
     mu_assert_double_eq(0.0, hsl[0]->h);
     mu_assert_double_eq(0.0, hsl[0]->s);
@@ -87,7 +87,7 @@ MU_TEST(darken_dark_test) {
 }
 
 MU_TEST(darken_empty_param) {
-    Hsl **hsl = getDarkerShade(NULL);
+    Hsl **hsl = getShade(NULL);
     
     mu_assert(hsl == NULL, "Expect HSL Darken to be equal to NULL");
 }
