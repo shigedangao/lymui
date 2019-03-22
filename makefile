@@ -3,6 +3,7 @@
 SRC_DIR = lymui
 INC_DIR = lymui/include
 OBJ_DIR = obj
+OP_DIR  = operations
 BIN_DIR = bin
 TEST_DIR = tests
 
@@ -19,8 +20,12 @@ INC_TT = -I$(INC_DIR) -I$(INC_LIB_DIR) -I$(INC_LIB_TT) -Wall $(CFLAGS)
 # Lymui source files
 LM_HEADERS = $(wildcard $(SRC_DIR)/include/*.h)
 LM_SOURCES = $(filter-out lymui/main.c, $(wildcard $(SRC_DIR)/*.c))
+LM_OP_SRC  = $(wildcard $(SRC_DIR)/operations/*.c)
 LM_TESTS_C = $(wildcard $(SRC_DIR)/tests/*.c)
 LM_TESTS_H = $(wildcard $(SRC_DIR)/tests/*.h)
+
+# Append Operations files to LM_SOURCES
+LM_SOURCES := $(LM_SOURCES) $(LM_OP_SRC)
 OBJECTS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(LM_SOURCES))
 
 # Tests specific files
@@ -62,7 +67,7 @@ cleanTest:
 all: cleanTest clean lib
 
 obj:
-	mkdir -p $(OBJ_DIR)/$(SRC_DIR)
+	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(OP_DIR)
 
 bin:
 	mkdir -p $(BIN_DIR)/include
