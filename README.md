@@ -8,7 +8,7 @@ Lymui is a static color conversion library. It's my first project in C !.
 
 ## Version
 
-Version: 1.3.0a
+Version: 1.3.0b
 
 ## Support OS
 

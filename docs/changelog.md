@@ -9,7 +9,8 @@ sidebar:
 ## Changelog
 
 * 1.3.0
-* * Add support for HCL color format
+* * Add support of generate tint
+* * Add support of generate shade
 * * Flatten error message
 * * Fix unhandled NULL char when converting to an RGB
 * * Refactor Xyz
