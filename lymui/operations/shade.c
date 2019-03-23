@@ -90,6 +90,7 @@ uint8_t releaseShade(Shade *shade) {
         free(shade->shade[idx]);
     }
     
+    free(shade->shade);
     free(shade);
     return 1;
 }

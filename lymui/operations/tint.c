@@ -98,6 +98,7 @@ uint8_t releaseTint(Tint *tint) {
         free(tint->tint[idx]);
     }
     
+    free(tint->tint);
     free(tint);
     return 1;
 }
