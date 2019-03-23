@@ -19,23 +19,21 @@ MU_TEST(tint) {
     rgb->b = 255;
     
     Tint *tint = getTint(rgb);
-    Hsl **hsl = tint->tint;
     
-    mu_assert_double_eq(221.0, hsl[0]->h);
-    mu_assert_double_eq(100.0, hsl[0]->s);
-    mu_assert_double_eq(69.61, roundup(hsl[0]->l, 100));
-    mu_assert_double_eq(76.57, roundup(hsl[1]->l, 100));
-    mu_assert_double_eq(83.53, roundup(hsl[2]->l, 100));
-    mu_assert_double_eq(90.49, roundup(hsl[3]->l, 100));
-    mu_assert_double_eq(97.45, roundup(hsl[4]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[5]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[6]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[7]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[8]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[9]->l, 100));
+    mu_assert_double_eq(221.0, tint->tint[0]->h);
+    mu_assert_double_eq(100.0, tint->tint[0]->s);
+    mu_assert_double_eq(69.61, roundup(tint->tint[0]->l, 100));
+    mu_assert_double_eq(76.57, roundup(tint->tint[1]->l, 100));
+    mu_assert_double_eq(83.53, roundup(tint->tint[2]->l, 100));
+    mu_assert_double_eq(90.49, roundup(tint->tint[3]->l, 100));
+    mu_assert_double_eq(97.45, roundup(tint->tint[4]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[5]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[6]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[7]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[8]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[9]->l, 100));
     
-    free(hsl);
-    free(tint);
+    releaseTint(tint);
     free(rgb);
 }
 
@@ -46,23 +44,21 @@ MU_TEST(tint_dark) {
     rgb->b = 0;
     
     Tint *tint = getTint(rgb);
-    Hsl **hsl  = tint->tint;
     
-    mu_assert_double_eq(0.0, hsl[0]->h);
-    mu_assert_double_eq(0.0, hsl[0]->s);
-    mu_assert_double_eq(0.0, roundup(hsl[0]->l, 100));
-    mu_assert_double_eq(10.0, roundup(hsl[1]->l, 100));
-    mu_assert_double_eq(20.0, roundup(hsl[2]->l, 100));
-    mu_assert_double_eq(30.0, roundup(hsl[3]->l, 100));
-    mu_assert_double_eq(40.0, roundup(hsl[4]->l, 100));
-    mu_assert_double_eq(50.0, roundup(hsl[5]->l, 100));
-    mu_assert_double_eq(60.0, roundup(hsl[6]->l, 100));
-    mu_assert_double_eq(70.0, roundup(hsl[7]->l, 100));
-    mu_assert_double_eq(80.0, roundup(hsl[8]->l, 100));
-    mu_assert_double_eq(90.0, roundup(hsl[9]->l, 100));
+    mu_assert_double_eq(0.0, tint->tint[0]->h);
+    mu_assert_double_eq(0.0, tint->tint[0]->s);
+    mu_assert_double_eq(0.0, roundup(tint->tint[0]->l, 100));
+    mu_assert_double_eq(10.0, roundup(tint->tint[1]->l, 100));
+    mu_assert_double_eq(20.0, roundup(tint->tint[2]->l, 100));
+    mu_assert_double_eq(30.0, roundup(tint->tint[3]->l, 100));
+    mu_assert_double_eq(40.0, roundup(tint->tint[4]->l, 100));
+    mu_assert_double_eq(50.0, roundup(tint->tint[5]->l, 100));
+    mu_assert_double_eq(60.0, roundup(tint->tint[6]->l, 100));
+    mu_assert_double_eq(70.0, roundup(tint->tint[7]->l, 100));
+    mu_assert_double_eq(80.0, roundup(tint->tint[8]->l, 100));
+    mu_assert_double_eq(90.0, roundup(tint->tint[9]->l, 100));
     
-    free(hsl);
-    free(tint);
+    releaseTint(tint);
     free(rgb);
 }
 
@@ -73,23 +69,21 @@ MU_TEST(tint_bright) {
     rgb->b = 255;
     
     Tint *tint = getTint(rgb);
-    Hsl **hsl = tint->tint;
     
-    mu_assert_double_eq(0.0, hsl[0]->h);
-    mu_assert_double_eq(0.0, hsl[0]->s);
-    mu_assert_double_eq(100.0, roundup(hsl[0]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[1]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[2]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[3]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[4]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[5]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[6]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[7]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[8]->l, 100));
-    mu_assert_double_eq(100.0, roundup(hsl[9]->l, 100));
+    mu_assert_double_eq(0.0, tint->tint[0]->h);
+    mu_assert_double_eq(0.0, tint->tint[0]->s);
+    mu_assert_double_eq(100.0, roundup(tint->tint[0]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[1]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[2]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[3]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[4]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[5]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[6]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[7]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[8]->l, 100));
+    mu_assert_double_eq(100.0, roundup(tint->tint[9]->l, 100));
     
-    free(hsl);
-    free(tint);
+    releaseTint(tint);
     free(rgb);
 }
 

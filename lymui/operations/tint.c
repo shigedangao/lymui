@@ -83,3 +83,21 @@ Tint *getTint(Rgb *rgb) {
 
     return tint;
 }
+
+uint8_t releaseTint(Tint *tint) {
+    if (tint == NULL) {
+        return 0;
+    }
+    
+    if (tint->tint == NULL) {
+        free(tint);
+        return 0;
+    }
+    
+    for (int idx = 0; idx < it; idx++) {
+        free(tint->tint[idx]);
+    }
+    
+    free(tint);
+    return 1;
+}
