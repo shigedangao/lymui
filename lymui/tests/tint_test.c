@@ -34,6 +34,7 @@ MU_TEST(tint) {
     mu_assert_double_eq(100.0, roundup(hsl[8]->l, 100));
     mu_assert_double_eq(100.0, roundup(hsl[9]->l, 100));
     
+    free(hsl);
     free(tint);
     free(rgb);
 }
@@ -60,6 +61,7 @@ MU_TEST(tint_dark) {
     mu_assert_double_eq(80.0, roundup(hsl[8]->l, 100));
     mu_assert_double_eq(90.0, roundup(hsl[9]->l, 100));
     
+    free(hsl);
     free(tint);
     free(rgb);
 }
@@ -86,6 +88,7 @@ MU_TEST(tint_bright) {
     mu_assert_double_eq(100.0, roundup(hsl[8]->l, 100));
     mu_assert_double_eq(100.0, roundup(hsl[9]->l, 100));
     
+    free(hsl);
     free(tint);
     free(rgb);
 }
