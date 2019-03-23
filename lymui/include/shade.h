@@ -31,4 +31,11 @@ typedef struct Shade {
  */
 Shade *getShade(Rgb *rgb);
 
+/**
+ * @brief Release memory allocated for generating the shade
+ * @param shade Shade ptr
+ * @return uint8_t
+ */
+uint8_t releaseShade(Shade *shade);
+
 #endif /* shade_h */

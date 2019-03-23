@@ -75,3 +75,21 @@ Shade *getShade(Rgb *rgb) {
     
     return shade;
 }
+
+uint8_t releaseShade(Shade *shade) {
+    if (shade == NULL) {
+        return 0;
+    }
+    
+    if (shade->shade == NULL) {
+        free(shade);
+        return 1;
+    }
+    
+    for (int idx = 0; idx < it; idx++) {
+        free(shade->shade[idx]);
+    }
+    
+    free(shade);
+    return 1;
+}
