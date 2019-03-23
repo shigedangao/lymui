@@ -36,6 +36,7 @@ MU_TEST(darken) {
     mu_assert_double_eq(6.96,  roundup(hsl[9]->l, 100));
     
     releaseShade(shade);
+    free(hsl);
     free(rgb);
 }
 
@@ -62,6 +63,7 @@ MU_TEST(darken_bright_test) {
     mu_assert_double_eq(10.0, hsl[9]->l);
 
     releaseShade(shade);
+    free(hsl);
     free(rgb);
 }
 
@@ -89,6 +91,7 @@ MU_TEST(darken_dark_test) {
     mu_assert_double_eq(0.0, hsl[9]->l);
     
     releaseShade(shade);
+    free(hsl);
     free(rgb);
 }
 
