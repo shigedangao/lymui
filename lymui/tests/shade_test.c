@@ -37,6 +37,7 @@ MU_TEST(darken) {
     
     free(hsl);
     free(shade);
+    free(rgb);
 }
 
 MU_TEST(darken_bright_test) {
@@ -63,6 +64,7 @@ MU_TEST(darken_bright_test) {
 
     free(hsl);
     free(shade);
+    free(rgb);
 }
 
 
@@ -90,6 +92,7 @@ MU_TEST(darken_dark_test) {
     
     free(hsl);
     free(shade);
+    free(rgb);
 }
 
 MU_TEST(darken_empty_param) {
