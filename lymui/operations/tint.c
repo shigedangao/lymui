@@ -91,7 +91,7 @@ uint8_t releaseTint(Tint *tint) {
     
     if (tint->tint == NULL) {
         free(tint);
-        return 0;
+        return 1;
     }
     
     for (int idx = 0; idx < it; idx++) {

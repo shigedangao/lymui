@@ -96,11 +96,29 @@ MU_TEST(darken_empty_param) {
     free(shade);
 }
 
+MU_TEST(empty_free_shade) {
+    uint8_t value = releaseShade(NULL);
+    
+    mu_assert_int_eq(value, 0);
+}
+
+MU_TEST(empty_shade_array) {
+    Shade *shade = malloc(sizeof(Shade));
+    shade->shade = NULL;
+    uint8_t value = releaseShade(shade);
+    
+    mu_assert_int_eq(value, 1);
+}
+
 MU_TEST_SUITE(darken_suite) {
     MU_RUN_TEST(darken);
     MU_RUN_TEST(darken_bright_test);
     MU_RUN_TEST(darken_dark_test);
     MU_RUN_TEST(darken_empty_param);
+    
+    // release method
+    MU_RUN_TEST(empty_free_shade);
+    MU_RUN_TEST(empty_shade_array);
 }
 
 int wrapDarkenTest() {

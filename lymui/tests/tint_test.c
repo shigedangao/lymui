@@ -94,11 +94,29 @@ MU_TEST(empty_tint) {
     free(tint);
 }
 
+MU_TEST(empty_free_tint) {
+    uint8_t value = releaseTint(NULL);
+    
+    mu_assert_int_eq(value, 0);
+}
+
+MU_TEST(empty_tint_array) {
+    Tint *tint = malloc(sizeof(Tint));
+    tint->tint = NULL;
+    uint8_t value = releaseTint(tint);
+    
+    mu_assert_int_eq(value, 1);
+}
+
 MU_TEST_SUITE(tint_suite) {
     MU_RUN_TEST(tint);
     MU_RUN_TEST(tint_dark);
     MU_RUN_TEST(tint_bright);
     MU_RUN_TEST(empty_tint);
+    
+    // release memory
+    MU_RUN_TEST(empty_free_tint);
+    MU_RUN_TEST(empty_tint_array);
 }
 
 int wrapTintTest() {
