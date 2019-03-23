@@ -35,16 +35,16 @@ MU_TEST(darken) {
     mu_assert_double_eq(13.92, roundup(hsl[8]->l, 100));
     mu_assert_double_eq(6.96,  roundup(hsl[9]->l, 100));
     
-    free(shade->shade[0]);
-    free(shade->shade[1]);
-    free(shade->shade[2]);
-    free(shade->shade[3]);
-    free(shade->shade[4]);
-    free(shade->shade[5]);
-    free(shade->shade[6]);
-    free(shade->shade[7]);
-    free(shade->shade[8]);
-    free(shade->shade[9]);
+//    free(shade->shade[0]);
+//    free(shade->shade[1]);
+//    free(shade->shade[2]);
+//    free(shade->shade[3]);
+//    free(shade->shade[4]);
+//    free(shade->shade[5]);
+//    free(shade->shade[6]);
+//    free(shade->shade[7]);
+//    free(shade->shade[8]);
+//    free(shade->shade[9]);
     free(shade->shade);
     free(shade);
     free(rgb);
