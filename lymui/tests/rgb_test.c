@@ -52,6 +52,7 @@ MU_TEST(rgb_from_ptr) {
     mu_assert_int_eq(200, rgb->b);
     
     free(rgb);
+    free(uc);
 }
 
 MU_TEST_SUITE(rgb_suite) {

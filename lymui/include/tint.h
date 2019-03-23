@@ -30,4 +30,11 @@ typedef struct Tint {
  */
 Tint *getTint(Rgb *rgb);
 
+/**
+ * @brief Release the memory of the generated tint
+ * @param tint Tint ptr
+ * @return uint8_t
+ */
+uint8_t releaseTint(Tint *tint);
+
 #endif /* tint_h */

@@ -88,7 +88,7 @@ MU_TEST(xyz_creation) {
     
     mu_assert_double_eq(0.0376, roundup(xyz->x, 10000));
     mu_assert_double_eq(0.0173, roundup(xyz->y, 10000));
-    mu_assert_double_eq(0.1137, roundup(xyz->z, 10000));
+    mu_assert_double_eq(0.1138, roundup(xyz->z, 10000));
 
     free(xyz);
 }
@@ -138,7 +138,7 @@ MU_TEST_SUITE(argb_suite) {
     MU_RUN_TEST(argb_empty_param);
     
     // Argb -> Xyz
-    MU_RUN_SUITE(xyz_creation);
+    MU_RUN_TEST(xyz_creation);
     MU_RUN_TEST(xyz_bright_creation);
     MU_RUN_TEST(xyz_dark_creation);
     MU_RUN_TEST(xyz_empty_param);
