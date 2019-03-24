@@ -18,7 +18,7 @@ The api return an Hsv struct whch contains these fields
 - h: double
 - s: double
 - v: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,8 +26,8 @@ The api return an Hsv struct whch contains these fields
 #### Rgb from uint8_t array
 
 - Rgb -> Hsv: getHsvFromRgb()
-- *Params*: Rgb* structure
-- *Return*: Hsv* structure
+- *Params*: Rgb ptr
+- *Return*: Hsv ptr
 
 ### Example Rgb to Hsv
 

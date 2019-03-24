@@ -22,10 +22,6 @@ The library is supporting multiples colors. Below is the list of supported color
 - [ycbcr](rgb/ycbcr.md)
 - [yuv](rgb/yuv.md)
 
-### Based on Luv
-
-- [hcl](rgb/hcl.md)
-
 ### Based on Xyz
 
 - [xyz based](space/xyz.md)
@@ -38,3 +34,8 @@ The library is supporting multiples colors. Below is the list of supported color
 - [srgb](space/srgb.md)
 - [xyy](space/xyy.md)
 - [xyz](space/xyz.md)
+
+### Operations
+
+- [tint](operations/tint.md)
+- [shade](operations/shade.md)

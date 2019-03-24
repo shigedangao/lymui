@@ -19,7 +19,7 @@ The api return a double which represent a hue value of type double
 #### Rgb -> Hue
 
 - Rgb -> Hue: getHueFromRgb()
-- *Params*: Rgb* structure
+- *Params*: Rgb ptr
 - *Return*: hue double
 
 ### Example Rgb to Hue

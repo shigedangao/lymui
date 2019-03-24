@@ -18,7 +18,7 @@ The api return a Luv struct which contain these fields
 - l: double
 - u: double
 - v: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,14 +26,14 @@ The api return a Luv struct which contain these fields
 #### Xyz -> Luv
 
 - Xyz -> Luv: getLuvFromXyz
-- *Params*: Xyz* structure
-- *Return*: Luv* Structure
+- *Params*: Xyz ptr
+- *Return*: Luv ptr
 
 #### Luv -> Xyz
 
 - Luv -> Xyz: getLuvFromXyz
-- *Params*: Luv* structure
-- *Return*: Xyz* Structure
+- *Params*: Luv ptr
+- *Return*: Xyz ptr
 
 ### Example Xyz to Luv
 

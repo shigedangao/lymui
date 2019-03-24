@@ -18,7 +18,7 @@ The api return an Hwb struct which contain these fields
 - h: double
 - w: double
 - b: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,14 +26,14 @@ The api return an Hwb struct which contain these fields
 #### Rgb -> Hwb
 
 - Rgb -> Hwb: getHwbFromRgb()
-- *Params*: Rgb* structure
-- *Return*: Hwb* Structure
+- *Params*: Rgb ptr
+- *Return*: Hwb ptr
 
 #### Hwb -> Rgb
 
 - Hwb -> Rgb: getRgbFromHwb
-- *Params*: Hwb structure
-- *Return*: Rgb Structure
+- *Params*: Hwb ptr
+- *Return*: Rgb ptr
 
 ### Example Rgb to Hwb
 

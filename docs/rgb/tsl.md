@@ -18,7 +18,7 @@ The api return an Tsl struct which contain these fields
 - t: double
 - s: double
 - l: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,14 +26,14 @@ The api return an Tsl struct which contain these fields
 #### Rgb -> Tsl
 
 - Rgb -> Tsl: getTslFromRgb
-- *Params*: Rgb* structure
-- *Return*: Tsl* Structure
+- *Params*: Rgb ptr
+- *Return*: Tsl ptr
 
 #### Tsl -> Rgb
 
 - Hsl -> Rgb: getRgbFromTsl
-- *Params*: Tsl* structure
-- *Return*: Rgb* Structure
+- *Params*: Tsl ptr
+- *Return*: Rgb ptr
 
 ### Example Rgb to Tsl
 

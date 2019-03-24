@@ -40,4 +40,11 @@ docs:
         url:   /space/srgb
       - title: Xyy
         url:   /space/xyy
+
+  - title: Operations
+    children:
+      - title: Tint
+        url: /operations/tint
+      - title: Shade
+        url: /operations/shade
     

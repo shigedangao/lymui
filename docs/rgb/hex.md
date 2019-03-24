@@ -10,6 +10,15 @@ sidebar:
 
 The HEX api allow you to generated an hexadecimal value from an [Rgb](rgb.md) struct.
 
+## Datatype
+
+The API return a Tint struct which represent the generated tint. It contain these fields
+
+```yaml
+- tint: array of Hsl (Hsl **)
+- error: char *
+```
+
 ### Example Rgb to Hex
 
 ```c

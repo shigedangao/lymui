@@ -18,7 +18,7 @@ The api return a Hunter Lab struct which contain these fields (which looks like 
 - l: double
 - a: double
 - b: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,8 +26,8 @@ The api return a Hunter Lab struct which contain these fields (which looks like 
 #### Xyz -> HLab
 
 - Xyz -> Lab: getHLabFromXyz
-- *Params*: Xyz* structure
-- *Return*: HLab* Structure
+- *Params*: Xyz ptr
+- *Return*: HLab ptr
 
 ### Example Xyz to HLab
 

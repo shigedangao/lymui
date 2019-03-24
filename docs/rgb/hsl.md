@@ -26,14 +26,14 @@ The api return an Hsl struct which contain these fields
 #### Rgb -> Hsl
 
 - Rgb -> Hsl: getHslFromRgb()
-- *Params*: Rgb* structure
-- *Return*: Hsl* Structure
+- *Params*: Rgb ptr
+- *Return*: Hsl ptr
 
 #### Hsl -> Rgb
 
 - Hsl -> Rgb: getRgbFromHsl
-- *Params*: Hsl* structure
-- *Return*: Rgb* Structure
+- *Params*: Hsl ptr
+- *Return*: Rgb ptr
 
 ### Example Rgb to Hsl
 

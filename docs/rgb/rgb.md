@@ -18,7 +18,7 @@ The api return an RGB struct which contains these fields
 - r: uint8_t
 - g: uint8_t
 - b: uint8_t
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -28,7 +28,7 @@ The api return an RGB struct which contains these fields
 - Rgb -> Hsl: makeRGB()
 - *Params*: uint8_t array
 - *Params*: size_t length
-- *Return*: Rgb* structure
+- *Return*: Rgb ptr
 
 ### Example with uint8_t array
 
