@@ -113,6 +113,7 @@ Xyz *getXyzFromLuv(Luv *luv) {
         xyz->x = 0;
         xyz->y = 0;
         xyz->z = 0;
+        free(luv);
         
         return xyz;
     }

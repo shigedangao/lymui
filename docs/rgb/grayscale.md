@@ -19,8 +19,8 @@ The api return an uint8_t which represent the grayscale value
 #### Rgb -> Hsl
 
 - Rgb -> Hsl: getHslFromRgb()
-- *Params*: Rgb structure
-- *Return*: Hsl Structure
+- *Params*: Rgb ptr
+- *Return*: uint8_t
 
 ### Supported algorithms
 

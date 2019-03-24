@@ -18,7 +18,7 @@ The api return an Xyz struct which contain these fields
 - x: double
 - y: double
 - z: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,15 +26,15 @@ The api return an Xyz struct which contain these fields
 #### Rgb -> Xyz
 
 - Rgb -> Xyz: getXyzFromRgb
-- *Params*: Rgb* structure
+- *Params*: Rgb ptr
 - *Params*: Matrix m (srgb|adobeRgb)
-- *Return*: Xyz* Structure
+- *Return*: Xyz ptr
 
 #### Xyz -> Rgb
 
 - Xyz -> Rgb: getRgbFromXyz
-- *Params*: Xyz* structure
-- *Return*: Rgb* Structure
+- *Params*: Xyz ptr
+- *Return*: Rgb ptr
 
 ### Example Xyz to Xyy
 

@@ -18,7 +18,7 @@ The api return an Srgb struct which contain these fields
 - r: double
 - g: double
 - b: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,14 +26,14 @@ The api return an Srgb struct which contain these fields
 #### Xyz -> Srgb
 
 - Xyz -> Srgb: getXyzFromRgb
-- *Params*: Xyz* structure
-- *Return*: Srgb* Structure
+- *Params*: Xyz ptr
+- *Return*: Srgb ptr
 
 #### Srgb -> Xyz
 
 - Srgb -> Xyz: getXyzFromSrgb
-- *Params*: Srgb* structure
-- *Return*: Xyz* Structure
+- *Params*: Srgb ptr
+- *Return*: Xyz ptr
 
 ### Example Xyz to Srgb
 

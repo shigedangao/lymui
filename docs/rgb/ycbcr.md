@@ -18,7 +18,7 @@ The api return a Ycbcr struct which contain these fields
 - y: uint8_t
 - cb: uint8_t
 - cr: uint8_t
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,14 +26,14 @@ The api return a Ycbcr struct which contain these fields
 #### Rgb -> Ycbcr
 
 - Rgb -> Ycbcr: getYcbcrFromRgb
-- *Params*: Rgb* structure
-- *Return*: Ycbcr* Structure
+- *Params*: Rgb ptr
+- *Return*: Ycbcr ptr
 
 #### Ycbcr -> Rgb
 
 - Ycbcr -> Rgb: getRgbFromYcbcr
-- *Params*: Ycbcr* structure
-- *Return*: Rgb* Structure
+- *Params*: Ycbcr ptr
+- *Return*: Rgb ptr
 
 ### Example Rgb to Ycbcr
 

@@ -38,15 +38,11 @@ int wrapYuvTest(void);
 
 int wrapGrayScaleTest(void);
 
-int wrapHclTest(void);
-
 int wrapHwbTest(void);
 
 int wrapTslTest(void);
 
 int wrapXyzTest(void);
-
-
 
 int wrapArgbTest(void);
 
@@ -63,5 +59,9 @@ int wrapLchTest(void);
 int wrapLchLabTest(void);
 
 int wrapXyyTest(void);
+
+int wrapDarkenTest(void);
+
+int wrapTintTest(void);
 
 #endif /* rgb_test_h */

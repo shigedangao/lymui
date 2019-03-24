@@ -18,7 +18,7 @@ The api return a Lch struct which contain these fields
 - l: double
 - c: double
 - h: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,14 +26,14 @@ The api return a Lch struct which contain these fields
 #### Xyz -> Lch
 
 - Xyz -> Lch: getLabFromXyz
-- *Params*: Xyz* structure
-- *Return*: Lch* Structure
+- *Params*: Xyz ptr
+- *Return*: Lch ptr
 
 #### Lch -> Xyz
 
 - Lch -> Xyz: getXyzFromLab
-- *Params*: Lch* structure
-- *Return*: Xyz* Structure
+- *Params*: Lch ptr
+- *Return*: Xyz ptr
 
 ### Example Xyz to Lch
 

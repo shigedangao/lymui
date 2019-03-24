@@ -18,7 +18,7 @@ The api return a Lab struct which contain these fields
 - l: double
 - a: double
 - b: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,14 +26,14 @@ The api return a Lab struct which contain these fields
 #### Xyz -> Lab
 
 - Xyz -> Lab: getLabFromXyz
-- *Params*: Xyz* structure
-- *Return*: Lab* Structure
+- *Params*: Xyz ptr
+- *Return*: Lab ptr
 
 #### Lab -> Xyz
 
 - Lab -> Xyz: getXyzFromLab
-- *Params*: Lab* structure
-- *Return*: Xyz* Structure
+- *Params*: Lab ptr
+- *Return*: Xyz ptr
 
 ### Example Xyz to Lab
 

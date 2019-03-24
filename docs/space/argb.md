@@ -18,7 +18,7 @@ The api return an Argb struct which contain these fields
 - r: double
 - g: double
 - b: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,14 +26,14 @@ The api return an Argb struct which contain these fields
 #### Xyz -> Argb
 
 - Rgb -> Argb: getXyzFromRgb
-- *Params*: Xyz* structure
-- *Return*: Argb* Structure
+- *Params*: Xyz ptr
+- *Return*: Argb ptr
 
 #### Argb -> Xyz
 
 - Argb -> Rgb: getRgbFromHsl
-- *Params*: Argb* structure
-- *Return*: Xyz* Structure
+- *Params*: Argb ptr
+- *Return*: Xyz ptr
 
 ### Example Xyz to Argb
 

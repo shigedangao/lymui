@@ -55,6 +55,7 @@ Xyz *getXyzFromLch(Lch *lch) {
     Luv *luv = malloc(sizeof(Luv));
     if (luv == NULL) {
         errXyz->error = MALLOC_ERROR;
+        free(lch);
         return errXyz;
     }
     

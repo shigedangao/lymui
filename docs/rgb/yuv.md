@@ -18,7 +18,7 @@ The api return a Yuv struct which contain these fields
 - y: double
 - u: double
 - v: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,14 +26,14 @@ The api return a Yuv struct which contain these fields
 #### Rgb -> Yuv
 
 - Rgb -> Yuv: getYuvFromRgb
-- *Params*: Rgb* structure
-- *Return*: Yuv* Structure
+- *Params*: Rgb ptr
+- *Return*: Yuv ptr
 
 #### Yuv -> Rgb
 
 - Yuv -> Rgb: getRgbFromYuv
-- *Params*: Yuv* structure
-- *Return*: Rgb* Structure
+- *Params*: Yuv ptr
+- *Return*: Rgb ptr
 
 ### Example Rgb to Yuv
 

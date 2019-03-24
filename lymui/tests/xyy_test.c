@@ -65,6 +65,8 @@ MU_TEST(xyy_bright_creation) {
 MU_TEST(xyy_empty_params) {
     Xyy *xyy = getXyyFromXyz(NULL);
     mu_assert_string_eq(NULL_INPUT_PARAM, xyy->error);
+    
+    free(xyy);
 }
 
 MU_TEST(xyz_creation) {

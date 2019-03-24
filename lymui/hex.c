@@ -116,6 +116,7 @@ static char *unShorten(char *hex) {
 // Get RGB Value From Hex
 Rgb *getRGBFromHex(char *hex) {
     Rgb *rgb = initRgb();
+    uint8_t shorten = 0;
     if (rgb == NULL) {
         return NULL;
     }
@@ -129,6 +130,7 @@ Rgb *getRGBFromHex(char *hex) {
     char *hexstr = NULL;
     if (len < 6) {
         hexstr = unShorten(hex);
+        shorten = 1;
     } else {
         hexstr = hex;
     }
@@ -136,6 +138,10 @@ Rgb *getRGBFromHex(char *hex) {
     char *r = splitSegment(hexstr, 1);
     char *g = splitSegment(hexstr, 3);
     char *b = splitSegment(hexstr, 5);
+    
+    if (shorten) {
+        free(hexstr);
+    }
     
     if (r == NULL || g == NULL || b == NULL) {
         rgb->error = MALLOC_ERROR;

@@ -2,6 +2,7 @@ steps:
   - script: make lib
     displayName: 'build the library'
   - task: ArchiveFiles@2
+    displayName: 'archive lymui library'
     inputs:
       rootFolderOrFile: bin
-      archiveFile: liblymui-$(Agent.OS)-$(version).zip
+      archiveFile: '$(System.DefaultWorkingDirectory)/liblymui-$(Agent.OS)-$(version).zip'

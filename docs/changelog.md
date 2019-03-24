@@ -8,17 +8,22 @@ sidebar:
 
 ## Changelog
 
-* 1.3.0
-* * Add support for HCL color format
+* 1.3.0b (beta)
+* * Add support of generate tint
+* * Add support of generate shade
 * * Flatten error message
 * * Fix unhandled NULL char when converting to an RGB
 * * Refactor Xyz
 * * Refactor HSL
 * * Refactor LUV
 * * Move HunterLab to it's own color type 
-* * Fix memory leak in Xyz & Lch
+* * Fix memory leak in Xyz
+* * Fix memory leak in Lch
+* * Fix memory leak in Luv
+* * Fix memory leak in Hex
 * * Change unit test library
 * * Move from travis to azure pipelines & coveralls -> codecov
+* * ~~Add support of HCL~~ (previously done in 1.3.0a)
 
 * 1.2.2
 * * Fix potentials memory leaks

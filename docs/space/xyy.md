@@ -18,7 +18,7 @@ The api return an Xyy struct which contain these fields
 - x: double
 - y: double
 - y: double
-- error: char*
+- error: char ptr
 ```
 
 ### Methods signatures
@@ -26,14 +26,14 @@ The api return an Xyy struct which contain these fields
 #### Xyz -> Xyy
 
 - Rgb -> Xyy: getXyzFromRgb
-- *Params*: Xyz* structure
-- *Return*: Xyy* Structure
+- *Params*: Xyz ptr
+- *Return*: Xyy ptr
 
 #### Xyy -> Xyz
 
 - Xyy -> Rgb: getRgbFromHsl
-- *Params*: Xyy* structure
-- *Return*: Xyz* Structure
+- *Params*: Xyy ptr
+- *Return*: Xyz ptr
 
 ### Example Xyz to Xyy
 
