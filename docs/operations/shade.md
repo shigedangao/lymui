@@ -48,7 +48,30 @@ Shade *shade = getShade(rgb);
  */
 ```
 
-### Handling errors
+### Release memory of shade
+
+Since shade is a ptr struct which contain an array of ptr Hsl a release method is available for easily releasing the shade. Below is an example of usage
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <shade.h>
+
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 255;
+rgb->g = 255;
+rgb->b = 255;
+
+Shade *shade = getShade(rgb);
+uint8_t op = releaseShade(shade);
+
+/**
+ * Op either return
+ * - 1: Shade has been release
+ * - 0: Shade has not been release i.e shade is equal to NULL
+ */
+```
 
 ### Handling errors
 

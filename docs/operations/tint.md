@@ -48,7 +48,30 @@ Tint *tint = getTint(rgb);
  */
 ```
 
-### Handling errors
+### Release memory of tint
+
+Since tint is a ptr struct which contain an array of ptr Hsl a release method is available for easily releasing the tint. Below is an example of usage
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <rgb.h>
+#include <tint.h>
+
+Rgb *rgb = malloc(sizeof(Rgb));
+rgb->r = 255;
+rgb->g = 255;
+rgb->b = 255;
+
+Tint *tint = getTint(rgb);
+uint8_t op = releaseTint(tint);
+
+/**
+ * Op either return
+ * - 1: Tint has been release
+ * - 0: Tint has not been release i.e tint is equal to NULL
+ */
+```
 
 ### Handling errors
 
