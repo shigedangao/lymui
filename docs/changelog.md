@@ -8,7 +8,7 @@ sidebar:
 
 ## Changelog
 
-* 1.3.0b (beta)
+* 1.3.0c (beta)
 * * Add support of generate tint
 * * Add support of generate shade
 * * Flatten error message
