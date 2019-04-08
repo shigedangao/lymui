@@ -1,5 +1,7 @@
-# Directories
+# Variables for building the library
+UNAME_S := $(shell uname -s)
 
+# Directories
 SRC_DIR = lymui
 INC_DIR = lymui/include
 OBJ_DIR = obj
@@ -12,7 +14,15 @@ INC_LIB_DIR = lib
 INC_LIB_TT  = lymui/tests
 
 # Compiler
-CC = gcc
+# We're making a special case for Linux OS
+# Especially for ubuntu 16.04
+# Which need the -fPIC option in order to properly compile the library
+ifeq ($(UNAME_S), Linux)
+	CC = gcc -fPIC
+else
+	CC = gcc
+endif
+
 CFLAGS = --coverage
 CFLAG_LIB = -Wall -O2 -I$(INC_DIR)
 INC_TT = -I$(INC_DIR) -I$(INC_LIB_DIR) -I$(INC_LIB_TT) -Wall $(CFLAGS)
