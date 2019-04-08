@@ -8,7 +8,7 @@ sidebar:
 
 ## Changelog
 
-* 1.3.0c (beta)
+* 1.3.0 (beta)
 * * Add support of generate tint
 * * Add support of generate shade
 * * Flatten error message
@@ -21,6 +21,7 @@ sidebar:
 * * Fix memory leak in Lch
 * * Fix memory leak in Luv
 * * Fix memory leak in Hex
+* * Fix -fPIC error on ubuntu 16.04
 * * Change unit test library
 * * Move from travis to azure pipelines & coveralls -> codecov
 * * ~~Add support of HCL~~ (previously done in 1.3.0a)
