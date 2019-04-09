@@ -27,7 +27,7 @@ static char *uintToHex(uint8_t color) {
         return NULL;
     }
     
-    sprintf(tmp, "%x", color);
+    snprintf(tmp, HEX_GROUP_LEN + 1, "%x", color);
     if (!tmp[1]) {
         tmp[1] = tmp[0];
         tmp[0] = '0';
