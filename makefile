@@ -87,9 +87,10 @@ headers: bin
 		cp $${fname} $(BIN_DIR)/include/ ; \
 	done
 
+$(info os is $(UNAME_S)) 
 ifeq ($(UNAME_S), Windows_NT)
 $(OBJ_DIR)/%.o: %.c
-	$(CC) $(CFLAG_LIB) -c $< -o $@ -llegacy_stdio_definitions.lib
+	$(CC) $(CFLAG_LIB) -llegacy_stdio_definitions.lib -c $< -o $@
 else
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAG_LIB) -c $< -o $@
