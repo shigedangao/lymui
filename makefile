@@ -87,8 +87,14 @@ headers: bin
 		cp $${fname} $(BIN_DIR)/include/ ; \
 	done
 
+ifeq ($(UNAME_S), Windows_NT)
+$(OBJ_DIR)/%.o: %.c
+	$(CC) $(CFLAG_LIB) -c $< -o $@ -llegacy_stdio_definitions.lib
+else
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAG_LIB) -c $< -o $@
+endif
+
 
 lib: obj headers $(OBJECTS)
 	ar rcs $(BIN_DIR)/liblymui.a $(OBJ_DIR)/$(SRC_DIR)/*.o
