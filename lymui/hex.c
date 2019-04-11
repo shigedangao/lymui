@@ -14,6 +14,10 @@
 #include "hex.h"
 #include "helper.h"
 
+#ifdef _WIN32
+#define snprintf _snprintf
+#endif
+
 /**
  * @brief convert an uint8_t to an hex
  *        /!\ Note this is a really inefficient of doing things
