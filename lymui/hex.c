@@ -17,7 +17,7 @@
 
 #ifdef _WIN32
 #include <stdarg.h>
-#pragma comment(lib, "legacy_stdio_definitions.lib")
+#define __ms_vsnprintf(a,b,c,...) snprintf(a,b,c,__VA_ARGS__)
 #endif
 
 /**
