@@ -17,6 +17,7 @@
 
 #ifdef _WIN32
 #include <stdarg.h>
+#pragma comment(lib, "legacy_stdio_definitions.lib")
 #endif
 
 /**
