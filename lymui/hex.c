@@ -6,6 +6,7 @@
 //  Copyright © 2018 Marc. All rights reserved.
 //
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
@@ -13,9 +14,6 @@
 #include "errors.h"
 #include "hex.h"
 #include "helper.h"
-
-#ifdef _WIN32
-#endif
 
 /**
  * @brief convert an uint8_t to an hex
