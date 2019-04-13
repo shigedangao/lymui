@@ -17,7 +17,6 @@
 
 #ifdef _WIN32
 #include <stdarg.h>
-#include <varargs.h>
 #endif
 
 /**
