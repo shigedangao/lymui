@@ -16,7 +16,8 @@
 #include "helper.h"
 
 #ifdef _WIN32
-#define _snprintf_s(a,b,c,...) snprintf(a,b,__VA_ARGS__)
+#include <stdarg.h>
+#include <varargs.h>
 #endif
 
 /**
