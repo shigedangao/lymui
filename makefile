@@ -89,7 +89,7 @@ headers: bin
 
 ifeq ($(UNAME_S), MSYS_NT-10.0)
 $(OBJ_DIR)/%.o: %.c
-	$(CC) $(CFLAG_LIB) -c $< -o $@ -llegacy_stdio_definitions
+	$(CC) $(CFLAG_LIB) -L . -llegacy_stdio_definitions.lib -c $< -o $@ 
 else
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAG_LIB) -c $< -o $@
