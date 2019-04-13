@@ -25,7 +25,7 @@ jobs:
 
 - job: Windows_tests
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-2019'
   steps:
   - template: templates/unit-tests-steps.yml
 
@@ -45,7 +45,7 @@ jobs:
 
 - job: Windows_build
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-2019'
   steps:
   - template: templates/build-steps.yml
   - template: templates/artifact-steps.yml
