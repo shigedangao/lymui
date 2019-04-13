@@ -31,7 +31,7 @@ static char *uintToHex(uint8_t color) {
     }
     
     #ifdef _WIN32
-    snprintf_s(tmp, HEX_GROUP_LEN + 1, HEX_GROUP_LEN, "%x", color);
+    sprintf_s(tmp, HEX_GROUP_LEN + 1, "%x", color);
     #else
     snprintf(tmp, HEX_GROUP_LEN + 1, "%x", color);
     #endif
@@ -67,7 +67,7 @@ char *getHexFromRGB(Rgb *c) {
     }
     
     #ifdef _WIN32
-    snprintf_s(hex, HEX_SIZE, "%s%s%s", r, g, b);
+    sprintf_s(hex, HEX_SIZE, "%s%s%s", r, g, b);
     #else
     snprintf(hex, HEX_SIZE, "%s%s%s", r, g, b);
     #endif
@@ -120,7 +120,7 @@ static char *unShorten(char *hex) {
     }
     
     #ifdef _WIN32
-    snprintf_s(copy, HEX_SIZE, "%c%c%c%c%c%c",hex[0], hex[0], hex[1], hex[1], hex[2], hex[2]);
+    sprintf_s(copy, HEX_SIZE, "%c%c%c%c%c%c",hex[0], hex[0], hex[1], hex[1], hex[2], hex[2]);
     #else
     snprintf(copy, HEX_SIZE, "%c%c%c%c%c%c",hex[0], hex[0], hex[1], hex[1], hex[2], hex[2]);
     #endif
