@@ -15,6 +15,10 @@
 #include "hex.h"
 #include "helper.h"
 
+#ifndef snprintf
+#define snprintf(buf,len, format,...) _snprintf_s(buf, len,len, format, __VA_ARGS__)
+#endif
+
 /**
  * @brief convert an uint8_t to an hex
  *        /!\ Note this is a really inefficient of doing things
