@@ -5,8 +5,8 @@
 # ------ Temporary solution ------ 
 # Install MSYS2 & gcc with it this should output the proper .a file
 steps:
-  - script: choco uninstall mingw
-    displayName: 'Uninstall mingw'
+  # - script: choco uninstall mingw
+  #   displayName: 'Uninstall mingw'
   - script: choco install msys2
     displayName: 'Install MSYS2'
   - script: pacman --noconfirm -S base-devel gcc
