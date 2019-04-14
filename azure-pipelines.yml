@@ -47,5 +47,6 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
+  - bash: gcc --version
   - template: templates/build-steps.yml
   - template: templates/artifact-steps.yml
