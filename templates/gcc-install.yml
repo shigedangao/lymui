@@ -9,7 +9,7 @@ steps:
   #   displayName: 'Uninstall mingw'
   - script: choco install msys2 --params "/InstallDir:c:\msys64"
     displayName: 'Install MSYS2'
-  - script: pacman --noconfirm -S base-devel gcc
+  - script: c:\msys64\usr\bin\pacman --noconfirm -S base-devel gcc
     displayName: 'Install linker, compiler ...'
   - script: gcc --version
     displayName: 'print gcc version'

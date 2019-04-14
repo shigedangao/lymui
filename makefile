@@ -87,6 +87,7 @@ headers: bin
 		cp $${fname} $(BIN_DIR)/include/ ; \
 	done
 
+$(info gcc version $(UNAME_S))
 ifeq ($(UNAME_S), MSYS_NT-10.0)
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAG_LIB) -L . -llegacy_stdio_definitions.lib -c $< -o $@ 
