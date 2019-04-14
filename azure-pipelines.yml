@@ -47,7 +47,6 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
   steps:
-  - timeoutInMinutes: 30
   - template: templates/gcc-install.yml
   - template: templates/build-steps.yml
   - template: templates/artifact-steps.yml
