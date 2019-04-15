@@ -1,6 +1,9 @@
 steps:
   - script: make lib
     displayName: 'build the library'
+    condition: ne( variables['Agent.OS'], 'Windows_NT')
+  - script: pwd
+    condition: eq( variables['Agent.OS'], 'Windows_NT')
   - task: ArchiveFiles@2
     displayName: 'archive lymui library'
     inputs:
