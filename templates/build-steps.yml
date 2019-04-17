@@ -2,7 +2,7 @@ steps:
   - script: make lib
     displayName: 'build the library'
     condition: ne( variables['Agent.OS'], 'Windows_NT')
-  - script: c:\msys64\usr\bin\bash cd d && pwd && ls && cd a/1/s && make lib
+  - script: c:\msys64\usr\bin\bash pwd
     displayName: 'build the library for windows'
     condition: eq( variables['Agent.OS'], 'Windows_NT')
   - task: ArchiveFiles@2
