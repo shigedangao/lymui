@@ -76,8 +76,13 @@ cleanTest:
 
 all: cleanTest clean lib
 
+ifeq ($(UNAME_S), MSYS_NT-10.0)
+obj:
+	mkdir $(OBJ_DIR)\$(SRC_DIR)\$(OP_DIR)
+else
 obj:
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(OP_DIR)
+endif
 
 bin:
 	mkdir -p $(BIN_DIR)/include
@@ -87,7 +92,6 @@ headers: bin
 		cp $${fname} $(BIN_DIR)/include/ ; \
 	done
 
-$(info gcc version $(UNAME_S))
 ifeq ($(UNAME_S), MSYS_NT-10.0)
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAG_LIB) -L . -llegacy_stdio_definitions.lib -c $< -o $@ 
