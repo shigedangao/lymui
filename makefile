@@ -78,7 +78,7 @@ all: cleanTest clean lib
 
 ifeq ($(UNAME_S), MSYS_NT-10.0)
 obj:
-	mkdir $(OBJ_DIR)
+	mkdir --help
 else
 obj:
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(OP_DIR)
