@@ -89,7 +89,7 @@ headers: bin
 
 headers_windows:
 	for fname in $(LM_HEADERS) ; do \
-		cp $${fname} $(BIN_DIR)/include/ ; \
+		c:\msys64\usr\bin\cp $${fname} $(BIN_DIR)/include/ ; \
 	done
 
 ifeq ($(UNAME_S), MSYS_NT-10.0)
