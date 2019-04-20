@@ -1,6 +1,10 @@
 steps:
   - script: make lib
     displayName: 'build the library'
+    condition: ne( variables['Agent.OS'], 'Windows_NT')
+  - script: c:\msys64\msys2.exe make lib && ls && pwd
+    displayName: 'build the library for windows'
+    condition: eq( variables['Agent.OS'], 'Windows_NT')
   - task: ArchiveFiles@2
     displayName: 'archive lymui library'
     inputs:
