@@ -87,6 +87,11 @@ headers: bin
 		cp $${fname} $(BIN_DIR)/include/ ; \
 	done
 
+headers_windows:
+	for fname in $(LM_HEADERS) ; do \
+		cp $${fname} $(BIN_DIR)/include/ ; \
+	done
+
 ifeq ($(UNAME_S), MSYS_NT-10.0)
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAG_LIB) -L . -llegacy_stdio_definitions.lib -c $< -o $@ 
@@ -97,6 +102,10 @@ endif
 
 
 lib: obj headers $(OBJECTS)
+	ar rcs $(BIN_DIR)/liblymui.a $(OBJ_DIR)/$(SRC_DIR)/*.o
+	ar rcs $(BIN_DIR)/liblymui.a $(OBJ_DIR)/$(SRC_DIR)/operations/*.o
+
+lib_windows: headers_windows $(OBJECTS)
 	ar rcs $(BIN_DIR)/liblymui.a $(OBJ_DIR)/$(SRC_DIR)/*.o
 	ar rcs $(BIN_DIR)/liblymui.a $(OBJ_DIR)/$(SRC_DIR)/operations/*.o
 
