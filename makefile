@@ -76,13 +76,8 @@ cleanTest:
 
 all: cleanTest clean lib
 
-ifeq ($(UNAME_S), MSYS_NT-10.0)
-obj:
-	mkdir --help
-else
 obj:
 	mkdir -p $(OBJ_DIR)/$(SRC_DIR)/$(OP_DIR)
-endif
 
 bin:
 	mkdir -p $(BIN_DIR)/include
