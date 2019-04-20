@@ -100,7 +100,6 @@ $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAG_LIB) -c $< -o $@
 endif
 
-
 lib: obj headers $(OBJECTS)
 	ar rcs $(BIN_DIR)/liblymui.a $(OBJ_DIR)/$(SRC_DIR)/*.o
 	ar rcs $(BIN_DIR)/liblymui.a $(OBJ_DIR)/$(SRC_DIR)/operations/*.o
