@@ -1,0 +1,13 @@
+# This template is only use by windows build
+# As mingw-64 has an issue with the method snprintf this led to a compilation issue
+# when linking the window library with any other project i.e lymui-node
+# with an error LNK2001 regarding the __ms_vsnprintf...
+# ------ Temporary solution ------ 
+# Install MSYS2 & gcc with it this should output the proper .a file
+steps:
+  - script: choco install msys2 --params "/InstallDir:c:\msys64"
+    displayName: 'Install MSYS2'
+  - script: c:\msys64\usr\bin\pacman --noconfirm -S base-devel gcc
+    displayName: 'Install linker, compiler ...'
+  - script: gcc --version
+    displayName: 'print gcc version'
