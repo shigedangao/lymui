@@ -14,7 +14,7 @@ INC_LIB_DIR = lib
 INC_LIB_TT  = lymui/tests
 
 # Windows Msys path
-MSYS_PATH = c:\msys64\usr\bin
+MSYS_PATH = c:/msys64/usr/bin
 CC_WIN = x86_64-pc-msys-gcc
 
 # Compiler
