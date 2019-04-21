@@ -13,6 +13,10 @@ TEST_DIR = tests
 INC_LIB_DIR = lib
 INC_LIB_TT  = lymui/tests
 
+# Windows Msys path
+MSYS_PATH = c:\msys64\usr\bin
+CC_WIN = x86_64-pc-msys-gcc
+
 # Compiler
 # We're making a special case for Linux OS
 # Especially for ubuntu 16.04
@@ -89,12 +93,12 @@ headers: bin
 
 headers_windows:
 	for fname in $(LM_HEADERS) ; do \
-		c:/msys64/usr/bin/cp $${fname} $(BIN_DIR)/include/ ; \
+		$(MSYS_PATH)/cp $${fname} $(BIN_DIR)/include/ ; \
 	done
 
 ifeq ($(UNAME_S), MSYS_NT-10.0)
 $(OBJ_DIR)/%.o: %.c
-	$(CC) $(CFLAG_LIB) -L . -llegacy_stdio_definitions.lib -c $< -o $@ 
+	$(MSYS_PATH)/$(CC_WIN) $(CFLAG_LIB) -L . -llegacy_stdio_definitions.lib -c $< -o $@ 
 else
 $(OBJ_DIR)/%.o: %.c
 	$(CC) $(CFLAG_LIB) -c $< -o $@
