@@ -11,3 +11,7 @@ steps:
     displayName: 'Install linker, compiler ...'
   - script: gcc --version
     displayName: 'print gcc version'
+  - script: c:\msys64\usr\bin\mkdir -p obj\lymui\operations
+    displayName: 'create .o folder'
+  - script: c:\msys64\usr\bin\mkdir -p bin\include
+    displayName: 'create bin folder'
