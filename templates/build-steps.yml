@@ -5,6 +5,9 @@ steps:
   - script: c:\msys64\msys2 make lib
     displayName: 'build the library for windows'
     condition: eq( variables['Agent.OS'], 'Windows_NT')
+  - script: ls bin
+    displayName: 'add an ls in order to see if every files are there'
+    condition: eq( variables['Agent.OS'], 'Windows_NT')
   - task: ArchiveFiles@2
     displayName: 'archive lymui library'
     inputs:
