@@ -8,7 +8,7 @@ sidebar:
 
 ## Changelog
 
-* 1.3.0 (beta)
+* 1.3.0e (Hinata)
 * * Add support of generate tint
 * * Add support of generate shade
 * * Flatten error message
@@ -25,6 +25,7 @@ sidebar:
 * * Change unit test library
 * * Move from travis to azure pipelines & coveralls -> codecov
 * * ~~Add support of HCL~~ (previously done in 1.3.0a)
+* * Add support of Windows
 
 * 1.2.2
 * * Fix potentials memory leaks
