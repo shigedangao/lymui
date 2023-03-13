@@ -4,3 +4,7 @@ obj/
 build/
 cov/
 node_modules/
+
+# Added by cargo
+
+/target
