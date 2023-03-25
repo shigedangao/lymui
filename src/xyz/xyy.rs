@@ -4,7 +4,7 @@ use super::Xyz;
 const CHROMA_X: f64 = 0.31271;
 const CHROMA_Y: f64 = 0.32902;
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct Xyy {
     x: f64,
     y: f64,

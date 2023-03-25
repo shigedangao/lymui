@@ -3,6 +3,7 @@ use super::util::PivotFloat;
 
 pub mod xyy;
 pub mod hlab;
+pub mod lab;
 
 // Constant
 // For Std RGB
@@ -25,7 +26,7 @@ const ARX: [f64; 3] = [2.0413, -0.5649, -0.3446];
 const ARY: [f64; 3] = [-0.9692, 1.8760, 0.0415];
 const ARZ: [f64; 3] = [0.0134, -0.1183, 1.0154];
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone, Copy)]
 pub struct Xyz {
     x: f64,
     y: f64,

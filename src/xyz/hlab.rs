@@ -5,7 +5,7 @@ const XN: f64 = 95.047;
 const YN: f64 = 100.0;
 const ZN: f64 = 108.883;
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub(crate) struct Hlab {
     l: f64,
     a: f64,
