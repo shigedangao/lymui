@@ -39,6 +39,7 @@ impl PivotFloat for f64 {
 /// 
 /// * `v` - f64
 /// * `cell` - f64
+#[allow(dead_code)]
 pub fn roundup(v: f64, cell: f64) -> f64 {
     (v * cell).round() / cell
 }

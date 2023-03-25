@@ -3,8 +3,16 @@ use super::util::PivotFloat;
 
 pub mod xyy;
 pub mod hlab;
+pub mod lab;
+pub mod luv;
 
 // Constant
+
+// Illuminent for D65 2°
+const D65: [f64; 3] = [0.95047, 1.0, 1.08883];
+const EPSILON: f64 = 0.008856;
+const KAPPA: f64 = 903.3;
+
 // For Std RGB
 const X: [f64; 3] = [0.4124564, 0.3575761, 0.1804375];
 const Y: [f64; 3] = [0.2126729, 0.7151522, 0.0721750];
@@ -25,7 +33,7 @@ const ARX: [f64; 3] = [2.0413, -0.5649, -0.3446];
 const ARY: [f64; 3] = [-0.9692, 1.8760, 0.0415];
 const ARZ: [f64; 3] = [0.0134, -0.1183, 1.0154];
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone, Copy)]
 pub struct Xyz {
     x: f64,
     y: f64,
