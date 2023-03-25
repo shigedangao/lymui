@@ -5,6 +5,10 @@ const SR: [f64; 3] = [3.2404542, -1.5371385, -0.4985314];
 const SG: [f64; 3] = [-0.9692660, 1.8760108, 0.0415560];
 const SB: [f64; 3] = [0.0556434, -0.2040259, 1.0572252];
 
+/// Implementation of the sRGB colorspace.
+/// The foruma can be found on the link below
+/// 
+/// @link https://en.wikipedia.org/wiki/SRGB#:~:text=in%20these%20coefficients).-,From%20CIE%20XYZ%20to%20sRGB,when%20using%20specified%20white%20points).
 #[derive(Debug, Clone, Copy)]
 pub struct Srgb {
     pub r: f64,
@@ -39,6 +43,28 @@ impl Srgb {
             *reversed.get(1).unwrap_or(&0.0),
             *reversed.get(2).unwrap_or(&0.0)
         )
+    }
+
+    /// Transform the non linear sRGB into a linear RGB
+    /// 
+    /// # Arguments
+    /// 
+    /// * `&mut self` - Self
+    pub fn as_linear(&mut self) {
+        self.r = self.r.powf(2.2);
+        self.g = self.g.powf(2.2);
+        self.b = self.b.powf(2.2);
+    }
+
+    /// Transform a linear sRGB into a non linear sRGB
+    /// 
+    /// # Arguments
+    /// 
+    /// * `&mut self` - Self
+    pub fn as_non_linear(&mut self) {
+        self.r = self.r.powf(1_f64 / 2.2);
+        self.g = self.g.powf(1_f64 / 2.2);
+        self.b = self.b.powf(1_f64 / 2.2);
     }
 }
 

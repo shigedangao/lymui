@@ -1,0 +1,15 @@
+name: tests
+
+on: [push]
+
+jobs:
+  tests:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: install clippy
+        run: rustup component add clippy
+      - name: run tests
+        run: cargo test
+      #- name: clippy
+      #  run: cargo clippy --all-features

@@ -8,6 +8,7 @@ pub mod luv;
 pub mod lchuv;
 pub mod lchlab;
 pub mod oklab;
+pub mod oklch;
 pub mod srgb;
 
 // Constant
