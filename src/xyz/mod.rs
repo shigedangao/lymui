@@ -5,7 +5,8 @@ pub mod xyy;
 pub mod hlab;
 pub mod lab;
 pub mod luv;
-pub mod lch;
+pub mod lchuv;
+pub mod lchlab;
 
 // Constant
 

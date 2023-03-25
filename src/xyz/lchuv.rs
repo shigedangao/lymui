@@ -12,13 +12,13 @@ use super::luv::Luv;
 /// @link https://en.wikipedia.org/wiki/HCL_color_space#Implementations
 /// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
 #[derive(Debug, Clone, Copy)]
-pub struct Lch {
+pub struct Lchuv {
     pub l: f64,
     pub c: f64,
     pub h: f64
 }
 
-impl From<Xyz> for Lch {
+impl From<Xyz> for Lchuv {
     fn from(xyz: Xyz) -> Self {
         let luv = Luv::from(xyz);
         let h = luv.v.atan2(luv.u).get_degree_from_radian();
@@ -29,7 +29,7 @@ impl From<Xyz> for Lch {
             h + 360.0
         };
 
-        Lch {
+        Lchuv {
             l: luv.l,
             c: f64::sqrt(luv.u.powi(2) + luv.v.powi(2)),
             h: final_h
@@ -37,8 +37,8 @@ impl From<Xyz> for Lch {
     }
 }
 
-impl From<Lch> for Luv {
-    fn from(lch: Lch) -> Self {
+impl From<Lchuv> for Luv {
+    fn from(lch: Lchuv) -> Self {
         let h = lch.h.get_radian_from_degree();
 
         Luv {
@@ -49,8 +49,8 @@ impl From<Lch> for Luv {
     }
 }
 
-impl From<Lch> for Xyz {
-    fn from(lch: Lch) -> Self {
+impl From<Lchuv> for Xyz {
+    fn from(lch: Lchuv) -> Self {
         let luv = Luv::from(lch);
 
         Xyz::from(luv)   
@@ -70,7 +70,7 @@ mod tests {
             z: 0.51
         };
 
-        let lch = Lch::from(xyz);
+        let lch = Lchuv::from(xyz);
         assert_eq!(util::roundup(lch.l, 100.0), 77.28);
         assert_eq!(util::roundup(lch.c, 100.0), 12.0);
         assert_eq!(util::roundup(lch.h, 100.0), 37.5);
@@ -84,7 +84,7 @@ mod tests {
             z: 1.088830
         };
 
-        let lch = Lch::from(xyz);
+        let lch = Lchuv::from(xyz);
         assert_eq!(util::roundup(lch.l, 100.0), 100.0);
         assert_eq!(util::roundup(lch.c, 100.0), 0.0);
         assert_eq!(util::roundup(lch.h, 100.0), 360.0);
@@ -92,7 +92,7 @@ mod tests {
 
     #[test]
     fn expect_to_compute_xyz() {
-        let lch = Lch {
+        let lch = Lchuv {
             l: 59.0746,
             c: 94.1630,
             h: 295.1265
