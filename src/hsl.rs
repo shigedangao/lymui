@@ -1,11 +1,14 @@
 use crate::rgb::Rgb;
 use crate::hue::Hue;
 
-#[derive(Debug)]
+/// Implementation of the HSL color model. The implementation is based on the article below
+/// 
+/// @link https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+#[derive(Debug, Clone, Copy)]
 pub struct Hsl {
-    h: f64,
-    s: f64,
-    l: f64
+    pub h: f64,
+    pub s: f64,
+    pub l: f64
 }
 
 impl Hsl {

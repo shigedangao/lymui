@@ -5,15 +5,18 @@ pub mod xyy;
 pub mod hlab;
 pub mod lab;
 pub mod luv;
+pub mod lchuv;
+pub mod lchlab;
+pub mod oklab;
+pub mod srgb;
 
 // Constant
-
 // Illuminent for D65 2°
 const D65: [f64; 3] = [0.95047, 1.0, 1.08883];
 const EPSILON: f64 = 0.008856;
 const KAPPA: f64 = 903.3;
 
-// For Std RGB
+// For Standard RGB
 const X: [f64; 3] = [0.4124564, 0.3575761, 0.1804375];
 const Y: [f64; 3] = [0.2126729, 0.7151522, 0.0721750];
 const Z: [f64; 3] = [0.0193339, 0.1191920, 0.9503041];
@@ -35,12 +38,12 @@ const ARZ: [f64; 3] = [0.0134, -0.1183, 1.0154];
 
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Xyz {
-    x: f64,
-    y: f64,
-    z: f64
+    pub x: f64,
+    pub y: f64,
+    pub z: f64
 }
 
-enum Kind {
+pub enum Kind {
     Adobe,
     Std
 }
@@ -78,9 +81,9 @@ impl Xyz {
     /// 
     /// # Arguments
     /// 
-    /// * `xyz` - Xyz
+    /// * `&self` - Xyz
     /// * `kind` - Kind
-    fn as_rgb(&self, kind: Kind) -> Rgb {
+    pub fn as_rgb(&self, kind: Kind) -> Rgb {
         let (sr, sg, sb) = match kind {
             Kind::Std => {
                 let sr = (self.x * RX[0] + self.y * RX[1] + self.z * RX[2]).unpivot_std();
@@ -106,12 +109,27 @@ impl Xyz {
     }
 
     /// Check whether the xyz value is null
+    /// 
+    /// # Arguments
+    /// 
+    /// * `&self` - &Xyz
     fn is_null(&self) -> bool {
         if self.x == 0.0 && self.y == 0.0 && self.z == 0.0 {
             return true
         }
 
         false
+    }
+
+    /// Scale the XYZ value
+    /// 
+    /// # Arguments
+    /// 
+    /// * `&mut self` - Xyz
+    pub fn scale(&mut self) {
+        self.x = self.x * 100.0;
+        self.y = self.y * 100.0;
+        self.z = self.z * 100.0;
     }
 }
 

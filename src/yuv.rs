@@ -1,10 +1,10 @@
 use crate::rgb::Rgb;
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct Yuv {
-    y: f64,
-    u: f64,
-    v: f64
+    pub y: f64,
+    pub u: f64,
+    pub v: f64
 }
 
 impl From<&Rgb> for Yuv {
