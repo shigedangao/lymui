@@ -1,18 +1,15 @@
-use super::rgb::{ADBOBE_RGB_COMPOUND};
+use std::f64::consts::PI;
+use super::rgb::ADBOBE_RGB_COMPOUND;
 
 pub trait PivotFloat {
     /// Unpivot an SRGB value
-    /// 
-    /// # Arguments
-    /// 
-    /// * `v` - f64
     fn unpivot_std(self) -> f64;
     /// Unpivot the calculated adobe RGB value
-    /// 
-    /// # Arguments
-    /// 
-    /// * `v` - f64
     fn unpivot_argb(self) -> f64;
+    /// Get the degree value from a radian value
+    fn get_degree_from_radian(self) -> f64;
+    /// Get the radian value from a degree value
+    fn get_radian_from_degree(self) -> f64;
 }
 
 impl PivotFloat for f64 {
@@ -30,6 +27,14 @@ impl PivotFloat for f64 {
         }
 
         self.powf(1.0 / ADBOBE_RGB_COMPOUND)
+    }
+
+    fn get_degree_from_radian(self) -> f64 {
+        180.0 * self / PI
+    }
+
+    fn get_radian_from_degree(self) -> f64 {
+        self * PI / 180.0
     }
 }
 

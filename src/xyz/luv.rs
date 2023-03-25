@@ -9,9 +9,9 @@ use super::{Xyz, D65, EPSILON, KAPPA};
 /// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
 #[derive(Debug, Clone, Copy)]
 pub struct Luv {
-    l: f64,
-    u: f64,
-    v: f64
+    pub l: f64,
+    pub u: f64,
+    pub v: f64
 }
 
 impl Luv {
