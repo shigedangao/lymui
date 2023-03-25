@@ -1,7 +1,6 @@
 // Constant
 pub const ADBOBE_RGB_COMPOUND: f64 = 2.19921875;
 
-
 /// FromRgb is a trait that allows a type T to process an RGB Color
 pub trait FromRgb<T> {
     /// Convert an rgb color to something else
@@ -78,7 +77,7 @@ impl Rgb {
                     return 0.0
                 }
 
-                f64::powf(color, ADBOBE_RGB_COMPOUND)
+                color.powf(ADBOBE_RGB_COMPOUND)
             })
             .collect()
     }

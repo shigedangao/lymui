@@ -6,10 +6,10 @@ const YN: f64 = 100.0;
 const ZN: f64 = 108.883;
 
 #[derive(Debug, Clone, Copy)]
-pub(crate) struct Hlab {
-    l: f64,
-    a: f64,
-    b: f64
+pub struct Hlab {
+    pub l: f64,
+    pub a: f64,
+    pub b: f64
 }
 
 impl Hlab {
