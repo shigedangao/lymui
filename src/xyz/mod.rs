@@ -4,8 +4,15 @@ use super::util::PivotFloat;
 pub mod xyy;
 pub mod hlab;
 pub mod lab;
+pub mod luv;
 
 // Constant
+
+// Illuminent for D65 2°
+const D65: [f64; 3] = [0.95047, 1.0, 1.08883];
+const EPSILON: f64 = 0.008856;
+const KAPPA: f64 = 903.3;
+
 // For Std RGB
 const X: [f64; 3] = [0.4124564, 0.3575761, 0.1804375];
 const Y: [f64; 3] = [0.2126729, 0.7151522, 0.0721750];

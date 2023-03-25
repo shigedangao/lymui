@@ -1,9 +1,4 @@
-use super::Xyz;
-
-// Constant
-const KR: [f64; 3] = [0.95047, 1.0, 1.08883];
-const EPSILON: f64 = 0.008856;
-const KAPPA: f64 = 903.3;
+use super::{Xyz, D65, EPSILON, KAPPA};
 
 /// Lab is a repesentation of the CIELAB colorspace.
 /// The current implementation uses the D65 standard illuminent
@@ -41,9 +36,9 @@ impl Lab {
 impl From<Xyz> for Lab {
     fn from(xyz: Xyz) -> Self {
         Lab {
-            l: 116.0 * Lab::compute_f(xyz.y / KR[1]) - 16.0,
-            a: 500.0 * (Lab::compute_f(xyz.x / KR[0]) - Lab::compute_f(xyz.y / KR[1])),
-            b: 200.0 * (Lab::compute_f(xyz.y / KR[1]) - Lab::compute_f(xyz.z / KR[2]))
+            l: 116.0 * Lab::compute_f(xyz.y / D65[1]) - 16.0,
+            a: 500.0 * (Lab::compute_f(xyz.x / D65[0]) - Lab::compute_f(xyz.y / D65[1])),
+            b: 200.0 * (Lab::compute_f(xyz.y / D65[1]) - Lab::compute_f(xyz.z / D65[2]))
         }
     }
 }
@@ -51,13 +46,13 @@ impl From<Xyz> for Lab {
 impl From<Lab> for Xyz {
     fn from(lab: Lab) -> Self {
         let l = (lab.l + 16.0) / 116.0;
-        let x = KR[0] * Lab::reverse_compute_f(l + lab.a / 500.0);
-        let z = KR[2] * Lab::reverse_compute_f(l - lab.b / 200.0);
+        let x = D65[0] * Lab::reverse_compute_f(l + lab.a / 500.0);
+        let z = D65[2] * Lab::reverse_compute_f(l - lab.b / 200.0);
 
         let y = if lab.l > EPSILON * KAPPA {
-            KR[1] * l.powi(3)
+            D65[1] * l.powi(3)
         } else {
-            KR[1] * (lab.l / KAPPA)
+            D65[1] * (lab.l / KAPPA)
         };
 
         Xyz {
