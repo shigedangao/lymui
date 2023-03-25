@@ -1,11 +1,15 @@
 use super::rgb::Rgb;
 
-#[derive(Debug, Default)]
+/// Cymk is an implementation of the Cymk color space
+/// 
+/// The implementation formula is based on the link below
+/// @link https://www.rapidtables.com/convert/color/rgb-to-cmyk.html
+#[derive(Debug, Default, Clone, Copy)]
 pub struct Cymk {
-    c: f64,
-    y: f64,
-    m: f64,
-    k: f64
+    pub c: f64,
+    pub y: f64,
+    pub m: f64,
+    pub k: f64
 }
 
 impl From<Rgb> for Cymk {

@@ -3,11 +3,11 @@ use crate::rgb::Rgb;
 // Constant use to compute back the RGB from an Ycbcr value
 const Y: f64 = 1.164;
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct Ycbcr {
-    y: f64,
-    cb: f64,
-    cr: f64
+    pub y: f64,
+    pub cb: f64,
+    pub cr: f64
 }
 
 impl Ycbcr {

@@ -7,7 +7,7 @@ pub trait FromRgb<T> {
     fn from_rgb(rgb: Rgb, kind: T) -> Self;
 }
 
-#[derive(Debug, Default, Clone)]
+#[derive(Debug, Default, Clone, Copy)]
 pub struct Rgb {
     pub r: u8,
     pub g: u8,
