@@ -1,4 +1,5 @@
 use crate::rgb::{Rgb, FromRgb};
+use crate::util::AsFloat;
 
 pub type GrayScale = u8;
 

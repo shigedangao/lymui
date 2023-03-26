@@ -1,3 +1,5 @@
+use crate::util::AsFloat;
+
 // Constant
 pub const ADBOBE_RGB_COMPOUND: f64 = 2.19921875;
 
@@ -12,6 +14,16 @@ pub struct Rgb {
     pub r: u8,
     pub g: u8,
     pub b: u8
+}
+
+impl AsFloat for Rgb {
+    fn as_f64(&self) -> (f64, f64, f64) {
+        (
+            self.r as f64,
+            self.g as f64,
+            self.b as f64
+        )
+    }
 }
 
 impl Rgb {
@@ -29,15 +41,7 @@ impl Rgb {
             b: c
         }
     }
-    /// Return the RGB color representation as a f64
-    pub fn as_f64(&self) -> (f64, f64, f64) {
-        (
-            self.r as f64,
-            self.g as f64,
-            self.b as f64
-        )
-    }
-    
+
     /// Get the minimum and the maximum value of a RGB color representation
     pub fn get_min_max(&self) -> (f64, f64) {
         let (r_f, g_f, b_f) = self.as_f64();

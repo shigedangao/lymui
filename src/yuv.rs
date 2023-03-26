@@ -1,4 +1,5 @@
 use crate::rgb::Rgb;
+use crate::util::AsFloat;
 
 /// Implementation of the Yuv color model
 /// 
