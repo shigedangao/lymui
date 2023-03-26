@@ -1,6 +1,11 @@
 use std::f64::consts::PI;
 use super::rgb::ADBOBE_RGB_COMPOUND;
 
+pub trait AsFloat {
+    /// Return inner struct field as a tuple of float64
+    fn as_f64(&self) -> (f64, f64, f64);    
+}
+
 pub trait PivotFloat {
     /// Unpivot an SRGB value
     fn unpivot_std(self) -> f64;

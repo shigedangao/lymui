@@ -1,4 +1,5 @@
 use super::rgb::Rgb;
+use crate::util::AsFloat;
 
 /// Cymk is an implementation of the Cymk color space
 /// 

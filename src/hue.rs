@@ -1,4 +1,6 @@
 use crate::rgb::Rgb;
+use crate::xyz::luv::Luv;
+use crate::util::{AsFloat, PivotFloat};
 
 /// Implementation of the Hue. Computation is based on the article below
 /// 
@@ -28,6 +30,20 @@ impl From<Rgb> for Hue {
         }
 
         hue.round()
+    }
+}
+
+impl From<Luv> for Hue {
+    fn from(luv: Luv) -> Self {
+        let h = luv.v.atan2(luv.u).get_degree_from_radian();
+        
+        if h > 360_f64 {
+            h - 360_f64
+        } else if h < 0.0 {
+            h + 360_f64
+        } else {
+            h
+        }
     }
 }
 
