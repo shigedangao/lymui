@@ -10,4 +10,5 @@ pub mod yuv;
 pub mod ycbcr;
 pub mod xyz;
 pub mod grayscale;
+pub mod generator;
 pub mod error;

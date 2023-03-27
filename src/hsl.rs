@@ -113,9 +113,9 @@ impl From<Hsl> for Rgb {
         let rgb = hsl.compute_rgb_value(tmp_lum, lms);
 
         Rgb {
-            r: rgb.get(0).unwrap_or(&0.0).to_owned() as u8,
-            g: rgb.get(1).unwrap_or(&0.0).to_owned() as u8,
-            b: rgb.get(2).unwrap_or(&0.0).to_owned() as u8
+            r: *rgb.get(0).unwrap_or(&0.0) as u8,
+            g: *rgb.get(1).unwrap_or(&0.0) as u8,
+            b: *rgb.get(2).unwrap_or(&0.0) as u8
         }
     }
 }
