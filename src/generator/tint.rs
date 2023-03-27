@@ -3,7 +3,13 @@ use crate::error::Error;
 use crate::util::AsFloat;
 use super::GeneratorOps;
 
-type Tint = Vec<Rgb>;
+/// Tint implement the computation of a Tint value from an RGB color
+/// The tint is computed based on a factor. The factor should be a number between 0 to 1
+/// 
+/// Computation is based on the article below
+/// @link https://maketintsandshades.com/about
+#[derive(Debug)]
+pub struct Tint(Vec<Rgb>);
 
 impl GeneratorOps for Tint {
     fn compute(rgb: Rgb, factor: f64) -> Result<Tint, Error>  {
@@ -28,7 +34,7 @@ impl GeneratorOps for Tint {
             f += factor;
         }
 
-        Ok(tint)
+        Ok(Tint(tint))
     }
 }
 
@@ -45,7 +51,7 @@ mod tests {
         };
 
         let tint = Tint::compute(rgb, 0.1).unwrap();
-        assert_eq!(tint.len(), 11);
+        assert_eq!(tint.0.len(), 11);
     }
 
     #[test]
