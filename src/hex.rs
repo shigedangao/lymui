@@ -1,7 +1,7 @@
 use crate::rgb::Rgb;
 use crate::error::Error;
 
-type Hex = String;
+pub type Hex = String;
 
 trait HexOps {
     /// Remove the # in front of an Hex if exist

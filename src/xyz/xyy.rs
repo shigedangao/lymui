@@ -39,8 +39,8 @@ impl Xyy {
     /// * `target` - Target
     fn get_fields_from_xyz(xyz: &Xyz, target: Target) -> f64 {
         match target {
-            Target::X(v) => Xyy::compute_xyy(xyz, v).or(Some(CHROMA_X)).unwrap(),
-            Target::Y(v) => Xyy::compute_xyy(xyz, v).or(Some(CHROMA_Y)).unwrap()
+            Target::X(v) => Xyy::compute_xyy(xyz, v).unwrap_or(CHROMA_X),
+            Target::Y(v) => Xyy::compute_xyy(xyz, v).unwrap_or(CHROMA_Y)
         }
     } 
 }
