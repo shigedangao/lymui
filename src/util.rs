@@ -1,9 +1,9 @@
-use std::f64::consts::PI;
 use super::rgb::ADBOBE_RGB_COMPOUND;
+use std::f64::consts::PI;
 
 pub trait AsFloat {
     /// Return inner struct field as a tuple of float64
-    fn as_f64(&self) -> (f64, f64, f64);    
+    fn as_f64(&self) -> (f64, f64, f64);
 }
 
 pub trait PivotFloat {
@@ -25,7 +25,7 @@ impl PivotFloat for f64 {
 
         1.055 * self.powf(1.0 / 2.4) - 0.055
     }
-    
+
     fn unpivot_argb(self) -> f64 {
         if self <= 0.0 {
             return 0.0;
@@ -44,9 +44,9 @@ impl PivotFloat for f64 {
 }
 
 /// Roundup a value based on the given cell value
-/// 
+///
 /// # Arguments
-/// 
+///
 /// * `v` - f64
 /// * `cell` - f64
 #[allow(dead_code)]

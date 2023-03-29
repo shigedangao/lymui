@@ -1,5 +1,5 @@
-use crate::rgb::Rgb;
 use crate::error::Error;
+use crate::rgb::Rgb;
 
 pub type Hex = String;
 
@@ -7,9 +7,9 @@ trait HexOps {
     /// Remove the # in front of an Hex if exist
     fn strip(&self) -> Self;
     /// Unshorten an short Hex such as #6A7 which transform into #66AA77
-    fn unshorten(&self) -> Self; 
+    fn unshorten(&self) -> Self;
     /// Convert the hex into u8 part which can be used to construct an RGB struct
-    /// 
+    ///
     /// # Description
     /// Considering this example #FFEEAA we're going to parse each hexa value by a batch of two
     /// As a result we're going to convert the following hexa into an u8 value
@@ -28,16 +28,15 @@ impl HexOps for Hex {
 
     fn unshorten(&self) -> Self {
         // Basically copy each part from the hex into 6
-        let unshorten: String = self.strip()
-            .chars()
-            .into_iter()
-            .map(|c| (c, c))
-            .fold(String::new(), |mut acc, (a, b)| {
+        let unshorten: String = self.strip().chars().into_iter().map(|c| (c, c)).fold(
+            String::new(),
+            |mut acc, (a, b)| {
                 acc.push(a);
                 acc.push(b);
 
                 acc
-            });
+            },
+        );
 
         unshorten
     }
@@ -89,7 +88,11 @@ mod tests {
 
     #[test]
     fn expect_to_convert_rgb_to_hex() {
-        let rgb = Rgb {r: 255, g: 255, b: 255};
+        let rgb = Rgb {
+            r: 255,
+            g: 255,
+            b: 255,
+        };
 
         let hex = Hex::from(rgb);
 

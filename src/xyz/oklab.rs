@@ -2,19 +2,19 @@ use super::srgb::Srgb;
 
 /// Oklab is a representation of the OkLab color space
 /// The implementation is based on the following blog post
-/// 
+///
 /// @link https://bottosson.github.io/posts/oklab/
 #[derive(Debug, Clone, Copy)]
 pub struct OkLab {
     pub l: f64,
     pub a: f64,
-    pub b: f64
+    pub b: f64,
 }
 
 impl From<Srgb> for OkLab {
     fn from(mut rgb: Srgb) -> Self {
         rgb.as_linear();
-        let Srgb{r, g, b} = rgb;
+        let Srgb { r, g, b } = rgb;
 
         let l = (0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b).cbrt();
         let m = (0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b).cbrt();
@@ -23,7 +23,7 @@ impl From<Srgb> for OkLab {
         OkLab {
             l: 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s,
             a: 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s,
-            b: 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s
+            b: 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s,
         }
     }
 }
@@ -39,7 +39,7 @@ impl From<OkLab> for Srgb {
         let mut srgb = Srgb {
             r: 4.0767416621 * _l - 3.3077115913 * _m + 0.2309699292 * _s,
             g: -1.2684380046 * _l + 2.6097574011 * _m - 0.3413193965 * _s,
-            b: -0.0041960863 * _l - 0.7034186147 * _m + 1.7076147010 * _s
+            b: -0.0041960863 * _l - 0.7034186147 * _m + 1.7076147010 * _s,
         };
 
         srgb.as_non_linear();
@@ -51,13 +51,13 @@ impl From<OkLab> for Srgb {
 mod tests {
     use super::*;
     use crate::util;
-   
+
     #[test]
     fn expect_to_compute_oklab() {
         let rgb = Srgb {
             r: 0.19608,
             g: 0.03922,
-            b: 0.37255
+            b: 0.37255,
         };
 
         let oklab = OkLab::from(rgb);
@@ -71,7 +71,7 @@ mod tests {
         let lab = OkLab {
             l: 0.26368282277639926,
             a: 0.06116371608383586,
-            b: -0.12579731956598594
+            b: -0.12579731956598594,
         };
 
         let srgb = Srgb::from(lab);

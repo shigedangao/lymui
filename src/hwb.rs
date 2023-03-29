@@ -1,14 +1,14 @@
-use crate::rgb::Rgb;
 use crate::hsv::Hsv;
+use crate::rgb::Rgb;
 
 /// Implement the HWB color model. The implementation is based on the provided link
-/// 
+///
 /// @link https://en.wikipedia.org/wiki/HWB_color_model
 #[derive(Debug, Clone, Copy)]
 pub struct Hwb {
     pub h: f64,
     pub w: f64,
-    pub b: f64
+    pub b: f64,
 }
 
 impl From<Rgb> for Hwb {
@@ -21,7 +21,7 @@ impl From<Rgb> for Hwb {
         Hwb {
             h: hsv.h,
             w: ((1_f64 - s) * v) * 100_f64,
-            b: (1_f64 - v) * 100_f64
+            b: (1_f64 - v) * 100_f64,
         }
     }
 }
@@ -34,7 +34,7 @@ impl From<Hwb> for Rgb {
         let hsv = Hsv {
             h: hwb.h,
             s: (1_f64 - (w / (1_f64 - b))) * 100_f64,
-            v: (1_f64 - b) * 100_f64
+            v: (1_f64 - b) * 100_f64,
         };
 
         Rgb::from(hsv)
@@ -51,7 +51,7 @@ mod tests {
         let rgb = Rgb {
             r: 17,
             g: 12,
-            b: 93
+            b: 93,
         };
 
         let hwb = Hwb::from(rgb);
@@ -65,7 +65,7 @@ mod tests {
         let hwb = Hwb {
             h: 244.0,
             w: 4.705882352941177,
-            b: 63.52941176470588
+            b: 63.52941176470588,
         };
 
         let rgb = Rgb::from(hwb);

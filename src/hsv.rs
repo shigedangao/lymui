@@ -1,14 +1,14 @@
-use crate::rgb::Rgb;
 use crate::hue::Hue;
+use crate::rgb::Rgb;
 
 /// Implement the HSV color model. The implementation is based on the formula below
-/// 
+///
 /// @link https://www.had2know.org/technology/hsv-rgb-conversion-formula-calculator.html
 #[derive(Debug, Clone, Copy)]
 pub struct Hsv {
     pub h: f64,
     pub s: f64,
-    pub v: f64
+    pub v: f64,
 }
 
 impl From<Rgb> for Hsv {
@@ -28,7 +28,7 @@ impl From<Rgb> for Hsv {
         Hsv {
             h: hue,
             s,
-            v: (max / 255_f64) * 100_f64
+            v: (max / 255_f64) * 100_f64,
         }
     }
 }
@@ -39,7 +39,7 @@ impl From<Hsv> for Rgb {
             return Rgb {
                 r: hsv.v as u8,
                 g: hsv.v as u8,
-                b: hsv.v as u8
+                b: hsv.v as u8,
             };
         }
 
@@ -65,7 +65,7 @@ impl From<Hsv> for Rgb {
             2 => Rgb::new(up, uv, ut),
             3 => Rgb::new(up, uq, uv),
             4 => Rgb::new(ut, up, uv),
-            _ => Rgb::default()
+            _ => Rgb::default(),
         }
     }
 }
@@ -80,7 +80,7 @@ mod tests {
         let rgb = Rgb {
             r: 50,
             g: 100,
-            b: 100
+            b: 100,
         };
 
         let hsv = Hsv::from(rgb);
@@ -91,11 +91,7 @@ mod tests {
 
     #[test]
     fn expect_to_create_hsv_from_black_rgb() {
-        let rgb = Rgb {
-            r: 0,
-            g: 0,
-            b: 0
-        };
+        let rgb = Rgb { r: 0, g: 0, b: 0 };
 
         let hsv = Hsv::from(rgb);
         assert_eq!(hsv.h, 0_f64);
@@ -108,7 +104,7 @@ mod tests {
         let hsv = Hsv {
             h: 180.0,
             s: 50.0,
-            v: 39.21568627450981
+            v: 39.21568627450981,
         };
 
         let rgb = Rgb::from(hsv);
@@ -122,7 +118,7 @@ mod tests {
         let hsv = Hsv {
             h: 0_f64,
             s: 0_f64,
-            v: 0_f64
+            v: 0_f64,
         };
 
         let rgb = Rgb::from(hsv);

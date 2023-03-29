@@ -9,7 +9,7 @@ const ZN: f64 = 108.883;
 pub struct Hlab {
     pub l: f64,
     pub a: f64,
-    pub b: f64
+    pub b: f64,
 }
 
 impl Hlab {
@@ -29,7 +29,7 @@ impl From<Xyz> for Hlab {
         Hlab {
             l: 1000.0 * f64::sqrt(xyz.y / YN),
             a: 10.0 * ka * ((xyz.x / XN - xyz.y / YN) / f64::sqrt(xyz.y / YN)),
-            b: 10.0 * kb * ((xyz.y / YN - xyz.z / ZN) / f64::sqrt(xyz.y / YN))
+            b: 10.0 * kb * ((xyz.y / YN - xyz.z / ZN) / f64::sqrt(xyz.y / YN)),
         }
     }
 }
@@ -43,9 +43,9 @@ impl From<Hlab> for Xyz {
         let y = f64::powf(hlab.l / YN, 2.0) * 100.0;
 
         Xyz {
-            x: (((hlab.a / ka * f64::sqrt(y / YN) + (y / YN)) * XN)) * 0.01,
+            x: ((hlab.a / ka * f64::sqrt(y / YN) + (y / YN)) * XN) * 0.01,
             y: y * 0.01,
-            z: (((hlab.b / kb * f64::sqrt(y / YN) - (y / YN)) * ZN)) * 0.01
+            z: ((hlab.b / kb * f64::sqrt(y / YN) - (y / YN)) * ZN) * 0.01,
         }
     }
 }
@@ -61,7 +61,7 @@ mod tests {
         let rgb = Rgb {
             r: 50,
             g: 10,
-            b: 195
+            b: 195,
         };
 
         let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
@@ -77,7 +77,7 @@ mod tests {
         let rgb = Rgb {
             r: 255,
             g: 255,
-            b: 255
+            b: 255,
         };
 
         let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
@@ -85,7 +85,7 @@ mod tests {
 
         assert_eq!(util::roundup(hlab.l, 1000.0), 100.0);
         assert_eq!(util::roundup(hlab.a, 1000.0), 0.0);
-        assert_eq!(util::roundup(hlab.b, 1000.0), 0.0);   
+        assert_eq!(util::roundup(hlab.b, 1000.0), 0.0);
     }
 
     #[test]
@@ -93,7 +93,7 @@ mod tests {
         let hlab = Hlab {
             l: 21.987,
             a: 55.063,
-            b: -130.759
+            b: -130.759,
         };
 
         let xyz = Xyz::from(hlab);
