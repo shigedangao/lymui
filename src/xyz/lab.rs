@@ -2,7 +2,7 @@ use super::{Xyz, D65, EPSILON, KAPPA};
 
 /// Lab is a repesentation of the CIELAB colorspace.
 /// The current implementation uses the D65 standard illuminent
-/// 
+///
 /// The computation reference can be found below
 /// @link https://en.wikipedia.org/wiki/CIELAB_color_space
 /// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
@@ -11,11 +11,11 @@ use super::{Xyz, D65, EPSILON, KAPPA};
 pub struct Lab {
     pub l: f64,
     pub a: f64,
-    pub b: f64
+    pub b: f64,
 }
 
 impl Lab {
-    /// Compute the 
+    /// Compute the
     fn compute_f(c: f64) -> f64 {
         if c > 0.008856 {
             c.cbrt()
@@ -38,7 +38,7 @@ impl From<Xyz> for Lab {
         Lab {
             l: 116.0 * Lab::compute_f(xyz.y / D65[1]) - 16.0,
             a: 500.0 * (Lab::compute_f(xyz.x / D65[0]) - Lab::compute_f(xyz.y / D65[1])),
-            b: 200.0 * (Lab::compute_f(xyz.y / D65[1]) - Lab::compute_f(xyz.z / D65[2]))
+            b: 200.0 * (Lab::compute_f(xyz.y / D65[1]) - Lab::compute_f(xyz.z / D65[2])),
         }
     }
 }
@@ -55,18 +55,14 @@ impl From<Lab> for Xyz {
             D65[1] * (lab.l / KAPPA)
         };
 
-        Xyz {
-            x,
-            y,
-            z
-        }
+        Xyz { x, y, z }
     }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::rgb::{Rgb, FromRgb};
+    use crate::rgb::{FromRgb, Rgb};
     use crate::util;
 
     #[test]
@@ -74,11 +70,11 @@ mod test {
         let rgb = Rgb {
             r: 50,
             g: 10,
-            b: 195
+            b: 195,
         };
 
         let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
-        
+
         let lab = Lab::from(xyz);
         assert_eq!(util::roundup(lab.l, 100.0), 26.26);
         assert_eq!(util::roundup(lab.a, 100.0), 63.50);
@@ -87,14 +83,10 @@ mod test {
 
     #[test]
     fn expect_to_create_lab_dark() {
-        let rgb = Rgb {
-            r: 0,
-            g: 0,
-            b: 0
-        };
+        let rgb = Rgb { r: 0, g: 0, b: 0 };
 
         let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
-        
+
         let lab = Lab::from(xyz);
         assert_eq!(util::roundup(lab.l, 100.0), 0.0);
         assert_eq!(util::roundup(lab.a, 100.0), 0.0);
@@ -106,11 +98,11 @@ mod test {
         let rgb = Rgb {
             r: 255,
             g: 255,
-            b: 255
+            b: 255,
         };
 
         let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
-        
+
         let lab = Lab::from(xyz);
         assert_eq!(util::roundup(lab.l, 100.0), 100.0);
         assert_eq!(util::roundup(lab.a, 100.0), 0.0);
@@ -122,7 +114,7 @@ mod test {
         let lab = Lab {
             l: 26.65,
             a: 64.26,
-            b: -84.64
+            b: -84.64,
         };
 
         let xyz = Xyz::from(lab);
@@ -136,7 +128,7 @@ mod test {
         let lab = Lab {
             l: 0.0,
             a: 0.0,
-            b: 0.0
+            b: 0.0,
         };
 
         let xyz = Xyz::from(lab);
@@ -150,7 +142,7 @@ mod test {
         let lab = Lab {
             l: 100.0,
             a: 0.0,
-            b: 0.0
+            b: 0.0,
         };
 
         let xyz = Xyz::from(lab);

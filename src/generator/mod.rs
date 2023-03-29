@@ -1,11 +1,16 @@
-use crate::{
-    rgb::Rgb,
-    error::Error
-};
+use crate::{error::Error, rgb::Rgb};
 
-pub mod tint;
 pub mod shade;
+pub mod tint;
 
 pub trait GeneratorOps {
-    fn compute(rgb: Rgb, factor: f64) -> Result<Self, Error> where Self: Sized;
+    /// Allow to compute either a Tint or a Shade
+    ///
+    /// # Arguments
+    ///
+    /// * `rgb` - Rgb
+    /// * `factor` - f64
+    fn compute(rgb: Rgb, factor: f64) -> Result<Self, Error>
+    where
+        Self: Sized;
 }

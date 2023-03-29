@@ -8,41 +8,41 @@ const CHROMA_Y: f64 = 0.32902;
 pub struct Xyy {
     x: f64,
     y: f64,
-    _y: f64
+    _y: f64,
 }
 
 enum Target {
     X(f64),
-    Y(f64)
+    Y(f64),
 }
 
 impl Xyy {
     /// Compute Xyy based on the xyz fields and the color passed
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `xyz` - &Xyz
     /// * `v` - f64
     fn compute_xyy(xyz: &Xyz, v: f64) -> Option<f64> {
         if !xyz.is_null() {
-            return Some(v / (xyz.x + xyz.y + xyz.z))
+            return Some(v / (xyz.x + xyz.y + xyz.z));
         }
 
         None
     }
-    
+
     /// Get the X & Y field from XYZ sruct by computing them or using the default chroma value
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `xyz` - &Xyz
     /// * `target` - Target
     fn get_fields_from_xyz(xyz: &Xyz, target: Target) -> f64 {
         match target {
             Target::X(v) => Xyy::compute_xyy(xyz, v).unwrap_or(CHROMA_X),
-            Target::Y(v) => Xyy::compute_xyy(xyz, v).unwrap_or(CHROMA_Y)
+            Target::Y(v) => Xyy::compute_xyy(xyz, v).unwrap_or(CHROMA_Y),
         }
-    } 
+    }
 }
 
 impl From<Xyz> for Xyy {
@@ -50,28 +50,20 @@ impl From<Xyz> for Xyy {
         let x = Xyy::get_fields_from_xyz(&xyz, Target::X(xyz.x));
         let y = Xyy::get_fields_from_xyz(&xyz, Target::Y(xyz.y));
 
-        Xyy {
-            x,
-            y,
-            _y: xyz.y
-        }
+        Xyy { x, y, _y: xyz.y }
     }
 }
 
 impl From<Xyy> for Xyz {
     fn from(xyy: Xyy) -> Self {
         if xyy.y == 0.0 {
-            return Xyz::default()
+            return Xyz::default();
         }
 
         let x = (xyy.x * xyy._y) / xyy.y;
         let z = ((1.0 - xyy.x - xyy.y) * xyy._y) / xyy.y;
 
-        Xyz {
-            x,
-            y: xyy.y,
-            z
-        }
+        Xyz { x, y: xyy.y, z }
     }
 }
 
@@ -85,7 +77,7 @@ mod tests {
         let xyz = Xyz {
             x: 0.9,
             y: 0.8,
-            z: 0.7
+            z: 0.7,
         };
 
         let xyy = Xyy::from(xyz);
@@ -100,7 +92,7 @@ mod tests {
         let xyz = Xyz {
             x: 0.0,
             y: 0.0,
-            z: 0.0
+            z: 0.0,
         };
 
         let xyy = Xyy::from(xyz);
@@ -115,7 +107,7 @@ mod tests {
         let xyz = Xyz {
             x: 0.95047,
             y: 1.0,
-            z: 1.08883
+            z: 1.08883,
         };
 
         let xyy = Xyy::from(xyz);

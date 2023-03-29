@@ -2,13 +2,13 @@ use super::luv::Luv;
 use crate::{hue::Hue, util::PivotFloat};
 
 /// Implementation of the Luv to polarLUV (HCL). The implementation is based on the following python implementation
-/// 
+///
 /// @link https://github.com/retostauffer/python-colorspace/blob/da56c170fbaa8a6ca27f9483954ac3e2f51af617/colorspace/colorlib.py#L1318
 #[derive(Debug, Clone, Copy)]
 pub struct Hcl {
     pub h: f64,
     pub c: f64,
-    pub l: f64
+    pub l: f64,
 }
 
 impl From<Luv> for Hcl {
@@ -18,7 +18,7 @@ impl From<Luv> for Hcl {
         Hcl {
             h: hue,
             c: f64::sqrt(luv.u * luv.u + luv.v * luv.v),
-            l: luv.l
+            l: luv.l,
         }
     }
 }
@@ -26,11 +26,11 @@ impl From<Luv> for Hcl {
 impl From<Hcl> for Luv {
     fn from(hcl: Hcl) -> Self {
         let h = hcl.h.get_radian_from_degree();
-        
+
         Luv {
             l: hcl.l,
             u: hcl.c * h.cos(),
-            v: hcl.c * h.sin()
+            v: hcl.c * h.sin(),
         }
     }
 }
@@ -45,7 +45,7 @@ mod tests {
         let luv = Luv {
             l: 100.0,
             u: 0.0,
-            v: -0.0
+            v: -0.0,
         };
 
         let hcl = Hcl::from(luv);
@@ -59,7 +59,7 @@ mod tests {
         let luv = Luv {
             l: 9.605759326542188,
             u: -2.8497902947799596,
-            v: -34.83645386504839
+            v: -34.83645386504839,
         };
 
         let hcl = Hcl::from(luv);
@@ -73,7 +73,7 @@ mod tests {
         let hcl = Hcl {
             h: -0_f64,
             c: 0_f64,
-            l: 100_f64
+            l: 100_f64,
         };
 
         let luv = Luv::from(hcl);
@@ -87,7 +87,7 @@ mod tests {
         let hcl = Hcl {
             h: 265.32334188039283,
             c: 34.95282281327028,
-            l: 9.605759326542188
+            l: 9.605759326542188,
         };
 
         let luv = Luv::from(hcl);

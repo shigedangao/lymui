@@ -9,7 +9,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: install clippy
         run: rustup component add clippy
+      - name: clippy
+        run: cargo clippy --all-features
+      - name: cargo check
+        run: cargo fmt --check
       - name: run tests
         run: cargo test
-      #- name: clippy
-      #  run: cargo clippy --all-features

@@ -1,11 +1,11 @@
-use crate::rgb::Rgb;
-use crate::error::Error;
-use crate::util::AsFloat;
 use super::GeneratorOps;
+use crate::error::Error;
+use crate::rgb::Rgb;
+use crate::util::AsFloat;
 
 /// Shade implement the computation of a Shade value from an RGB color
 /// The shade is computed based on a factor. The factor should be a number between 0 to 1
-/// 
+///
 /// Computation is based on the article below
 /// @link https://maketintsandshades.com/about
 #[derive(Debug)]
@@ -16,7 +16,7 @@ impl GeneratorOps for Shade {
         let mut shade = Vec::new();
         let (r, g, b) = rgb.as_f64();
 
-        if factor < 0_f64 || factor > 1_f64 {
+        if !(0_f64..=1_f64).contains(&factor) {
             return Err(Error::Generator);
         }
 
@@ -25,10 +25,10 @@ impl GeneratorOps for Shade {
             shade.push(Rgb {
                 r: (r * f) as u8,
                 g: (g * f) as u8,
-                b: (b * f) as u8
+                b: (b * f) as u8,
             });
 
-            f -=factor;
+            f -= factor;
         }
 
         Ok(Shade(shade))
@@ -41,13 +41,13 @@ mod tests {
 
     #[test]
     fn expect_to_create_shade() {
-       let rgb = Rgb {
+        let rgb = Rgb {
             r: 102,
             g: 170,
-            b: 119
+            b: 119,
         };
 
-        let shade = Shade::compute(rgb, 0.1).unwrap(); 
+        let shade = Shade::compute(rgb, 0.1).unwrap();
         assert_eq!(shade.0.len(), 11);
     }
 
@@ -56,7 +56,7 @@ mod tests {
         let rgb = Rgb {
             r: 102,
             g: 170,
-            b: 119
+            b: 119,
         };
 
         let shade = Shade::compute(rgb, 1.1);

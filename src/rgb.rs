@@ -13,33 +13,25 @@ pub trait FromRgb<T> {
 pub struct Rgb {
     pub r: u8,
     pub g: u8,
-    pub b: u8
+    pub b: u8,
 }
 
 impl AsFloat for Rgb {
     fn as_f64(&self) -> (f64, f64, f64) {
-        (
-            self.r as f64,
-            self.g as f64,
-            self.b as f64
-        )
+        (self.r as f64, self.g as f64, self.b as f64)
     }
 }
 
 impl Rgb {
     /// Creta a new rgb color
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `a` - u8
     /// * `b` - u8
     /// * `c` - u8
     pub fn new(a: u8, b: u8, c: u8) -> Self {
-        Rgb {
-            r: a,
-            g: b,
-            b: c
-        }
+        Rgb { r: a, g: b, b: c }
     }
 
     /// Get the minimum and the maximum value of a RGB color representation
@@ -55,7 +47,7 @@ impl Rgb {
     /// Convert the RGB Value into a linear rgb value
     pub fn pivot_rgb(&self) -> Vec<f64> {
         let colors = vec![self.r, self.g, self.b];
-        
+
         colors
             .into_iter()
             .map(|c| {
@@ -78,7 +70,7 @@ impl Rgb {
             .map(|c| {
                 let color = c as f64 / 255.0;
                 if color <= 0.0 {
-                    return 0.0
+                    return 0.0;
                 }
 
                 color.powf(ADBOBE_RGB_COMPOUND)
@@ -87,14 +79,17 @@ impl Rgb {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn expect_to_return_min_max() {
-        let rgb = Rgb{r: 250, g: 100, b: 50};
+        let rgb = Rgb {
+            r: 250,
+            g: 100,
+            b: 50,
+        };
 
         let (min, max) = rgb.get_min_max();
 

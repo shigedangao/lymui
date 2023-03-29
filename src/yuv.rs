@@ -2,29 +2,29 @@ use crate::rgb::Rgb;
 use crate::util::AsFloat;
 
 /// Implementation of the Yuv color model
-/// 
+///
 /// Formula used can be found below
 /// @link https://fr.wikipedia.org/wiki/YUV#%C3%89quations
 #[derive(Debug, Clone, Copy)]
 pub struct Yuv {
     pub y: f64,
     pub u: f64,
-    pub v: f64
+    pub v: f64,
 }
 
 impl From<Rgb> for Yuv {
     fn from(rgb: Rgb) -> Self {
         let (mut r, mut g, mut b) = rgb.as_f64();
-        r = r / 255_f64;
-        g = g / 255_f64;
-        b = b / 255_f64;
+        r /= 255_f64;
+        g /= 255_f64;
+        b /= 255_f64;
 
         let y = 0.299 * r + 0.587 * g + 0.114 * b;
 
         Yuv {
             y,
             u: 0.492 * (b - y),
-            v: 0.877 * (r - y)
+            v: 0.877 * (r - y),
         }
     }
 }
@@ -38,7 +38,7 @@ impl From<Yuv> for Rgb {
         Rgb {
             r: (r * 255_f64) as u8,
             g: (g * 255_f64) as u8,
-            b: (b * 255_f64) as u8
+            b: (b * 255_f64) as u8,
         }
     }
 }
@@ -53,7 +53,7 @@ mod tests {
         let rgb = Rgb {
             r: 50,
             g: 10,
-            b: 95
+            b: 95,
         };
 
         let yuv = Yuv::from(rgb);
@@ -67,7 +67,7 @@ mod tests {
         let yuv = Yuv {
             y: 0.12411764705882353,
             u: 0.12222823529411765,
-            v: 0.06310960784313725
+            v: 0.06310960784313725,
         };
 
         let rgb = Rgb::from(yuv);

@@ -2,7 +2,7 @@ use super::{Xyz, D65, EPSILON, KAPPA};
 
 /// Luv is a representation of the CIELUV colorspace.
 /// The current implementation uses the D65 standard illuminent
-/// 
+///
 /// The computation reference can be found below
 /// @link https://en.wikipedia.org/wiki/CIELUV
 /// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
@@ -11,7 +11,7 @@ use super::{Xyz, D65, EPSILON, KAPPA};
 pub struct Luv {
     pub l: f64,
     pub u: f64,
-    pub v: f64
+    pub v: f64,
 }
 
 impl Luv {
@@ -24,7 +24,7 @@ impl Luv {
         let v = (9.0 * y) / (x + 15.0 * y + 3.0 * z);
 
         (u, v)
-    } 
+    }
 }
 
 impl From<Xyz> for Luv {
@@ -42,7 +42,7 @@ impl From<Xyz> for Luv {
         Luv {
             l,
             u: 13.0 * l * (u - ur),
-            v: 13.0 * l * (v - vr)
+            v: 13.0 * l * (v - vr),
         }
     }
 }
@@ -65,31 +65,23 @@ impl From<Luv> for Xyz {
         let d = y * ((39.0 * luv.l) / (luv.v + 13.0 * luv.l * vr) - 5.0);
 
         let x = (d - b) / (a - c);
-        
-        Xyz {
-            x,
-            y,
-            z: x * a + b
-        }
+
+        Xyz { x, y, z: x * a + b }
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::rgb::{Rgb, FromRgb};
+    use crate::rgb::{FromRgb, Rgb};
     use crate::util;
 
     #[test]
     fn expect_to_compute_luv() {
-        let rgb = Rgb {
-            r: 5,
-            g: 10,
-            b: 95
-        };
+        let rgb = Rgb { r: 5, g: 10, b: 95 };
 
         let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
-        
+
         let luv = Luv::from(xyz);
         assert_eq!(util::roundup(luv.l, 1000.0), 9.603);
         assert_eq!(util::roundup(luv.u, 1000.0), -2.851);
@@ -98,14 +90,10 @@ mod tests {
 
     #[test]
     fn expect_to_compute_dark_luv() {
-        let rgb = Rgb {
-            r: 0,
-            g: 0,
-            b: 0
-        };
+        let rgb = Rgb { r: 0, g: 0, b: 0 };
 
         let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
-        
+
         let luv = Luv::from(xyz);
         assert_eq!(luv.l, 0.0);
         assert_eq!(luv.u, 0.0);
@@ -117,7 +105,7 @@ mod tests {
         let luv = Luv {
             l: 5.0,
             u: 1.0,
-            v: 0.0
+            v: 0.0,
         };
 
         let xyz = Xyz::from(luv);
@@ -131,7 +119,7 @@ mod tests {
         let luv = Luv {
             l: 100.0,
             u: 0.0,
-            v: -0.0
+            v: -0.0,
         };
 
         let xyz = Xyz::from(luv);

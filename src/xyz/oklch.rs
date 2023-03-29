@@ -1,13 +1,13 @@
 use super::oklab::OkLab;
 
 /// OkLch implement the oklch colorspace (polar form of OkLab). The implementation is based on the article below
-/// 
+///
 /// @link https://bottosson.github.io/posts/oklab/#the-oklab-color-space
 #[derive(Debug, Clone, Copy)]
 pub struct OkLch {
     pub l: f64,
     pub c: f64,
-    pub h: f64
+    pub h: f64,
 }
 
 impl From<OkLab> for OkLch {
@@ -15,7 +15,7 @@ impl From<OkLab> for OkLch {
         OkLch {
             l: oklab.l,
             c: f64::sqrt(oklab.a.powi(2) + oklab.b.powi(2)),
-            h: oklab.b.atan2(oklab.a)
+            h: oklab.b.atan2(oklab.a),
         }
     }
 }
@@ -25,7 +25,7 @@ impl From<OkLch> for OkLab {
         OkLab {
             l: oklch.l,
             a: oklch.c * oklch.h.cos(),
-            b: oklch.c * oklch.h.sin()
+            b: oklch.c * oklch.h.sin(),
         }
     }
 }
@@ -40,7 +40,7 @@ mod tests {
         let oklab = OkLab {
             l: 0.26368282277639926,
             a: 0.06116371608383586,
-            b: -0.12579731956598594
+            b: -0.12579731956598594,
         };
 
         let oklch = OkLch::from(oklab);
@@ -54,7 +54,7 @@ mod tests {
         let oklch = OkLch {
             l: 0.26368282277639926,
             c: 0.13987839638475583,
-            h: -1.1182427301033124
+            h: -1.1182427301033124,
         };
 
         let oklab = OkLab::from(oklch);

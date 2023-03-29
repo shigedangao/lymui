@@ -1,16 +1,17 @@
-use crate::rgb::{Rgb, FromRgb};
 use super::util::PivotFloat;
+use crate::rgb::{FromRgb, Rgb};
 
-pub mod xyy;
-pub mod hlab;
+pub mod argb;
 pub mod hcl;
+pub mod hlab;
 pub mod lab;
-pub mod luv;
-pub mod lchuv;
 pub mod lchlab;
+pub mod lchuv;
+pub mod luv;
 pub mod oklab;
 pub mod oklch;
 pub mod srgb;
+pub mod xyy;
 
 // Constant
 // Illuminent for D65 2°
@@ -42,47 +43,43 @@ const ARZ: [f64; 3] = [0.0134, -0.1183, 1.0154];
 pub struct Xyz {
     pub x: f64,
     pub y: f64,
-    pub z: f64
+    pub z: f64,
 }
 
 pub enum Kind {
     Adobe,
-    Std
+    Std,
 }
 
 impl FromRgb<Kind> for Xyz {
     fn from_rgb(rgb: Rgb, kind: Kind) -> Self {
         let pivot = match kind {
             Kind::Std => rgb.pivot_rgb(),
-            Kind::Adobe => rgb.pivot_adobe_rgb()
+            Kind::Adobe => rgb.pivot_adobe_rgb(),
         };
 
-        let (r, g, b) = (
-            pivot[0],
-            pivot[1],
-            pivot[2]
-        );
+        let (r, g, b) = (pivot[0], pivot[1], pivot[2]);
 
         match kind {
             Kind::Std => Xyz {
                 x: X[0] * r + X[1] * g + X[2] * b,
                 y: Y[0] * r + Y[1] * g + Y[2] * b,
-                z: Z[0] * r + Z[1] * g + Z[2] * b
+                z: Z[0] * r + Z[1] * g + Z[2] * b,
             },
             Kind::Adobe => Xyz {
                 x: AX[0] * r + AX[1] * g + AX[2] * b,
                 y: AY[0] * r + AY[1] * g + AY[2] * b,
-                z: AZ[0] * r + AZ[1] * g + AZ[2] * b
-            }
+                z: AZ[0] * r + AZ[1] * g + AZ[2] * b,
+            },
         }
     }
 }
 
 impl Xyz {
     /// Convert the XYZ into an RGB color based on the profile
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `&self` - Xyz
     /// * `kind` - Kind
     pub fn as_rgb(&self, kind: Kind) -> Rgb {
@@ -93,7 +90,7 @@ impl Xyz {
                 let sb = (self.x * RZ[0] + self.y * RZ[1] + self.z * RZ[2]).unpivot_std();
 
                 (sr, sg, sb)
-            },
+            }
             Kind::Adobe => {
                 let sr = (self.x * ARX[0] + self.y * ARX[1] + self.z * ARX[2]).unpivot_argb();
                 let sg = (self.x * ARY[0] + self.y * ARY[1] + self.z * ARY[2]).unpivot_argb();
@@ -106,32 +103,32 @@ impl Xyz {
         Rgb {
             r: (sr * 255.0) as u8,
             g: (sg * 255.0) as u8,
-            b: (sb * 255.0) as u8
+            b: (sb * 255.0) as u8,
         }
     }
 
     /// Check whether the xyz value is null
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `&self` - &Xyz
     fn is_null(&self) -> bool {
         if self.x == 0.0 && self.y == 0.0 && self.z == 0.0 {
-            return true
+            return true;
         }
 
         false
     }
 
     /// Scale the XYZ value
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `&mut self` - Xyz
     pub fn scale(&mut self) {
-        self.x = self.x * 100.0;
-        self.y = self.y * 100.0;
-        self.z = self.z * 100.0;
+        self.x *= 100_f64;
+        self.y *= 100_f64;
+        self.z *= 100_f64;
     }
 }
 
@@ -144,7 +141,7 @@ mod tests {
         let rgb = Rgb {
             r: 50,
             g: 10,
-            b: 95
+            b: 95,
         };
 
         let xyz = Xyz::from_rgb(rgb, Kind::Std);
@@ -158,7 +155,7 @@ mod tests {
         let rgb = Rgb {
             r: 50,
             g: 10,
-            b: 95
+            b: 95,
         };
 
         let xyz = Xyz::from_rgb(rgb, Kind::Adobe);
@@ -172,7 +169,7 @@ mod tests {
         let rgb = Rgb {
             r: 50,
             g: 10,
-            b: 95
+            b: 95,
         };
 
         let xyz = Xyz::from_rgb(rgb, Kind::Std);
@@ -188,7 +185,7 @@ mod tests {
         let rgb = Rgb {
             r: 50,
             g: 10,
-            b: 95
+            b: 95,
         };
 
         let xyz = Xyz::from_rgb(rgb, Kind::Adobe);
