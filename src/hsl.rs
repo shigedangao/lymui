@@ -75,8 +75,8 @@ impl From<Rgb> for Hsl {
         let (mut min, mut max) = rgb.get_min_max();
         let hue = Hue::from(rgb);
 
-        min = min / 255.0;
-        max = max / 255.0;
+        min /= 255_f64;
+        max /= 255_f64;
 
         let l = (min + max) / 2.0;
         let sat = Hsl::compute_saturation(min, max, l);
@@ -113,7 +113,7 @@ impl From<Hsl> for Rgb {
         let rgb = hsl.compute_rgb_value(tmp_lum, lms);
 
         Rgb {
-            r: *rgb.get(0).unwrap_or(&0.0) as u8,
+            r: *rgb.first().unwrap_or(&0.0) as u8,
             g: *rgb.get(1).unwrap_or(&0.0) as u8,
             b: *rgb.get(2).unwrap_or(&0.0) as u8,
         }

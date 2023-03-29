@@ -126,9 +126,9 @@ impl Xyz {
     ///
     /// * `&mut self` - Xyz
     pub fn scale(&mut self) {
-        self.x = self.x * 100.0;
-        self.y = self.y * 100.0;
-        self.z = self.z * 100.0;
+        self.x *= 100_f64;
+        self.y *= 100_f64;
+        self.z *= 100_f64;
     }
 }
 

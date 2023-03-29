@@ -17,13 +17,12 @@ impl From<Rgb> for Hsv {
         let hue = Hue::from(rgb);
 
         let delta = max - min;
-        let s;
 
-        if max > 0.0 {
-            s = (delta / max) * 100.0;
+        let s = if max > 0.0 {
+            (delta / max) * 100_f64
         } else {
-            s = 0.0;
-        }
+            0.0
+        };
 
         Hsv {
             h: hue,

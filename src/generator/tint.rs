@@ -16,7 +16,7 @@ impl GeneratorOps for Tint {
         let mut tint = Vec::new();
         let (r, g, b) = rgb.as_f64();
 
-        if factor < 0_f64 || factor > 1_f64 {
+        if !(0_f64..=1_f64).contains(&factor) {
             return Err(Error::Generator);
         }
 

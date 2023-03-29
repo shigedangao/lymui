@@ -39,7 +39,7 @@ impl Srgb {
             .collect();
 
         (
-            *reversed.get(0).unwrap_or(&0.0),
+            *reversed.first().unwrap_or(&0.0),
             *reversed.get(1).unwrap_or(&0.0),
             *reversed.get(2).unwrap_or(&0.0),
         )

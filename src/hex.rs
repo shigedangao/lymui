@@ -16,19 +16,19 @@ trait HexOps {
     /// - FF -> 102
     /// - EE -> 170
     /// - AA -> 119
-    fn into_u8_parts(&self) -> Result<(u8, u8, u8), Error>;
+    fn into_u8_parts(self) -> Result<(u8, u8, u8), Error>;
 }
 
 impl HexOps for Hex {
     fn strip(&self) -> Self {
-        let hex = self.strip_prefix("#").unwrap_or(self);
+        let hex = self.strip_prefix('#').unwrap_or(self);
 
         hex.into()
     }
 
     fn unshorten(&self) -> Self {
         // Basically copy each part from the hex into 6
-        let unshorten: String = self.strip().chars().into_iter().map(|c| (c, c)).fold(
+        let unshorten: String = self.strip().chars().map(|c| (c, c)).fold(
             String::new(),
             |mut acc, (a, b)| {
                 acc.push(a);
@@ -41,7 +41,7 @@ impl HexOps for Hex {
         unshorten
     }
 
-    fn into_u8_parts(&self) -> Result<(u8, u8, u8), Error> {
+    fn into_u8_parts(self) -> Result<(u8, u8, u8), Error> {
         let hex = self.strip();
 
         let r_s = hex.get(0..2);
