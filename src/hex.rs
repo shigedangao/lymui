@@ -28,15 +28,16 @@ impl HexOps for Hex {
 
     fn unshorten(&self) -> Self {
         // Basically copy each part from the hex into 6
-        let unshorten: String = self.strip().chars().map(|c| (c, c)).fold(
-            String::new(),
-            |mut acc, (a, b)| {
-                acc.push(a);
-                acc.push(b);
+        let unshorten: String =
+            self.strip()
+                .chars()
+                .map(|c| (c, c))
+                .fold(String::new(), |mut acc, (a, b)| {
+                    acc.push(a);
+                    acc.push(b);
 
-                acc
-            },
-        );
+                    acc
+                });
 
         unshorten
     }
