@@ -1,12 +1,12 @@
 use super::rgb::ADBOBE_RGB_COMPOUND;
 use std::f64::consts::PI;
 
-pub trait AsFloat {
+pub(crate) trait AsFloat {
     /// Return inner struct field as a tuple of float64
     fn as_f64(&self) -> (f64, f64, f64);
 }
 
-pub trait PivotFloat {
+pub(crate) trait PivotFloat {
     /// Unpivot an SRGB value
     fn unpivot_std(self) -> f64;
     /// Unpivot the calculated adobe RGB value
@@ -50,6 +50,6 @@ impl PivotFloat for f64 {
 /// * `v` - f64
 /// * `cell` - f64
 #[allow(dead_code)]
-pub fn roundup(v: f64, cell: f64) -> f64 {
+pub(crate) fn roundup(v: f64, cell: f64) -> f64 {
     (v * cell).round() / cell
 }
