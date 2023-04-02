@@ -1,6 +1,7 @@
 use crate::rgb::{FromRgb, Rgb};
 use crate::xyz::{Kind, Xyz};
 
+pub mod ansi;
 pub mod cymk;
 pub mod error;
 pub mod generator;
@@ -81,6 +82,6 @@ mod tests {
         };
 
         let res: Hex = from_xyz_compatible_type_to_rgb_subtype(luv, None);
-        assert!(!res.is_empty());
+        assert_eq!(res, "#ffffff");
     }
 }

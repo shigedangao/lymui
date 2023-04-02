@@ -19,25 +19,25 @@ const D65: [f64; 3] = [0.95047, 1.0, 1.08883];
 const EPSILON: f64 = 0.008856;
 const KAPPA: f64 = 903.3;
 
-// For Standard RGB
+// Matrix to convert from RGB to XYZ
 const X: [f64; 3] = [0.4124564, 0.3575761, 0.1804375];
 const Y: [f64; 3] = [0.2126729, 0.7151522, 0.0721750];
 const Z: [f64; 3] = [0.0193339, 0.1191920, 0.9503041];
 
-// For Adobe RGB
+// Matrix to convert from RGB to XYZ with the adobe 1998 profile
 const AX: [f64; 3] = [0.5767309, 0.1855540, 0.1881852];
 const AY: [f64; 3] = [0.2973769, 0.6273491, 0.0752741];
 const AZ: [f64; 3] = [0.0270343, 0.0706872, 0.9911085];
 
 // srgb from Xyz to std RGB
-const RX: [f64; 3] = [3.2404, -1.5371, -0.4985];
-const RY: [f64; 3] = [-0.9692, 1.8760, 0.0415];
-const RZ: [f64; 3] = [0.0556, -0.2040, 1.0572];
+pub(crate) const RX: [f64; 3] = [3.2404542, -1.5371385, -0.4985314];
+pub(crate) const RY: [f64; 3] = [-0.9692660, 1.8760108, 0.0415560];
+pub(crate) const RZ: [f64; 3] = [0.0556434, -0.2040259, 1.0572252];
 
 // srgb from Xyz to Adobe RGB
-const ARX: [f64; 3] = [2.0413, -0.5649, -0.3446];
-const ARY: [f64; 3] = [-0.9692, 1.8760, 0.0415];
-const ARZ: [f64; 3] = [0.0134, -0.1183, 1.0154];
+const ARX: [f64; 3] = [2.0413690, -0.5649464, -0.3446944];
+const ARY: [f64; 3] = [-0.9692660, 1.8760108, 0.0415560];
+const ARZ: [f64; 3] = [0.0134474, -0.1183897, 1.0154096];
 
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Xyz {
@@ -101,9 +101,9 @@ impl Xyz {
         };
 
         Rgb {
-            r: (sr * 255.0) as u8,
-            g: (sg * 255.0) as u8,
-            b: (sb * 255.0) as u8,
+            r: (sr * 255.0).round() as u8,
+            g: (sg * 255.0).round() as u8,
+            b: (sb * 255.0).round() as u8,
         }
     }
 
@@ -176,8 +176,8 @@ mod tests {
         let generated_rgb = xyz.as_rgb(Kind::Std);
 
         assert_eq!(generated_rgb.r, 50);
-        assert_eq!(generated_rgb.g, 9);
-        assert_eq!(generated_rgb.b, 94);
+        assert_eq!(generated_rgb.g, 10);
+        assert_eq!(generated_rgb.b, 95);
     }
 
     #[test]
@@ -189,10 +189,27 @@ mod tests {
         };
 
         let xyz = Xyz::from_rgb(rgb, Kind::Adobe);
+        dbg!(&xyz);
         let generated_rgb = xyz.as_rgb(Kind::Adobe);
 
         assert_eq!(generated_rgb.r, 50);
-        assert_eq!(generated_rgb.g, 9);
-        assert_eq!(generated_rgb.b, 94);
+        assert_eq!(generated_rgb.g, 10);
+        assert_eq!(generated_rgb.b, 95);
+    }
+
+    #[test]
+    fn expect_to_have_the_same_rgb_from_xyz() {
+        let rgb = Rgb {
+            r: 255,
+            g: 255,
+            b: 255,
+        };
+
+        let xyz = Xyz::from_rgb(rgb, Kind::Std);
+        let n_rgb = xyz.as_rgb(Kind::Adobe);
+
+        assert_eq!(n_rgb.r, 255);
+        assert_eq!(n_rgb.g, 255);
+        assert_eq!(n_rgb.b, 255);
     }
 }

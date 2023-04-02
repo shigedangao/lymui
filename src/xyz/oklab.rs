@@ -1,4 +1,4 @@
-use super::srgb::Srgb;
+use super::{srgb::Srgb, Xyz};
 
 /// Oklab is a representation of the OkLab color space
 /// The implementation is based on the following blog post
@@ -44,6 +44,22 @@ impl From<OkLab> for Srgb {
 
         srgb.as_non_linear();
         srgb
+    }
+}
+
+impl From<Xyz> for OkLab {
+    fn from(xyz: Xyz) -> Self {
+        let srgb = Srgb::from(xyz);
+
+        OkLab::from(srgb)
+    }
+}
+
+impl From<OkLab> for Xyz {
+    fn from(oklab: OkLab) -> Self {
+        let srgb = Srgb::from(oklab);
+
+        Xyz::from(srgb)
     }
 }
 

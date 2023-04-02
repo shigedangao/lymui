@@ -1,4 +1,4 @@
-use super::oklab::OkLab;
+use super::{oklab::OkLab, Xyz};
 
 /// OkLch implement the oklch colorspace (polar form of OkLab). The implementation is based on the article below
 ///
@@ -27,6 +27,22 @@ impl From<OkLch> for OkLab {
             a: oklch.c * oklch.h.cos(),
             b: oklch.c * oklch.h.sin(),
         }
+    }
+}
+
+impl From<Xyz> for OkLch {
+    fn from(xyz: Xyz) -> Self {
+        let oklab = OkLab::from(xyz);
+
+        OkLch::from(oklab)
+    }
+}
+
+impl From<OkLch> for Xyz {
+    fn from(oklch: OkLch) -> Self {
+        let oklab = OkLab::from(oklch);
+
+        Xyz::from(oklab)
     }
 }
 

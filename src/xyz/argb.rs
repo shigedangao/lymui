@@ -106,4 +106,16 @@ mod tests {
         assert_eq!(util::roundup(xyz.y, 100000_f64), 1.0);
         assert_eq!(util::roundup(xyz.z, 100000_f64), 1.08883);
     }
+
+    #[test]
+    fn expect_to_convert() {
+        let xyz = Xyz {
+            x: 0.25,
+            y: 0.40,
+            z: 0.10,
+        };
+
+        let argb = Argb::from(xyz);
+        dbg!(argb);
+    }
 }

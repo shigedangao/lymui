@@ -1,14 +1,11 @@
-use super::{Xyz, X, Y, Z};
-
-// Constant
-const SR: [f64; 3] = [3.2404542, -1.5371385, -0.4985314];
-const SG: [f64; 3] = [-0.9692660, 1.8760108, 0.0415560];
-const SB: [f64; 3] = [0.0556434, -0.2040259, 1.0572252];
+use super::{Xyz, RX, RY, RZ, X, Y, Z};
 
 /// Implementation of the sRGB colorspace.
 /// The foruma can be found on the link below
 ///
 /// @link https://en.wikipedia.org/wiki/SRGB#:~:text=in%20these%20coefficients).-,From%20CIE%20XYZ%20to%20sRGB,when%20using%20specified%20white%20points).
+/// @link http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_RGB.html
+/// @link https://www.oceanopticsbook.info/view/photometry-and-visibility/from-xyz-to-rgb
 #[derive(Debug, Clone, Copy)]
 pub struct Srgb {
     pub r: f64,
@@ -70,9 +67,9 @@ impl Srgb {
 
 impl From<Xyz> for Srgb {
     fn from(xyz: Xyz) -> Self {
-        let r = xyz.x * SR[0] + xyz.y * SR[1] + xyz.z * SR[2];
-        let g = xyz.x * SG[0] + xyz.y * SG[1] + xyz.z * SG[2];
-        let b = xyz.x * SB[0] + xyz.y * SB[1] + xyz.z * SB[2];
+        let r = xyz.x * RX[0] + xyz.y * RX[1] + xyz.z * RX[2];
+        let g = xyz.x * RY[0] + xyz.y * RY[1] + xyz.z * RY[2];
+        let b = xyz.x * RZ[0] + xyz.y * RZ[1] + xyz.z * RZ[2];
 
         Srgb {
             r: Srgb::apply_gamma_correction(r),

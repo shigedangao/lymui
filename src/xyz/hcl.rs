@@ -1,4 +1,4 @@
-use super::luv::Luv;
+use super::{luv::Luv, Xyz};
 use crate::{hue::Hue, util::PivotFloat};
 
 /// Implementation of the Luv to polarLUV (HCL). The implementation is based on the following python implementation
@@ -32,6 +32,22 @@ impl From<Hcl> for Luv {
             u: hcl.c * h.cos(),
             v: hcl.c * h.sin(),
         }
+    }
+}
+
+impl From<Hcl> for Xyz {
+    fn from(hcl: Hcl) -> Self {
+        let luv = Luv::from(hcl);
+
+        Xyz::from(luv)
+    }
+}
+
+impl From<Xyz> for Hcl {
+    fn from(xyz: Xyz) -> Self {
+        let luv = Luv::from(xyz);
+
+        Hcl::from(luv)
     }
 }
 
