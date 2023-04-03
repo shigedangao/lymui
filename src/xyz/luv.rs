@@ -75,12 +75,13 @@ mod tests {
     use super::*;
     use crate::rgb::{FromRgb, Rgb};
     use crate::util;
+    use crate::xyz::Kind;
 
     #[test]
     fn expect_to_compute_luv() {
         let rgb = Rgb { r: 5, g: 10, b: 95 };
 
-        let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let luv = Luv::from(xyz);
         assert_eq!(util::roundup(luv.l, 1000.0), 9.603);
@@ -92,7 +93,7 @@ mod tests {
     fn expect_to_compute_dark_luv() {
         let rgb = Rgb { r: 0, g: 0, b: 0 };
 
-        let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let luv = Luv::from(xyz);
         assert_eq!(luv.l, 0.0);

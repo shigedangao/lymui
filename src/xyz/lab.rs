@@ -64,6 +64,7 @@ mod test {
     use super::*;
     use crate::rgb::{FromRgb, Rgb};
     use crate::util;
+    use crate::xyz::Kind;
 
     #[test]
     fn expect_to_create_lab_from_xyz() {
@@ -73,7 +74,7 @@ mod test {
             b: 195,
         };
 
-        let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let lab = Lab::from(xyz);
         assert_eq!(util::roundup(lab.l, 100.0), 26.26);
@@ -85,7 +86,7 @@ mod test {
     fn expect_to_create_lab_dark() {
         let rgb = Rgb { r: 0, g: 0, b: 0 };
 
-        let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let lab = Lab::from(xyz);
         assert_eq!(util::roundup(lab.l, 100.0), 0.0);
@@ -101,7 +102,7 @@ mod test {
             b: 255,
         };
 
-        let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let lab = Lab::from(xyz);
         assert_eq!(util::roundup(lab.l, 100.0), 100.0);

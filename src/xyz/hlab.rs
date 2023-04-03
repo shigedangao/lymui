@@ -55,6 +55,7 @@ mod tests {
     use super::*;
     use crate::rgb::{FromRgb, Rgb};
     use crate::util;
+    use crate::xyz::Kind;
 
     #[test]
     fn expect_to_create_hlab() {
@@ -64,7 +65,7 @@ mod tests {
             b: 195,
         };
 
-        let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
         let hlab = Hlab::from(xyz);
 
         assert_eq!(util::roundup(hlab.l, 1000.0), 21.987);
@@ -80,7 +81,7 @@ mod tests {
             b: 255,
         };
 
-        let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
         let hlab = Hlab::from(xyz);
 
         assert_eq!(util::roundup(hlab.l, 1000.0), 100.0);

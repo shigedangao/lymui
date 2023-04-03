@@ -1,4 +1,6 @@
-use super::{Xyz, RX, RY, RZ, X, Y, Z};
+use super::matrices::xyz::{RX65, RY65, RZ65, X65, Y65, Z65};
+use super::Xyz;
+use crate::util::PivotFloat;
 
 /// Implementation of the sRGB colorspace.
 /// The foruma can be found on the link below
@@ -14,34 +16,6 @@ pub struct Srgb {
 }
 
 impl Srgb {
-    fn apply_gamma_correction(c: f64) -> f64 {
-        if c <= 0.0031308 {
-            c * 12.92
-        } else {
-            1.055 * c.powf(1_f64 / 2.4) - 0.055
-        }
-    }
-
-    fn reverse_gamma(&self) -> (f64, f64, f64) {
-        let colors = vec![self.r, self.g, self.b];
-        let reversed: Vec<f64> = colors
-            .into_iter()
-            .map(|c| {
-                if c <= 0.04045 {
-                    c / 12.92
-                } else {
-                    f64::powf((c + 0.055) / 1.055, 2.4)
-                }
-            })
-            .collect();
-
-        (
-            *reversed.first().unwrap_or(&0.0),
-            *reversed.get(1).unwrap_or(&0.0),
-            *reversed.get(2).unwrap_or(&0.0),
-        )
-    }
-
     /// Transform the non linear sRGB into a linear RGB
     ///
     /// # Arguments
@@ -67,26 +41,24 @@ impl Srgb {
 
 impl From<Xyz> for Srgb {
     fn from(xyz: Xyz) -> Self {
-        let r = xyz.x * RX[0] + xyz.y * RX[1] + xyz.z * RX[2];
-        let g = xyz.x * RY[0] + xyz.y * RY[1] + xyz.z * RY[2];
-        let b = xyz.x * RZ[0] + xyz.y * RZ[1] + xyz.z * RZ[2];
+        let r = (xyz.x * RX65[0] + xyz.y * RX65[1] + xyz.z * RX65[2]).apply_gamma_correction();
+        let g = (xyz.x * RY65[0] + xyz.y * RY65[1] + xyz.z * RY65[2]).apply_gamma_correction();
+        let b = (xyz.x * RZ65[0] + xyz.y * RZ65[1] + xyz.z * RZ65[2]).apply_gamma_correction();
 
-        Srgb {
-            r: Srgb::apply_gamma_correction(r),
-            g: Srgb::apply_gamma_correction(g),
-            b: Srgb::apply_gamma_correction(b),
-        }
+        Srgb { r, g, b }
     }
 }
 
 impl From<Srgb> for Xyz {
     fn from(sr: Srgb) -> Self {
-        let (r, g, b) = sr.reverse_gamma();
+        let r = sr.r.compute_gamma_expanded();
+        let g = sr.g.compute_gamma_expanded();
+        let b = sr.b.compute_gamma_expanded();
 
         Xyz {
-            x: r * X[0] + g * X[1] + b * X[2],
-            y: r * Y[0] + g * Y[1] + b * Y[2],
-            z: r * Z[0] + g * Z[1] + b * Z[2],
+            x: r * X65[0] + g * X65[1] + b * X65[2],
+            y: r * Y65[0] + g * Y65[1] + b * Y65[2],
+            z: r * Z65[0] + g * Z65[1] + b * Z65[2],
         }
     }
 }
@@ -96,6 +68,7 @@ mod tests {
     use super::*;
     use crate::rgb::{FromRgb, Rgb};
     use crate::util;
+    use crate::xyz::Kind;
 
     #[test]
     fn expect_to_compute_srgb() {
@@ -105,7 +78,7 @@ mod tests {
             b: 95,
         };
 
-        let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let srgb = Srgb::from(xyz);
         assert_eq!(util::roundup(srgb.r, 1000.0), 0.196);
@@ -117,7 +90,7 @@ mod tests {
     fn expect_to_compute_black_srgb() {
         let rgb = Rgb { r: 0, g: 0, b: 0 };
 
-        let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let srgb = Srgb::from(xyz);
         assert_eq!(srgb.r, 0.0);
@@ -133,7 +106,7 @@ mod tests {
             b: 255,
         };
 
-        let xyz = Xyz::from_rgb(rgb, crate::xyz::Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let srgb = Srgb::from(xyz);
         assert_eq!(util::roundup(srgb.r, 1000.0), 1.0);

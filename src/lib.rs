@@ -30,7 +30,7 @@ where
     E: From<Xyz>,
 {
     let rgb: Rgb = f.into();
-    let xyz = Xyz::from_rgb(rgb, k.unwrap_or(Kind::Std));
+    let xyz = Xyz::from_rgb(rgb, k.unwrap_or(Kind::D65));
 
     E::from(xyz)
 }
@@ -48,7 +48,7 @@ where
     E: From<Rgb>,
 {
     let xyz: Xyz = c.into();
-    let rgb = xyz.as_rgb(k.unwrap_or(Kind::Std));
+    let rgb = xyz.as_rgb(k.unwrap_or(Kind::D65));
 
     E::from(rgb)
 }

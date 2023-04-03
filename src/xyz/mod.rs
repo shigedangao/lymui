@@ -1,5 +1,6 @@
 use super::util::PivotFloat;
 use crate::rgb::{FromRgb, Rgb};
+use matrices::xyz;
 
 pub mod argb;
 pub mod hcl;
@@ -13,31 +14,13 @@ pub mod oklch;
 pub mod srgb;
 pub mod xyy;
 
+mod matrices;
+
 // Constant
 // Illuminent for D65 2°
 const D65: [f64; 3] = [0.95047, 1.0, 1.08883];
 const EPSILON: f64 = 0.008856;
 const KAPPA: f64 = 903.3;
-
-// Matrix to convert from RGB to XYZ
-const X: [f64; 3] = [0.4124564, 0.3575761, 0.1804375];
-const Y: [f64; 3] = [0.2126729, 0.7151522, 0.0721750];
-const Z: [f64; 3] = [0.0193339, 0.1191920, 0.9503041];
-
-// Matrix to convert from RGB to XYZ with the adobe 1998 profile
-const AX: [f64; 3] = [0.5767309, 0.1855540, 0.1881852];
-const AY: [f64; 3] = [0.2973769, 0.6273491, 0.0752741];
-const AZ: [f64; 3] = [0.0270343, 0.0706872, 0.9911085];
-
-// srgb from Xyz to std RGB
-pub(crate) const RX: [f64; 3] = [3.2404542, -1.5371385, -0.4985314];
-pub(crate) const RY: [f64; 3] = [-0.9692660, 1.8760108, 0.0415560];
-pub(crate) const RZ: [f64; 3] = [0.0556434, -0.2040259, 1.0572252];
-
-// srgb from Xyz to Adobe RGB
-const ARX: [f64; 3] = [2.0413690, -0.5649464, -0.3446944];
-const ARY: [f64; 3] = [-0.9692660, 1.8760108, 0.0415560];
-const ARZ: [f64; 3] = [0.0134474, -0.1183897, 1.0154096];
 
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Xyz {
@@ -46,36 +29,77 @@ pub struct Xyz {
     pub z: f64,
 }
 
+/// Xyz support different type of whitepoint. Currently we support
+/// - D50
+/// - D65
+/// - Adobe
+///
+/// All of these matrices are taken from the website linked below
+/// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
 pub enum Kind {
+    D50,
+    D65,
     Adobe,
-    Std,
 }
 
 impl FromRgb<Kind> for Xyz {
     fn from_rgb(rgb: Rgb, kind: Kind) -> Self {
         let pivot = match kind {
-            Kind::Std => rgb.pivot_rgb(),
+            Kind::D65 => rgb.pivot_rgb(),
+            Kind::D50 => rgb.pivot_rgb(),
             Kind::Adobe => rgb.pivot_adobe_rgb(),
         };
 
-        let (r, g, b) = (pivot[0], pivot[1], pivot[2]);
-
         match kind {
-            Kind::Std => Xyz {
-                x: X[0] * r + X[1] * g + X[2] * b,
-                y: Y[0] * r + Y[1] * g + Y[2] * b,
-                z: Z[0] * r + Z[1] * g + Z[2] * b,
-            },
-            Kind::Adobe => Xyz {
-                x: AX[0] * r + AX[1] * g + AX[2] * b,
-                y: AY[0] * r + AY[1] * g + AY[2] * b,
-                z: AZ[0] * r + AZ[1] * g + AZ[2] * b,
-            },
+            Kind::D65 => Xyz::compute_xyz_from_matrix((xyz::X65, xyz::Y65, xyz::Z65), pivot),
+            Kind::D50 => Xyz::compute_xyz_from_matrix((xyz::X50, xyz::Y50, xyz::Z50), pivot),
+            Kind::Adobe => Xyz::compute_xyz_from_matrix((xyz::AX, xyz::AY, xyz::AZ), pivot),
         }
     }
 }
 
 impl Xyz {
+    /// Compute the xyz from a set of matrices
+    ///
+    /// # Arguments
+    ///
+    /// * `matrices` - ([f64; 3], [f64; 3], [f64; 3])
+    /// * `c` - (f64, f64, f64)
+    fn compute_xyz_from_matrix(matrices: ([f64; 3], [f64; 3], [f64; 3]), pivot: Vec<f64>) -> Self {
+        let (r, g, b) = (
+            pivot.first().unwrap_or(&0_f64),
+            pivot.get(1).unwrap_or(&0_f64),
+            pivot.last().unwrap_or(&0_f64),
+        );
+
+        let (xm, ym, zm) = matrices;
+
+        let x = xm[0] * r + xm[1] * g + xm[2] * b;
+        let y = ym[0] * r + ym[1] * g + ym[2] * b;
+        let z = zm[0] * r + zm[1] * g + zm[2] * b;
+
+        Xyz { x, y, z }
+    }
+
+    /// Compute the RGB from an XYZ matrix
+    ///
+    /// # Arguments
+    ///
+    /// * `&self` - Xyz
+    /// * `matrices` - ([f64; 3], [f64; 3], [f64; 3])
+    fn compute_rgb_from_xyz_matrix(
+        &self,
+        matrices: ([f64; 3], [f64; 3], [f64; 3]),
+    ) -> (f64, f64, f64) {
+        let (rx, ry, rz) = matrices;
+
+        (
+            (self.x * rx[0] + self.y * rx[1] + self.z * rx[2]),
+            (self.x * ry[0] + self.y * ry[1] + self.z * ry[2]),
+            (self.x * rz[0] + self.y * rz[1] + self.z * rz[2]),
+        )
+    }
+
     /// Convert the XYZ into an RGB color based on the profile
     ///
     /// # Arguments
@@ -84,19 +108,30 @@ impl Xyz {
     /// * `kind` - Kind
     pub fn as_rgb(&self, kind: Kind) -> Rgb {
         let (sr, sg, sb) = match kind {
-            Kind::Std => {
-                let sr = (self.x * RX[0] + self.y * RX[1] + self.z * RX[2]).unpivot_std();
-                let sg = (self.x * RY[0] + self.y * RY[1] + self.z * RY[2]).unpivot_std();
-                let sb = (self.x * RZ[0] + self.y * RZ[1] + self.z * RZ[2]).unpivot_std();
+            Kind::D65 => {
+                let (sr, sg, sb) =
+                    self.compute_rgb_from_xyz_matrix((xyz::RX65, xyz::RY65, xyz::RZ65));
 
-                (sr, sg, sb)
+                (
+                    sr.apply_gamma_correction(),
+                    sg.apply_gamma_correction(),
+                    sb.apply_gamma_correction(),
+                )
+            }
+            Kind::D50 => {
+                let (sr, sg, sb) =
+                    self.compute_rgb_from_xyz_matrix((xyz::RX50, xyz::RY50, xyz::RZ50));
+
+                (
+                    sr.apply_gamma_correction(),
+                    sg.apply_gamma_correction(),
+                    sb.apply_gamma_correction(),
+                )
             }
             Kind::Adobe => {
-                let sr = (self.x * ARX[0] + self.y * ARX[1] + self.z * ARX[2]).unpivot_argb();
-                let sg = (self.x * ARY[0] + self.y * ARY[1] + self.z * ARY[2]).unpivot_argb();
-                let sb = (self.x * ARZ[0] + self.y * ARZ[1] + self.z * ARZ[2]).unpivot_argb();
+                let (sr, sg, sb) = self.compute_rgb_from_xyz_matrix((xyz::ARX, xyz::ARY, xyz::ARZ));
 
-                (sr, sg, sb)
+                (sr.unpivot_argb(), sg.unpivot_argb(), sb.unpivot_argb())
             }
         };
 
@@ -105,6 +140,17 @@ impl Xyz {
             g: (sg * 255.0).round() as u8,
             b: (sb * 255.0).round() as u8,
         }
+    }
+
+    /// Scale the XYZ value
+    ///
+    /// # Arguments
+    ///
+    /// * `&mut self` - Xyz
+    pub fn scale(&mut self) {
+        self.x *= 100_f64;
+        self.y *= 100_f64;
+        self.z *= 100_f64;
     }
 
     /// Check whether the xyz value is null
@@ -119,22 +165,12 @@ impl Xyz {
 
         false
     }
-
-    /// Scale the XYZ value
-    ///
-    /// # Arguments
-    ///
-    /// * `&mut self` - Xyz
-    pub fn scale(&mut self) {
-        self.x *= 100_f64;
-        self.y *= 100_f64;
-        self.z *= 100_f64;
-    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::util;
 
     #[test]
     fn expect_to_compute_xyz_std() {
@@ -144,7 +180,7 @@ mod tests {
             b: 95,
         };
 
-        let xyz = Xyz::from_rgb(rgb, Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
         assert_eq!(xyz.x, 0.03488949569070142);
         assert_eq!(xyz.y, 0.017213474858538254);
         assert_eq!(xyz.z, 0.10972685952886765);
@@ -172,8 +208,8 @@ mod tests {
             b: 95,
         };
 
-        let xyz = Xyz::from_rgb(rgb, Kind::Std);
-        let generated_rgb = xyz.as_rgb(Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
+        let generated_rgb = xyz.as_rgb(Kind::D65);
 
         assert_eq!(generated_rgb.r, 50);
         assert_eq!(generated_rgb.g, 10);
@@ -205,11 +241,39 @@ mod tests {
             b: 255,
         };
 
-        let xyz = Xyz::from_rgb(rgb, Kind::Std);
+        let xyz = Xyz::from_rgb(rgb, Kind::D65);
         let n_rgb = xyz.as_rgb(Kind::Adobe);
 
         assert_eq!(n_rgb.r, 255);
         assert_eq!(n_rgb.g, 255);
         assert_eq!(n_rgb.b, 255);
+    }
+
+    #[test]
+    fn expect_to_compute_rgb_to_xyz_d50() {
+        let rgb = Rgb {
+            r: 50,
+            g: 10,
+            b: 95,
+        };
+
+        let xyz = Xyz::from_rgb(rgb, Kind::D50);
+        assert_eq!(util::roundup(xyz.x, 1000000_f64), 0.031451);
+        assert_eq!(util::roundup(xyz.y, 1000000_f64), 0.01621);
+        assert_eq!(util::roundup(xyz.z, 1000000_f64), 0.082466);
+    }
+
+    #[test]
+    fn expect_to_compute_rgb_from_xyz_d50() {
+        let xyz = Xyz {
+            x: 0.03145128799049186,
+            y: 0.016209648492913314,
+            z: 0.08246580883446344,
+        };
+
+        let rgb = xyz.as_rgb(Kind::D50);
+        assert_eq!(rgb.r, 50);
+        assert_eq!(rgb.g, 10);
+        assert_eq!(rgb.b, 95);
     }
 }
