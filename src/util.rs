@@ -1,4 +1,3 @@
-use super::rgb::ADBOBE_RGB_COMPOUND;
 use std::f64::consts::PI;
 
 pub(crate) trait AsFloat {
@@ -7,14 +6,6 @@ pub(crate) trait AsFloat {
 }
 
 pub(crate) trait PivotFloat {
-    /// Apply gamma correction especially useful for xyz
-    /// @link https://en.wikipedia.org/wiki/SRGB#From_CIE_XYZ_to_sRGB
-    fn apply_gamma_correction(self) -> f64;
-    /// Compute the gamma expanded value. Usually from a gamma corrected value
-    /// @link https://en.wikipedia.org/wiki/SRGB#From_sRGB_to_CIE_XYZ
-    fn compute_gamma_expanded(self) -> f64;
-    /// Unpivot the calculated adobe RGB value
-    fn unpivot_argb(self) -> f64;
     /// Get the degree value from a radian value
     fn get_degree_from_radian(self) -> f64;
     /// Get the radian value from a degree value
@@ -22,30 +13,6 @@ pub(crate) trait PivotFloat {
 }
 
 impl PivotFloat for f64 {
-    fn apply_gamma_correction(self) -> f64 {
-        if self <= 0.0031308 {
-            return self * 12.92;
-        }
-
-        1.055 * self.powf(1.0 / 2.4) - 0.055
-    }
-
-    fn compute_gamma_expanded(self) -> f64 {
-        if self <= 0.04045 {
-            self / 12.92
-        } else {
-            f64::powf((self + 0.055) / 1.055, 2.4)
-        }
-    }
-
-    fn unpivot_argb(self) -> f64 {
-        if self <= 0.0 {
-            return 0.0;
-        }
-
-        self.powf(1.0 / ADBOBE_RGB_COMPOUND)
-    }
-
     fn get_degree_from_radian(self) -> f64 {
         180.0 * self / PI
     }

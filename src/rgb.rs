@@ -43,40 +43,6 @@ impl Rgb {
 
         (min, max)
     }
-
-    /// Convert the RGB Value into a linear rgb value
-    pub fn pivot_rgb(&self) -> Vec<f64> {
-        let colors = vec![self.r, self.g, self.b];
-
-        colors
-            .into_iter()
-            .map(|c| {
-                let color = c as f64 / 255.0;
-                if color <= 0.04045 {
-                    return color / 12.92;
-                }
-
-                f64::powf((color + 0.055) / 1.055, 2.4)
-            })
-            .collect()
-    }
-
-    /// Convert an RGB value into a linear Adobe RGB Value
-    pub fn pivot_adobe_rgb(&self) -> Vec<f64> {
-        let colors = vec![self.r, self.g, self.b];
-
-        colors
-            .into_iter()
-            .map(|c| {
-                let color = c as f64 / 255.0;
-                if color <= 0.0 {
-                    return 0.0;
-                }
-
-                color.powf(ADBOBE_RGB_COMPOUND)
-            })
-            .collect()
-    }
 }
 
 #[cfg(test)]

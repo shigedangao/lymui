@@ -1,6 +1,9 @@
-use super::matrices::xyz::{RX65, RY65, RZ65, X65, Y65, Z65};
-use super::Xyz;
-use crate::util::PivotFloat;
+use super::{
+    gamma::GammaCorrection,
+    matrices::xyz::{RX65, RY65, RZ65, X65, Y65, Z65},
+    Xyz,
+};
+use crate::{rgb::Rgb, util::AsFloat};
 
 /// Implementation of the sRGB colorspace.
 /// The foruma can be found on the link below
@@ -13,6 +16,12 @@ pub struct Srgb {
     pub r: f64,
     pub g: f64,
     pub b: f64,
+}
+
+impl AsFloat for Srgb {
+    fn as_f64(&self) -> (f64, f64, f64) {
+        (self.r, self.g, self.b)
+    }
 }
 
 impl Srgb {
@@ -41,9 +50,9 @@ impl Srgb {
 
 impl From<Xyz> for Srgb {
     fn from(xyz: Xyz) -> Self {
-        let r = (xyz.x * RX65[0] + xyz.y * RX65[1] + xyz.z * RX65[2]).apply_gamma_correction();
-        let g = (xyz.x * RY65[0] + xyz.y * RY65[1] + xyz.z * RY65[2]).apply_gamma_correction();
-        let b = (xyz.x * RZ65[0] + xyz.y * RZ65[1] + xyz.z * RZ65[2]).apply_gamma_correction();
+        let r = (xyz.x * RX65[0] + xyz.y * RX65[1] + xyz.z * RX65[2]).apply_srgb_gamma_correction();
+        let g = (xyz.x * RY65[0] + xyz.y * RY65[1] + xyz.z * RY65[2]).apply_srgb_gamma_correction();
+        let b = (xyz.x * RZ65[0] + xyz.y * RZ65[1] + xyz.z * RZ65[2]).apply_srgb_gamma_correction();
 
         Srgb { r, g, b }
     }
@@ -51,14 +60,29 @@ impl From<Xyz> for Srgb {
 
 impl From<Srgb> for Xyz {
     fn from(sr: Srgb) -> Self {
-        let r = sr.r.compute_gamma_expanded();
-        let g = sr.g.compute_gamma_expanded();
-        let b = sr.b.compute_gamma_expanded();
+        let r = sr.r.compute_srgb_gamma_expanded();
+        let g = sr.g.compute_srgb_gamma_expanded();
+        let b = sr.b.compute_srgb_gamma_expanded();
 
         Xyz {
             x: r * X65[0] + g * X65[1] + b * X65[2],
             y: r * Y65[0] + g * Y65[1] + b * Y65[2],
             z: r * Z65[0] + g * Z65[1] + b * Z65[2],
+        }
+    }
+}
+
+impl From<Rgb> for Srgb {
+    fn from(rgb: Rgb) -> Self {
+        let (mut r, mut g, mut b) = rgb.as_f64();
+        r /= 255_f64;
+        g /= 255_f64;
+        b /= 255_f64;
+
+        Srgb {
+            r: r.compute_srgb_gamma_expanded(),
+            g: g.compute_srgb_gamma_expanded(),
+            b: b.compute_srgb_gamma_expanded(),
         }
     }
 }
@@ -126,5 +150,17 @@ mod tests {
         assert_eq!(util::roundup(xyz.x, 1000.0), 0.035);
         assert_eq!(util::roundup(xyz.y, 1000.0), 0.017);
         assert_eq!(util::roundup(xyz.z, 1000.0), 0.110);
+    }
+
+    #[test]
+    fn expect_to_compute_srgb_from_rgb() {
+        let rgb = Rgb {
+            r: 255,
+            g: 255,
+            b: 255,
+        };
+
+        let srgb = Srgb::from(rgb);
+        dbg!(srgb);
     }
 }

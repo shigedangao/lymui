@@ -29,3 +29,20 @@ pub mod xyz {
     pub(crate) const ARY: [f64; 3] = [-0.9692660, 1.8760108, 0.0415560];
     pub(crate) const ARZ: [f64; 3] = [0.0134474, -0.1183897, 1.0154096];
 }
+
+pub mod argb {
+    // Constant
+    // From Xyz to aRGB as defined on these specs
+    //
+    // @link https://en.wikipedia.org/wiki/Adobe_RGB_color_space#cite_note-AdobeRGBColorImagingEncoding-4#Specifications
+    // @link https://stackoverflow.com/questions/40017741/mathematical-conversion-srgb-and-adobergb
+    pub(crate) const XR: [f64; 3] = [2.041588, -0.565007, -0.344731];
+    pub(crate) const YG: [f64; 3] = [-0.969244, 1.875968, 0.041555];
+    pub(crate) const ZB: [f64; 3] = [0.013444, -0.118362, 1.015175];
+
+    // Constant provided by
+    // @link http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
+    pub(crate) const RR: [f64; 3] = [0.5767309, 0.1855540, 0.1881852];
+    pub(crate) const GG: [f64; 3] = [0.2973769, 0.6273491, 0.0752741];
+    pub(crate) const BB: [f64; 3] = [0.0270343, 0.0706872, 0.9911085];
+}

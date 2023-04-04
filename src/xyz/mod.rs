@@ -1,5 +1,9 @@
-use super::util::PivotFloat;
-use crate::rgb::{FromRgb, Rgb};
+use self::{argb::Argb, srgb::Srgb};
+use crate::{
+    rgb::{FromRgb, Rgb},
+    util::AsFloat,
+};
+use gamma::GammaCorrection;
 use matrices::xyz;
 
 pub mod argb;
@@ -14,6 +18,7 @@ pub mod oklch;
 pub mod srgb;
 pub mod xyy;
 
+mod gamma;
 mod matrices;
 
 // Constant
@@ -44,16 +49,16 @@ pub enum Kind {
 
 impl FromRgb<Kind> for Xyz {
     fn from_rgb(rgb: Rgb, kind: Kind) -> Self {
-        let pivot = match kind {
-            Kind::D65 => rgb.pivot_rgb(),
-            Kind::D50 => rgb.pivot_rgb(),
-            Kind::Adobe => rgb.pivot_adobe_rgb(),
-        };
-
         match kind {
-            Kind::D65 => Xyz::compute_xyz_from_matrix((xyz::X65, xyz::Y65, xyz::Z65), pivot),
-            Kind::D50 => Xyz::compute_xyz_from_matrix((xyz::X50, xyz::Y50, xyz::Z50), pivot),
-            Kind::Adobe => Xyz::compute_xyz_from_matrix((xyz::AX, xyz::AY, xyz::AZ), pivot),
+            Kind::D65 => {
+                Xyz::compute_xyz_from_matrix((xyz::X65, xyz::Y65, xyz::Z65), Srgb::from(rgb))
+            }
+            Kind::D50 => {
+                Xyz::compute_xyz_from_matrix((xyz::X50, xyz::Y50, xyz::Z50), Srgb::from(rgb))
+            }
+            Kind::Adobe => {
+                Xyz::compute_xyz_from_matrix((xyz::AX, xyz::AY, xyz::AZ), Argb::from(rgb))
+            }
         }
     }
 }
@@ -65,13 +70,11 @@ impl Xyz {
     ///
     /// * `matrices` - ([f64; 3], [f64; 3], [f64; 3])
     /// * `c` - (f64, f64, f64)
-    fn compute_xyz_from_matrix(matrices: ([f64; 3], [f64; 3], [f64; 3]), pivot: Vec<f64>) -> Self {
-        let (r, g, b) = (
-            pivot.first().unwrap_or(&0_f64),
-            pivot.get(1).unwrap_or(&0_f64),
-            pivot.last().unwrap_or(&0_f64),
-        );
-
+    fn compute_xyz_from_matrix<T: AsFloat>(
+        matrices: ([f64; 3], [f64; 3], [f64; 3]),
+        rgb_compat: T,
+    ) -> Self {
+        let (r, g, b) = rgb_compat.as_f64();
         let (xm, ym, zm) = matrices;
 
         let x = xm[0] * r + xm[1] * g + xm[2] * b;
@@ -113,9 +116,9 @@ impl Xyz {
                     self.compute_rgb_from_xyz_matrix((xyz::RX65, xyz::RY65, xyz::RZ65));
 
                 (
-                    sr.apply_gamma_correction(),
-                    sg.apply_gamma_correction(),
-                    sb.apply_gamma_correction(),
+                    sr.apply_srgb_gamma_correction(),
+                    sg.apply_srgb_gamma_correction(),
+                    sb.apply_srgb_gamma_correction(),
                 )
             }
             Kind::D50 => {
@@ -123,15 +126,19 @@ impl Xyz {
                     self.compute_rgb_from_xyz_matrix((xyz::RX50, xyz::RY50, xyz::RZ50));
 
                 (
-                    sr.apply_gamma_correction(),
-                    sg.apply_gamma_correction(),
-                    sb.apply_gamma_correction(),
+                    sr.apply_srgb_gamma_correction(),
+                    sg.apply_srgb_gamma_correction(),
+                    sb.apply_srgb_gamma_correction(),
                 )
             }
             Kind::Adobe => {
                 let (sr, sg, sb) = self.compute_rgb_from_xyz_matrix((xyz::ARX, xyz::ARY, xyz::ARZ));
 
-                (sr.unpivot_argb(), sg.unpivot_argb(), sb.unpivot_argb())
+                (
+                    sr.compute_argb_gamma_expanded(),
+                    sg.compute_argb_gamma_expanded(),
+                    sb.compute_argb_gamma_expanded(),
+                )
             }
         };
 
