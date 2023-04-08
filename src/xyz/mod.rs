@@ -3,8 +3,8 @@ use crate::{
     rgb::{FromRgb, Rgb},
     util::AsFloat,
 };
-use gamma::GammaCorrection;
 use matrices::xyz;
+use transfer::GammaCorrection;
 
 pub mod argb;
 pub mod hcl;
@@ -16,12 +16,13 @@ pub mod luv;
 pub mod oklab;
 pub mod oklch;
 pub mod rec2020;
+pub mod rec2100;
 pub mod rec709;
 pub mod srgb;
 pub mod xyy;
 
-mod gamma;
 mod matrices;
+mod transfer;
 
 // Constant
 // Illuminent for D65 2°

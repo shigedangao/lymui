@@ -1,4 +1,4 @@
-use super::{gamma::GammaCorrection, Xyz};
+use super::{transfer::GammaCorrection, Xyz};
 use crate::xyz::matrices::argb::{BB, GG, RR, XR, YG, ZB};
 use crate::{rgb::Rgb, util::AsFloat};
 

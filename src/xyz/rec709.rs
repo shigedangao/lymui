@@ -1,6 +1,6 @@
 use super::{
-    gamma::GammaCorrection,
     matrices::xyz::{RX65, RY65, RZ65, X65, Y65, Z65},
+    transfer::GammaCorrection,
     Xyz,
 };
 

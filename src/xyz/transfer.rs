@@ -24,6 +24,13 @@ pub(crate) trait GammaCorrection {
     fn compute_rec2020_gamma_expanded(self) -> f64;
 }
 
+pub(crate) trait HdrCorrection {
+    /// Implement the Perceptual quantizer used by the rec.2100. The formula used can be found in the link below
+    /// @link https://en.wikipedia.org/wiki/Perceptual_quantizer
+    fn pq_eotf(self) -> Self;
+    fn pq_inverse_eotf(self) -> Self;
+}
+
 impl GammaCorrection for f64 {
     fn apply_srgb_gamma_correction(self) -> f64 {
         if self <= 0.0031308 {
@@ -87,5 +94,32 @@ impl GammaCorrection for f64 {
         }
 
         f64::powf((self + (1.0993 - 1_f64)) / 1.0993, 1_f64 / 0.45)
+    }
+}
+
+impl HdrCorrection for f64 {
+    fn pq_eotf(self) -> f64 {
+        let e_non_linear = self.powf(1_f64 / 78.84375);
+        let numerator = f64::max(e_non_linear - 0.8359375, 0_f64);
+        let divider = (18.8515625 - 18.6875) * e_non_linear;
+
+        // Avoid dividing by 0
+        if divider == 0_f64 {
+            return 0_f64;
+        }
+
+        10_000_f64 * f64::powf(numerator / divider, 1_f64 / 0.1593017578125)
+    }
+
+    fn pq_inverse_eotf(self) -> Self {
+        let ym1 = f64::powf(self / 10_000_f64, 0.1593017578125);
+        let numerator = (0.8359375 + 18.8515625) * ym1;
+        let divider = (1_f64 + 18.6875) * ym1;
+
+        if divider == 0_f64 {
+            return 0_f64;
+        }
+
+        f64::powf(numerator / divider, 78.84375)
     }
 }

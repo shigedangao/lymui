@@ -1,4 +1,4 @@
-use super::{gamma::GammaCorrection, matrices::rec2020::*, Xyz};
+use super::{matrices::rec2020::*, transfer::GammaCorrection, Xyz};
 
 /// Rec2020 is an implementation of the rec2020 colorspace
 ///
