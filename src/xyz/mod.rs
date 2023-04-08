@@ -15,6 +15,7 @@ pub mod lchuv;
 pub mod luv;
 pub mod oklab;
 pub mod oklch;
+pub mod rec2020;
 pub mod rec709;
 pub mod srgb;
 pub mod xyy;

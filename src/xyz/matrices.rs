@@ -65,3 +65,17 @@ pub mod oklab {
     pub(crate) const ROG: [f64; 3] = [-1.2684380046, 2.6097574011, 0.3413193965];
     pub(crate) const ROB: [f64; 3] = [-0.0041960863, 0.7034186147, 1.7076147010];
 }
+
+pub mod rec2020 {
+    // Used to convert an Xyz to a rec2020
+    // Matrices can be found in the link below
+    // @link https://agraphicsguynotes.com/posts/basic_color_science_for_graphcis_engineer/#rec-2020
+    pub(crate) const XR: [f64; 3] = [1.716651187971267, -0.355670783776392, -0.253366281373659];
+    pub(crate) const XG: [f64; 3] = [-0.666684351832489, 1.616481236634939, 0.015768545813911];
+    pub(crate) const XB: [f64; 3] = [0.017639857445310, -0.042770613257808, 0.942103121235473];
+
+    // Used to convert a rec2020 to an xyz
+    pub(crate) const XX: [f64; 3] = [0.6369580, 0.1446169, 0.1688810];
+    pub(crate) const XY: [f64; 3] = [0.2627002, 0.6779981, 0.0593017];
+    pub(crate) const XZ: [f64; 3] = [0_f64, 0.0280727, 1.0609851];
+}

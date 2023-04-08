@@ -16,6 +16,12 @@ pub(crate) trait GammaCorrection {
     /// Compute the inverse of the transform
     /// @link https://en.wikipedia.org/wiki/Rec._709
     fn compute_rec709_gamma_expanded(self) -> f64;
+    /// Compute the transfer gamma function for the rec2020 colors space
+    /// Note that it's quite similar to the rec709 one
+    /// @link https://en.wikipedia.org/wiki/Rec._2020
+    /// @link https://agraphicsguynotes.com/posts/basic_color_science_for_graphcis_engineer/#rec-2020
+    fn compute_rec2020_gamma_correction(self) -> f64;
+    fn compute_rec2020_gamma_expanded(self) -> f64;
 }
 
 impl GammaCorrection for f64 {
@@ -65,5 +71,21 @@ impl GammaCorrection for f64 {
         }
 
         f64::powf((self + 0.099) / 1.099, 1_f64 / 0.45)
+    }
+
+    fn compute_rec2020_gamma_correction(self) -> f64 {
+        if self < 0.0181 {
+            return self * 4.5;
+        }
+
+        1.0993 * self.powf(0.45) - (1.0993 - 1_f64)
+    }
+
+    fn compute_rec2020_gamma_expanded(self) -> f64 {
+        if self < 0.081 {
+            return self / 4.5;
+        }
+
+        f64::powf((self + (1.0993 - 1_f64)) / 1.0993, 1_f64 / 0.45)
     }
 }
