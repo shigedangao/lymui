@@ -1,3 +1,4 @@
+use super::matrices::oklab::{OKA, OKB, OKL, OKSB, OKSG, OKSR, ROB, ROG, ROL, ROM, ROR, ROS};
 use super::{srgb::Srgb, Xyz};
 
 /// Oklab is a representation of the OkLab color space
@@ -16,14 +17,14 @@ impl From<Srgb> for OkLab {
         rgb.as_linear();
         let Srgb { r, g, b } = rgb;
 
-        let l = (0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b).cbrt();
-        let m = (0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b).cbrt();
-        let s = (0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b).cbrt();
+        let l = (OKSR[0] * r + OKSR[1] * g + OKSR[2] * b).cbrt();
+        let m = (OKSG[0] * r + OKSG[1] * g + OKSG[2] * b).cbrt();
+        let s = (OKSB[0] * r + OKSB[1] * g + OKSB[2] * b).cbrt();
 
         OkLab {
-            l: 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s,
-            a: 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s,
-            b: 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s,
+            l: OKL[0] * l + OKL[1] * m - OKL[2] * s,
+            a: OKA[0] * l - OKA[1] * m + OKA[2] * s,
+            b: OKB[0] * l + OKB[1] * m - OKB[2] * s,
         }
     }
 }
@@ -32,14 +33,14 @@ impl From<OkLab> for Srgb {
     fn from(oklab: OkLab) -> Self {
         let OkLab { l, a, b } = oklab;
 
-        let _l = (l + 0.3963377774 * a + 0.2158037573 * b).powi(3);
-        let _m = (l - 0.1055613458 * a - 0.0638541728 * b).powi(3);
-        let _s = (l - 0.0894841775 * a - 1.2914855480 * b).powi(3);
+        let _l = (l + ROL[0] * a + ROL[1] * b).powi(3);
+        let _m = (l - ROM[0] * a - ROM[1] * b).powi(3);
+        let _s = (l - ROS[0] * a - ROS[1] * b).powi(3);
 
         let mut srgb = Srgb {
-            r: 4.0767416621 * _l - 3.3077115913 * _m + 0.2309699292 * _s,
-            g: -1.2684380046 * _l + 2.6097574011 * _m - 0.3413193965 * _s,
-            b: -0.0041960863 * _l - 0.7034186147 * _m + 1.7076147010 * _s,
+            r: ROR[0] * _l - ROR[1] * _m + ROR[2] * _s,
+            g: ROG[0] * _l + ROG[1] * _m - ROG[2] * _s,
+            b: ROB[0] * _l - ROB[1] * _m + ROB[2] * _s,
         };
 
         srgb.as_non_linear();

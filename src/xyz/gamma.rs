@@ -9,6 +9,13 @@ pub(crate) trait GammaCorrection {
     fn compute_argb_gamma(self) -> f64;
     /// Compute the argb gamma expanded
     fn compute_argb_gamma_expanded(self) -> f64;
+    /// Compute the transfer gamma function for the rec709 color space
+    /// @link https://www.image-engineering.de/products/charts/sort-by-type/126-library/technote/714-color-spaces-rec-709-vs-srgb
+    /// @link https://en.wikipedia.org/wiki/Rec._709
+    fn compute_rec709_gamma_correction(self) -> f64;
+    /// Compute the inverse of the transform
+    /// @link https://en.wikipedia.org/wiki/Rec._709
+    fn compute_rec709_gamma_expanded(self) -> f64;
 }
 
 impl GammaCorrection for f64 {
@@ -42,5 +49,21 @@ impl GammaCorrection for f64 {
         }
 
         self.powf(1.0 / 2.19921875)
+    }
+
+    fn compute_rec709_gamma_correction(self) -> f64 {
+        if self < 0.018 {
+            return self * 4.5;
+        }
+
+        1.099 * self.powf(0.45) - 0.099
+    }
+
+    fn compute_rec709_gamma_expanded(self) -> f64 {
+        if self < 0.081 {
+            return self / 4.5;
+        }
+
+        f64::powf((self + 0.099) / 1.099, 1_f64 / 0.45)
     }
 }

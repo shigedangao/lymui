@@ -46,3 +46,22 @@ pub mod argb {
     pub(crate) const GG: [f64; 3] = [0.2973769, 0.6273491, 0.0752741];
     pub(crate) const BB: [f64; 3] = [0.0270343, 0.0706872, 0.9911085];
 }
+
+pub mod oklab {
+    // Constant provided by https://bottosson.github.io/posts/oklab/
+    pub(crate) const OKSR: [f64; 3] = [0.4122214708, 0.5363325363, 0.0514459929];
+    pub(crate) const OKSG: [f64; 3] = [0.2119034982, 0.6806995451, 0.1073969566];
+    pub(crate) const OKSB: [f64; 3] = [0.0883024619, 0.2817188376, 0.6299787005];
+
+    pub(crate) const OKL: [f64; 3] = [0.2104542553, 0.7936177850, 0.0040720468];
+    pub(crate) const OKA: [f64; 3] = [1.9779984951, 2.4285922050, 0.4505937099];
+    pub(crate) const OKB: [f64; 3] = [0.0259040371, 0.7827717662, 0.8086757660];
+
+    pub(crate) const ROL: [f64; 2] = [0.3963377774, 0.2158037573];
+    pub(crate) const ROM: [f64; 2] = [0.1055613458, 0.0638541728];
+    pub(crate) const ROS: [f64; 2] = [0.0894841775, 1.2914855480];
+
+    pub(crate) const ROR: [f64; 3] = [4.0767416621, 3.3077115913, 0.2309699292];
+    pub(crate) const ROG: [f64; 3] = [-1.2684380046, 2.6097574011, 0.3413193965];
+    pub(crate) const ROB: [f64; 3] = [-0.0041960863, 0.7034186147, 1.7076147010];
+}
