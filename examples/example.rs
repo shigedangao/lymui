@@ -1,16 +1,16 @@
 use lymui::{
     from_rgb_compatible_to_xyz_subtype,
     hex::Hex,
-    rgb::{Rgb, FromRgb},
+    rgb::{FromRgb, Rgb},
     xyz::Xyz,
-    xyz::{rec2020::Rec2020, Kind}
+    xyz::{rec2020::Rec2020, Kind},
 };
 
 fn rgb_to_hex() {
     let rgb = Rgb {
         r: 17,
         g: 10,
-        b: 94
+        b: 94,
     };
 
     let hex = Hex::from(rgb);
@@ -26,7 +26,7 @@ fn rgb_to_xyz() {
     let rgb = Rgb {
         r: 255,
         g: 255,
-        b: 255
+        b: 255,
     };
 
     let xyz = Xyz::from_rgb(rgb, Kind::D65);

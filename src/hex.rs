@@ -18,9 +18,9 @@ trait HexOps {
     /// - AA -> 119
     fn into_u8_parts(self) -> Result<(u8, u8, u8), Error>;
     /// Convert an RGB to into a short hexadecimal value
-    /// 
+    ///
     /// # Arguments
-    /// 
+    ///
     /// * `rgb` - Rgb
     fn into_short_hex(rgb: Rgb) -> Result<Self, Error>
     where
@@ -101,18 +101,12 @@ impl From<Rgb> for Hex {
         let hex_vec = vec![
             format!("{:x}", value.r),
             format!("{:x}", value.g),
-            format!("{:x}", value.b)
+            format!("{:x}", value.b),
         ];
 
         let hex = hex_vec
             .into_iter()
-            .map(|v| {
-                if v.len() == 1 {
-                    format!("0{v}")
-                } else {
-                    v
-                }
-            })
+            .map(|v| if v.len() == 1 { format!("0{v}") } else { v })
             .collect::<Vec<_>>()
             .join("");
 
