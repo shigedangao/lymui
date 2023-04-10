@@ -1,4 +1,4 @@
-use super::matrices::oklab::{OKA, OKB, OKL, OKSB, OKSG, OKSR, ROB, ROG, ROL, ROM, ROR, ROS};
+use super::matrices::oklab::*;
 use super::{srgb::Srgb, Xyz};
 
 /// Oklab is a representation of the OkLab color space

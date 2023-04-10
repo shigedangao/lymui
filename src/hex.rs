@@ -17,6 +17,14 @@ trait HexOps {
     /// - EE -> 170
     /// - AA -> 119
     fn into_u8_parts(self) -> Result<(u8, u8, u8), Error>;
+    /// Convert an RGB to into a short hexadecimal value
+    /// 
+    /// # Arguments
+    /// 
+    /// * `rgb` - Rgb
+    fn into_short_hex(rgb: Rgb) -> Result<Self, Error>
+    where
+        Self: Sized;
 }
 
 impl HexOps for Hex {
@@ -59,11 +67,56 @@ impl HexOps for Hex {
 
         Err(Error::Hex("Some color could not be parsed".to_string()))
     }
+
+    fn into_short_hex(rgb: Rgb) -> Result<Self, Error> {
+        let hex_chars = Hex::from(rgb).strip().chars().collect::<Vec<_>>();
+
+        let short_hex = hex_chars
+            .into_iter()
+            .enumerate()
+            .try_fold(vec![], |mut acc, (idx, item)| {
+                if idx % 2 == 0 {
+                    acc.push(item);
+                    return Ok(acc);
+                }
+
+                // This should never fail as there will be always one item in the acc
+                let last = acc.last().unwrap();
+                if *last != item {
+                    return Err(Error::Hex(
+                        "Unable to convert hex to short hex as the tripplet aren't the same".into(),
+                    ));
+                }
+
+                Ok(acc)
+            })
+            .map(|res| res.iter().collect::<String>())?;
+
+        Ok(format!("#{short_hex}"))
+    }
 }
 
 impl From<Rgb> for Hex {
     fn from(value: Rgb) -> Self {
-        format!("#{:x}{:x}{:x}", value.r, value.g, value.b)
+        let hex_vec = vec![
+            format!("{:x}", value.r),
+            format!("{:x}", value.g),
+            format!("{:x}", value.b)
+        ];
+
+        let hex = hex_vec
+            .into_iter()
+            .map(|v| {
+                if v.len() == 1 {
+                    format!("0{v}")
+                } else {
+                    v
+                }
+            })
+            .collect::<Vec<_>>()
+            .join("");
+
+        format!("#{hex}")
     }
 }
 
@@ -126,5 +179,30 @@ mod tests {
         assert_eq!(rgb.r, 102);
         assert_eq!(rgb.g, 170);
         assert_eq!(rgb.b, 119);
+    }
+
+    #[test]
+    fn expect_to_convert_rgb_into_short_hex() {
+        let rgb = Rgb {
+            r: 17,
+            g: 255,
+            b: 17,
+        };
+
+        let short_hex = Hex::into_short_hex(rgb);
+        assert!(short_hex.is_ok());
+        assert_eq!(short_hex.unwrap(), "#1f1");
+    }
+
+    #[test]
+    fn expect_to_convert_rgb_into_short_hex_to_fail() {
+        let rgb = Rgb {
+            r: 17,
+            g: 255,
+            b: 99,
+        };
+
+        let short_hex = Hex::into_short_hex(rgb);
+        assert!(short_hex.is_err());
     }
 }

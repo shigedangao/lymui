@@ -1,8 +1,8 @@
-## Lymui 🌈 (WIP)
+## Lymui 🌈
  
-Lymui is a color library. Currently migrating from C to Rust. Retro compatibility with C will be preserved with some bindings that will be added later on. 
+Lymui is a color library which allows you to convert an RGB color to an other color (see the supported list of colors below).
 
-⚠️ I'm not a color expert. Most of the implementation formula's are based on articles that I founded on wikipedia, blog post but the colors conversion has been cross-checked with other websites and articles.
+⚠️ I'm not a color expert. Most of the implementation formula's are based on articles that I founded on wikipedia, blog post but the colors conversion has been cross-checked with other websites and articles. But I'm open to any fixes if there are errors 😁
 
 ### Supported colors
 
@@ -35,4 +35,8 @@ Lymui is a color library. Currently migrating from C to Rust. Retro compatibilit
 
 ### Examples
 
-Some examples are available in the example.rs file
+An example is available in the example folder. You can run it by using the command below
+
+```sh
+cargo run --example example
+```
