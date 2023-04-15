@@ -1,5 +1,6 @@
 use crate::hue::Hue;
 use crate::rgb::Rgb;
+use crate::util::AsVec;
 
 /// Implement the HSV color model. The implementation is based on the formula below
 ///
@@ -66,6 +67,14 @@ impl From<Hsv> for Rgb {
             4 => Rgb::new(ut, up, uv),
             _ => Rgb::default(),
         }
+    }
+}
+
+impl AsVec for Hsv {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.h, self.s, self.v]
     }
 }
 

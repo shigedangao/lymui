@@ -12,7 +12,7 @@ pub mod hsv;
 pub mod hue;
 pub mod hwb;
 pub mod rgb;
-mod util;
+pub mod util;
 pub mod xyz;
 pub mod ycbcr;
 pub mod yuv;

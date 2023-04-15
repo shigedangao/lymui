@@ -1,5 +1,5 @@
 use crate::rgb::Rgb;
-use crate::util::AsFloat;
+use crate::util::{AsFloat, AsVec};
 
 /// Implementation of the Yuv color model
 ///
@@ -40,6 +40,14 @@ impl From<Yuv> for Rgb {
             g: (g * 255_f64) as u8,
             b: (b * 255_f64) as u8,
         }
+    }
+}
+
+impl AsVec for Yuv {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<f64> {
+        vec![self.y, self.u, self.v]
     }
 }
 

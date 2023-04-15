@@ -1,5 +1,5 @@
 use super::rgb::Rgb;
-use crate::util::AsFloat;
+use crate::util::{AsFloat, AsVec};
 
 /// Cymk is an implementation of the Cymk color space
 ///
@@ -46,6 +46,14 @@ impl From<Cymk> for Rgb {
             g: (255_f64 * (1_f64 - cymk.m) * kv) as u8,
             b: (255_f64 * (1_f64 - cymk.y) * kv) as u8,
         }
+    }
+}
+
+impl AsVec for Cymk {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.c, self.y, self.m, self.k]
     }
 }
 

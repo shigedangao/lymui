@@ -5,6 +5,12 @@ pub(crate) trait AsFloat {
     fn as_f64(&self) -> (f64, f64, f64);
 }
 
+pub trait AsVec {
+    type Item;
+    /// Return a struct as a vector of inner field
+    fn as_vec(&self) -> Vec<Self::Item>;
+}
+
 pub(crate) trait PivotFloat {
     /// Get the degree value from a radian value
     fn get_degree_from_radian(self) -> f64;
