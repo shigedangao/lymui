@@ -4,6 +4,7 @@ use crate::rgb::Rgb;
 /// Implementation of the HSL color model. The implementation is based on the article below
 ///
 /// @link https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+/// @link https://en.wikipedia.org/wiki/HSL_and_HSV
 #[derive(Debug, Clone, Copy)]
 pub struct Hsl {
     pub h: f64,
@@ -38,35 +39,24 @@ impl Hsl {
         gray as u8
     }
 
-    /// Compute RGB Values from hue and temporary color
+    /// Compute RGB Values from hue
     ///
     /// # Arguments
     ///
-    /// * `tm` - f64
-    /// * `tl` - f64
-    fn compute_rgb_value(&self, tm: f64, tl: f64) -> Vec<f64> {
-        let hhue = self.h / 360.0;
-        let value = vec![self.h + 0.333, hhue, hhue - 0.333];
-        let mut res = Vec::new();
+    /// * `c` - f64
+    fn compute_rgb_value(&self, c: f64) -> (f64, f64, f64) {
+        let h = self.h / 60_f64;
+        let x = c * (1_f64 - (h % 2_f64 - 1_f64).abs());
 
-        for hue in value {
-            let computed_hue = match hue {
-                h if h < 0.0 => h + 1.0,
-                h if h > 1.0 => h - 1.0,
-                _ => hue,
-            };
-
-            let finalized_computation = match computed_hue {
-                h if h * 6.0 < 1.0 => tl + (tm - tl) * 6.0 * h,
-                h if h * 2.0 < 1.0 => tm,
-                h if h * 3.0 < 2.0 => tl + (tm - tl) * (0.666 * h),
-                _ => tl,
-            };
-
-            res.push(finalized_computation);
+        match h.floor() {
+            _h if _h < 1_f64 => (c, x, 0_f64),
+            _h if _h <= 1_f64 && _h < 2_f64 => (x, c, 0_f64),
+            _h if _h <= 2_f64 && _h < 3_f64 => (0_f64, c, x),
+            _h if _h <= 3_f64 && _h < 4_f64 => (0_f64, x, c),
+            _h if _h <= 4_f64 && _h < 5_f64 => (x, 0_f64, c),
+            _h if _h <= 5_f64 && _h < 6_f64 => (c, 0_f64, x),
+            _ => (0_f64, 0_f64, 0_f64),
         }
-
-        res
     }
 }
 
@@ -100,22 +90,18 @@ impl From<Hsl> for Rgb {
             };
         }
 
-        let l = hsl.l / 100.0;
-        let s = hsl.s / 100.0;
+        let l = hsl.l / 100_f64;
+        let s = hsl.s / 100_f64;
 
-        let tmp_lum = if l != 0.0 {
-            (l + s) - (l * s)
-        } else {
-            l * (1.0 + s)
-        };
-
-        let lms = 2.0 * l - tmp_lum;
-        let rgb = hsl.compute_rgb_value(tmp_lum, lms);
+        let c = (1_f64 - (2_f64 * l - 1_f64).abs()) * s;
+        // Compute the compound based on the hue
+        let (_r, _g, _b) = hsl.compute_rgb_value(c);
+        let m = l - (c / 2_f64);
 
         Rgb {
-            r: *rgb.first().unwrap_or(&0.0) as u8,
-            g: *rgb.get(1).unwrap_or(&0.0) as u8,
-            b: *rgb.get(2).unwrap_or(&0.0) as u8,
+            r: ((_r + m) * 255_f64).round() as u8,
+            g: ((_g + m) * 255_f64).round() as u8,
+            b: ((_b + m) * 255_f64).round() as u8,
         }
     }
 }
@@ -147,5 +133,33 @@ mod tests {
         assert_eq!(util::roundup(hsl.h, 10.0), 221.0);
         assert_eq!(util::roundup(hsl.s, 10.0), 100.0);
         assert_eq!(util::roundup(hsl.l, 10.0), 69.6);
+    }
+
+    #[test]
+    fn expect_to_create_rgb_from_hsl() {
+        let hsl = Hsl {
+            h: 237.0,
+            s: 90.0,
+            l: 19.6,
+        };
+
+        let rgb = Rgb::from(hsl);
+        assert_eq!(rgb.r, 5);
+        assert_eq!(rgb.g, 9);
+        assert_eq!(rgb.b, 95);
+    }
+
+    #[test]
+    fn expect_to_create_rgb_from_hsl_navy() {
+        let hsl = Hsl {
+            h: 240.0,
+            s: 100.0,
+            l: 25.0,
+        };
+
+        let rgb = Rgb::from(hsl);
+        assert_eq!(rgb.r, 0);
+        assert_eq!(rgb.g, 0);
+        assert_eq!(rgb.b, 128);
     }
 }
