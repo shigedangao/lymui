@@ -44,6 +44,7 @@ pub struct Xyz {
 ///
 /// All of these matrices are taken from the website linked below
 /// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
+#[derive(Clone, Copy)]
 pub enum Kind {
     D50,
     D65,
