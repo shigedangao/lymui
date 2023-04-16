@@ -1,4 +1,5 @@
 use super::{transfer::GammaCorrection, Xyz};
+use crate::util::AsVec;
 use crate::xyz::matrices::argb::{BB, GG, RR, XR, YG, ZB};
 use crate::{rgb::Rgb, util::AsFloat};
 
@@ -19,6 +20,14 @@ pub struct Argb {
 impl AsFloat for Argb {
     fn as_f64(&self) -> (f64, f64, f64) {
         (self.r, self.g, self.b)
+    }
+}
+
+impl AsVec for Argb {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.r, self.g, self.b]
     }
 }
 

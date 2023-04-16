@@ -28,6 +28,14 @@ impl AsFloat for Ycbcr {
     }
 }
 
+impl AsVec for Ycbcr {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.y as f64, self.cb as f64, self.cr as f64]
+    }
+}
+
 impl From<Rgb> for Ycbcr {
     fn from(rgb: Rgb) -> Self {
         let (yl, yy, ym) = Ycbcr::calculate_indices(&rgb, (0.257, 0.504, 0.098));
@@ -56,14 +64,6 @@ impl From<Ycbcr> for Rgb {
             g: g as u8,
             b: b as u8,
         }
-    }
-}
-
-impl AsVec for Ycbcr {
-    type Item = u8;
-
-    fn as_vec(&self) -> Vec<Self::Item> {
-        vec![self.y, self.cb, self.cr]
     }
 }
 

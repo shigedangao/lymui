@@ -1,4 +1,4 @@
-use crate::util::AsFloat;
+use crate::util::{AsFloat, AsVec};
 
 // Constant
 pub const ADBOBE_RGB_COMPOUND: f64 = 2.19921875;
@@ -19,6 +19,14 @@ pub struct Rgb {
 impl AsFloat for Rgb {
     fn as_f64(&self) -> (f64, f64, f64) {
         (self.r as f64, self.g as f64, self.b as f64)
+    }
+}
+
+impl AsVec for Rgb {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.r as f64, self.g as f64, self.b as f64]
     }
 }
 

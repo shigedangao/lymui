@@ -3,7 +3,10 @@ use super::{
     transfer::GammaCorrection,
     Xyz,
 };
-use crate::{rgb::Rgb, util::AsFloat};
+use crate::{
+    rgb::Rgb,
+    util::{AsFloat, AsVec},
+};
 
 /// Implementation of the sRGB colorspace.
 /// The foruma can be found on the link below
@@ -16,6 +19,14 @@ pub struct Srgb {
     pub r: f64,
     pub g: f64,
     pub b: f64,
+}
+
+impl AsVec for Srgb {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.r, self.g, self.b]
+    }
 }
 
 impl AsFloat for Srgb {

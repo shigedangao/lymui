@@ -1,3 +1,5 @@
+use crate::util::AsVec;
+
 use super::matrices::oklab::*;
 use super::{srgb::Srgb, Xyz};
 
@@ -10,6 +12,14 @@ pub struct OkLab {
     pub l: f64,
     pub a: f64,
     pub b: f64,
+}
+
+impl AsVec for OkLab {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.l, self.a, self.b]
+    }
 }
 
 impl From<Srgb> for OkLab {

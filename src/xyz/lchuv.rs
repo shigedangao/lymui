@@ -1,4 +1,4 @@
-use crate::util::PivotFloat;
+use crate::util::{AsVec, PivotFloat};
 
 use super::luv::Luv;
 use super::Xyz;
@@ -16,6 +16,14 @@ pub struct Lchuv {
     pub l: f64,
     pub c: f64,
     pub h: f64,
+}
+
+impl AsVec for Lchuv {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.l, self.c, self.h]
+    }
 }
 
 impl From<Xyz> for Lchuv {

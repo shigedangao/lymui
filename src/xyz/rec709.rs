@@ -1,3 +1,5 @@
+use crate::util::AsVec;
+
 use super::{
     matrices::xyz::{RX65, RY65, RZ65, X65, Y65, Z65},
     transfer::GammaCorrection,
@@ -13,6 +15,14 @@ pub struct Rec709 {
     pub r: f64,
     pub g: f64,
     pub b: f64,
+}
+
+impl AsVec for Rec709 {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.r, self.g, self.b]
+    }
 }
 
 impl From<Xyz> for Rec709 {

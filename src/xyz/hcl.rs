@@ -1,5 +1,8 @@
 use super::{luv::Luv, Xyz};
-use crate::{hue::Hue, util::PivotFloat};
+use crate::{
+    hue::Hue,
+    util::{AsVec, PivotFloat},
+};
 
 /// Implementation of the Luv to polarLUV (HCL). The implementation is based on the following python implementation
 ///
@@ -9,6 +12,14 @@ pub struct Hcl {
     pub h: f64,
     pub c: f64,
     pub l: f64,
+}
+
+impl AsVec for Hcl {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.h, self.c, self.l]
+    }
 }
 
 impl From<Luv> for Hcl {

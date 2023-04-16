@@ -1,3 +1,5 @@
+use crate::util::AsVec;
+
 use super::{matrices::rec2020::*, transfer::HdrCorrection, Xyz};
 
 /// Implementation of the rec.2100 color space but only for the Pq transfer function.
@@ -15,6 +17,14 @@ pub struct Rec2100 {
     pub r: f64,
     pub g: f64,
     pub b: f64,
+}
+
+impl AsVec for Rec2100 {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.r, self.g, self.b]
+    }
 }
 
 impl From<Xyz> for Rec2100 {

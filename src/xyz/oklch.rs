@@ -1,3 +1,5 @@
+use crate::util::AsVec;
+
 use super::{oklab::OkLab, Xyz};
 
 /// OkLch implement the oklch colorspace (polar form of OkLab). The implementation is based on the article below
@@ -8,6 +10,14 @@ pub struct OkLch {
     pub l: f64,
     pub c: f64,
     pub h: f64,
+}
+
+impl AsVec for OkLch {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.l, self.c, self.h]
+    }
 }
 
 impl From<OkLab> for OkLch {

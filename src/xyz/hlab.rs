@@ -1,3 +1,5 @@
+use crate::util::AsVec;
+
 use super::Xyz;
 
 // Constant for D65 / 2° illuminent
@@ -10,6 +12,14 @@ pub struct Hlab {
     pub l: f64,
     pub a: f64,
     pub b: f64,
+}
+
+impl AsVec for Hlab {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.l, self.a, self.b]
+    }
 }
 
 impl Hlab {

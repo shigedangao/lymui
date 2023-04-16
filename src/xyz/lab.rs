@@ -1,3 +1,5 @@
+use crate::util::AsVec;
+
 use super::{Xyz, D65, EPSILON, KAPPA};
 
 /// Lab is a repesentation of the CIELAB colorspace.
@@ -12,6 +14,14 @@ pub struct Lab {
     pub l: f64,
     pub a: f64,
     pub b: f64,
+}
+
+impl AsVec for Lab {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.l, self.a, self.b]
+    }
 }
 
 impl Lab {

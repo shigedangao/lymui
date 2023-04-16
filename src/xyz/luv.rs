@@ -1,3 +1,5 @@
+use crate::util::AsVec;
+
 use super::{Xyz, D65, EPSILON, KAPPA};
 
 /// Luv is a representation of the CIELUV colorspace.
@@ -12,6 +14,14 @@ pub struct Luv {
     pub l: f64,
     pub u: f64,
     pub v: f64,
+}
+
+impl AsVec for Luv {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.l, self.u, self.v]
+    }
 }
 
 impl Luv {
