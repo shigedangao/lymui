@@ -5,9 +5,9 @@ use super::Xyz;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Lchlab {
-    l: f64,
-    c: f64,
-    h: f64,
+    pub l: f64,
+    pub c: f64,
+    pub h: f64,
 }
 
 impl AsVec for Lchlab {

@@ -6,9 +6,9 @@ const CHROMA_Y: f64 = 0.32902;
 
 #[derive(Debug, Clone, Copy)]
 pub struct Xyy {
-    x: f64,
-    y: f64,
-    _y: f64,
+    pub x: f64,
+    pub y: f64,
+    pub _y: f64,
 }
 
 enum Target {
