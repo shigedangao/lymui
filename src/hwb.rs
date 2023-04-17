@@ -1,6 +1,6 @@
 use crate::hsv::Hsv;
 use crate::rgb::Rgb;
-use crate::util::AsVec;
+use crate::util::{AsVec, FromVec};
 
 /// Implement the HWB color model. The implementation is based on the provided link
 ///
@@ -47,6 +47,16 @@ impl AsVec for Hwb {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.h, self.w, self.b]
+    }
+}
+
+impl FromVec<f64> for Hwb {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Hwb {
+            h: vec.first().copied().unwrap_or_default(),
+            w: vec.get(1).copied().unwrap_or_default(),
+            b: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

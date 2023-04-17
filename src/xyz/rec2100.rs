@@ -1,4 +1,4 @@
-use crate::util::AsVec;
+use crate::util::{AsVec, FromVec};
 
 use super::{matrices::rec2020::*, transfer::HdrCorrection, Xyz};
 
@@ -24,6 +24,16 @@ impl AsVec for Rec2100 {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.r, self.g, self.b]
+    }
+}
+
+impl FromVec<f64> for Rec2100 {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Rec2100 {
+            r: vec.first().copied().unwrap_or_default(),
+            g: vec.get(1).copied().unwrap_or_default(),
+            b: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

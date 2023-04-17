@@ -1,3 +1,5 @@
+use crate::util::{AsVec, FromVec};
+
 use super::Xyz;
 
 // Constant
@@ -64,6 +66,24 @@ impl From<Xyy> for Xyz {
         let z = ((1.0 - xyy.x - xyy.y) * xyy._y) / xyy.y;
 
         Xyz { x, y: xyy.y, z }
+    }
+}
+
+impl AsVec for Xyy {
+    type Item = f64;
+
+    fn as_vec(&self) -> Vec<Self::Item> {
+        vec![self.x, self.y, self._y]
+    }
+}
+
+impl FromVec<f64> for Xyy {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Xyy {
+            x: vec.first().copied().unwrap_or_default(),
+            y: vec.get(1).copied().unwrap_or_default(),
+            _y: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

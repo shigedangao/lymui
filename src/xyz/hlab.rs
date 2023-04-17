@@ -1,4 +1,4 @@
-use crate::util::AsVec;
+use crate::util::{AsVec, FromVec};
 
 use super::Xyz;
 
@@ -19,6 +19,16 @@ impl AsVec for Hlab {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.l, self.a, self.b]
+    }
+}
+
+impl FromVec<f64> for Hlab {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Hlab {
+            l: vec.first().copied().unwrap_or_default(),
+            a: vec.get(1).copied().unwrap_or_default(),
+            b: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

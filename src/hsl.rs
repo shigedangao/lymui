@@ -1,6 +1,6 @@
 use crate::hue::Hue;
 use crate::rgb::Rgb;
-use crate::util::AsVec;
+use crate::util::{AsVec, FromVec};
 
 /// Implementation of the HSL color model. The implementation is based on the article below
 ///
@@ -112,6 +112,16 @@ impl AsVec for Hsl {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.h, self.s, self.l]
+    }
+}
+
+impl FromVec<f64> for Hsl {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Hsl {
+            h: vec.first().copied().unwrap_or_default(),
+            s: vec.get(1).copied().unwrap_or_default(),
+            l: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

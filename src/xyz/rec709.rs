@@ -1,4 +1,4 @@
-use crate::util::AsVec;
+use crate::util::{AsVec, FromVec};
 
 use super::{
     matrices::xyz::{RX65, RY65, RZ65, X65, Y65, Z65},
@@ -22,6 +22,16 @@ impl AsVec for Rec709 {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.r, self.g, self.b]
+    }
+}
+
+impl FromVec<f64> for Rec709 {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Rec709 {
+            r: vec.first().copied().unwrap_or_default(),
+            g: vec.get(1).copied().unwrap_or_default(),
+            b: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

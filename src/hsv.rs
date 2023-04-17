@@ -1,6 +1,6 @@
 use crate::hue::Hue;
 use crate::rgb::Rgb;
-use crate::util::AsVec;
+use crate::util::{AsVec, FromVec};
 
 /// Implement the HSV color model. The implementation is based on the formula below
 ///
@@ -75,6 +75,16 @@ impl AsVec for Hsv {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.h, self.s, self.v]
+    }
+}
+
+impl FromVec<f64> for Hsv {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Hsv {
+            h: vec.first().copied().unwrap_or_default(),
+            s: vec.get(1).copied().unwrap_or_default(),
+            v: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 use super::{matrices::rec2020::*, transfer::GammaCorrection, Xyz};
-use crate::util::AsVec;
+use crate::util::{AsVec, FromVec};
 
 /// Rec2020 is an implementation of the rec2020 colorspace
 ///
@@ -17,6 +17,16 @@ impl AsVec for Rec2020 {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.r, self.g, self.b]
+    }
+}
+
+impl FromVec<f64> for Rec2020 {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Rec2020 {
+            r: vec.first().copied().unwrap_or_default(),
+            g: vec.get(1).copied().unwrap_or_default(),
+            b: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

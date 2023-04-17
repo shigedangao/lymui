@@ -5,7 +5,7 @@ use super::{
 };
 use crate::{
     rgb::Rgb,
-    util::{AsFloat, AsVec},
+    util::{AsFloat, AsVec, FromVec},
 };
 
 /// Implementation of the sRGB colorspace.
@@ -26,6 +26,16 @@ impl AsVec for Srgb {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.r, self.g, self.b]
+    }
+}
+
+impl FromVec<f64> for Srgb {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Srgb {
+            r: vec.first().copied().unwrap_or_default(),
+            g: vec.get(1).copied().unwrap_or_default(),
+            b: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

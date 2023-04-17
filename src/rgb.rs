@@ -1,4 +1,4 @@
-use crate::util::{AsFloat, AsVec};
+use crate::util::{AsFloat, AsVec, FromVec};
 
 // Constant
 pub const ADBOBE_RGB_COMPOUND: f64 = 2.19921875;
@@ -27,6 +27,16 @@ impl AsVec for Rgb {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.r as f64, self.g as f64, self.b as f64]
+    }
+}
+
+impl FromVec<u8> for Rgb {
+    fn from_vec(vec: Vec<u8>) -> Self {
+        Rgb {
+            r: vec.first().copied().unwrap_or_default(),
+            g: vec.get(1).copied().unwrap_or_default(),
+            b: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

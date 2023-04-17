@@ -1,4 +1,4 @@
-use crate::util::{AsVec, PivotFloat};
+use crate::util::{AsVec, FromVec, PivotFloat};
 
 use super::luv::Luv;
 use super::Xyz;
@@ -23,6 +23,16 @@ impl AsVec for Lchuv {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.l, self.c, self.h]
+    }
+}
+
+impl FromVec<f64> for Lchuv {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Lchuv {
+            l: vec.first().copied().unwrap_or_default(),
+            c: vec.get(1).copied().unwrap_or_default(),
+            h: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-use crate::util::AsVec;
+use crate::util::{AsVec, FromVec};
 
 use super::{Xyz, D65, EPSILON, KAPPA};
 
@@ -21,6 +21,16 @@ impl AsVec for Luv {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.l, self.u, self.v]
+    }
+}
+
+impl FromVec<f64> for Luv {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Luv {
+            l: vec.first().copied().unwrap_or_default(),
+            u: vec.get(1).copied().unwrap_or_default(),
+            v: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

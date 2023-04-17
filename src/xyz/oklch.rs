@@ -1,4 +1,4 @@
-use crate::util::AsVec;
+use crate::util::{AsVec, FromVec};
 
 use super::{oklab::OkLab, Xyz};
 
@@ -17,6 +17,16 @@ impl AsVec for OkLch {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.l, self.c, self.h]
+    }
+}
+
+impl FromVec<f64> for OkLch {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        OkLch {
+            l: vec.first().copied().unwrap_or_default(),
+            c: vec.get(1).copied().unwrap_or_default(),
+            h: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

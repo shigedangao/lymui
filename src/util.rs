@@ -11,6 +11,10 @@ pub trait AsVec {
     fn as_vec(&self) -> Vec<Self::Item>;
 }
 
+pub trait FromVec<K> {
+    fn from_vec(vec: Vec<K>) -> Self;
+}
+
 pub(crate) trait PivotFloat {
     /// Get the degree value from a radian value
     fn get_degree_from_radian(self) -> f64;

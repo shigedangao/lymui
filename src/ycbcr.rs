@@ -1,5 +1,5 @@
 use crate::rgb::Rgb;
-use crate::util::{AsFloat, AsVec};
+use crate::util::{AsFloat, AsVec, FromVec};
 
 // Constant use to compute back the RGB from an Ycbcr value
 const Y: f64 = 1.164;
@@ -33,6 +33,16 @@ impl AsVec for Ycbcr {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.y as f64, self.cb as f64, self.cr as f64]
+    }
+}
+
+impl FromVec<u8> for Ycbcr {
+    fn from_vec(vec: Vec<u8>) -> Self {
+        Ycbcr {
+            y: vec.first().copied().unwrap_or_default(),
+            cb: vec.get(1).copied().unwrap_or_default(),
+            cr: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-use crate::util::{AsVec, PivotFloat};
+use crate::util::{AsVec, FromVec, PivotFloat};
 
 use super::lab::Lab;
 use super::Xyz;
@@ -15,6 +15,16 @@ impl AsVec for Lchlab {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.l, self.c, self.h]
+    }
+}
+
+impl FromVec<f64> for Lchlab {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Lchlab {
+            l: vec.first().copied().unwrap_or_default(),
+            c: vec.get(1).copied().unwrap_or_default(),
+            h: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 

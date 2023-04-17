@@ -1,5 +1,8 @@
+use util::FromVec;
+
 use crate::rgb::{FromRgb, Rgb};
 use crate::xyz::{Kind, Xyz};
+use std::ops::Add;
 
 pub mod ansi;
 pub mod cymk;
@@ -53,6 +56,19 @@ where
     E::from(rgb)
 }
 
+/// Create color from a vector of K where K should be a number
+///
+/// # Arguments
+///
+/// * `vec` - Vec<K>
+pub fn create_color_from_vec<K, T>(vec: Vec<K>) -> T
+where
+    K: Add,
+    T: FromVec<K>,
+{
+    T::from_vec(vec)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -83,5 +99,15 @@ mod tests {
 
         let res: Hex = from_xyz_compatible_type_to_rgb_subtype(luv, None);
         assert_eq!(res, "#ffffff");
+    }
+
+    #[test]
+    fn expect_to_create_rgb_from_vec() {
+        let rgb_vec = vec![1, 2, 3];
+
+        let rgb: Rgb = create_color_from_vec(rgb_vec);
+        assert_eq!(rgb.r, 1);
+        assert_eq!(rgb.g, 2);
+        assert_eq!(rgb.b, 3);
     }
 }

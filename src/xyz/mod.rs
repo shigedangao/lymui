@@ -1,7 +1,7 @@
 use self::{argb::Argb, srgb::Srgb};
 use crate::{
     rgb::{FromRgb, Rgb},
-    util::{AsFloat, AsVec},
+    util::{AsFloat, AsVec, FromVec},
 };
 use matrices::xyz;
 use transfer::GammaCorrection;
@@ -72,6 +72,16 @@ impl AsVec for Xyz {
 
     fn as_vec(&self) -> Vec<Self::Item> {
         vec![self.x, self.y, self.z]
+    }
+}
+
+impl FromVec<f64> for Xyz {
+    fn from_vec(vec: Vec<f64>) -> Self {
+        Xyz {
+            x: vec.first().copied().unwrap_or_default(),
+            y: vec.get(1).copied().unwrap_or_default(),
+            z: vec.last().copied().unwrap_or_default(),
+        }
     }
 }
 
