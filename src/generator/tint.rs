@@ -9,7 +9,7 @@ use crate::util::AsFloat;
 /// Computation is based on the article below
 /// @link https://maketintsandshades.com/about
 #[derive(Debug)]
-pub struct Tint(Vec<Rgb>);
+pub struct Tint(pub Vec<Rgb>);
 
 impl GeneratorOps for Tint {
     fn compute(rgb: Rgb, factor: f64) -> Result<Tint, Error> {

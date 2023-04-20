@@ -9,7 +9,7 @@ use crate::util::AsFloat;
 /// Computation is based on the article below
 /// @link https://maketintsandshades.com/about
 #[derive(Debug)]
-pub struct Shade(Vec<Rgb>);
+pub struct Shade(pub Vec<Rgb>);
 
 impl GeneratorOps for Shade {
     fn compute(rgb: Rgb, factor: f64) -> Result<Shade, Error> {
