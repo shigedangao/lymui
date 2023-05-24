@@ -14,6 +14,7 @@ pub mod hsl;
 pub mod hsv;
 pub mod hue;
 pub mod hwb;
+pub mod prelude;
 pub mod rgb;
 pub mod util;
 pub mod xyz;
@@ -54,6 +55,36 @@ where
     let rgb = xyz.as_rgb(k.unwrap_or(Kind::D65));
 
     E::from(rgb)
+}
+
+/// Helper allowing to create an RGB compatible color to an other RGB subtype color
+///
+/// # Arguments
+///
+/// * `c` - T
+pub fn from_rgb_compatible_to_rgb_subtype<T, E>(c: T) -> E
+where
+    T: Into<Rgb>,
+    E: From<Rgb>,
+{
+    let rgb: Rgb = c.into();
+
+    E::from(rgb)
+}
+
+/// Helper allowing to create an Xyz compatible color to an other Xyz subtype color
+///
+/// # Arguments
+///
+/// * `c` - T
+pub fn from_xyz_to_xyz_subtype<T, E>(c: T) -> E
+where
+    T: Into<Xyz>,
+    E: From<Xyz>,
+{
+    let xyz: Xyz = c.into();
+
+    E::from(xyz)
 }
 
 /// Create color from a vector of K where K should be a number
