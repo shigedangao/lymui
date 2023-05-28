@@ -1,0 +1,14 @@
+[package]
+name = "lymui"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+js-macro = { path = "../js-macro", optional = true }
+napi = { version = "2", optional = true }
+napi-derive = { version = "2", optional = true }
+
+[features]
+js = ["js-macro", "napi", "napi-derive"]
