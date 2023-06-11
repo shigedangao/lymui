@@ -13,6 +13,6 @@ pub trait IntoJsObject {
 pub mod prelude {
     pub use super::{FromJsObject, IntoJsObject};
     pub use js_macro::{FromJsObj, IntoJsObject};
-    pub use napi::bindgen_prelude::{Object, Result as NapiResult, Status, Env};
+    pub use napi::bindgen_prelude::{Env, Object, Result as NapiResult, Status};
     pub use napi::Error as JsError;
 }

@@ -44,7 +44,8 @@ impl HexOps for Hex {
     fn unshorten(&mut self) -> &mut Self {
         // Basically copy each part from the hex into 6
         self.strip();
-        let unshorten: String = self.0
+        let unshorten: String =
+            self.0
                 .chars()
                 .map(|c| (c, c))
                 .fold(String::new(), |mut acc, (a, b)| {
