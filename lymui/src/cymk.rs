@@ -8,7 +8,7 @@ use crate::js::prelude::*;
 ///
 /// The implementation formula is based on the link below
 /// @link https://www.rapidtables.com/convert/color/rgb-to-cmyk.html
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Cymk {
     pub c: f64,

@@ -8,7 +8,7 @@ use crate::js::prelude::*;
 const CHROMA_X: f64 = 0.31271;
 const CHROMA_Y: f64 = 0.32902;
 
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Xyy {
     pub x: f64,

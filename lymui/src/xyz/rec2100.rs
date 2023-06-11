@@ -14,7 +14,7 @@ use crate::js::prelude::*;
 ///
 /// @link https://en.wikipedia.org/wiki/Rec._2100
 /// @link https://en.wikipedia.org/wiki/Perceptual_quantizer
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Rec2100 {
     pub r: f64,

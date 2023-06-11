@@ -9,7 +9,7 @@ use crate::js::prelude::*;
 ///
 /// @link https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
 /// @link https://en.wikipedia.org/wiki/HSL_and_HSV
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Hsl {
     pub h: f64,

@@ -10,7 +10,7 @@ const Y: f64 = 1.164;
 /// Implementation of the Ycbcr colorspace. The implementation formula is based on the links below
 ///
 /// @link https://stackoverflow.com/a/13616564/7489243
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Ycbcr {
     pub y: u8,

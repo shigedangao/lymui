@@ -10,7 +10,7 @@ use crate::js::prelude::*;
 /// Implementation of the Luv to polarLUV (HCL). The implementation is based on the following python implementation
 ///
 /// @link https://github.com/retostauffer/python-colorspace/blob/da56c170fbaa8a6ca27f9483954ac3e2f51af617/colorspace/colorlib.py#L1318
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Hcl {
     pub h: f64,

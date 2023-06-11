@@ -17,7 +17,7 @@ use crate::js::prelude::*;
 /// @link https://en.wikipedia.org/wiki/SRGB#:~:text=in%20these%20coefficients).-,From%20CIE%20XYZ%20to%20sRGB,when%20using%20specified%20white%20points).
 /// @link http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_RGB.html
 /// @link https://www.oceanopticsbook.info/view/photometry-and-visibility/from-xyz-to-rgb
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Srgb {
     pub r: f64,

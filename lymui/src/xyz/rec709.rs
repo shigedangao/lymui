@@ -12,7 +12,7 @@ use crate::js::prelude::*;
 ///
 /// @link https://en.wikipedia.org/wiki/Rec._709
 /// @link https://agraphicsguynotes.com/posts/basic_color_science_for_graphcis_engineer/#rec-709
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Rec709 {
     pub r: f64,

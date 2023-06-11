@@ -12,7 +12,7 @@ pub trait FromRgb<T> {
     fn from_rgb(rgb: Rgb, kind: T) -> Self;
 }
 
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Rgb {
     pub r: u8,

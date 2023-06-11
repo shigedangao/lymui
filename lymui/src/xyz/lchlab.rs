@@ -5,7 +5,7 @@ use crate::util::{AsVec, FromVec, PivotFloat};
 #[cfg(feature = "js")]
 use crate::js::prelude::*;
 
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Lchlab {
     pub l: f64,

@@ -8,7 +8,7 @@ use crate::js::prelude::*;
 ///
 /// @link https://en.wikipedia.org/wiki/Rec._2020
 /// @link https://agraphicsguynotes.com/posts/basic_color_science_for_graphcis_engineer/#rec-2020
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Rec2020 {
     pub r: f64,
