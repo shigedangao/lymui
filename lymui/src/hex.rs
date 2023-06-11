@@ -21,7 +21,7 @@ trait HexOps {
     /// - FF -> 102
     /// - EE -> 170
     /// - AA -> 119
-    fn into_u8_parts(&mut self) -> Result<(u8, u8, u8), Error>;
+    fn get_u8_parts(&mut self) -> Result<(u8, u8, u8), Error>;
     /// Convert an RGB to into a short hexadecimal value
     ///
     /// # Arguments
@@ -60,7 +60,7 @@ impl HexOps for Hex {
         self
     }
 
-    fn into_u8_parts(&mut self) -> Result<(u8, u8, u8), Error> {
+    fn get_u8_parts(&mut self) -> Result<(u8, u8, u8), Error> {
         self.strip();
 
         let r_s = self.0.get(0..2);
@@ -134,7 +134,7 @@ impl TryFrom<Hex> for Rgb {
         }
 
         // get the u8 representation of an RGB
-        let (r, g, b) = hex.into_u8_parts()?;
+        let (r, g, b) = hex.get_u8_parts()?;
 
         Ok(Rgb { r, g, b })
     }

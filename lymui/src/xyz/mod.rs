@@ -33,7 +33,7 @@ const D65: [f64; 3] = [0.95047, 1.0, 1.08883];
 const EPSILON: f64 = 0.008856;
 const KAPPA: f64 = 903.3;
 
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Xyz {
     pub x: f64,
