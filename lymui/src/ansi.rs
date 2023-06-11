@@ -58,7 +58,7 @@ impl FromRgb<AnsiKind> for Ansi {
                         _ => {
                             let value = (((r - 8_f64) / 247_f64) + 232_f64).round();
                             Ansi(value as u8)
-                        },
+                        }
                     };
                 }
 

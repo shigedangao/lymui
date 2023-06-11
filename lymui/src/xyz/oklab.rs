@@ -1,6 +1,6 @@
-use crate::util::{AsVec, FromVec};
 use super::matrices::oklab::*;
 use super::{srgb::Srgb, Xyz};
+use crate::util::{AsVec, FromVec};
 
 #[cfg(feature = "js")]
 use crate::js::prelude::*;

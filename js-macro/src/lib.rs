@@ -1,4 +1,4 @@
-use proc_macro::{TokenStream};
+use proc_macro::TokenStream;
 use quote::quote;
 use syn::{Data, DeriveInput};
 
@@ -14,19 +14,17 @@ pub fn from_js_object(input: TokenStream) -> TokenStream {
     let de_fields = struct_data
         .fields
         .iter()
-        .map(|field| {
-             match field.ident.as_ref() {
-                Some(ident) => {
-                    quote! {
-                        #ident : object.get(stringify!(#ident))
-                            .and_then(|v| v.ok_or(JsError::from_status(Status::InvalidArg)))?,
-                    }
-                },
-                None => {
-                    quote! {
-                        0 : object.get(stringify!(0))
-                            .and_then(|v| v.ok_or(JsError::from_status(Status::InvalidArg)))?,
-                    }
+        .map(|field| match field.ident.as_ref() {
+            Some(ident) => {
+                quote! {
+                    #ident : object.get(stringify!(#ident))
+                        .and_then(|v| v.ok_or(JsError::from_status(Status::InvalidArg)))?,
+                }
+            }
+            None => {
+                quote! {
+                    0 : object.get(stringify!(0))
+                        .and_then(|v| v.ok_or(JsError::from_status(Status::InvalidArg)))?,
                 }
             }
         });

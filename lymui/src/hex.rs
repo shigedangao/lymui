@@ -136,7 +136,8 @@ impl TryFrom<Hex> for Rgb {
 #[cfg(feature = "js")]
 impl FromJsObject for Hex {
     fn from_js_object(object: Object) -> NapiResult<Self> {
-        let hex: String = object.get("hex")?
+        let hex: String = object
+            .get("hex")?
             .ok_or_else(|| JsError::from_status(Status::InvalidArg))?;
 
         Ok(hex)

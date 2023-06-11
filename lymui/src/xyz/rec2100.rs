@@ -1,5 +1,5 @@
-use crate::util::{AsVec, FromVec};
 use super::{matrices::rec2020::*, transfer::HdrCorrection, Xyz};
+use crate::util::{AsVec, FromVec};
 
 #[cfg(feature = "js")]
 use crate::js::prelude::*;

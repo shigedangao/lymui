@@ -1,5 +1,5 @@
-use crate::util::{AsVec, FromVec};
 use super::{Xyz, D65, EPSILON, KAPPA};
+use crate::util::{AsVec, FromVec};
 
 #[cfg(feature = "js")]
 use crate::js::prelude::*;

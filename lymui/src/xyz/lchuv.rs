@@ -1,6 +1,6 @@
-use crate::util::{AsVec, FromVec, PivotFloat};
 use super::luv::Luv;
 use super::Xyz;
+use crate::util::{AsVec, FromVec, PivotFloat};
 
 #[cfg(feature = "js")]
 use crate::js::prelude::*;

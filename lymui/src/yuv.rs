@@ -4,7 +4,6 @@ use crate::util::{AsFloat, AsVec, FromVec};
 #[cfg(feature = "js")]
 use crate::js::prelude::*;
 
-
 /// Implementation of the Yuv color model
 ///
 /// Formula used can be found below

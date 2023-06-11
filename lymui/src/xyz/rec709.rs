@@ -1,9 +1,9 @@
-use crate::util::{AsVec, FromVec};
 use super::{
     matrices::xyz::{RX65, RY65, RZ65, X65, Y65, Z65},
     transfer::GammaCorrection,
     Xyz,
 };
+use crate::util::{AsVec, FromVec};
 
 #[cfg(feature = "js")]
 use crate::js::prelude::*;

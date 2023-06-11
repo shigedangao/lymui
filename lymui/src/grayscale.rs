@@ -35,7 +35,6 @@ impl FromRgb<Kind> for GrayScale {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
     use super::*;

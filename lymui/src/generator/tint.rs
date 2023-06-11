@@ -44,7 +44,8 @@ impl GeneratorOps for Tint {
 #[cfg(feature = "js")]
 impl FromJsObject for Tint {
     fn from_js_object(object: Object) -> NapiResult<Self> {
-        let objects: Vec<Object> = object.get("tint")?
+        let objects: Vec<Object> = object
+            .get("tint")?
             .ok_or_else(|| JsError::from_status(Status::InvalidArg))?;
 
         let mut rgb_vec = Vec::new();
