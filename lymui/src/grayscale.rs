@@ -4,7 +4,7 @@ use crate::util::AsFloat;
 #[cfg(feature = "js")]
 use crate::js::prelude::*;
 
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug)]
 pub struct GrayScale(pub u8);
 

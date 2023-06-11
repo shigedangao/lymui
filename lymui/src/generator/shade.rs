@@ -55,6 +55,22 @@ impl FromJsObject for Shade {
     }
 }
 
+#[cfg(feature = "js")]
+impl IntoJsObject for Shade {
+    fn into_js_object(&self, env: Env) -> NapiResult<Object> {
+        let mut res = env.create_object()?;
+        
+        let mut objects = Vec::new();
+        for color in &self.0 {
+            objects.push(color.into_js_object(env)?);
+        }
+
+        res.set("shade", objects)?;
+
+        Ok(res)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

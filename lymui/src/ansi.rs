@@ -12,7 +12,7 @@ use crate::js::prelude::*;
 /// The implemention is based on the color-convert library
 /// @link https://github.com/Qix-/color-convert/tree/master
 
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug)]
 pub struct Ansi(pub u8);
 

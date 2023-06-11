@@ -7,7 +7,7 @@ use crate::js::prelude::*;
 /// OkLch implement the oklch colorspace (polar form of OkLab). The implementation is based on the article below
 ///
 /// @link https://bottosson.github.io/posts/oklab/#the-oklab-color-space
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct OkLch {
     pub l: f64,

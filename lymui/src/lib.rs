@@ -131,7 +131,7 @@ mod tests {
         };
 
         let res: Hex = from_xyz_compatible_type_to_rgb_subtype(luv, None);
-        assert_eq!(res, "#ffffff");
+        assert_eq!(res.0, "#ffffff");
     }
 
     #[test]

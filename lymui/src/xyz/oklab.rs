@@ -9,7 +9,7 @@ use crate::js::prelude::*;
 /// The implementation is based on the following blog post
 ///
 /// @link https://bottosson.github.io/posts/oklab/
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct OkLab {
     pub l: f64,

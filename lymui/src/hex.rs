@@ -4,13 +4,15 @@ use crate::rgb::Rgb;
 #[cfg(feature = "js")]
 use crate::js::prelude::*;
 
-pub type Hex = String;
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
+#[derive(Debug)]
+pub struct Hex(pub String);
 
 trait HexOps {
     /// Remove the # in front of an Hex if exist
-    fn strip(&self) -> Self;
+    fn strip(&mut self) -> &mut Self;
     /// Unshorten an short Hex such as #6A7 which transform into #66AA77
-    fn unshorten(&self) -> Self;
+    fn unshorten(&mut self) -> &mut Self;
     /// Convert the hex into u8 part which can be used to construct an RGB struct
     ///
     /// # Description
@@ -19,7 +21,7 @@ trait HexOps {
     /// - FF -> 102
     /// - EE -> 170
     /// - AA -> 119
-    fn into_u8_parts(self) -> Result<(u8, u8, u8), Error>;
+    fn into_u8_parts(&mut self) -> Result<(u8, u8, u8), Error>;
     /// Convert an RGB to into a short hexadecimal value
     ///
     /// # Arguments
@@ -31,16 +33,18 @@ trait HexOps {
 }
 
 impl HexOps for Hex {
-    fn strip(&self) -> Self {
-        let hex = self.strip_prefix('#').unwrap_or(self);
+    fn strip(&mut self) -> &mut Self {
+        let hex = self.0.strip_prefix('#').unwrap_or(&self.0);
 
-        hex.into()
+        self.0 = hex.to_string();
+
+        self
     }
 
-    fn unshorten(&self) -> Self {
+    fn unshorten(&mut self) -> &mut Self {
         // Basically copy each part from the hex into 6
-        let unshorten: String =
-            self.strip()
+        self.strip();
+        let unshorten: String = self.0
                 .chars()
                 .map(|c| (c, c))
                 .fold(String::new(), |mut acc, (a, b)| {
@@ -50,15 +54,17 @@ impl HexOps for Hex {
                     acc
                 });
 
-        unshorten
+        self.0 = unshorten;
+
+        self
     }
 
-    fn into_u8_parts(self) -> Result<(u8, u8, u8), Error> {
-        let hex = self.strip();
+    fn into_u8_parts(&mut self) -> Result<(u8, u8, u8), Error> {
+        self.strip();
 
-        let r_s = hex.get(0..2);
-        let g_s = hex.get(2..4);
-        let b_s = hex.get(4..6);
+        let r_s = self.0.get(0..2);
+        let g_s = self.0.get(2..4);
+        let b_s = self.0.get(4..6);
 
         if let (Some(r), Some(g), Some(b)) = (r_s, g_s, b_s) {
             let r_u = u8::from_str_radix(r, 16).ok().unwrap_or_default();
@@ -72,7 +78,7 @@ impl HexOps for Hex {
     }
 
     fn into_short_hex(rgb: Rgb) -> Result<Self, Error> {
-        let hex_chars = Hex::from(rgb).strip().chars().collect::<Vec<_>>();
+        let hex_chars = Hex::from(rgb).strip().0.chars().collect::<Vec<_>>();
 
         let short_hex = hex_chars
             .into_iter()
@@ -95,7 +101,7 @@ impl HexOps for Hex {
             })
             .map(|res| res.iter().collect::<String>())?;
 
-        Ok(format!("#{short_hex}"))
+        Ok(Hex(format!("#{short_hex}")))
     }
 }
 
@@ -113,7 +119,7 @@ impl From<Rgb> for Hex {
             .collect::<Vec<_>>()
             .join("");
 
-        format!("#{hex}")
+        Hex(format!("#{hex}"))
     }
 }
 
@@ -122,25 +128,14 @@ impl TryFrom<Hex> for Rgb {
 
     fn try_from(h: Hex) -> Result<Self, Self::Error> {
         let mut hex = h;
-        if hex.len() <= 4 {
-            hex = hex.unshorten();
+        if hex.0.len() <= 4 {
+            hex.unshorten();
         }
 
         // get the u8 representation of an RGB
         let (r, g, b) = hex.into_u8_parts()?;
 
         Ok(Rgb { r, g, b })
-    }
-}
-
-#[cfg(feature = "js")]
-impl FromJsObject for Hex {
-    fn from_js_object(object: Object) -> NapiResult<Self> {
-        let hex: String = object
-            .get("hex")?
-            .ok_or_else(|| JsError::from_status(Status::InvalidArg))?;
-
-        Ok(hex)
     }
 }
 
@@ -158,20 +153,20 @@ mod tests {
 
         let hex = Hex::from(rgb);
 
-        assert_eq!(hex, "#ffffff");
+        assert_eq!(hex.0, "#ffffff");
     }
 
     #[test]
     fn expect_to_unshorten_hex_with_prefix() {
-        let hex: Hex = "#6A7".to_string();
+        let mut hex: Hex = Hex("#6A7".to_string());
         let res = hex.unshorten();
 
-        assert_eq!(res, "66AA77");
+        assert_eq!(res.0, "66AA77");
     }
 
     #[test]
     fn expect_to_convert_hex_to_rgb() {
-        let hex: Hex = "#66AA77".to_string();
+        let hex: Hex = Hex("#66AA77".to_string());
         let rgb = Rgb::try_from(hex).unwrap();
 
         assert_eq!(rgb.r, 102);
@@ -181,7 +176,7 @@ mod tests {
 
     #[test]
     fn expect_to_convert_short_hex_to_rgb() {
-        let hex: Hex = "#6A7".to_string();
+        let hex: Hex = Hex("#6A7".to_string());
         let rgb = Rgb::try_from(hex).unwrap();
 
         assert_eq!(rgb.r, 102);
@@ -199,7 +194,7 @@ mod tests {
 
         let short_hex = Hex::into_short_hex(rgb);
         assert!(short_hex.is_ok());
-        assert_eq!(short_hex.unwrap(), "#1f1");
+        assert_eq!(short_hex.unwrap().0, "#1f1");
     }
 
     #[test]

@@ -8,7 +8,7 @@ use crate::js::prelude::*;
 /// Implement the HWB color model. The implementation is based on the provided link
 ///
 /// @link https://en.wikipedia.org/wiki/HWB_color_model
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Hwb {
     pub h: f64,

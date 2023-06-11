@@ -8,7 +8,7 @@ use crate::js::prelude::*;
 /// Implement the HSV color model. The implementation is based on the formula below
 ///
 /// @link https://www.had2know.org/technology/hsv-rgb-conversion-formula-calculator.html
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Hsv {
     pub h: f64,

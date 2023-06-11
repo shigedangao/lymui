@@ -11,7 +11,7 @@ use crate::js::prelude::*;
 /// @link https://en.wikipedia.org/wiki/CIELUV
 /// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
 /// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Luv {
     pub l: f64,

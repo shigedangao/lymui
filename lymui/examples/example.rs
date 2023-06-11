@@ -13,7 +13,7 @@ fn rgb_to_hex() {
     };
 
     let hex = Hex::from(rgb);
-    assert_eq!(hex, "#110a5e");
+    assert_eq!(hex.0, "#110a5e");
 
     let rgb = Rgb::try_from(hex).unwrap();
     assert_eq!(rgb.r, 17);

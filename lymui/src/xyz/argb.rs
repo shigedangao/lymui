@@ -13,7 +13,7 @@ use crate::js::prelude::*;
 /// @link https://stackoverflow.com/a/40231268/7489243
 ///
 /// /!\ The conversion is not perfect it's quite close based on the implementation above
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Argb {
     pub r: f64,

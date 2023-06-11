@@ -8,7 +8,7 @@ use crate::js::prelude::*;
 ///
 /// Formula used can be found below
 /// @link https://fr.wikipedia.org/wiki/YUV#%C3%89quations
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Yuv {
     pub y: f64,

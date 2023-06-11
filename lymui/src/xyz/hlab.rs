@@ -9,7 +9,7 @@ const XN: f64 = 95.047;
 const YN: f64 = 100.0;
 const ZN: f64 = 108.883;
 
-#[cfg_attr(feature = "js", derive(FromJsObj))]
+#[cfg_attr(feature = "js", derive(FromJsObj, IntoJsObject))]
 #[derive(Debug, Clone, Copy)]
 pub struct Hlab {
     pub l: f64,

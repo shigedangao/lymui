@@ -42,3 +42,43 @@ pub fn from_js_object(input: TokenStream) -> TokenStream {
 
     TokenStream::from(expanded)
 }
+
+#[proc_macro_derive(IntoJsObject)]
+pub fn into_js_object(input: TokenStream) -> TokenStream {
+    let input: DeriveInput = syn::parse_macro_input!(input);
+    let name = input.ident;
+
+    let Data::Struct(struct_data) = input.data else {
+        unimplemented!("Supporting only struct");
+    };
+
+    let se_fields = struct_data
+        .fields
+        .iter()
+        .map(|field| match field.ident.as_ref() {
+            Some(ident) => {
+                quote! {
+                    res.set(stringify!(#ident), self.#ident)?;
+                }
+            }
+            None => {
+                quote! {
+                    res.set(stringify!(0), self.0.clone())?;
+                }
+            }
+        });
+
+    let expanded = quote! {
+        #[automatically_derived]
+        impl IntoJsObject for #name {
+            fn into_js_object(&self, env: Env) -> NapiResult<Object> {
+                let mut res = env.create_object()?;
+                #( #se_fields )*
+
+                Ok(res)
+            }
+        }
+    };
+
+    TokenStream::from(expanded)
+}
