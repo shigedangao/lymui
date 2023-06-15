@@ -3,6 +3,7 @@ pub enum Error {
     Parse(String),
     Hex(String),
     Generator,
+    Ansi(String),
 }
 
 impl std::error::Error for Error {}
@@ -13,6 +14,7 @@ impl std::fmt::Display for Error {
             Error::Parse(msg) => write!(f, "A parse error occurred {msg}"),
             Error::Hex(msg) => write!(f, "Error occurred while parsing an Hex {msg}"),
             Error::Generator => write!(f, "Factor should be a number between 0 & 1"),
+            Error::Ansi(msg) => write!(f, "Error while processing ansi color: {msg}"),
         }
     }
 }

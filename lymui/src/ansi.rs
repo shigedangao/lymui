@@ -1,5 +1,5 @@
 use super::rgb::{FromRgb, Rgb};
-use crate::util::AsFloat;
+use crate::util::{AsFloat, FromVec};
 
 #[cfg(feature = "js")]
 use crate::js::prelude::*;
@@ -73,6 +73,44 @@ impl FromRgb<AnsiKind> for Ansi {
     }
 }
 
+impl From<Ansi> for Rgb {
+    fn from(ansi: Ansi) -> Self {
+        match ansi.0 {
+            0 => Rgb::from_vec(vec![128, 128, 128]),
+            1 => Rgb::default(),
+            2..=7 => Rgb {
+                r: (ansi.0 & 1) * 128,
+                g: (ansi.0 >> 1 & 1) * 128,
+                b: (ansi.0 >> 2 & 1) * 128,
+            },
+            8..=15 => Rgb {
+                r: ((ansi.0 - 8) & 1) * 128 + 127,
+                g: ((ansi.0 - 8) >> 1 & 1) * 128 + 127,
+                b: ((ansi.0 - 8) >> 2 & 1) * 128 + 127,
+            },
+            _ => {
+                let ansi_color = ansi.0 - 16;
+                let mut rgb = Rgb::default();
+
+                if ansi_color / 36 > 0 {
+                    println!("here");
+                    rgb.r = (ansi_color / 36) * 51;
+                }
+
+                if ansi_color / 6 > 0 {
+                    rgb.g = ((ansi_color / 6) % 6) * 51
+                }
+
+                if ansi_color % 6 > 0 {
+                    rgb.b = (ansi_color % 6) * 51
+                }
+
+                rgb
+            }
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -111,5 +149,29 @@ mod tests {
 
         let ansi = Ansi::from_rgb(rgb, AnsiKind::C16);
         assert_eq!(ansi.0, 32);
+    }
+
+    #[test]
+    fn expect_to_convert_ansi_to_rgb() {
+        let rgb = Rgb::from(Ansi(215));
+        assert_eq!(rgb.r, 255);
+        assert_eq!(rgb.g, 153);
+        assert_eq!(rgb.b, 51);
+    }
+
+    #[test]
+    fn expect_to_get_white_color_from_ansi() {
+        let rgb = Rgb::from(Ansi(15));
+        assert_eq!(rgb.r, 255);
+        assert_eq!(rgb.g, 255);
+        assert_eq!(rgb.b, 255);
+    }
+
+    #[test]
+    fn expect_to_convert_ansi_to_rgb_grey() {
+        let rgb = Rgb::from(Ansi(7));
+        assert_eq!(rgb.r, 128);
+        assert_eq!(rgb.g, 128);
+        assert_eq!(rgb.b, 128);
     }
 }
