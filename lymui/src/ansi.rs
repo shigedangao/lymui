@@ -1,8 +1,16 @@
+use super::hex::Hex;
 use super::rgb::{FromRgb, Rgb};
-use crate::util::{AsFloat, FromVec};
+use crate::error::Error;
+use crate::util::AsFloat;
 
 #[cfg(feature = "js")]
 use crate::js::prelude::*;
+
+// Constant of ansi rgb code for the lowest 16 colors
+const ANSI_RGB_CODE: [&str; 16] = [
+    "#000000", "#800000", "#008000", "#808000", "#000080", "#800080", "#008080", "#c0c0c0",
+    "#808080", "#ff0000", "#00ff00", "#ffff00", "#0000ff", "#ff00ff", "#00ffff", "#ffffff",
+];
 
 /// Ansi is a color format that is used in terminal
 /// The current implementation support the following bits formats
@@ -19,6 +27,20 @@ pub struct Ansi(pub u8);
 pub enum AnsiKind {
     C16,
     C256,
+}
+
+impl Ansi {
+    /// Finalize computation from ansi to rgb
+    ///
+    /// # Arguments
+    ///
+    /// * `color` - u8
+    fn finalize_computation_to_rgb(color: u8) -> u8 {
+        match color {
+            0 => 0,
+            _ => color * 40 + 55,
+        }
+    }
 }
 
 impl FromRgb<AnsiKind> for Ansi {
@@ -73,39 +95,36 @@ impl FromRgb<AnsiKind> for Ansi {
     }
 }
 
-impl From<Ansi> for Rgb {
-    fn from(ansi: Ansi) -> Self {
+impl TryFrom<Ansi> for Rgb {
+    type Error = Error;
+
+    // Conversion based on work done by @MightyPork
+    // @link https://gist.github.com/MightyPork/1d9bd3a3fd4eb1a661011560f6921b5b
+    fn try_from(ansi: Ansi) -> Result<Self, Error> {
         match ansi.0 {
-            0 => Rgb::from_vec(vec![128, 128, 128]),
-            1 => Rgb::default(),
-            2..=7 => Rgb {
-                r: (ansi.0 & 1) * 128,
-                g: (ansi.0 >> 1 & 1) * 128,
-                b: (ansi.0 >> 2 & 1) * 128,
-            },
-            8..=15 => Rgb {
-                r: ((ansi.0 - 8) & 1) * 128 + 127,
-                g: ((ansi.0 - 8) >> 1 & 1) * 128 + 127,
-                b: ((ansi.0 - 8) >> 2 & 1) * 128 + 127,
-            },
+            0..=16 => {
+                let hex_str = ANSI_RGB_CODE.get(ansi.0 as usize).unwrap();
+                let hex = Hex(hex_str.to_string());
+                Rgb::try_from(hex)
+            }
+            232..=u8::MAX => {
+                let s = (ansi.0 - 232) * 10 + 8;
+                Ok(Rgb { r: s, g: s, b: s })
+            }
             _ => {
-                let ansi_color = ansi.0 - 16;
-                let mut rgb = Rgb::default();
+                let n = ansi.0 - 16;
 
-                if ansi_color / 36 > 0 {
-                    println!("here");
-                    rgb.r = (ansi_color / 36) * 51;
-                }
+                let mut _b = n % 6;
+                let mut _g = (n - _b) / 6 % 6;
+                let mut _r = (n - _b - _g * 6) / 36 % 6;
 
-                if ansi_color / 6 > 0 {
-                    rgb.g = ((ansi_color / 6) % 6) * 51
-                }
+                let rgb = Rgb {
+                    r: Ansi::finalize_computation_to_rgb(_r),
+                    g: Ansi::finalize_computation_to_rgb(_g),
+                    b: Ansi::finalize_computation_to_rgb(_b),
+                };
 
-                if ansi_color % 6 > 0 {
-                    rgb.b = (ansi_color % 6) * 51
-                }
-
-                rgb
+                Ok(rgb)
             }
         }
     }
@@ -153,15 +172,15 @@ mod tests {
 
     #[test]
     fn expect_to_convert_ansi_to_rgb() {
-        let rgb = Rgb::from(Ansi(215));
+        let rgb = Rgb::try_from(Ansi(215)).unwrap();
         assert_eq!(rgb.r, 255);
-        assert_eq!(rgb.g, 153);
-        assert_eq!(rgb.b, 51);
+        assert_eq!(rgb.g, 175);
+        assert_eq!(rgb.b, 95);
     }
 
     #[test]
     fn expect_to_get_white_color_from_ansi() {
-        let rgb = Rgb::from(Ansi(15));
+        let rgb = Rgb::try_from(Ansi(15)).unwrap();
         assert_eq!(rgb.r, 255);
         assert_eq!(rgb.g, 255);
         assert_eq!(rgb.b, 255);
@@ -169,9 +188,17 @@ mod tests {
 
     #[test]
     fn expect_to_convert_ansi_to_rgb_grey() {
-        let rgb = Rgb::from(Ansi(7));
-        assert_eq!(rgb.r, 128);
-        assert_eq!(rgb.g, 128);
-        assert_eq!(rgb.b, 128);
+        let rgb = Rgb::try_from(Ansi(7)).unwrap();
+        assert_eq!(rgb.r, 192);
+        assert_eq!(rgb.g, 192);
+        assert_eq!(rgb.b, 192);
+    }
+
+    #[test]
+    fn expect_to_convert_ansi_to_rgb_zero() {
+        let rgb = Rgb::try_from(Ansi(0)).unwrap();
+        assert_eq!(rgb.r, 0);
+        assert_eq!(rgb.g, 0);
+        assert_eq!(rgb.b, 0);
     }
 }
