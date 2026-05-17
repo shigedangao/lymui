@@ -1,6 +1,10 @@
-[workspace]
+[package]
+authors = ["Marc Intha-amnouay <marc.inthaamnouay@gmail.com>"]
+description = "a crate for converting a color to another w/o any external dependencies"
+edition = "2024"
+keywords = ["color", "color-conversion"]
+license = "MIT"
+name = "lymui"
+version = "0.2.0"
 
-members = [
-    "lymui",
-    "js-macro"
-]
+[dependencies]
