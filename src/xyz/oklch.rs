@@ -3,8 +3,7 @@ use crate::ops::SliceOps;
 
 /// OkLch implement the oklch colorspace (polar form of OkLab). The implementation is based on the article below
 ///
-/// @link https://bottosson.github.io/posts/oklab/#the-oklab-color-space
-
+/// @link <https://bottosson.github.io/posts/oklab/#the-oklab-color-space>
 #[derive(Debug, Clone, Copy)]
 pub struct OkLch {
     pub l: f64,
@@ -19,7 +18,11 @@ impl SliceOps<3> for OkLch {
         [self.l, self.c, self.h]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         OkLch {
             l: slice[0],
             c: slice[1],

@@ -1,9 +1,11 @@
 use crate::ops::AsFloat;
 use crate::rgb::{FromRgb, Rgb};
 
+/// Represents a grayscale color value.
 #[derive(Debug)]
 pub struct GrayScale(pub u8);
 
+/// Represents the kind of grayscale calculation to perform.
 pub enum Kind {
     Lightness,
     Average,

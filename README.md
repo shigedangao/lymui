@@ -37,13 +37,13 @@ All colors start from the `Rgb` compatible color type. You can then convert it t
 
 ```toml
 [dependencies]
-lymui = "0.2.0"
+lymui = "0.2.1"
 ```
 
 Below is a code example of converting an `Rgb` color to `Xyz` using the `D65` lumens type.
 
 ```rust
-use lymui::prelude::*;
+use lymui::{prelude::*, from_rgb_space_to_xyz_space};
 
 fn main() {
     let rgb = Rgb {
@@ -52,7 +52,11 @@ fn main() {
         b: 255,
     };
 
-    let xyz = Xyz::from_rgb(rgb, Kind::D65);
+    // Convert an `Rgb` color to `Xyz` using the `D65` lumens type.
+    let xyz = Xyz::from_rgb(rgb.clone(), Kind::D65);
+
+    // You can also use the more convenient function to convert a color e.g:
+    let xyz2 = from_rgb_space_to_xyz_space::<Rgb, Xyz>(rgb, Kind::D65);
 }
 ```
 

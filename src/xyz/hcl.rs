@@ -18,7 +18,11 @@ impl SliceOps<3> for Hcl {
         [self.h, self.c, self.l]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Hcl {
             h: slice[0],
             c: slice[1],

@@ -4,8 +4,7 @@ use crate::rgb::Rgb;
 
 /// Implement the HSV color model. The implementation is based on the formula below
 ///
-/// @link https://www.had2know.org/technology/hsv-rgb-conversion-formula-calculator.html
-
+/// @link <https://www.had2know.org/technology/hsv-rgb-conversion-formula-calculator.html>
 #[derive(Debug, Clone, Copy)]
 pub struct Hsv {
     pub h: f64,
@@ -78,7 +77,11 @@ impl SliceOps<3> for Hsv {
         [self.h, self.s, self.v]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Hsv {
             h: slice[0],
             s: slice[1],

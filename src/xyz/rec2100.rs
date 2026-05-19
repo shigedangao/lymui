@@ -9,9 +9,8 @@ use crate::ops::SliceOps;
 ///
 /// The rec.2100 uses the matrices of the rec.2020
 ///
-/// @link https://en.wikipedia.org/wiki/Rec._2100
-/// @link https://en.wikipedia.org/wiki/Perceptual_quantizer
-
+/// @link <https://en.wikipedia.org/wiki/Rec._2100>
+/// @link <https://en.wikipedia.org/wiki/Perceptual_quantizer>
 #[derive(Debug, Clone, Copy)]
 pub struct Rec2100 {
     pub r: f64,
@@ -26,7 +25,11 @@ impl SliceOps<3> for Rec2100 {
         [self.r, self.g, self.b]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Rec2100 {
             r: slice[0],
             g: slice[1],

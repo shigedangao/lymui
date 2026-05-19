@@ -10,6 +10,7 @@ pub trait FromRgb<T> {
     fn from_rgb(rgb: Rgb, kind: T) -> Self;
 }
 
+/// Represents an RGB color.
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Rgb {
     pub r: u8,
@@ -53,7 +54,11 @@ impl SliceOps<3> for Rgb {
         [self.r, self.g, self.b]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Rgb {
             r: slice[0],
             g: slice[1],

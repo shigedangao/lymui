@@ -10,7 +10,6 @@ use crate::ops::SliceOps;
 /// @link https://en.wikipedia.org/wiki/CIELUV#Cylindrical_representation_(CIELCh)
 /// @link https://en.wikipedia.org/wiki/HCL_color_space#Implementations
 /// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
-
 #[derive(Debug, Clone, Copy)]
 pub struct Lchuv {
     pub l: f64,
@@ -25,7 +24,11 @@ impl SliceOps<3> for Lchuv {
         [self.l, self.c, self.h]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Lchuv {
             l: slice[0],
             c: slice[1],

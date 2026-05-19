@@ -4,7 +4,7 @@ use crate::xyz::luv::Luv;
 
 /// Implementation of the Hue. Computation is based on the article below
 ///
-/// @link https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+/// @link <https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/>
 pub type Hue = f64;
 
 impl From<Rgb> for Hue {

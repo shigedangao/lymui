@@ -5,6 +5,7 @@ use crate::ops::SliceOps;
 const CHROMA_X: f64 = 0.31271;
 const CHROMA_Y: f64 = 0.32902;
 
+/// Represents a color in the XYY colorspace.
 #[derive(Debug, Clone, Copy)]
 pub struct Xyy {
     pub x: f64,
@@ -75,7 +76,11 @@ impl SliceOps<3> for Xyy {
         [self.x, self.y, self._y]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Xyy {
             x: slice[0],
             y: slice[1],

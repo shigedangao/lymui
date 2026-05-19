@@ -2,6 +2,7 @@ use super::Xyz;
 use super::lab::Lab;
 use crate::ops::SliceOps;
 
+/// Lchlab color space. The implementation is based on the [EasyRGB](http://www.easyrgb.com/en/math.php#text5) formula.
 #[derive(Debug, Clone, Copy)]
 pub struct Lchlab {
     pub l: f64,
@@ -16,7 +17,11 @@ impl SliceOps<3> for Lchlab {
         [self.l, self.c, self.h]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Lchlab {
             l: slice[0],
             c: slice[1],

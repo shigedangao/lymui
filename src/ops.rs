@@ -14,6 +14,17 @@ pub trait SliceOps<const S: usize> {
     /// A slice of the struct's inner fields
     fn as_slice(&self) -> [Self::Item; S];
 
+    /// Convert the struct to a vector of its inner fields
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - The struct to convert
+    ///
+    /// # Returns
+    ///
+    /// A vector of the struct's inner fields
+    fn to_vec(&self) -> Vec<Self::Item>;
+
     /// Convert a slice of inner fields to a struct
     ///
     /// # Arguments
@@ -23,14 +34,14 @@ pub trait SliceOps<const S: usize> {
     /// # Returns
     ///
     /// The struct converted from the slice
-    fn from_slice(slice: [Self::Item; S]) -> Self;
+    fn from_slice(slice: &[Self::Item; S]) -> Self;
 }
 
 /// AsFloat trait for converting a struct to a tuple of float64
 ///
 /// This trait is used to convert a struct to a tuple of float64 values,
 /// which is useful for performing arithmetic operations on color values.
-pub(crate) trait AsFloat {
+pub trait AsFloat {
     /// Return inner struct field as a tuple of float64
     fn as_f64(&self) -> (f64, f64, f64);
 }
