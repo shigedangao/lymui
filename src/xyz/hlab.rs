@@ -6,6 +6,7 @@ const XN: f64 = 95.047;
 const YN: f64 = 100.0;
 const ZN: f64 = 108.883;
 
+/// Hlab color space. The implementation is based on the [EasyRGB](http://www.easyrgb.com/en/math.php#text5) formula.
 #[derive(Debug, Clone, Copy)]
 pub struct Hlab {
     pub l: f64,
@@ -20,7 +21,11 @@ impl SliceOps<3> for Hlab {
         [self.l, self.a, self.b]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Hlab {
             l: slice[0],
             a: slice[1],

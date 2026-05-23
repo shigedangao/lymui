@@ -9,10 +9,9 @@ use crate::{ops::AsFloat, rgb::Rgb};
 /// Implementation of the sRGB colorspace.
 /// The foruma can be found on the link below
 ///
-/// @link https://en.wikipedia.org/wiki/SRGB#:~:text=in%20these%20coefficients).-,From%20CIE%20XYZ%20to%20sRGB,when%20using%20specified%20white%20points).
-/// @link http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_RGB.html
-/// @link https://www.oceanopticsbook.info/view/photometry-and-visibility/from-xyz-to-rgb
-
+/// @link <https://en.wikipedia.org/wiki/SRGB#:~:text=in%20these%20coefficients).-,From%20CIE%20XYZ%20to%20sRGB,when%20using%20specified%20white%20points).>
+/// @link <http://www.brucelindbloom.com/index.html?Eqn_XYZ_to_RGB.html>
+/// @link <https://www.oceanopticsbook.info/view/photometry-and-visibility/from-xyz-to-rgb>
 #[derive(Debug, Clone, Copy)]
 pub struct Srgb {
     pub r: f64,
@@ -27,7 +26,11 @@ impl SliceOps<3> for Srgb {
         [self.r, self.g, self.b]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Srgb {
             r: slice[0],
             g: slice[1],

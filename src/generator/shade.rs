@@ -49,6 +49,16 @@ mod tests {
 
         let shade = Shade::compute(rgb, 0.1).unwrap();
         assert_eq!(shade.0.len(), 11);
+
+        // Testing a shade computation
+        assert_eq!(shade.0[1].r, 91);
+        assert_eq!(shade.0[1].g, 153);
+        assert_eq!(shade.0[1].b, 107);
+
+        // Testing a shade computation
+        assert_eq!(shade.0[9].r, 10);
+        assert_eq!(shade.0[9].g, 17);
+        assert_eq!(shade.0[9].b, 11);
     }
 
     #[test]

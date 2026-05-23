@@ -5,8 +5,7 @@ use crate::ops::SliceOps;
 /// Oklab is a representation of the OkLab color space
 /// The implementation is based on the following blog post
 ///
-/// @link https://bottosson.github.io/posts/oklab/
-
+/// @link <https://bottosson.github.io/posts/oklab/>
 #[derive(Debug, Clone, Copy)]
 pub struct OkLab {
     pub l: f64,
@@ -21,7 +20,11 @@ impl SliceOps<3> for OkLab {
         [self.l, self.a, self.b]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         OkLab {
             l: slice[0],
             a: slice[1],

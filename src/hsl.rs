@@ -4,9 +4,8 @@ use crate::rgb::Rgb;
 
 /// Implementation of the HSL color model. The implementation is based on the article below
 ///
-/// @link https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
-/// @link https://en.wikipedia.org/wiki/HSL_and_HSV
-
+/// @link <https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/>
+/// @link <https://en.wikipedia.org/wiki/HSL_and_HSV>
 #[derive(Debug, Clone, Copy)]
 pub struct Hsl {
     pub h: f64,
@@ -115,7 +114,11 @@ impl SliceOps<3> for Hsl {
         [self.h, self.s, self.l]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Hsl {
             h: slice[0],
             s: slice[1],

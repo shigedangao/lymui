@@ -1,6 +1,7 @@
 use crate::error::Error;
 use crate::rgb::Rgb;
 
+/// Represents a hexadecimal color value.
 #[derive(Debug)]
 pub struct Hex(pub String);
 

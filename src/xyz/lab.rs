@@ -8,7 +8,6 @@ use crate::ops::SliceOps;
 /// @link https://en.wikipedia.org/wiki/CIELAB_color_space
 /// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
 /// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
-
 #[derive(Debug, Clone, Copy)]
 pub struct Lab {
     pub l: f64,
@@ -23,7 +22,11 @@ impl SliceOps<3> for Lab {
         [self.l, self.a, self.b]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Lab {
             l: slice[0],
             a: slice[1],

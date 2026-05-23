@@ -4,7 +4,7 @@ use crate::{ops::AsFloat, ops::SliceOps};
 /// Cymk is an implementation of the Cymk color space
 ///
 /// The implementation formula is based on the link below
-/// @link https://www.rapidtables.com/convert/color/rgb-to-cmyk.html
+/// @link <https://www.rapidtables.com/convert/color/rgb-to-cmyk.html>
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Cymk {
     pub c: f64,
@@ -56,7 +56,11 @@ impl SliceOps<4> for Cymk {
         [self.c, self.y, self.m, self.k]
     }
 
-    fn from_slice(slice: [Self::Item; 4]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 4]) -> Self {
         Cymk {
             c: slice[0],
             y: slice[1],

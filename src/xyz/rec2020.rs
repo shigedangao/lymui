@@ -3,9 +3,8 @@ use crate::ops::SliceOps;
 
 /// Rec2020 is an implementation of the rec2020 colorspace
 ///
-/// @link https://en.wikipedia.org/wiki/Rec._2020
-/// @link https://agraphicsguynotes.com/posts/basic_color_science_for_graphcis_engineer/#rec-2020
-
+/// @link <https://en.wikipedia.org/wiki/Rec._2020>
+/// @link <https://agraphicsguynotes.com/posts/basic_color_science_for_graphcis_engineer/#rec-2020>
 #[derive(Debug, Clone, Copy)]
 pub struct Rec2020 {
     pub r: f64,
@@ -20,7 +19,11 @@ impl SliceOps<3> for Rec2020 {
         [self.r, self.g, self.b]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Rec2020 {
             r: slice[0],
             g: slice[1],

@@ -5,8 +5,7 @@ use crate::rgb::Rgb;
 /// Implementation of the Yuv color model
 ///
 /// Formula used can be found below
-/// @link https://fr.wikipedia.org/wiki/YUV#%C3%89quations
-
+/// @link <https://fr.wikipedia.org/wiki/YUV#%C3%89quations>
 #[derive(Debug, Clone, Copy)]
 pub struct Yuv {
     pub y: f64,
@@ -52,7 +51,11 @@ impl SliceOps<3> for Yuv {
         [self.y, self.u, self.v]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Yuv {
             y: slice[0],
             u: slice[1],

@@ -4,7 +4,7 @@ use crate::rgb::Rgb;
 
 /// Implement the HWB color model. The implementation is based on the provided link
 ///
-/// @link https://en.wikipedia.org/wiki/HWB_color_model
+/// @link <https://en.wikipedia.org/wiki/HWB_color_model>
 #[derive(Debug, Clone, Copy)]
 pub struct Hwb {
     pub h: f64,
@@ -49,7 +49,11 @@ impl SliceOps<3> for Hwb {
         [self.h, self.w, self.b]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Hwb {
             h: slice[0],
             w: slice[1],

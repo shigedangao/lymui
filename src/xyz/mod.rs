@@ -34,6 +34,7 @@ const D65: [f64; 3] = [0.95047, 1.0, 1.08883];
 const EPSILON: f64 = 0.008856;
 const KAPPA: f64 = 903.3;
 
+/// Xyz color space. An XYZ color is defined based on different type of whitepoint. See below for the supported whitepoints.
 #[derive(Debug, Default, Clone, Copy)]
 pub struct Xyz {
     pub x: f64,
@@ -47,7 +48,7 @@ pub struct Xyz {
 /// - Adobe
 ///
 /// All of these matrices are taken from the website linked below
-/// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
+/// @link <http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html>
 #[derive(Clone, Copy)]
 pub enum Kind {
     D50,
@@ -78,7 +79,11 @@ impl SliceOps<3> for Xyz {
         [self.x, self.y, self.z]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Xyz {
             x: slice[0],
             y: slice[1],

@@ -1,3 +1,4 @@
+/// Represents an error that can occur during color parsing or generation.
 #[derive(Debug)]
 pub enum Error {
     Parse(String),

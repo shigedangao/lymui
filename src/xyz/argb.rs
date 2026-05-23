@@ -30,7 +30,11 @@ impl SliceOps<3> for Argb {
         [self.r, self.g, self.b]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Argb {
             r: slice[0],
             g: slice[1],

@@ -7,8 +7,7 @@ const Y: f64 = 1.164;
 
 /// Implementation of the Ycbcr colorspace. The implementation formula is based on the links below
 ///
-/// @link https://stackoverflow.com/a/13616564/7489243
-
+/// @link <https://stackoverflow.com/a/13616564/7489243>
 #[derive(Debug, Clone, Copy)]
 pub struct Ycbcr {
     pub y: u8,
@@ -37,7 +36,11 @@ impl SliceOps<3> for Ycbcr {
         [self.y, self.cb, self.cr]
     }
 
-    fn from_slice(slice: [Self::Item; 3]) -> Self {
+    fn to_vec(&self) -> Vec<Self::Item> {
+        self.as_slice().to_vec()
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
         Ycbcr {
             y: slice[0],
             cb: slice[1],

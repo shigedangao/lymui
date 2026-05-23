@@ -15,8 +15,7 @@ const ANSI_RGB_CODE: [&str; 16] = [
 /// - 4 bit 16 colors
 ///
 /// The implemention is based on the color-convert library
-/// @link https://github.com/Qix-/color-convert/tree/master
-
+/// @link <https://github.com/Qix-/color-convert/tree/master>
 #[derive(Debug)]
 pub struct Ansi(pub u8);
 
