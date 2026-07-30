@@ -5,9 +5,9 @@ use crate::{ops::AsFloat, rgb::Rgb};
 
 /// Implementation of the aRGB colorspace. Based on the following links
 ///
-/// @link https://en.wikipedia.org/wiki/Adobe_RGB_color_space#cite_note-AdobeRGBColorImagingEncoding-4#Specifications
-/// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
-/// @link https://stackoverflow.com/a/40231268/7489243
+/// @link <https://en.wikipedia.org/wiki/Adobe_RGB_color_space#cite_note-AdobeRGBColorImagingEncoding-4#Specifications>
+/// @link <http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html>
+/// @link <https://stackoverflow.com/a/40231268/7489243>
 ///
 /// /!\ The conversion is not perfect it's quite close based on the implementation above
 #[derive(Debug, Clone, Copy)]

@@ -7,7 +7,7 @@ use crate::rgb::Rgb;
 /// The shade is computed based on a factor. The factor should be a number between 0 to 1
 ///
 /// Computation is based on the article below
-/// @link https://maketintsandshades.com/about
+/// @link <https://maketintsandshades.com/about>
 #[derive(Debug)]
 pub struct Shade(pub Vec<Rgb>);
 

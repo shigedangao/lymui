@@ -5,9 +5,9 @@ use crate::ops::SliceOps;
 /// The current implementation uses the D65 standard illuminent
 ///
 /// The computation reference can be found below
-/// @link https://en.wikipedia.org/wiki/CIELAB_color_space
-/// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
-/// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
+/// @link <https://en.wikipedia.org/wiki/CIELAB_color_space>
+/// @link <http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html>
+/// @link <http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html>
 #[derive(Debug, Clone, Copy)]
 pub struct Lab {
     pub l: f64,
@@ -38,7 +38,7 @@ impl SliceOps<3> for Lab {
 impl Lab {
     /// Compute the
     fn compute_f(c: f64) -> f64 {
-        if c > 0.008856 {
+        if c > 0.008_856 {
             c.cbrt()
         } else {
             (c * 7.787) + 16.0 / 116.0

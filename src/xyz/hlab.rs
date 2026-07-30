@@ -44,7 +44,7 @@ impl Hlab {
 }
 
 // Formula can be found here
-// @link http://www.easyrgb.com/en/math.php#text5
+// @link <http://www.easyrgb.com/en/math.php#text5>
 impl From<Xyz> for Hlab {
     fn from(xyz: Xyz) -> Self {
         let (ka, kb) = Hlab::get_ka_kb();
@@ -57,7 +57,7 @@ impl From<Xyz> for Hlab {
 }
 
 // Formula can be found here
-// @link http://www.easyrgb.com/en/math.php#text5
+// @link <http://www.easyrgb.com/en/math.php#text5>
 // /!\ Note that the Xyz returns is not scaled. Hence the usage of 0.01
 impl From<Hlab> for Xyz {
     fn from(hlab: Hlab) -> Self {

@@ -1,81 +1,93 @@
 /// Matrices for xyz color space
 pub mod xyz {
     // Matrix to convert from RGB to XYZ for the D65 light (sRGB setting)
-    pub(crate) const X65: [f64; 3] = [0.4124564, 0.3575761, 0.1804375];
-    pub(crate) const Y65: [f64; 3] = [0.2126729, 0.7151522, 0.0721750];
-    pub(crate) const Z65: [f64; 3] = [0.0193339, 0.1191920, 0.9503041];
+    pub(crate) const X65: [f64; 3] = [0.412_456_4, 0.357_576_1, 0.180_437_5];
+    pub(crate) const Y65: [f64; 3] = [0.212_672_9, 0.715_152_2, 0.072_175_0];
+    pub(crate) const Z65: [f64; 3] = [0.019_333_9, 0.119_192_0, 0.950_304_1];
 
     // srgb from Xyz to std RGB
-    pub(crate) const RX65: [f64; 3] = [3.2404542, -1.5371385, -0.4985314];
-    pub(crate) const RY65: [f64; 3] = [-0.9692660, 1.8760108, 0.0415560];
-    pub(crate) const RZ65: [f64; 3] = [0.0556434, -0.2040259, 1.0572252];
+    pub(crate) const RX65: [f64; 3] = [3.240_454_2, -1.537_138_5, -0.498_531_4];
+    pub(crate) const RY65: [f64; 3] = [-0.969_266_0, 1.876_010_8, 0.041_556_0];
+    pub(crate) const RZ65: [f64; 3] = [0.055_643_4, -0.204_025_9, 1.057_225_2];
 
     // Matrix to convert from RGB to XYZ for the D50 light (sRGB setting)
-    pub(crate) const X50: [f64; 3] = [0.4360747, 0.3850649, 0.1430804];
-    pub(crate) const Y50: [f64; 3] = [0.2225045, 0.7168786, 0.0606169];
-    pub(crate) const Z50: [f64; 3] = [0.0139322, 0.0971045, 0.7141733];
+    pub(crate) const X50: [f64; 3] = [0.436_074_7, 0.385_064_9, 0.143_080_4];
+    pub(crate) const Y50: [f64; 3] = [0.222_504_5, 0.716_878_6, 0.060_616_9];
+    pub(crate) const Z50: [f64; 3] = [0.013_932_2, 0.097_104_5, 0.714_173_3];
 
-    pub(crate) const RX50: [f64; 3] = [3.1338561, -1.6168667, -0.4906146];
-    pub(crate) const RY50: [f64; 3] = [-0.9787684, 1.9161415, 0.0334540];
-    pub(crate) const RZ50: [f64; 3] = [0.0719453, -0.2289914, 1.4052427];
+    pub(crate) const RX50: [f64; 3] = [3.133_856_1, -1.616_866_7, -0.490_614_6];
+    pub(crate) const RY50: [f64; 3] = [-0.978_768_4, 1.916_141_5, 0.033_454_0];
+    pub(crate) const RZ50: [f64; 3] = [0.071_945_3, -0.228_991_4, 1.405_242_7];
 
     // Matrix to convert from RGB to XYZ with the adobe 1998 profile
-    pub(crate) const AX: [f64; 3] = [0.5767309, 0.1855540, 0.1881852];
-    pub(crate) const AY: [f64; 3] = [0.2973769, 0.6273491, 0.0752741];
-    pub(crate) const AZ: [f64; 3] = [0.0270343, 0.0706872, 0.9911085];
+    pub(crate) const AX: [f64; 3] = [0.576_730_9, 0.185_554_0, 0.188_185_2];
+    pub(crate) const AY: [f64; 3] = [0.297_376_9, 0.627_349_1, 0.075_274_1];
+    pub(crate) const AZ: [f64; 3] = [0.027_034_3, 0.070_687_2, 0.991_108_5];
 
     // srgb from Xyz to Adobe RGB
-    pub(crate) const ARX: [f64; 3] = [2.0413690, -0.5649464, -0.3446944];
-    pub(crate) const ARY: [f64; 3] = [-0.9692660, 1.8760108, 0.0415560];
-    pub(crate) const ARZ: [f64; 3] = [0.0134474, -0.1183897, 1.0154096];
+    pub(crate) const ARX: [f64; 3] = [2.041_369_0, -0.564_946_4, -0.344_694_4];
+    pub(crate) const ARY: [f64; 3] = [-0.969_266_0, 1.876_010_8, 0.041_556_0];
+    pub(crate) const ARZ: [f64; 3] = [0.013_447_4, -0.118_389_7, 1.015_409_6];
 }
 
 pub mod argb {
     // Constant
     // From Xyz to aRGB as defined on these specs
     //
-    // @link https://en.wikipedia.org/wiki/Adobe_RGB_color_space#cite_note-AdobeRGBColorImagingEncoding-4#Specifications
-    // @link https://stackoverflow.com/questions/40017741/mathematical-conversion-srgb-and-adobergb
-    pub(crate) const XR: [f64; 3] = [2.041588, -0.565007, -0.344731];
-    pub(crate) const YG: [f64; 3] = [-0.969244, 1.875968, 0.041555];
-    pub(crate) const ZB: [f64; 3] = [0.013444, -0.118362, 1.015175];
+    // @link <https://en.wikipedia.org/wiki/Adobe_RGB_color_space#cite_note-AdobeRGBColorImagingEncoding-4#Specifications>
+    // @link <https://stackoverflow.com/questions/40017741/mathematical-conversion-srgb-and-adobergb>
+    pub(crate) const XR: [f64; 3] = [2.041_588, -0.565_007, -0.344_731];
+    pub(crate) const YG: [f64; 3] = [-0.969_244, 1.875_968, 0.041_555];
+    pub(crate) const ZB: [f64; 3] = [0.013_444, -0.118_362, 1.015_175];
 
     // Constant provided by
-    // @link http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
-    pub(crate) const RR: [f64; 3] = [0.5767309, 0.1855540, 0.1881852];
-    pub(crate) const GG: [f64; 3] = [0.2973769, 0.6273491, 0.0752741];
-    pub(crate) const BB: [f64; 3] = [0.0270343, 0.0706872, 0.9911085];
+    // @link <http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html>
+    pub(crate) const RR: [f64; 3] = [0.576_730_9, 0.185_554_0, 0.188_185_2];
+    pub(crate) const GG: [f64; 3] = [0.297_376_9, 0.627_349_1, 0.075_274_1];
+    pub(crate) const BB: [f64; 3] = [0.027_034_3, 0.070_687_2, 0.991_108_5];
 }
 
 pub mod oklab {
     // Constant provided by https://bottosson.github.io/posts/oklab/
-    pub(crate) const OKSR: [f64; 3] = [0.4122214708, 0.5363325363, 0.0514459929];
-    pub(crate) const OKSG: [f64; 3] = [0.2119034982, 0.6806995451, 0.1073969566];
-    pub(crate) const OKSB: [f64; 3] = [0.0883024619, 0.2817188376, 0.6299787005];
+    pub(crate) const OKSR: [f64; 3] = [0.412_221_470_8, 0.536_332_536_3, 0.051_445_992_9];
+    pub(crate) const OKSG: [f64; 3] = [0.211_903_498_2, 0.680_699_545_1, 0.107_396_956_6];
+    pub(crate) const OKSB: [f64; 3] = [0.088_302_461_9, 0.281_718_837_6, 0.629_978_700_5];
 
-    pub(crate) const OKL: [f64; 3] = [0.2104542553, 0.7936177850, 0.0040720468];
-    pub(crate) const OKA: [f64; 3] = [1.9779984951, 2.4285922050, 0.4505937099];
-    pub(crate) const OKB: [f64; 3] = [0.0259040371, 0.7827717662, 0.8086757660];
+    pub(crate) const OKL: [f64; 3] = [0.210_454_255_3, 0.793_617_785_0, 0.004_072_046_8];
+    pub(crate) const OKA: [f64; 3] = [1.977_998_495_1, 2.428_592_205_0, 0.450_593_709_9];
+    pub(crate) const OKB: [f64; 3] = [0.025_904_037_1, 0.782_771_766_2, 0.808_675_766_0];
 
-    pub(crate) const ROL: [f64; 2] = [0.3963377774, 0.2158037573];
-    pub(crate) const ROM: [f64; 2] = [0.1055613458, 0.0638541728];
-    pub(crate) const ROS: [f64; 2] = [0.0894841775, 1.2914855480];
+    pub(crate) const ROL: [f64; 2] = [0.396_337_777_4, 0.215_803_757_3];
+    pub(crate) const ROM: [f64; 2] = [0.105_561_345_8, 0.063_854_172_8];
+    pub(crate) const ROS: [f64; 2] = [0.089_484_177_5, 1.291_485_548_0];
 
-    pub(crate) const ROR: [f64; 3] = [4.0767416621, 3.3077115913, 0.2309699292];
-    pub(crate) const ROG: [f64; 3] = [-1.2684380046, 2.6097574011, 0.3413193965];
-    pub(crate) const ROB: [f64; 3] = [-0.0041960863, 0.7034186147, 1.7076147010];
+    pub(crate) const ROR: [f64; 3] = [4.076_741_662_1, 3.307_711_591_3, 0.230_969_929_2];
+    pub(crate) const ROG: [f64; 3] = [-1.268_438_004_6, 2.609_757_401_1, 0.341_319_396_5];
+    pub(crate) const ROB: [f64; 3] = [-0.004_196_086_3, 0.703_418_614_7, 1.707_614_701_0];
 }
 
 pub mod rec2020 {
     // Used to convert an Xyz to a rec2020
     // Matrices can be found in the link below
-    // @link https://agraphicsguynotes.com/posts/basic_color_science_for_graphcis_engineer/#rec-2020
-    pub(crate) const XR: [f64; 3] = [1.716651187971267, -0.355670783776392, -0.253366281373659];
-    pub(crate) const XG: [f64; 3] = [-0.666684351832489, 1.616481236634939, 0.015768545813911];
-    pub(crate) const XB: [f64; 3] = [0.017639857445310, -0.042770613257808, 0.942103121235473];
+    // @link <https://agraphicsguynotes.com/posts/basic_color_science_for_graphcis_engineer/#rec-2020>
+    pub(crate) const XR: [f64; 3] = [
+        1.716_651_187_971_267,
+        -0.355_670_783_776_392,
+        -0.253_366_281_373_659,
+    ];
+    pub(crate) const XG: [f64; 3] = [
+        -0.666_684_351_832_489,
+        1.616_481_236_634_939,
+        0.015_768_545_813_911,
+    ];
+    pub(crate) const XB: [f64; 3] = [
+        0.017_639_857_445_310,
+        -0.042_770_613_257_808,
+        0.942_103_121_235_473,
+    ];
 
     // Used to convert a rec2020 to an xyz
-    pub(crate) const XX: [f64; 3] = [0.6369580, 0.1446169, 0.1688810];
-    pub(crate) const XY: [f64; 3] = [0.2627002, 0.6779981, 0.0593017];
-    pub(crate) const XZ: [f64; 3] = [0_f64, 0.0280727, 1.0609851];
+    pub(crate) const XX: [f64; 3] = [0.636_958_0, 0.144_616_9, 0.168_881_0];
+    pub(crate) const XY: [f64; 3] = [0.262_700_2, 0.677_998_1, 0.059_301_7];
+    pub(crate) const XZ: [f64; 3] = [0_f64, 0.028_072_7, 1.060_985_1];
 }

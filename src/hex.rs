@@ -18,6 +18,10 @@ pub trait HexOps {
     /// - FF -> 102
     /// - EE -> 170
     /// - AA -> 119
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the hexadecimal value is invalid.
     fn get_u8_parts(&mut self) -> Result<(u8, u8, u8), Error>;
     /// Convert an RGB to into a short hexadecimal value
     ///
@@ -114,8 +118,7 @@ impl From<Rgb> for Hex {
         let hex = hex_vec
             .into_iter()
             .map(|v| if v.len() == 1 { format!("0{v}") } else { v })
-            .collect::<Vec<_>>()
-            .join("");
+            .collect::<String>();
 
         Hex(format!("#{hex}"))
     }

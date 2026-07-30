@@ -5,9 +5,9 @@ use crate::ops::SliceOps;
 /// The current implementation uses the D65 standard illuminent
 ///
 /// The computation reference can be found below
-/// @link https://en.wikipedia.org/wiki/CIELUV
-/// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
-/// @link http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html
+/// @link <https://en.wikipedia.org/wiki/CIELUV>
+/// @link <http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html>
+/// @link <http://www.brucelindbloom.com/index.html?Eqn_RGB_to_XYZ.html>
 #[derive(Debug, Clone, Copy)]
 pub struct Luv {
     pub l: f64,

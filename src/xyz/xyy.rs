@@ -39,18 +39,18 @@ impl Xyy {
     ///
     /// * `xyz` - &Xyz
     /// * `target` - Target
-    fn get_fields_from_xyz(xyz: &Xyz, target: Target) -> f64 {
+    fn get_fields_from_xyz(xyz: &Xyz, target: &Target) -> f64 {
         match target {
-            Target::X(v) => Xyy::compute_xyy(xyz, v).unwrap_or(CHROMA_X),
-            Target::Y(v) => Xyy::compute_xyy(xyz, v).unwrap_or(CHROMA_Y),
+            Target::X(v) => Xyy::compute_xyy(xyz, *v).unwrap_or(CHROMA_X),
+            Target::Y(v) => Xyy::compute_xyy(xyz, *v).unwrap_or(CHROMA_Y),
         }
     }
 }
 
 impl From<Xyz> for Xyy {
     fn from(xyz: Xyz) -> Self {
-        let x = Xyy::get_fields_from_xyz(&xyz, Target::X(xyz.x));
-        let y = Xyy::get_fields_from_xyz(&xyz, Target::Y(xyz.y));
+        let x = Xyy::get_fields_from_xyz(&xyz, &Target::X(xyz.x));
+        let y = Xyy::get_fields_from_xyz(&xyz, &Target::Y(xyz.y));
 
         Xyy { x, y, _y: xyz.y }
     }

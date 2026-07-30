@@ -40,7 +40,7 @@ impl Ansi {
 
 impl FromRgb<AnsiKind> for Ansi {
     // Implementation based on
-    // @link https://github.com/Qix-/color-convert/blob/427cbb70540bb9e5b3e94aa3bb9f97957ee5fbc0/conversions.js#L525
+    // @link <https://github.com/Qix-/color-convert/blob/427cbb70540bb9e5b3e94aa3bb9f97957ee5fbc0/conversions.js#L525>
     fn from_rgb(rgb: Rgb, kind: AnsiKind) -> Self {
         match kind {
             AnsiKind::C16 => {
@@ -58,13 +58,13 @@ impl FromRgb<AnsiKind> for Ansi {
                         | f64::round(r / 255_f64) as u8);
 
                 if value == 2_f64 {
-                    ansi += 60
+                    ansi += 60;
                 }
 
                 Ansi(ansi)
             }
             // The 8bit (256 colors) implementation is based on the following stackoverflow post
-            // @link https://stackoverflow.com/a/26665998/7489243
+            // @link <https://stackoverflow.com/a/26665998/7489243>
             AnsiKind::C256 => {
                 let (r, g, b) = rgb.as_f64();
 
@@ -94,7 +94,7 @@ impl TryFrom<Ansi> for Rgb {
     type Error = Error;
 
     // Conversion based on work done by @MightyPork
-    // @link https://gist.github.com/MightyPork/1d9bd3a3fd4eb1a661011560f6921b5b
+    // @link <https://gist.github.com/MightyPork/1d9bd3a3fd4eb1a661011560f6921b5b>
     fn try_from(ansi: Ansi) -> Result<Self, Error> {
         match ansi.0 {
             0..=16 => {

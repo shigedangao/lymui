@@ -2,7 +2,7 @@ use crate::ops::AsFloat;
 use crate::ops::SliceOps;
 
 // Constant
-pub const ADBOBE_RGB_COMPOUND: f64 = 2.19921875;
+pub const ADBOBE_RGB_COMPOUND: f64 = 2.199_218_75;
 
 /// FromRgb is a trait that allows a type T to process an RGB Color
 pub trait FromRgb<T> {
@@ -20,7 +20,7 @@ pub struct Rgb {
 
 impl AsFloat for Rgb {
     fn as_f64(&self) -> (f64, f64, f64) {
-        (self.r as f64, self.g as f64, self.b as f64)
+        (f64::from(self.r), f64::from(self.g), f64::from(self.b))
     }
 }
 

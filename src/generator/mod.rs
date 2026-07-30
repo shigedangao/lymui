@@ -10,6 +10,10 @@ pub trait GeneratorOps {
     ///
     /// * `rgb` - Rgb
     /// * `factor` - f64
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the computation of the generator (shade or tint) fails.
     fn compute(rgb: Rgb, factor: f64) -> Result<Self, Error>
     where
         Self: Sized;

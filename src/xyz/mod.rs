@@ -30,8 +30,8 @@ mod transfer;
 
 // Constant
 // Illuminent for D65 2°
-const D65: [f64; 3] = [0.95047, 1.0, 1.08883];
-const EPSILON: f64 = 0.008856;
+const D65: [f64; 3] = [0.950_47, 1.0, 1.088_83];
+const EPSILON: f64 = 0.008_856;
 const KAPPA: f64 = 903.3;
 
 /// Xyz color space. An XYZ color is defined based on different type of whitepoint. See below for the supported whitepoints.
@@ -60,13 +60,13 @@ impl FromRgb<Kind> for Xyz {
     fn from_rgb(rgb: Rgb, kind: Kind) -> Self {
         match kind {
             Kind::D65 => {
-                Xyz::compute_xyz_from_matrix((xyz::X65, xyz::Y65, xyz::Z65), Srgb::from(rgb))
+                Xyz::compute_xyz_from_matrix((xyz::X65, xyz::Y65, xyz::Z65), &Srgb::from(rgb))
             }
             Kind::D50 => {
-                Xyz::compute_xyz_from_matrix((xyz::X50, xyz::Y50, xyz::Z50), Srgb::from(rgb))
+                Xyz::compute_xyz_from_matrix((xyz::X50, xyz::Y50, xyz::Z50), &Srgb::from(rgb))
             }
             Kind::Adobe => {
-                Xyz::compute_xyz_from_matrix((xyz::AX, xyz::AY, xyz::AZ), Argb::from(rgb))
+                Xyz::compute_xyz_from_matrix((xyz::AX, xyz::AY, xyz::AZ), &Argb::from(rgb))
             }
         }
     }
@@ -101,7 +101,7 @@ impl Xyz {
     /// * `c` - (f64, f64, f64)
     fn compute_xyz_from_matrix<T: AsFloat>(
         matrices: ([f64; 3], [f64; 3], [f64; 3]),
-        rgb_compat: T,
+        rgb_compat: &T,
     ) -> Self {
         let (r, g, b) = rgb_compat.as_f64();
         let (xm, ym, zm) = matrices;

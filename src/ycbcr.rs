@@ -25,7 +25,7 @@ impl Ycbcr {
 
 impl AsFloat for Ycbcr {
     fn as_f64(&self) -> (f64, f64, f64) {
-        (self.y as f64, self.cb as f64, self.cr as f64)
+        (f64::from(self.y), f64::from(self.cb), f64::from(self.cr))
     }
 }
 
