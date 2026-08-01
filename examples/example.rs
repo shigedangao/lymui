@@ -4,6 +4,7 @@ use lymui::{
     ops::SliceOps,
     prelude::*,
     rgb::FromRgb,
+    tone::Tone,
     xyz::{Kind, rec2020::Rec2020},
 };
 
@@ -56,4 +57,11 @@ fn main() {
     // Create a shade of rgb
     let shade = Shade::compute(rgb, 0.1);
     assert!(shade.is_ok());
+
+    let tone = Tone::from(Rgb {
+        r: 255,
+        g: 255,
+        b: 255,
+    });
+    dbg!(tone);
 }

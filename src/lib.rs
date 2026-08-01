@@ -15,6 +15,7 @@ pub mod hue;
 pub mod hwb;
 pub mod ops;
 pub mod rgb;
+pub mod tone;
 pub mod util;
 pub mod xyz;
 pub mod ycbcr;
