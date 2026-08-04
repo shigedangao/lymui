@@ -4,7 +4,6 @@ use lymui::{
     ops::SliceOps,
     prelude::*,
     rgb::FromRgb,
-    tone::Tone,
     xyz::{Kind, rec2020::Rec2020},
 };
 
@@ -45,14 +44,18 @@ fn main() {
     };
     // Using the utility method to easily convert an RGB type to any type that implement the XYZ
     let rec2020: Rec2020 = from_rgb_space_to_xyz_space(rgb.clone(), None);
-    dbg!(rec2020);
+    assert_eq!(rec2020.r, (0.5800179952190697 * 100_000.) / 100_000.);
+    assert_eq!(rec2020.g, (0.4596835755617258 * 100_000.) / 100_000.);
+    assert_eq!(rec2020.b, (0.7109727343600348 * 100_000.) / 100_000.);
 
     rgb_to_hex();
     rgb_to_xyz();
 
     // You can also create a color using a slice of rgb
     let hsl = Hsl::from_slice(&rgb.as_slice().map(|v| v as f64));
-    dbg!(hsl);
+    assert_eq!(hsl.h, 170.);
+    assert_eq!(hsl.s, 125.);
+    assert_eq!(hsl.l, 194.);
 
     // Create a shade of rgb
     let shade = Shade::compute(rgb, 0.1);
@@ -63,5 +66,5 @@ fn main() {
         g: 255,
         b: 255,
     });
-    dbg!(tone);
+    assert_eq!(tone.0, 100.);
 }

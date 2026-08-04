@@ -8,6 +8,7 @@ pub use crate::hsv::Hsv;
 pub use crate::hue::Hue;
 pub use crate::hwb::Hwb;
 pub use crate::rgb::Rgb;
+pub use crate::tone::Tone;
 pub use crate::xyz::Xyz;
 pub use crate::xyz::prelude::*;
 pub use crate::ycbcr::Ycbcr;
