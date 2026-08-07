@@ -73,11 +73,7 @@ impl From<Argb> for Xyz {
 
 impl From<Rgb> for Argb {
     fn from(rgb: Rgb) -> Self {
-        let (mut r, mut g, mut b) = rgb.as_f64();
-
-        r /= 255_f64;
-        g /= 255_f64;
-        b /= 255_f64;
+        let (r, g, b) = rgb.linear_rescaling();
 
         Argb {
             r: r.compute_argb_gamma(),

@@ -5,6 +5,6 @@ edition = "2024"
 keywords = ["color", "color-conversion"]
 license = "MIT"
 name = "lymui"
-version = "0.2.3"
+version = "0.2.4"
 
 [dependencies]

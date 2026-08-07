@@ -1,4 +1,3 @@
-use crate::ops::AsFloat;
 use crate::ops::SliceOps;
 use crate::rgb::Rgb;
 
@@ -15,10 +14,7 @@ pub struct Yuv {
 
 impl From<Rgb> for Yuv {
     fn from(rgb: Rgb) -> Self {
-        let (mut r, mut g, mut b) = rgb.as_f64();
-        r /= 255_f64;
-        g /= 255_f64;
-        b /= 255_f64;
+        let (r, g, b) = rgb.linear_rescaling();
 
         let y = 0.299 * r + 0.587 * g + 0.114 * b;
 

@@ -45,6 +45,15 @@ impl Rgb {
 
         (min, max)
     }
+
+    /// Rescale the RGB color to the range [0, 1]
+    pub fn linear_rescaling(&self) -> (f64, f64, f64) {
+        (
+            self.r as f64 / 255.0,
+            self.g as f64 / 255.0,
+            self.b as f64 / 255.0,
+        )
+    }
 }
 
 impl SliceOps<3> for Rgb {

@@ -19,6 +19,7 @@ pub mod tone;
 pub mod util;
 pub mod xyz;
 pub mod ycbcr;
+pub mod ycocg;
 pub mod yuv;
 
 // For re-export
