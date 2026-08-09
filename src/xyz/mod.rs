@@ -26,7 +26,7 @@ pub mod xyy;
 pub mod prelude;
 
 mod matrices;
-mod transfer;
+pub(crate) mod transfer;
 
 // Constant
 // Illuminent for D65 2°

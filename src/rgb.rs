@@ -11,7 +11,7 @@ pub trait FromRgb<T> {
 }
 
 /// Represents an RGB color.
-#[derive(Debug, Default, Clone, Copy)]
+#[derive(Debug, Default, Clone, Copy, PartialEq)]
 pub struct Rgb {
     pub r: u8,
     pub g: u8,

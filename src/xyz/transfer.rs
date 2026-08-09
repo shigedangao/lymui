@@ -106,25 +106,25 @@ impl HdrCorrection for f64 {
     fn pq_eotf(self) -> f64 {
         let e_non_linear = self.powf(1_f64 / 78.843_75);
         let numerator = f64::max(e_non_linear - 0.835_937_5, 0_f64);
-        let divider = (18.851_562_5 - 18.687_5) * e_non_linear;
+        let denominator = 18.851_562_5 - 18.687_5 * e_non_linear;
 
         // Avoid dividing by 0
-        if divider == 0_f64 {
+        if denominator == 0_f64 {
             return 0_f64;
         }
 
-        10_000_f64 * f64::powf(numerator / divider, 1_f64 / 0.159_301_757_812_5)
+        10_000_f64 * f64::powf(numerator / denominator, 1_f64 / 0.159_301_757_812_5)
     }
 
     fn pq_inverse_eotf(self) -> Self {
         let ym1 = f64::powf(self / 10_000_f64, 0.159_301_757_812_5);
-        let numerator = (0.835_937_5 + 18.851_562_5) * ym1;
-        let divider = (1.0 + 18.6875) * ym1;
+        let numerator = 0.835_937_5 + 18.851_562_5 * ym1;
+        let denominator = 1.0 + 18.6875 * ym1;
 
-        if divider == 0. {
+        if denominator == 0. {
             return 0_f64;
         }
 
-        f64::powf(numerator / divider, 78.843_75)
+        f64::powf(numerator / denominator, 78.843_75)
     }
 }

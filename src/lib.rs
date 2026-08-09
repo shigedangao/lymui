@@ -13,6 +13,7 @@ pub mod hsl;
 pub mod hsv;
 pub mod hue;
 pub mod hwb;
+pub mod ictcp;
 pub mod ops;
 pub mod rgb;
 pub mod tone;
