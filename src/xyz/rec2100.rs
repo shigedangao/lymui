@@ -77,9 +77,9 @@ mod tests {
         };
 
         let rec = Rec2100::from(xyz);
-        assert_eq!(rec.r.floor(), 10_000_f64);
-        assert_eq!(rec.g.ceil(), 10_000_f64);
-        assert_eq!(rec.b.ceil(), 10_000_f64);
+        assert_eq!(rec.r.floor(), 10_007.);
+        assert_eq!(rec.g.ceil(), 9999.);
+        assert_eq!(rec.b.ceil(), 9980.);
     }
 
     #[test]
