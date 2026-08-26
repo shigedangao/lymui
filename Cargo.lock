@@ -4,4 +4,4 @@ version = 4
 
 [[package]]
 name = "lymui"
-version = "0.2.5"
+version = "0.2.6"

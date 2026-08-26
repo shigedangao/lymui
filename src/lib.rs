@@ -17,6 +17,7 @@ pub mod ictcp;
 pub mod ops;
 pub mod rgb;
 pub mod tone;
+pub mod tsl;
 pub mod util;
 pub mod xyz;
 pub mod ycbcr;
