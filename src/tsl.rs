@@ -1,4 +1,5 @@
 use super::rgb::Rgb;
+use crate::ops::SliceOps;
 use std::f64::consts::PI;
 
 /// TSL (Tint, Saturation, Lightness) computation based on the given forumlas defined on the article below
@@ -74,6 +75,26 @@ impl From<Rgb> for Tsl {
 impl From<Tsl> for Rgb {
     fn from(tsl: Tsl) -> Self {
         tsl.compute_rgb()
+    }
+}
+
+impl SliceOps<3> for Tsl {
+    type Item = f64;
+
+    fn as_slice(&self) -> [Self::Item; 3] {
+        [self.t, self.s, self.l]
+    }
+
+    fn to_vec(&self) -> Vec<Self::Item> {
+        vec![self.t, self.s, self.l]
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
+        Self {
+            t: slice[0],
+            s: slice[1],
+            l: slice[2],
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-use crate::rgb::Rgb;
+use crate::{ops::SliceOps, rgb::Rgb};
 
 // Constants
 const QUARTER: f64 = 1. / 4.;
@@ -46,6 +46,26 @@ impl From<Ycocg> for Rgb {
             r: ((tmp + value.co) * 255.) as u8,
             g: ((value.y + value.cg) * 255.) as u8,
             b: ((tmp - value.co) * 255.) as u8,
+        }
+    }
+}
+
+impl SliceOps<3> for Ycocg {
+    type Item = f64;
+
+    fn as_slice(&self) -> [Self::Item; 3] {
+        [self.y, self.co, self.cg]
+    }
+
+    fn to_vec(&self) -> Vec<Self::Item> {
+        vec![self.y, self.co, self.cg]
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
+        Self {
+            y: slice[0],
+            co: slice[1],
+            cg: slice[2],
         }
     }
 }

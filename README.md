@@ -34,6 +34,7 @@ Lymui is a color library which allows you to convert an RGB color to an other co
 | Ycocg         |   ✅      |
 | Ictcp         |   ✅      |
 | Tsl           |   ✅      |
+| Aces          |   ✅      |
 
 ### Usage
 
@@ -41,7 +42,7 @@ All colors start from the `Rgb` compatible color type. You can then convert it t
 
 ```toml
 [dependencies]
-lymui = "0.2.6"
+lymui = "0.2.7" (unreleased)
 ```
 
 Below is a code example of converting an `Rgb` color to `Xyz` using the `D65` lumens type.
