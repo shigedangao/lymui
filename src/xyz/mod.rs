@@ -7,6 +7,7 @@ use crate::{
 use matrices::xyz;
 use transfer::GammaCorrection;
 
+pub mod aces;
 pub mod argb;
 pub mod hcl;
 pub mod hlab;

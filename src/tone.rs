@@ -1,3 +1,4 @@
+use crate::ops::SliceOps;
 use crate::rgb::Rgb;
 use crate::xyz::srgb::Srgb;
 
@@ -20,6 +21,22 @@ impl From<Rgb> for Tone {
         };
 
         Self(tone)
+    }
+}
+
+impl SliceOps<1> for Tone {
+    type Item = f64;
+
+    fn as_slice(&self) -> [Self::Item; 1] {
+        [self.0]
+    }
+
+    fn to_vec(&self) -> Vec<Self::Item> {
+        vec![self.0]
+    }
+
+    fn from_slice(slice: &[Self::Item; 1]) -> Self {
+        Self(slice[0])
     }
 }
 

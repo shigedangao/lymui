@@ -1,3 +1,4 @@
+use crate::ops::SliceOps;
 use crate::rgb::Rgb;
 use crate::xyz::transfer::HdrCorrection;
 
@@ -125,6 +126,26 @@ impl From<Rgb> for Ictcp {
 impl From<Ictcp> for Rgb {
     fn from(value: Ictcp) -> Self {
         value.into_rgb()
+    }
+}
+
+impl SliceOps<3> for Ictcp {
+    type Item = f64;
+
+    fn as_slice(&self) -> [Self::Item; 3] {
+        [self.i, self.ct, self.cp]
+    }
+
+    fn to_vec(&self) -> Vec<Self::Item> {
+        vec![self.i, self.ct, self.cp]
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
+        Self {
+            i: slice[0],
+            ct: slice[1],
+            cp: slice[2],
+        }
     }
 }
 
