@@ -90,9 +90,9 @@ mod tests {
         let xyz = Xyz::from_rgb(rgb, Kind::D65);
         let hlab = Hlab::from(xyz);
 
-        assert_eq!(util::roundup(hlab.l, 1000.0), 21.987);
-        assert_eq!(util::roundup(hlab.a, 1000.0), 55.063);
-        assert_eq!(util::roundup(hlab.b, 1000.0), -130.759);
+        util::assert_approx!(hlab.l, 21.987, 1e-3);
+        util::assert_approx!(hlab.a, 55.063, 1e-3);
+        util::assert_approx!(hlab.b, -130.759, 1e-3);
     }
 
     #[test]
@@ -106,9 +106,9 @@ mod tests {
         let xyz = Xyz::from_rgb(rgb, Kind::D65);
         let hlab = Hlab::from(xyz);
 
-        assert_eq!(util::roundup(hlab.l, 1000.0), 100.0);
-        assert_eq!(util::roundup(hlab.a, 1000.0), 0.0);
-        assert_eq!(util::roundup(hlab.b, 1000.0), 0.0);
+        util::assert_approx!(hlab.l, 100.0, 1e-3);
+        util::assert_approx!(hlab.a, 0.0, 1e-3);
+        util::assert_approx!(hlab.b, 0.0, 1e-3);
     }
 
     #[test]
@@ -120,8 +120,8 @@ mod tests {
         };
 
         let xyz = Xyz::from(hlab);
-        assert_eq!(util::roundup(xyz.x, 10000.0), 0.1127);
-        assert_eq!(util::roundup(xyz.y, 10000.0), 0.0483);
-        assert_eq!(util::roundup(xyz.z, 10000.0), -0.5196);
+        util::assert_approx!(xyz.x, 0.1127, 1e-4);
+        util::assert_approx!(xyz.y, 0.0483, 1e-4);
+        util::assert_approx!(xyz.z, -0.5196, 1e-4);
     }
 }

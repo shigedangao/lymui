@@ -73,7 +73,7 @@ impl SliceOps<4> for Cymk {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::util::roundup;
+    use crate::util::{self};
 
     #[test]
     fn expect_to_create_cymk() {
@@ -86,8 +86,8 @@ mod tests {
         let cymk = Cymk::from(rgb);
 
         assert_eq!(cymk.c, 0.0);
-        assert_eq!(roundup(cymk.y, 100.0), 0.6);
-        assert_eq!(roundup(cymk.m, 100.0), 0.78);
+        util::assert_approx!(cymk.y, 0.6, 1e-3);
+        util::assert_approx!(cymk.m, 0.78, 1e-2);
         assert_eq!(cymk.k, 0.0);
     }
 

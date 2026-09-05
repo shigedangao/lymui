@@ -1,10 +1,21 @@
-/// Roundup a value based on the given cell value
+/// Assert that two f64 values are approximately equal within a given epsilon
 ///
 /// # Arguments
 ///
-/// * `v` - f64
-/// * `cell` - f64
+/// * `left` - f64
+/// * `right` - f64
+/// * `epsilon` - f64
 #[cfg(test)]
-pub(crate) fn roundup(v: f64, cell: f64) -> f64 {
-    (v * cell).round() / cell
+macro_rules! assert_approx {
+    ($left:expr, $right:expr, $epsilon:expr) => {
+        assert!(
+            f64::abs($left - $right) < $epsilon,
+            "left: {}, right: {}",
+            $left,
+            $right
+        );
+    };
 }
+
+#[cfg(test)]
+pub(crate) use assert_approx;

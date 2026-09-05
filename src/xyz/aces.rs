@@ -65,7 +65,7 @@ impl From<Aces> for Xyz {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::util::roundup;
+    use crate::util::{self};
 
     #[test]
     fn expect_aces_from_xyz_and_back_xyz() {
@@ -78,8 +78,8 @@ mod tests {
         let aces = Aces::from(xyz);
         let xyz2 = Xyz::from(aces);
 
-        assert_eq!(roundup(xyz2.x, 100_000_000_000.0), 0.034_889_495_69);
-        assert_eq!(roundup(xyz2.y, 100_000_000_000.0), 0.017_213_474_86);
-        assert_eq!(roundup(xyz2.z, 100_000_000_000.0), 0.109_726_859_53);
+        util::assert_approx!(xyz2.x, 0.034_889_495_69, 1e-10);
+        util::assert_approx!(xyz2.y, 0.017_213_474_86, 1e-10);
+        util::assert_approx!(xyz2.z, 0.109_726_859_53, 1e-10);
     }
 }

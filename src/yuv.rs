@@ -74,9 +74,9 @@ mod tests {
         };
 
         let yuv = Yuv::from(rgb);
-        assert_eq!(util::roundup(yuv.y, 1000_f64), 0.124);
-        assert_eq!(util::roundup(yuv.u, 1000_f64), 0.122);
-        assert_eq!(util::roundup(yuv.v, 1000_f64), 0.063);
+        util::assert_approx!(yuv.y, 0.124, 1e-3);
+        util::assert_approx!(yuv.u, 0.122, 1e-3);
+        util::assert_approx!(yuv.v, 0.063, 1e-3);
     }
 
     #[test]

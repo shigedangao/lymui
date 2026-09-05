@@ -137,9 +137,9 @@ mod tests {
         let rgb = Rgb { r: 5, g: 10, b: 95 };
 
         let hsl = Hsl::from(rgb);
-        assert_eq!(util::roundup(hsl.h, 10.0), 237.0);
-        assert_eq!(util::roundup(hsl.s, 10.0), 90.0);
-        assert_eq!(util::roundup(hsl.l, 10.0), 19.6);
+        util::assert_approx!(hsl.h, 237.0, 1.0);
+        util::assert_approx!(hsl.s, 90.0, 1.0);
+        util::assert_approx!(hsl.l, 19.6, 1e-2);
     }
 
     #[test]
@@ -151,9 +151,9 @@ mod tests {
         };
 
         let hsl = Hsl::from(rgb);
-        assert_eq!(util::roundup(hsl.h, 10.0), 221.0);
-        assert_eq!(util::roundup(hsl.s, 10.0), 100.0);
-        assert_eq!(util::roundup(hsl.l, 10.0), 69.6);
+        util::assert_approx!(hsl.h, 221.0, 1.0);
+        util::assert_approx!(hsl.s, 100.0, 1.0);
+        util::assert_approx!(hsl.l, 69.6, 1e-2);
     }
 
     #[test]

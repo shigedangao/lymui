@@ -50,7 +50,7 @@ mod tests {
         let rgb = Rgb { r: 128, g: 0, b: 0 };
 
         let tone = Tone::from(rgb);
-        assert_eq!(25.531, util::roundup(tone.0, 1000.0))
+        util::assert_approx!(25.531, tone.0, 1e-3);
     }
 
     #[test]
@@ -58,7 +58,7 @@ mod tests {
         let rgb = Rgb { r: 255, g: 0, b: 0 };
 
         let tone = Tone::from(rgb);
-        assert_eq!(53.233, util::roundup(tone.0, 1000.0))
+        util::assert_approx!(53.233, tone.0, 1e-3);
     }
 
     #[test]

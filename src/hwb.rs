@@ -77,8 +77,8 @@ mod tests {
 
         let hwb = Hwb::from(rgb);
         assert_eq!(hwb.h, 244.0);
-        assert_eq!(util::roundup(hwb.w, 1000.0), 4.706);
-        assert_eq!(util::roundup(hwb.b, 1000.0), 63.529);
+        util::assert_approx!(hwb.w, 4.706, 1e-3);
+        util::assert_approx!(hwb.b, 63.529, 1e-3);
     }
 
     #[test]

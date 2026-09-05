@@ -95,8 +95,8 @@ mod tests {
         };
 
         let oklab = OkLab::from(oklch);
-        assert_eq!(util::roundup(oklab.l, 100000_f64), 0.26368);
-        assert_eq!(util::roundup(oklab.a, 100000_f64), 0.06116);
-        assert_eq!(util::roundup(oklab.b, 100000_f64), -0.1258);
+        util::assert_approx!(oklab.l, 0.26368, 1e-5);
+        util::assert_approx!(oklab.a, 0.06116, 1e-5);
+        util::assert_approx!(oklab.b, -0.1258, 1e-5);
     }
 }

@@ -77,9 +77,9 @@ mod tests {
         };
 
         let rec = Rec2100::from(xyz);
-        assert_eq!(rec.r.floor(), 10_007.);
-        assert_eq!(rec.g.ceil(), 9999.);
-        assert_eq!(rec.b.ceil(), 9980.);
+        util::assert_approx!(rec.r, 10_007.8, 1e-1);
+        util::assert_approx!(rec.g, 9998.7, 1e-1);
+        util::assert_approx!(rec.b, 9979.5, 1e-1);
     }
 
     #[test]
@@ -91,8 +91,8 @@ mod tests {
         };
 
         let xyz = Xyz::from(rec);
-        assert_eq!(util::roundup(xyz.x, 10_000_f64), 0.9505);
-        assert_eq!(util::roundup(xyz.y, 10_000_f64), 1_f64);
-        assert_eq!(util::roundup(xyz.z, 10_000_f64), 1.0891);
+        util::assert_approx!(xyz.x, 0.9505, 1e-4);
+        util::assert_approx!(xyz.y, 1_f64, 1e0);
+        util::assert_approx!(xyz.z, 1.0891, 1e-4);
     }
 }

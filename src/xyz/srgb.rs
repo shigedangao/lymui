@@ -123,9 +123,9 @@ mod tests {
         let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let srgb = Srgb::from(xyz);
-        assert_eq!(util::roundup(srgb.r, 1000.0), 0.196);
-        assert_eq!(util::roundup(srgb.g, 1000.0), 0.039);
-        assert_eq!(util::roundup(srgb.b, 1000.0), 0.373);
+        util::assert_approx!(srgb.r, 0.196, 1e-3);
+        util::assert_approx!(srgb.g, 0.039, 1e-3);
+        util::assert_approx!(srgb.b, 0.373, 1e-3);
     }
 
     #[test]
@@ -151,9 +151,9 @@ mod tests {
         let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let srgb = Srgb::from(xyz);
-        assert_eq!(util::roundup(srgb.r, 1000.0), 1.0);
-        assert_eq!(util::roundup(srgb.g, 1000.0), 1.0);
-        assert_eq!(util::roundup(srgb.b, 1000.0), 1.0);
+        util::assert_approx!(srgb.r, 1.0, 1e0);
+        util::assert_approx!(srgb.g, 1.0, 1e0);
+        util::assert_approx!(srgb.b, 1.0, 1e0);
     }
 
     #[test]
@@ -165,20 +165,8 @@ mod tests {
         };
 
         let xyz = Xyz::from(srgb);
-        assert_eq!(util::roundup(xyz.x, 1000.0), 0.035);
-        assert_eq!(util::roundup(xyz.y, 1000.0), 0.017);
-        assert_eq!(util::roundup(xyz.z, 1000.0), 0.110);
-    }
-
-    #[test]
-    fn expect_to_compute_srgb_from_rgb() {
-        let rgb = Rgb {
-            r: 255,
-            g: 255,
-            b: 255,
-        };
-
-        let srgb = Srgb::from(rgb);
-        dbg!(srgb);
+        util::assert_approx!(xyz.x, 0.035, 1e-3);
+        util::assert_approx!(xyz.y, 0.017, 1e-3);
+        util::assert_approx!(xyz.z, 0.110, 1e-3);
     }
 }

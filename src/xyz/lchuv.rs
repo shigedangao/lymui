@@ -86,9 +86,9 @@ mod tests {
         };
 
         let lch = Lchuv::from(xyz);
-        assert_eq!(util::roundup(lch.l, 100.0), 77.28);
-        assert_eq!(util::roundup(lch.c, 100.0), 12.0);
-        assert_eq!(util::roundup(lch.h, 100.0), 37.5);
+        util::assert_approx!(lch.l, 77.28, 1e-2);
+        util::assert_approx!(lch.c, 12.0, 1e-2);
+        util::assert_approx!(lch.h, 37.5, 1e-2);
     }
 
     #[test]
@@ -100,9 +100,9 @@ mod tests {
         };
 
         let lch = Lchuv::from(xyz);
-        assert_eq!(util::roundup(lch.l, 100.0), 100.0);
-        assert_eq!(util::roundup(lch.c, 100.0), 0.0);
-        assert_eq!(util::roundup(lch.h, 100.0), 360.0);
+        util::assert_approx!(lch.l, 100.0, 1e-2);
+        util::assert_approx!(lch.c, 0.0, 1e-2);
+        util::assert_approx!(lch.h, 360.0, 1e-2);
     }
 
     #[test]
@@ -114,8 +114,8 @@ mod tests {
         };
 
         let xyz = Xyz::from(lch);
-        assert_eq!(util::roundup(xyz.x, 10000.0), 0.4266);
-        assert_eq!(util::roundup(xyz.y, 10000.0), 0.2711);
-        assert_eq!(util::roundup(xyz.z, 10000.0), 0.7783);
+        util::assert_approx!(xyz.x, 0.4266, 1e-4);
+        util::assert_approx!(xyz.y, 0.2711, 1e-4);
+        util::assert_approx!(xyz.z, 0.7783, 1e-4);
     }
 }

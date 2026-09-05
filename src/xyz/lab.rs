@@ -98,9 +98,9 @@ mod test {
         let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let lab = Lab::from(xyz);
-        assert_eq!(util::roundup(lab.l, 100.0), 26.26);
-        assert_eq!(util::roundup(lab.a, 100.0), 63.50);
-        assert_eq!(util::roundup(lab.b, 100.0), -83.43);
+        util::assert_approx!(lab.l, 26.26, 1e-2);
+        util::assert_approx!(lab.a, 63.50, 1e-2);
+        util::assert_approx!(lab.b, -83.43, 1e-2);
     }
 
     #[test]
@@ -110,9 +110,9 @@ mod test {
         let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let lab = Lab::from(xyz);
-        assert_eq!(util::roundup(lab.l, 100.0), 0.0);
-        assert_eq!(util::roundup(lab.a, 100.0), 0.0);
-        assert_eq!(util::roundup(lab.b, 100.0), 0.0);
+        util::assert_approx!(lab.l, 0.0, 1e-1);
+        util::assert_approx!(lab.a, 0.0, 1e-1);
+        util::assert_approx!(lab.b, 0.0, 1e-1);
     }
 
     #[test]
@@ -126,9 +126,9 @@ mod test {
         let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let lab = Lab::from(xyz);
-        assert_eq!(util::roundup(lab.l, 100.0), 100.0);
-        assert_eq!(util::roundup(lab.a, 100.0), 0.0);
-        assert_eq!(util::roundup(lab.b, 100.0), 0.0);
+        util::assert_approx!(lab.l, 100.0, 1e-1);
+        util::assert_approx!(lab.a, 0.0, 1e-1);
+        util::assert_approx!(lab.b, 0.0, 1e-1);
     }
 
     #[test]
@@ -140,9 +140,9 @@ mod test {
         };
 
         let xyz = Xyz::from(lab);
-        assert_eq!(util::roundup(xyz.x, 1000.0), 0.116);
-        assert_eq!(util::roundup(xyz.y, 1000.0), 0.050);
-        assert_eq!(util::roundup(xyz.z, 1000.0), 0.539);
+        util::assert_approx!(xyz.x, 0.116, 1e-3);
+        util::assert_approx!(xyz.y, 0.050, 1e-3);
+        util::assert_approx!(xyz.z, 0.539, 1e-3);
     }
 
     #[test]
@@ -168,8 +168,8 @@ mod test {
         };
 
         let xyz = Xyz::from(lab);
-        assert_eq!(util::roundup(xyz.x, 1000.0), 0.950);
-        assert_eq!(util::roundup(xyz.y, 1000.0), 1.000);
-        assert_eq!(util::roundup(xyz.z, 1000.0), 1.089);
+        util::assert_approx!(xyz.x, 0.950, 1e-3);
+        util::assert_approx!(xyz.y, 1.000, 1e-3);
+        util::assert_approx!(xyz.z, 1.089, 1e-3);
     }
 }

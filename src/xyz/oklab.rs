@@ -99,9 +99,9 @@ mod tests {
         };
 
         let oklab = OkLab::from(rgb);
-        assert_eq!(util::roundup(oklab.l, 100000.0), 0.26368);
-        assert_eq!(util::roundup(oklab.a, 100000.0), 0.06116);
-        assert_eq!(util::roundup(oklab.b, 100000.0), -0.1258);
+        util::assert_approx!(oklab.l, 0.26368, 1e-5);
+        util::assert_approx!(oklab.a, 0.06116, 1e-5);
+        util::assert_approx!(oklab.b, -0.1258, 1e-5);
     }
 
     #[test]
@@ -113,8 +113,8 @@ mod tests {
         };
 
         let srgb = Srgb::from(lab);
-        assert_eq!(util::roundup(srgb.r, 100000.0), 0.19608);
-        assert_eq!(util::roundup(srgb.g, 100000.0), 0.03922);
-        assert_eq!(util::roundup(srgb.b, 100000.0), 0.37255);
+        util::assert_approx!(srgb.r, 0.19608, 1e-5);
+        util::assert_approx!(srgb.g, 0.03922, 1e-5);
+        util::assert_approx!(srgb.b, 0.37255, 1e-5);
     }
 }

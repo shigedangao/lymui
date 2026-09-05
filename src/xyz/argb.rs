@@ -97,9 +97,9 @@ mod tests {
         };
 
         let argb = Argb::from(xyz);
-        assert_eq!(util::roundup(argb.r, 1000_f64), 1_f64);
-        assert_eq!(util::roundup(argb.g, 1000_f64), 1_f64);
-        assert_eq!(util::roundup(argb.b, 1000_f64), 1_f64);
+        util::assert_approx!(argb.r, 1_f64, 1e-3);
+        util::assert_approx!(argb.g, 1_f64, 1e-3);
+        util::assert_approx!(argb.b, 1_f64, 1e-3);
     }
 
     #[test]
@@ -111,9 +111,9 @@ mod tests {
         };
 
         let xyz = Xyz::from(argb);
-        assert_eq!(util::roundup(xyz.x, 100000_f64), 0.95047);
-        assert_eq!(util::roundup(xyz.y, 100000_f64), 1.0);
-        assert_eq!(util::roundup(xyz.z, 100000_f64), 1.08883);
+        util::assert_approx!(xyz.x, 0.95047, 1e-5);
+        util::assert_approx!(xyz.y, 1.0, 1e-5);
+        util::assert_approx!(xyz.z, 1.08883, 1e-5);
     }
 
     #[test]
@@ -125,6 +125,8 @@ mod tests {
         };
 
         let argb = Argb::from(xyz);
-        dbg!(argb);
+        util::assert_approx!(argb.r, 0.047384, 1e-6);
+        util::assert_approx!(argb.g, 0.229642, 1e-6);
+        util::assert_approx!(argb.b, 0.001874, 1e-6);
     }
 }
