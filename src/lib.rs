@@ -22,6 +22,7 @@ pub mod util;
 pub mod xyz;
 pub mod ycbcr;
 pub mod ycocg;
+pub mod ydbdr;
 pub mod yuv;
 
 // For re-export

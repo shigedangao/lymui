@@ -6,7 +6,7 @@ const HALF: f64 = 1. / 2.;
 
 // Ycocg color space conversion based on the following formulas defined in this page:
 // @link <https://en.wikipedia.org/wiki/YCoCg>
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Ycocg {
     pub y: f64,
     pub co: f64,
