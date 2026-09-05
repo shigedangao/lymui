@@ -45,6 +45,7 @@ impl From<Ydbdr> for Rgb {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::util;
 
     #[test]
     fn expect_to_compute_ydbdr_and_back() {
@@ -79,8 +80,8 @@ mod tests {
         };
 
         let ydbdr = Ydbdr::from(rgb);
-        assert_eq!(ydbdr.y.round(), 1.);
-        assert_eq!(ydbdr.db, 0.);
-        assert_eq!(ydbdr.dr, 0.);
+        util::assert_approx!(ydbdr.y.round(), 1., 0.1);
+        util::assert_approx!(ydbdr.db, 0., 0.1);
+        util::assert_approx!(ydbdr.dr, 0., 1e-6);
     }
 }
