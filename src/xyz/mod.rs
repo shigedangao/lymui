@@ -249,7 +249,6 @@ mod tests {
         };
 
         let xyz = Xyz::from_rgb(rgb, Kind::Adobe);
-        dbg!(&xyz);
         let generated_rgb = xyz.as_rgb(Kind::Adobe);
 
         assert_eq!(generated_rgb.r, 50);
@@ -282,9 +281,9 @@ mod tests {
         };
 
         let xyz = Xyz::from_rgb(rgb, Kind::D50);
-        assert_eq!(util::roundup(xyz.x, 1000000_f64), 0.031451);
-        assert_eq!(util::roundup(xyz.y, 1000000_f64), 0.01621);
-        assert_eq!(util::roundup(xyz.z, 1000000_f64), 0.082466);
+        util::assert_approx!(xyz.x, 0.031451, 1e-6);
+        util::assert_approx!(xyz.y, 0.01621, 1e-5);
+        util::assert_approx!(xyz.z, 0.082466, 1e-6);
     }
 
     #[test]

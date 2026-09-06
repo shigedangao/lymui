@@ -15,4 +15,5 @@ pub use crate::xyz::Xyz;
 pub use crate::xyz::prelude::*;
 pub use crate::ycbcr::Ycbcr;
 pub use crate::ycocg::Ycocg;
+pub use crate::ydbdr::Ydbdr;
 pub use crate::yuv::Yuv;

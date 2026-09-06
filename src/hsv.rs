@@ -106,7 +106,7 @@ mod tests {
         let hsv = Hsv::from(rgb);
         assert_eq!(hsv.h, 180.0);
         assert_eq!(hsv.s, 50.0);
-        assert_eq!(util::roundup(hsv.v, 1000_f64), 39.216);
+        util::assert_approx!(hsv.v, 39.216, 1e-3);
     }
 
     #[test]

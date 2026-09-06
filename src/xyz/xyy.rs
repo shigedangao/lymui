@@ -104,8 +104,8 @@ mod tests {
 
         let xyy = Xyy::from(xyz);
 
-        assert_eq!(util::roundup(xyy.x, 1000.0), 0.375);
-        assert_eq!(util::roundup(xyy.y, 1000.0), 0.333);
+        util::assert_approx!(xyy.x, 0.375, 1e-3);
+        util::assert_approx!(xyy.y, 0.333, 1e-3);
         assert_eq!(xyy._y, 0.8);
     }
 
@@ -119,9 +119,9 @@ mod tests {
 
         let xyy = Xyy::from(xyz);
 
-        assert_eq!(util::roundup(xyy.x, 1000.0), 0.313);
-        assert_eq!(util::roundup(xyy.y, 1000.0), 0.329);
-        assert_eq!(util::roundup(xyy._y, 1000.0), 0.0);
+        util::assert_approx!(xyy.x, 0.313, 1e-3);
+        util::assert_approx!(xyy.y, 0.329, 1e-3);
+        util::assert_approx!(xyy._y, 0.0, 1e-3);
     }
 
     #[test]
@@ -134,8 +134,8 @@ mod tests {
 
         let xyy = Xyy::from(xyz);
 
-        assert_eq!(util::roundup(xyy.x, 1000.0), 0.313);
-        assert_eq!(util::roundup(xyy.y, 1000.0), 0.329);
-        assert_eq!(util::roundup(xyy._y, 1000.0), 1.0);
+        util::assert_approx!(xyy.x, 0.313, 1e-3);
+        util::assert_approx!(xyy.y, 0.329, 1e-3);
+        util::assert_approx!(xyy._y, 1.0, 1e-3);
     }
 }

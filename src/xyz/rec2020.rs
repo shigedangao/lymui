@@ -72,9 +72,9 @@ mod tests {
 
         let rec = Rec2020::from(xyz);
 
-        assert_eq!(util::roundup(rec.r, 100000_f64), 0.0426);
-        assert_eq!(util::roundup(rec.g, 100000_f64), 0.02253);
-        assert_eq!(util::roundup(rec.b, 100000_f64), 0.28801);
+        util::assert_approx!(rec.r, 0.0426, 1e-5);
+        util::assert_approx!(rec.g, 0.02253, 1e-5);
+        util::assert_approx!(rec.b, 0.28801, 1e-5);
     }
 
     #[test]
@@ -86,8 +86,8 @@ mod tests {
         };
 
         let xyz = Xyz::from(rec);
-        assert_eq!(util::roundup(xyz.x, 100000_f64), 0.02338);
-        assert_eq!(util::roundup(xyz.y, 100000_f64), 0.01172);
-        assert_eq!(util::roundup(xyz.z, 100000_f64), 0.10459);
+        util::assert_approx!(xyz.x, 0.02338, 1e-5);
+        util::assert_approx!(xyz.y, 0.01172, 1e-5);
+        util::assert_approx!(xyz.z, 0.10459, 1e-5);
     }
 }

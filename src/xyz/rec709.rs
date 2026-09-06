@@ -79,9 +79,9 @@ mod tests {
 
         let rec = Rec709::from(xyz);
 
-        assert_eq!(util::roundup(rec.r, 100000_f64), 0.02522);
-        assert_eq!(util::roundup(rec.g, 100000_f64), 0.01652);
-        assert_eq!(util::roundup(rec.b, 100000_f64), 0.30717);
+        util::assert_approx!(rec.r, 0.02522, 1e-5);
+        util::assert_approx!(rec.g, 0.01652, 1e-5);
+        util::assert_approx!(rec.b, 0.30717, 1e-5);
     }
 
     #[test]
@@ -93,8 +93,8 @@ mod tests {
         };
 
         let xyz = Xyz::from(rec709);
-        assert_eq!(util::roundup(xyz.x, 100000_f64), 0.02338);
-        assert_eq!(util::roundup(xyz.y, 100000_f64), 0.01172);
-        assert_eq!(util::roundup(xyz.z, 100000_f64), 0.10459);
+        util::assert_approx!(xyz.x, 0.02338, 1e-5);
+        util::assert_approx!(xyz.y, 0.01172, 1e-5);
+        util::assert_approx!(xyz.z, 0.10459, 1e-5);
     }
 }

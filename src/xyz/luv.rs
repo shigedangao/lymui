@@ -105,9 +105,9 @@ mod tests {
         let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
         let luv = Luv::from(xyz);
-        assert_eq!(util::roundup(luv.l, 1000.0), 9.603);
-        assert_eq!(util::roundup(luv.u, 1000.0), -2.851);
-        assert_eq!(util::roundup(luv.v, 1000.0), -34.829);
+        util::assert_approx!(luv.l, 9.603, 1e-3);
+        util::assert_approx!(luv.u, -2.851, 1e-3);
+        util::assert_approx!(luv.v, -34.829, 1e-3);
     }
 
     #[test]
@@ -131,9 +131,9 @@ mod tests {
         };
 
         let xyz = Xyz::from(luv);
-        assert_eq!(util::roundup(xyz.x, 100000.0), 0.00567);
-        assert_eq!(util::roundup(xyz.y, 100000.0), 0.00554);
-        assert_eq!(util::roundup(xyz.z, 100000.0), 0.00589);
+        util::assert_approx!(xyz.x, 0.00567, 1e-5);
+        util::assert_approx!(xyz.y, 0.00554, 1e-5);
+        util::assert_approx!(xyz.z, 0.00589, 1e-5);
     }
 
     #[test]
@@ -145,8 +145,8 @@ mod tests {
         };
 
         let xyz = Xyz::from(luv);
-        assert_eq!(util::roundup(xyz.x, 100000.0), 0.95047);
-        assert_eq!(util::roundup(xyz.y, 100000.0), 1.00000);
-        assert_eq!(util::roundup(xyz.z, 100000.0), 1.08883);
+        util::assert_approx!(xyz.x, 0.95047, 1e-5);
+        util::assert_approx!(xyz.y, 1.00000, 1e-5);
+        util::assert_approx!(xyz.z, 1.08883, 1e-5);
     }
 }

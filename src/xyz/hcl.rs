@@ -99,9 +99,9 @@ mod tests {
         };
 
         let hcl = Hcl::from(luv);
-        assert_eq!(util::roundup(hcl.h, 1000.0), 265.323);
-        assert_eq!(util::roundup(hcl.c, 1000.0), 34.953);
-        assert_eq!(util::roundup(hcl.l, 1000.0), 9.606);
+        util::assert_approx!(hcl.h, 265.323, 1e-3);
+        util::assert_approx!(hcl.c, 34.953, 1e-3);
+        util::assert_approx!(hcl.l, 9.606, 1e-3);
     }
 
     #[test]
@@ -127,8 +127,8 @@ mod tests {
         };
 
         let luv = Luv::from(hcl);
-        assert_eq!(util::roundup(luv.l, 1000_f64), 9.606);
-        assert_eq!(util::roundup(luv.u, 1000_f64), -2.85);
-        assert_eq!(util::roundup(luv.v, 1000_f64), -34.836);
+        util::assert_approx!(luv.l, 9.606, 1e-3);
+        util::assert_approx!(luv.u, -2.85, 1e-3);
+        util::assert_approx!(luv.v, -34.836, 1e-3);
     }
 }
