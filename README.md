@@ -1,6 +1,9 @@
-## Lymui 🌈
- 
-Lymui is a color library which allows you to convert an RGB color to an other color (see the supported list of colors below).
+<div align="center">
+  <img src="assets/logo.svg" alt="lymui" width="120" />
+  <h1>Lymui 🌈</h1>
+</div>
+
+Lymui is a lightweight, dependency-free color library for Rust that converts RGB into 30+ other color spaces (see the full list below).
 
 ### Supported colors
 
@@ -36,33 +39,38 @@ Lymui is a color library which allows you to convert an RGB color to an other co
 | Tsl           |   ✅      |
 | Aces          |   ✅      |
 | Ydbdr         |   ✅      |
+| Yiq           |   ✅      |
 
 ### Usage
 
-All colors start from the `Rgb` compatible color type. You can then convert it to any other color type using the `From` trait. For an `Xyz` color, you can convert it to any type based on the lumens type e.g: `D65`, `D50`, `D75`.
+Add lymui to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-lymui = "0.2.7"
+lymui = "0.2.8" (not yet released)
 ```
 
-Below is a code example of converting an `Rgb` color to `Xyz` using the `D65` lumens type.
+Every conversion starts from the `Rgb` type. Color spaces fall into two families:
+
+- **RGB-based** (`Hex`, `Hsl`, `Cymk`, `Ansi`, …) — convert directly with the `From` trait.
+- **XYZ-based** (`Lab`, `Luv`, `OkLab`, `Srgb`, `Rec2020`, …) — derived from `Xyz`, which needs a lumens `Kind` (`D65`, `D50` or `D75`).
 
 ```rust
-use lymui::{prelude::*, from_rgb_space_to_xyz_space};
+use lymui::{prelude::*, from_rgb_space_to_xyz_space, rgb::FromRgb, xyz::Kind};
 
 fn main() {
-    let rgb = Rgb {
-        r: 255,
-        g: 255,
-        b: 255,
-    };
+    let rgb = Rgb { r: 255, g: 255, b: 255 };
 
-    // Convert an `Rgb` color to `Xyz` using the `D65` lumens type.
+    // RGB-based color: use the `From` trait directly.
+    let hex = Hex::from(rgb.clone());
+    assert_eq!(hex.0, "#ffffff");
+
+    // XYZ-based color: pick a lumens `Kind`.
     let xyz = Xyz::from_rgb(rgb.clone(), Kind::D65);
 
-    // You can also use the more convenient function to convert a color e.g:
-    let xyz2 = from_rgb_space_to_xyz_space::<Rgb, Xyz>(rgb, Kind::D65);
+    // Or go straight from RGB to any XYZ-based space in a single call.
+    // Pass `None` to default to D65, or `Some(Kind::D50)` to choose.
+    let luv: Luv = from_rgb_space_to_xyz_space(rgb, None);
 }
 ```
 
