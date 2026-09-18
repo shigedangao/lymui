@@ -1,0 +1,9 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="lymui">
+  <!-- modern rainbow: concentric arcs with rounded caps -->
+  <g fill="none" stroke-linecap="round" stroke-width="9">
+    <path d="M13 92 A51 51 0 0 1 115 92" stroke="#ff3b6b"/>
+    <path d="M26 92 A38 38 0 0 1 102 92" stroke="#ff9f0a"/>
+    <path d="M39 92 A25 25 0 0 1 89 92" stroke="#34c759"/>
+    <path d="M52 92 A12 12 0 0 1 76 92" stroke="#0a84ff"/>
+  </g>
+</svg>
