@@ -51,10 +51,12 @@ impl Srgb {
     /// # Arguments
     ///
     /// * `&mut self` - Self
-    pub fn as_linear(&mut self) {
+    pub fn as_linear(&mut self) -> &mut Self {
         self.r = self.r.powf(2.2);
         self.g = self.g.powf(2.2);
         self.b = self.b.powf(2.2);
+
+        self
     }
 
     /// Transform a linear sRGB into a non linear sRGB
@@ -62,10 +64,12 @@ impl Srgb {
     /// # Arguments
     ///
     /// * `&mut self` - Self
-    pub fn as_non_linear(&mut self) {
+    pub fn as_non_linear(&mut self) -> &mut Self {
         self.r = self.r.powf(1_f64 / 2.2);
         self.g = self.g.powf(1_f64 / 2.2);
         self.b = self.b.powf(1_f64 / 2.2);
+
+        self
     }
 }
 

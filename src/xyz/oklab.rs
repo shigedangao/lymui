@@ -1,6 +1,6 @@
 use super::matrices::oklab::*;
 use super::{Xyz, srgb::Srgb};
-use crate::ops::SliceOps;
+use crate::ops::{AsFloat, SliceOps};
 
 /// Oklab is a representation of the OkLab color space
 /// The implementation is based on the following blog post
@@ -35,8 +35,7 @@ impl SliceOps<3> for OkLab {
 
 impl From<Srgb> for OkLab {
     fn from(mut rgb: Srgb) -> Self {
-        rgb.as_linear();
-        let Srgb { r, g, b } = rgb;
+        let (r, g, b) = rgb.as_linear().as_f64();
 
         let l = (OKSR[0] * r + OKSR[1] * g + OKSR[2] * b).cbrt();
         let m = (OKSG[0] * r + OKSG[1] * g + OKSG[2] * b).cbrt();
