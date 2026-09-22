@@ -1,5 +1,6 @@
 use super::matrices::oklab::*;
 use super::{Xyz, srgb::Srgb};
+use crate::hue::{Hue, MaxSaturationHue};
 use crate::ops::{AsFloat, SliceOps};
 
 /// Oklab is a representation of the OkLab color space
@@ -11,6 +12,25 @@ pub struct OkLab {
     pub l: f64,
     pub a: f64,
     pub b: f64,
+}
+
+impl OkLab {
+    /// Finds the cusp point of the OkLab color space for the given `a` and `b` values.
+    pub fn find_cusp(a: f64, b: f64) -> (f64, f64) {
+        let s_cusp = Hue::compute_max_saturation(a, b);
+
+        let oklab = Self {
+            l: 1.,
+            a: s_cusp * a,
+            b: s_cusp * b,
+        };
+
+        let rgb_at_max = Srgb::from(oklab);
+        let l_cusp = f64::cbrt(1. / f64::max(rgb_at_max.r.max(rgb_at_max.g), rgb_at_max.b));
+        let c_cusp = l_cusp * s_cusp;
+
+        (l_cusp, c_cusp)
+    }
 }
 
 impl SliceOps<3> for OkLab {
