@@ -1,5 +1,6 @@
 use super::matrices::oklab::*;
 use super::{Xyz, srgb::Srgb};
+use crate::hue::{Hue, MaxSaturationHue};
 use crate::ops::{AsFloat, SliceOps};
 
 /// Oklab is a representation of the OkLab color space
@@ -11,6 +12,74 @@ pub struct OkLab {
     pub l: f64,
     pub a: f64,
     pub b: f64,
+}
+
+impl OkLab {
+    /// Create a new `OkLab` color from the given `r`, `g`, and `b` values (sRGB).
+    pub fn new(r: f64, g: f64, b: f64) -> Self {
+        let l = (OKSR[0] * r + OKSR[1] * g + OKSR[2] * b).cbrt();
+        let m = (OKSG[0] * r + OKSG[1] * g + OKSG[2] * b).cbrt();
+        let s = (OKSB[0] * r + OKSB[1] * g + OKSB[2] * b).cbrt();
+
+        OkLab {
+            l: OKL[0] * l + OKL[1] * m - OKL[2] * s,
+            a: OKA[0] * l - OKA[1] * m + OKA[2] * s,
+            b: OKB[0] * l + OKB[1] * m - OKB[2] * s,
+        }
+    }
+
+    /// Converts this `OkLab` color to an sRGB color.
+    ///
+    /// # Arguments
+    ///
+    /// * `linear` - Whether to return a linear sRGB color.
+    pub fn to_srgb(&self, linear: bool) -> Srgb {
+        let OkLab { l, a, b } = self;
+
+        let _l = (l + ROL[0] * a + ROL[1] * b).powi(3);
+        let _m = (l - ROM[0] * a - ROM[1] * b).powi(3);
+        let _s = (l - ROS[0] * a - ROS[1] * b).powi(3);
+
+        let mut srgb = Srgb {
+            r: ROR[0] * _l - ROR[1] * _m + ROR[2] * _s,
+            g: ROG[0] * _l + ROG[1] * _m - ROG[2] * _s,
+            b: ROB[0] * _l - ROB[1] * _m + ROB[2] * _s,
+        };
+
+        if linear {
+            return srgb;
+        }
+
+        srgb.as_non_linear();
+
+        srgb
+    }
+
+    /// Finds the cusp point of the OkLab color space for the given `a` and `b` values.
+    ///
+    /// # Arguments
+    ///
+    /// * `a` - The `a` value of the OkLab color space.
+    /// * `b` - The `b` value of the OkLab color space.
+    pub fn find_cusp(a: f64, b: f64) -> (f64, f64, f64, f64) {
+        let s_cusp = Hue::compute_max_saturation(a, b);
+
+        let rgb_at_max = Self {
+            l: 1.,
+            a: s_cusp * a,
+            b: s_cusp * b,
+        }
+        .to_srgb(true);
+
+        let l_cusp = f64::cbrt(1. / f64::max(rgb_at_max.r.max(rgb_at_max.g), rgb_at_max.b));
+        let c_cusp = l_cusp * s_cusp;
+
+        // compute the saturation and tone values
+        let s = c_cusp / l_cusp;
+        let t = c_cusp / (1. - l_cusp);
+
+        (l_cusp, c_cusp, s, t)
+    }
 }
 
 impl SliceOps<3> for OkLab {
@@ -37,34 +106,13 @@ impl From<Srgb> for OkLab {
     fn from(mut rgb: Srgb) -> Self {
         let (r, g, b) = rgb.as_linear().as_f64();
 
-        let l = (OKSR[0] * r + OKSR[1] * g + OKSR[2] * b).cbrt();
-        let m = (OKSG[0] * r + OKSG[1] * g + OKSG[2] * b).cbrt();
-        let s = (OKSB[0] * r + OKSB[1] * g + OKSB[2] * b).cbrt();
-
-        OkLab {
-            l: OKL[0] * l + OKL[1] * m - OKL[2] * s,
-            a: OKA[0] * l - OKA[1] * m + OKA[2] * s,
-            b: OKB[0] * l + OKB[1] * m - OKB[2] * s,
-        }
+        OkLab::new(r, g, b)
     }
 }
 
 impl From<OkLab> for Srgb {
     fn from(oklab: OkLab) -> Self {
-        let OkLab { l, a, b } = oklab;
-
-        let _l = (l + ROL[0] * a + ROL[1] * b).powi(3);
-        let _m = (l - ROM[0] * a - ROM[1] * b).powi(3);
-        let _s = (l - ROS[0] * a - ROS[1] * b).powi(3);
-
-        let mut srgb = Srgb {
-            r: ROR[0] * _l - ROR[1] * _m + ROR[2] * _s,
-            g: ROG[0] * _l + ROG[1] * _m - ROG[2] * _s,
-            b: ROB[0] * _l - ROB[1] * _m + ROB[2] * _s,
-        };
-
-        srgb.as_non_linear();
-        srgb
+        oklab.to_srgb(false)
     }
 }
 
