@@ -1,4 +1,8 @@
+// Constants
 const GAMMA_CORECTION: f64 = 2.199_218_75;
+const K1: f64 = 0.206;
+const K2: f64 = 0.03;
+const K3: f64 = (1. + K1) / (1. + K2);
 
 /// Gamma correction trait for xyz color space
 pub(crate) trait GammaCorrection {
@@ -24,7 +28,10 @@ pub(crate) trait GammaCorrection {
     /// @link <https://en.wikipedia.org/wiki/Rec._2020>
     /// @link <https://agraphicsguynotes.com/posts/basic_color_science_for_graphcis_engineer/#rec-2020>
     fn compute_rec2020_gamma_correction(self) -> f64;
+    /// Compute the inverse of the rec2020 gamma correction
     fn compute_rec2020_gamma_expanded(self) -> f64;
+    /// Compute the toe function for the rec2020 color space
+    fn toe_inv(self) -> f64;
 }
 
 /// HDR correction trait for xyz color space
@@ -99,6 +106,10 @@ impl GammaCorrection for f64 {
         }
 
         f64::powf((self + (1.0993 - 1_f64)) / 1.0993, 1_f64 / 0.45)
+    }
+
+    fn toe_inv(self) -> f64 {
+        (self * self + K1 * self) / (K3 * (self + K2))
     }
 }
 

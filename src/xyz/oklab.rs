@@ -16,7 +16,12 @@ pub struct OkLab {
 
 impl OkLab {
     /// Finds the cusp point of the OkLab color space for the given `a` and `b` values.
-    pub fn find_cusp(a: f64, b: f64) -> (f64, f64) {
+    ///
+    /// # Arguments
+    ///
+    /// * `a` - The `a` value of the OkLab color space.
+    /// * `b` - The `b` value of the OkLab color space.
+    pub fn find_cusp(a: f64, b: f64) -> (f64, f64, f64, f64) {
         let s_cusp = Hue::compute_max_saturation(a, b);
 
         let oklab = Self {
@@ -28,8 +33,10 @@ impl OkLab {
         let rgb_at_max = Srgb::from(oklab);
         let l_cusp = f64::cbrt(1. / f64::max(rgb_at_max.r.max(rgb_at_max.g), rgb_at_max.b));
         let c_cusp = l_cusp * s_cusp;
+        let s = c_cusp / l_cusp;
+        let t = c_cusp / (1. - l_cusp);
 
-        (l_cusp, c_cusp)
+        (l_cusp, c_cusp, s, t)
     }
 }
 

@@ -1,10 +1,11 @@
-use std::f64::consts::PI;
-
-use crate::ops::SliceOps;
-use crate::xyz::oklab::OkLab;
-
 use super::srgb::Srgb;
 use super::transfer::GammaCorrection;
+use crate::ops::SliceOps;
+use crate::xyz::oklab::OkLab;
+use std::f64::consts::PI;
+
+// Constants
+const SO: f64 = 0.5;
 
 #[derive(Debug, Clone, Copy)]
 pub struct OkHSV {
@@ -28,6 +29,18 @@ impl OkHSV {
 
         let l = lab.l;
         let h = 0.5 + 0.5 * f64::atan2(-lab.b, -lab.a) / PI;
+
+        let (l, c, s_max, t_max) = OkLab::find_cusp(a_, b_);
+        let k = 1. - SO / s_max;
+
+        let t = t_max / (c + l * t_max);
+        let l_v = t * l;
+        let c_v = t * c;
+
+        let l_vt = l_v.toe_inv();
+        let c_vt = c_v * l_vt / l_v;
+
+        let rgb_scale = Srgb::from(OkLab::from_slice(&[l_vt, a_ * c_vt, b_ * c_vt]));
 
         OkHSV {
             h: 0.,
