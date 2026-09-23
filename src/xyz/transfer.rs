@@ -31,6 +31,8 @@ pub(crate) trait GammaCorrection {
     /// Compute the inverse of the rec2020 gamma correction
     fn compute_rec2020_gamma_expanded(self) -> f64;
     /// Compute the toe function for the rec2020 color space
+    fn toe(self) -> f64;
+    /// Compute the inverse of the toe function for the rec2020 color space
     fn toe_inv(self) -> f64;
 }
 
@@ -106,6 +108,11 @@ impl GammaCorrection for f64 {
         }
 
         f64::powf((self + (1.0993 - 1_f64)) / 1.0993, 1_f64 / 0.45)
+    }
+
+    fn toe(self) -> f64 {
+        0.5 * (K3 * self - K1
+            + f64::sqrt((K3 * self - K1) * (K3 * self - K1) + 4. * K2 * K3 * self))
     }
 
     fn toe_inv(self) -> f64 {
