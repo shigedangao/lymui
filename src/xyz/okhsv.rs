@@ -36,8 +36,6 @@ impl OkHSV {
         let mut l_l = lab.l;
         let h = 0.5 + 0.5 * f64::atan2(-lab.b, -lab.a) / PI;
 
-        dbg!(a_);
-        dbg!(b_);
         let (_, _, s_max, t_max) = OkLab::find_cusp(a_, b_);
         let k = 1. - S0 / s_max;
 
@@ -69,6 +67,7 @@ impl From<Srgb> for OkHSV {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::util;
 
     #[test]
     fn expect_to_compute_okhsv() {
@@ -79,6 +78,9 @@ mod tests {
         };
 
         let okhsv = OkHSV::from(srgb);
-        dbg!(okhsv);
+
+        util::assert_approx!(okhsv.h, 0.7181, 1e-4);
+        util::assert_approx!(okhsv.s, 0.7592, 1e-4);
+        util::assert_approx!(okhsv.v, 0.7129, 1e-4);
     }
 }

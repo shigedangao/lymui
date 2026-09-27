@@ -232,6 +232,9 @@ mod tests {
         };
         let cymk: Cymk = convert_rgb_subcolor(rgb);
 
-        dbg!(cymk);
+        util::assert_approx!(cymk.c, 0.4845, 1e-4);
+        util::assert_approx!(cymk.y, 0.0, 1e-4);
+        util::assert_approx!(cymk.m, 0.8969, 1e-4);
+        util::assert_approx!(cymk.k, 0.2392, 1e-4);
     }
 }

@@ -62,7 +62,6 @@ impl OkLab {
     /// * `b` - The `b` value of the OkLab color space.
     pub fn find_cusp(a: f64, b: f64) -> (f64, f64, f64, f64) {
         let s_cusp = Hue::compute_max_saturation(a, b);
-        dbg!(s_cusp);
 
         let rgb_at_max = Self {
             l: 1.,
