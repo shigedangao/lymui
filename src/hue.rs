@@ -88,19 +88,20 @@ impl MaxSaturationHue for Hue {
             ),
         };
 
-        let s = k0 + k1 * a + k2 * b + k3 * a * a + k4 * a * b;
+        // approximate max saturation using a polynomial
+        let ss = k0 + k1 * a + k2 * b + k3 * a * a + k4 * a * b;
 
         let k_l = 0.3963377774 * a + 0.2158037573 * b;
         let k_m = -0.1055613458 * a - 0.0638541728 * b;
         let k_s = -0.0894841775 * a - 1.2914855480 * b;
 
-        let (l_, l) = Self::compute_lms_units(s, k_l);
-        let (m_, m) = Self::compute_lms_units(s, k_m);
-        let (s_, s) = Self::compute_lms_units(s, k_s);
+        let (l_, l) = Self::compute_lms_units(ss, k_l);
+        let (m_, m) = Self::compute_lms_units(ss, k_m);
+        let (s_, s) = Self::compute_lms_units(ss, k_s);
 
         let l_ds = Self::compute_lds(3., l_, k_l);
-        let m_ds = Self::compute_lds(3., l_, k_m);
-        let s_ds = Self::compute_lds(3., l_, k_s);
+        let m_ds = Self::compute_lds(3., m_, k_m);
+        let s_ds = Self::compute_lds(3., s_, k_s);
 
         let l_ds2 = Self::compute_lds(6., k_l, l_);
         let m_ds2 = Self::compute_lds(6., k_m, m_);
@@ -110,7 +111,7 @@ impl MaxSaturationHue for Hue {
         let f1 = wl * l_ds + wm * m_ds + ws * s_ds;
         let f2 = wl * l_ds2 + wm * m_ds2 + ws * s_ds2;
 
-        s - f * f1 / (f1 * f1 - 0.5 * f * f2)
+        ss - f * f1 / (f1 * f1 - 0.5 * f * f2)
     }
 }
 
