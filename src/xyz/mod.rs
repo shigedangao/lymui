@@ -15,6 +15,7 @@ pub mod lab;
 pub mod lchlab;
 pub mod lchuv;
 pub mod luv;
+pub mod okhsv;
 pub mod oklab;
 pub mod oklch;
 pub mod rec2020;
