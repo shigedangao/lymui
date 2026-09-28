@@ -56,11 +56,53 @@ impl OkHSV {
 
         OkHSV { h, s, v }
     }
+
+    /// Converts this color to an sRGB color.
+    fn into(self) -> Srgb {
+        let OkHSV { h, s, v } = self;
+
+        let a_ = f64::cos(2. * PI * h);
+        let b_ = f64::sin(2. * PI * h);
+
+        let (_, _, s_max, t_max) = OkLab::find_cusp(a_, b_);
+        let k = 1. - S0 / s_max;
+
+        let l_v = 1. - s * S0 / (S0 + t_max - t_max * k * s);
+        let c_v = s * t_max * S0 / (S0 + t_max - t_max * k * s);
+
+        let mut l_l = v * l_v;
+        let mut c_c = v * c_v;
+
+        let l_vt = l_v.toe_inv();
+        let c_vt = c_v * l_vt / l_v;
+
+        let l_new = l_l.toe_inv();
+
+        let rgb_scale = OkLab::from_slice(&[l_vt, a_ * c_vt, b_ * c_vt]).to_srgb(true);
+        let scale_l = f64::cbrt(1. / f64::max(rgb_scale.r.max(rgb_scale.g), rgb_scale.b.max(0.)));
+
+        c_c = (c_c * l_new / l_l) * scale_l;
+        l_l = l_new * scale_l;
+
+        let rgb = OkLab::from_slice(&[l_l, c_c * a_, c_c * b_]).to_srgb(true);
+
+        Srgb {
+            r: rgb.r.apply_srgb_gamma_correction(),
+            g: rgb.g.apply_srgb_gamma_correction(),
+            b: rgb.b.apply_srgb_gamma_correction(),
+        }
+    }
 }
 
 impl From<Srgb> for OkHSV {
     fn from(value: Srgb) -> Self {
         Self::new(value)
+    }
+}
+
+impl From<OkHSV> for Srgb {
+    fn from(value: OkHSV) -> Self {
+        value.into()
     }
 }
 
@@ -82,5 +124,20 @@ mod tests {
         util::assert_approx!(okhsv.h, 0.7181, 1e-4);
         util::assert_approx!(okhsv.s, 0.7592, 1e-4);
         util::assert_approx!(okhsv.v, 0.7129, 1e-4);
+    }
+
+    #[test]
+    fn expect_to_convert_okhsv_to_srgb() {
+        let okhsv = OkHSV {
+            h: 0.7181764427720645,
+            s: 0.759202911281963,
+            v: 0.7129864949339406,
+        };
+
+        let srgb = Srgb::from(okhsv);
+
+        util::assert_approx!(srgb.r, 0.2, 1e-2);
+        util::assert_approx!(srgb.g, 0.4, 1e-2);
+        util::assert_approx!(srgb.b, 0.7019, 1e-4);
     }
 }

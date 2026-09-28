@@ -78,6 +78,10 @@ impl OkLab {
         let s = c_cusp / l_cusp;
         let t = c_cusp / (1. - l_cusp);
 
+        // compute the saturation and tone values
+        let s = c_cusp / l_cusp;
+        let t = c_cusp / (1. - l_cusp);
+
         (l_cusp, c_cusp, s, t)
     }
 }
