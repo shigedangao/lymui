@@ -15,6 +15,7 @@ pub mod lab;
 pub mod lchlab;
 pub mod lchuv;
 pub mod luv;
+pub mod okhsl;
 pub mod okhsv;
 pub mod oklab;
 pub mod oklch;
