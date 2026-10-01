@@ -121,7 +121,7 @@ impl OkHSL {
         let cs = Cs::new(lab.l, a_, b_);
         let s = match c_c < cs.c_mid {
             true => {
-                let k1 = cs.c_mid * cs.c_0;
+                let k1 = MID * cs.c_0;
                 let k2 = 1. - k1 / cs.c_mid;
 
                 let t = c_c / (k1 + k2 * c_c);
@@ -223,5 +223,22 @@ impl Cs {
                         + a * (0.002_992_15 - 0.453_995_68 * b - 0.146_618_72 * a))));
 
         (s, t)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn expect_to_convert_srgb_to_okhsl() {
+        let srgb = Srgb {
+            r: 0.2,
+            g: 0.4,
+            b: 0.7019607843,
+        };
+
+        let okhsl = OkHSL::new(srgb);
+        dbg!(okhsl);
     }
 }
