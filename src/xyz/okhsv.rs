@@ -58,6 +58,10 @@ impl OkHSV {
     }
 
     /// Converts this color to an sRGB color.
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - OkHSV
     fn into(self) -> Srgb {
         let OkHSV { h, s, v } = self;
 

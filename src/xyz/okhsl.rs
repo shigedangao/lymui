@@ -1,5 +1,6 @@
 use super::halley::Halley;
 use super::{srgb::Srgb, transfer::GammaCorrection};
+use crate::ops::SliceOps;
 use crate::xyz::oklab::OkLab;
 use std::f64::consts::PI;
 
@@ -7,6 +8,8 @@ use std::f64::consts::PI;
 const MID: f64 = 0.8;
 const MID_INV: f64 = 1.25;
 
+// OkHSL color. The implementation is based on the following article
+// @link <https://bottosson.github.io/posts/colorpicker/>
 #[derive(Debug, Clone, Copy)]
 pub struct OkHSL {
     pub h: f64,
@@ -75,6 +78,64 @@ impl OkHSL {
             h,
             s,
             l: lab.l.toe(),
+        }
+    }
+
+    /// Convert an OkHSL into an sRGB color
+    ///
+    /// # Arguments
+    ///
+    /// * `self` - OkHSL
+    fn into(self) -> Srgb {
+        let OkHSL { h, s, l } = self;
+
+        match l {
+            1.0 => {
+                return Srgb {
+                    r: 1.,
+                    g: 1.,
+                    b: 1.,
+                };
+            }
+            0. => {
+                return Srgb {
+                    r: 0.,
+                    g: 0.,
+                    b: 0.,
+                };
+            }
+            _ => {}
+        };
+
+        let a_ = f64::cos(2. * PI * h);
+        let b_ = f64::sin(2. * PI * h);
+        let ll = f64::toe_inv(l);
+
+        let cs = Cs::new(ll, a_, b_);
+
+        let cc = match s < MID {
+            true => {
+                let t = MID_INV * s;
+                let k1 = MID * cs.c_0;
+                let k2 = 1. - k1 / cs.c_mid;
+
+                t * k1 / (1. - k2 * t)
+            }
+            false => {
+                let t = (s - MID) / (1. - MID);
+                let k1 = (1. - MID) * cs.c_mid.powf(2.) * MID_INV.powf(2.) / cs.c_0;
+                let k2 = 1. - k1 / (cs.c_max - cs.c_mid);
+
+                cs.c_mid + t * k1 / (1. - k2 * t)
+            }
+        };
+
+        let srgb = OkLab::from_slice(&[ll, cc * a_, cc * b_]).to_srgb(true);
+
+        Srgb {
+            r: srgb.r.apply_srgb_gamma_correction(),
+            g: srgb.g.apply_srgb_gamma_correction(),
+            b: srgb.b.apply_srgb_gamma_correction(),
         }
     }
 }
@@ -159,6 +220,18 @@ impl Cs {
     }
 }
 
+impl From<Srgb> for OkHSL {
+    fn from(color: Srgb) -> Self {
+        OkHSL::new(color)
+    }
+}
+
+impl From<OkHSL> for Srgb {
+    fn from(color: OkHSL) -> Self {
+        color.into()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -177,5 +250,21 @@ mod tests {
         util::assert_approx!(okhsl.h, 0.7181, 1e-4);
         util::assert_approx!(okhsl.s, 0.7203, 1e-4);
         util::assert_approx!(okhsl.l, 0.4385, 1e-4);
+    }
+
+    #[test]
+    fn expect_to_convert_ok_hsl_to_srgb() {
+        let srgb = Srgb {
+            r: 0.2,
+            g: 0.4,
+            b: 0.7019607843,
+        };
+
+        let okhsl = OkHSL::new(srgb);
+        let nsrgb = Srgb::from(okhsl);
+
+        util::assert_approx!(srgb.r, nsrgb.r, 1e-4);
+        util::assert_approx!(srgb.g, nsrgb.g, 1e-4);
+        util::assert_approx!(srgb.b, nsrgb.b, 1e-4);
     }
 }
