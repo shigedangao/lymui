@@ -7,6 +7,12 @@ use crate::xyz::luv::Luv;
 /// @link <https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/>
 pub type Hue = f64;
 
+/// Represents the LMS unit for a given `a` and `b` value.
+pub enum LmsUnit {
+    OkHsv(f64, f64),
+    OkHsl(f64, f64, f64),
+}
+
 /// Represents the maximum saturation hue for a given `a` and `b` value.
 pub trait MaxSaturationHue {
     /// Computes the maximum saturation hue for the given `a` and `b` values.
@@ -31,8 +37,11 @@ pub trait MaxSaturationHue {
     /// # Returns
     ///
     /// The LMS units as a tuple of `(s, s^3)`.
-    fn compute_lms_units(s: f64, unit: f64) -> (f64, f64) {
-        let formula = 1. + s * unit;
+    fn compute_lms_units(kind: LmsUnit) -> (f64, f64) {
+        let formula = match kind {
+            LmsUnit::OkHsv(s, unit) => 1. + s * unit,
+            LmsUnit::OkHsl(l, c, unit) => l + c * unit,
+        };
 
         (formula, formula.powf(3.))
     }
@@ -95,9 +104,9 @@ impl MaxSaturationHue for Hue {
         let k_m = -0.1055613458 * a - 0.0638541728 * b;
         let k_s = -0.0894841775 * a - 1.2914855480 * b;
 
-        let (l_, l) = Self::compute_lms_units(ss, k_l);
-        let (m_, m) = Self::compute_lms_units(ss, k_m);
-        let (s_, s) = Self::compute_lms_units(ss, k_s);
+        let (l_, l) = Self::compute_lms_units(LmsUnit::OkHsv(ss, k_l));
+        let (m_, m) = Self::compute_lms_units(LmsUnit::OkHsv(ss, k_m));
+        let (s_, s) = Self::compute_lms_units(LmsUnit::OkHsv(ss, k_s));
 
         let l_ds = Self::compute_lds(3., l_, k_l);
         let m_ds = Self::compute_lds(3., m_, k_m);
