@@ -36,6 +36,15 @@ fn rgb_to_xyz() {
     assert_eq!(xyz.z, 1.08883);
 }
 
+fn rgb_to_okhsl() {
+    let srgb: Srgb = lymui::convert_rgb_subcolor(Rgb::from_slice(&[20, 40, 50]));
+    let okhsl = OkHSL::from(srgb);
+
+    assert_eq!(okhsl.h, 0.642895543955712);
+    assert_eq!(okhsl.s, 0.42177851713390757);
+    assert_eq!(okhsl.l, 0.036054338360002325);
+}
+
 fn main() {
     let rgb = Rgb {
         r: 170,
@@ -67,4 +76,7 @@ fn main() {
         b: 255,
     });
     assert_eq!(tone.0, 100.);
+
+    // okhsl example
+    rgb_to_okhsl();
 }

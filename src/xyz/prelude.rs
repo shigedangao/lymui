@@ -5,6 +5,8 @@ pub use super::lab::Lab;
 pub use super::lchlab::Lchlab;
 pub use super::lchuv::Lchuv;
 pub use super::luv::Luv;
+pub use super::okhsl::OkHSL;
+pub use super::okhsv::OkHSV;
 pub use super::oklab::OkLab;
 pub use super::oklch::OkLch;
 pub use super::rec709::Rec709;

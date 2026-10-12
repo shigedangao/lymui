@@ -40,6 +40,8 @@ Lymui is a lightweight, dependency-free color library for Rust that converts RGB
 | Aces          |   ✅      |
 | Ydbdr         |   ✅      |
 | Yiq           |   ✅      |
+| OkHSL         |   ✅      |
+| OkHSV         |   ✅      |
 
 ### Usage
 
@@ -47,7 +49,7 @@ Add lymui to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-lymui = "0.2.8" (not yet released)
+lymui = "0.2.8"
 ```
 
 Every conversion starts from the `Rgb` type. Color spaces fall into two families:
