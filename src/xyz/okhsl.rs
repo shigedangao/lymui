@@ -220,6 +220,26 @@ impl Cs {
     }
 }
 
+impl SliceOps<3> for OkHSL {
+    type Item = f64;
+
+    fn as_slice(&self) -> [Self::Item; 3] {
+        [self.h, self.s, self.l]
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
+        OkHSL {
+            h: slice[0],
+            s: slice[1],
+            l: slice[2],
+        }
+    }
+
+    fn to_vec(&self) -> Vec<Self::Item> {
+        vec![self.h, self.s, self.l]
+    }
+}
+
 impl From<Srgb> for OkHSL {
     fn from(color: Srgb) -> Self {
         OkHSL::new(color)

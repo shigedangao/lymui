@@ -98,6 +98,26 @@ impl OkHSV {
     }
 }
 
+impl SliceOps<3> for OkHSV {
+    type Item = f64;
+
+    fn as_slice(&self) -> [Self::Item; 3] {
+        [self.h, self.s, self.v]
+    }
+
+    fn from_slice(slice: &[Self::Item; 3]) -> Self {
+        OkHSV {
+            h: slice[0],
+            s: slice[1],
+            v: slice[2],
+        }
+    }
+
+    fn to_vec(&self) -> Vec<Self::Item> {
+        vec![self.h, self.s, self.v]
+    }
+}
+
 impl From<Srgb> for OkHSV {
     fn from(value: Srgb) -> Self {
         Self::new(value)
