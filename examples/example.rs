@@ -37,7 +37,7 @@ fn rgb_to_xyz() {
 }
 
 fn rgb_to_okhsl() {
-    let srgb: Srgb = lymui::convert_rgb_subcolor(Rgb::from_slice(&[20, 40, 50]));
+    let srgb: Srgb = lymui::convert_color_from_same_colorspace(Rgb::from_slice(&[20, 40, 50]));
     let okhsl = OkHSL::from(srgb);
 
     assert_eq!(okhsl.h, 0.642895543955712);

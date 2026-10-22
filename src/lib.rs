@@ -29,76 +29,6 @@ pub mod yuv;
 // For re-export
 pub mod prelude;
 
-/// Converts a type T that can be converted into an RGB into a type that can be converted into an RGB
-///
-/// # Arguments
-///
-/// * `c` - T
-///
-/// # Returns
-///
-/// * `E` - E
-///
-/// # Examples
-///
-/// ```
-/// use lymui::{prelude::*, convert_rgb_subcolor};
-///
-/// let rgb = Rgb {
-///     r: 255,
-///     g: 255,
-///     b: 255,
-/// };
-///
-/// let hex = convert_rgb_subcolor::<Rgb, Hex>(rgb);
-/// assert_eq!(hex.0, "#ffffff");
-/// ```
-pub fn convert_rgb_subcolor<T, E>(c: T) -> E
-where
-    T: Into<Rgb>,
-    E: From<Rgb>,
-{
-    let rgb = c.into();
-
-    E::from(rgb)
-}
-
-/// Converts a type T that can be converted into an Xyz into a type that can be converted into an Xyz
-///
-/// # Arguments
-///
-/// * `c` - T
-///
-/// # Returns
-///
-/// * `E` - E
-///
-/// /// # Examples
-///
-/// ```
-/// use lymui::{prelude::*, convert_xyz_subcolor};
-///
-/// let xyz = Xyz {
-///     x: 0.3,
-///     y: 0.5,
-///     z: 0.7,
-/// };
-///
-/// let luv = convert_xyz_subcolor::<Xyz, Luv>(xyz);
-/// assert_eq!(luv.l, 76.06926101415557);
-/// assert_eq!(luv.u, -75.77716622801219);
-/// assert_eq!(luv.v, -13.63777539220114);
-/// ```
-pub fn convert_xyz_subcolor<T, E>(c: T) -> E
-where
-    T: Into<Xyz>,
-    E: From<Xyz>,
-{
-    let xyz = c.into();
-
-    E::from(xyz)
-}
-
 /// Allows to convert a type T that can be transform into an RGB into a type that can be convert into Xyz
 /// This allows you to convert for e.g: a cymk -> sRGB without having to convert it back to rgb then xyz
 ///
@@ -110,7 +40,7 @@ where
 /// # Examples
 ///
 /// ```
-/// use lymui::{prelude::*, convert_rgb_subcolor, from_rgb_space_to_xyz_space};
+/// use lymui::{prelude::*, from_rgb_space_to_xyz_space};
 ///
 /// let rgb = Rgb {
 ///     r: 50,
@@ -144,7 +74,7 @@ where
 /// # Examples
 ///
 /// ```
-/// use lymui::{prelude::*, convert_rgb_subcolor, from_rgb_space_to_xyz_space, from_xyz_space_to_rgb_space};
+/// use lymui::{prelude::*, from_rgb_space_to_xyz_space, from_xyz_space_to_rgb_space};
 ///
 /// let rgb = Rgb {
 ///     r: 50,
@@ -168,17 +98,66 @@ where
     E::from(rgb)
 }
 
-/// Create color from a vector of K where K should be a number
+/// Convert color from same colorspace
 ///
 /// # Arguments
 ///
-/// * `vec` - [K; S]
-pub fn create_color_from_slice<K, T, const S: usize>(slice: &[K; S]) -> T
+/// * `input_color` - T
+///
+///
+/// # Examples
+///
+/// ```
+/// use lymui::{prelude::*, convert_color_from_same_colorspace};
+///
+/// let rgb = Rgb {
+///     r: 100,
+///     g: 20,
+///     b: 194,
+/// };
+///
+/// let cymk: Cymk = convert_color_from_same_colorspace(rgb);
+/// ```
+pub fn convert_color_from_same_colorspace<T, O>(input_color: T) -> O
+where
+    O: From<T>,
+{
+    O::from(input_color)
+}
+
+/// Create color from a vector of K where K should be a number
+///
+/// * `K` -> The type of that the slice is passed
+/// * `CS` -> The colorspace that is being passed to the slice
+/// * `T` -> The type of colorspace that can be used to perform the conversion (depending on what's being supported by the From trait)
+/// * `E` -> The colorspace type output that you want
+/// * `S` -> The size of the slice
+///
+/// # Arguments
+///
+/// * `slice` - [K; S]
+///
+/// # Examples
+///
+/// ```
+/// use lymui::{prelude::*, convert_color_from_slice};
+///
+/// let hsl_slice = [210., 50., 0.8];
+/// let hwb = convert_color_from_slice::<_, Rgb, Hsl, Hwb, _>(&hsl_slice);
+///
+/// dbg!(hwb);
+/// ```
+pub fn convert_color_from_slice<K, CS, T, E, const S: usize>(slice: &[K; S]) -> E
 where
     K: Add,
-    T: SliceOps<S, Item = K>,
+    T: SliceOps<S, Item = K> + From<CS>,
+    CS: From<T>,
+    E: From<CS>,
 {
-    T::from_slice(slice)
+    let input_color = T::from_slice(slice);
+    let converted_colorspace_color = CS::from(input_color);
+
+    E::from(converted_colorspace_color)
 }
 
 #[cfg(test)]
@@ -186,7 +165,17 @@ mod tests {
     use super::*;
     use crate::cymk::Cymk;
     use crate::hex::Hex;
+    use crate::hsl::Hsl;
+    use crate::hwb::Hwb;
     use crate::xyz::{luv::Luv, srgb::Srgb};
+
+    #[test]
+    fn expect_to_convert_color() {
+        let rgb = Rgb { r: 6, g: 11, b: 96 };
+        let hex: Hex = convert_color_from_same_colorspace(rgb);
+
+        assert_eq!(hex.0, "#060b60");
+    }
 
     #[test]
     fn expect_to_convert_cymk_to_srgb() {
@@ -217,10 +206,21 @@ mod tests {
     fn expect_to_create_rgb_from_vec() {
         let rgb_vec = [1, 2, 3];
 
-        let rgb: Rgb = create_color_from_slice(&rgb_vec);
-        assert_eq!(rgb.r, 1);
-        assert_eq!(rgb.g, 2);
-        assert_eq!(rgb.b, 3);
+        let hsl = convert_color_from_slice::<_, Rgb, Rgb, Hsl, _>(&rgb_vec);
+        util::assert_approx!(hsl.h, 210., 1e-1);
+        util::assert_approx!(hsl.s, 50., 1e-1);
+        util::assert_approx!(hsl.l, 0.78, 1e-2);
+    }
+
+    #[test]
+    fn expect_to_convert_hsl_to_hwb() {
+        let hsl_slice = [210., 50., 0.8];
+
+        let hwb = convert_color_from_slice::<_, Rgb, Hsl, Hwb, _>(&hsl_slice);
+
+        util::assert_approx!(hwb.h, 210., 1e-4);
+        util::assert_approx!(hwb.w, 0.39, 1e-2);
+        util::assert_approx!(hwb.b, 98.82, 1e-2);
     }
 
     #[test]
@@ -230,7 +230,7 @@ mod tests {
             g: 20,
             b: 194,
         };
-        let cymk: Cymk = convert_rgb_subcolor(rgb);
+        let cymk: Cymk = convert_color_from_same_colorspace(rgb);
 
         util::assert_approx!(cymk.c, 0.4845, 1e-4);
         util::assert_approx!(cymk.y, 0.0, 1e-4);
