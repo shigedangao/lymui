@@ -3,7 +3,7 @@ use crate::rgb::Rgb;
 use crate::xyz::srgb::Srgb;
 
 /// Tone implements the computation of a tone from a given RGB input.
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct Tone(pub f64);
 
 impl From<Rgb> for Tone {

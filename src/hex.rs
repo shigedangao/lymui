@@ -2,7 +2,7 @@ use crate::error::Error;
 use crate::rgb::Rgb;
 
 /// Represents a hexadecimal color value.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Hex(pub String);
 
 pub trait HexOps {
@@ -124,19 +124,17 @@ impl From<Rgb> for Hex {
     }
 }
 
-impl TryFrom<Hex> for Rgb {
-    type Error = Error;
-
-    fn try_from(h: Hex) -> Result<Self, Self::Error> {
+impl From<Hex> for Rgb {
+    fn from(h: Hex) -> Self {
         let mut hex = h;
         if hex.0.len() <= 4 {
             hex.unshorten();
         }
 
         // get the u8 representation of an RGB
-        let (r, g, b) = hex.get_u8_parts()?;
+        let (r, g, b) = hex.get_u8_parts().map_or_default(|(r, g, b)| (r, g, b));
 
-        Ok(Rgb { r, g, b })
+        Rgb { r, g, b }
     }
 }
 

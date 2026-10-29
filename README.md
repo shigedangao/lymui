@@ -64,15 +64,14 @@ fn main() {
     let rgb = Rgb { r: 255, g: 255, b: 255 };
 
     // RGB-based color: use the `From` trait directly.
-    let hex = Hex::from(rgb.clone());
+    let hex = Hex::from(rgb);
     assert_eq!(hex.0, "#ffffff");
 
     // XYZ-based color: pick a lumens `Kind`.
-    let xyz = Xyz::from_rgb(rgb.clone(), Kind::D65);
+    let xyz = Xyz::from_rgb(rgb, Kind::D65);
 
     // Or go straight from RGB to any XYZ-based space in a single call.
-    // Pass `None` to default to D65, or `Some(Kind::D50)` to choose.
-    let luv: Luv = from_rgb_space_to_xyz_space(rgb, None);
+    let luv = convert_color_from_any_colorspace::<_, Luv, Rgb, Xyz>(rgb);
 }
 ```
 

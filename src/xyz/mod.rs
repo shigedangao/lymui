@@ -77,6 +77,12 @@ impl FromRgb<Kind> for Xyz {
     }
 }
 
+impl From<Rgb> for Xyz {
+    fn from(rgb: Rgb) -> Self {
+        Xyz::from_rgb(rgb, Kind::D65)
+    }
+}
+
 impl SliceOps<3> for Xyz {
     type Item = f64;
 
@@ -189,9 +195,9 @@ impl Xyz {
     ///
     /// * `&mut self` - Xyz
     pub fn scale(&mut self) {
-        self.x *= 100_f64;
-        self.y *= 100_f64;
-        self.z *= 100_f64;
+        self.x *= 100.;
+        self.y *= 100.;
+        self.z *= 100.;
     }
 }
 

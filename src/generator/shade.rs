@@ -8,7 +8,7 @@ use crate::rgb::Rgb;
 ///
 /// Computation is based on the article below
 /// @link <https://maketintsandshades.com/about>
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Shade(pub Vec<Rgb>);
 
 impl GeneratorOps for Shade {

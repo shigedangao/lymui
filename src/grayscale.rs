@@ -2,7 +2,7 @@ use crate::ops::AsFloat;
 use crate::rgb::{FromRgb, Rgb};
 
 /// Represents a grayscale color value.
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct GrayScale(pub u8);
 
 /// Represents the kind of grayscale calculation to perform.
