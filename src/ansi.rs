@@ -1,6 +1,5 @@
 use super::hex::Hex;
 use super::rgb::{FromRgb, Rgb};
-use crate::error::Error;
 use crate::ops::AsFloat;
 
 // Constant of ansi rgb code for the lowest 16 colors
@@ -16,7 +15,7 @@ const ANSI_RGB_CODE: [&str; 16] = [
 ///
 /// The implemention is based on the color-convert library
 /// @link <https://github.com/Qix-/color-convert/tree/master>
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Ansi(pub u8);
 
 pub enum AnsiKind {
@@ -90,21 +89,19 @@ impl FromRgb<AnsiKind> for Ansi {
     }
 }
 
-impl TryFrom<Ansi> for Rgb {
-    type Error = Error;
-
+impl From<Ansi> for Rgb {
     // Conversion based on work done by @MightyPork
     // @link <https://gist.github.com/MightyPork/1d9bd3a3fd4eb1a661011560f6921b5b>
-    fn try_from(ansi: Ansi) -> Result<Self, Error> {
+    fn from(ansi: Ansi) -> Self {
         match ansi.0 {
             0..=16 => {
                 let hex_str = ANSI_RGB_CODE.get(ansi.0 as usize).unwrap();
                 let hex = Hex(hex_str.to_string());
-                Rgb::try_from(hex)
+                Rgb::from(hex)
             }
             232..=u8::MAX => {
                 let s = (ansi.0 - 232) * 10 + 8;
-                Ok(Rgb { r: s, g: s, b: s })
+                Rgb { r: s, g: s, b: s }
             }
             _ => {
                 let n = ansi.0 - 16;
@@ -113,13 +110,11 @@ impl TryFrom<Ansi> for Rgb {
                 let mut _g = (n - _b) / 6 % 6;
                 let mut _r = (n - _b - _g * 6) / 36 % 6;
 
-                let rgb = Rgb {
+                Rgb {
                     r: Ansi::finalize_computation_to_rgb(_r),
                     g: Ansi::finalize_computation_to_rgb(_g),
                     b: Ansi::finalize_computation_to_rgb(_b),
-                };
-
-                Ok(rgb)
+                }
             }
         }
     }

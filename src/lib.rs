@@ -30,6 +30,7 @@ pub mod yuv;
 pub mod prelude;
 
 /// Allows to convert a type T that can be transform into an RGB into a type that can be convert into Xyz
+/// with supported light illuminant (D50, D65, AdobeRGB)
 /// This allows you to convert for e.g: a cymk -> sRGB without having to convert it back to rgb then xyz
 ///
 /// # Arguments
@@ -55,7 +56,7 @@ pub mod prelude;
 /// ```
 pub fn from_rgb_space_to_xyz_space<T, E>(f: T, k: Option<Kind>) -> E
 where
-    T: Into<Rgb>,
+    T: Into<Rgb> + Copy,
     E: From<Xyz>,
 {
     let xyz = Xyz::from_rgb(f.into(), k.unwrap_or(Kind::D65));
@@ -65,6 +66,7 @@ where
 
 /// Allows to convert a type T whichc can be convert into an Xyz to an RGB comptabile type
 /// This allows you to convert for e.g: a Luv -> Hex without having to convert to Xyz then to RGB to the type that you want
+/// with supported light illuminant (D50, D65, AdobeRGB)
 ///
 /// # Arguments
 ///
@@ -90,7 +92,7 @@ where
 /// ```
 pub fn from_xyz_space_to_rgb_space<T, E>(c: T, k: Option<Kind>) -> E
 where
-    T: Into<Xyz>,
+    T: Into<Xyz> + Copy,
     E: From<Rgb>,
 {
     let rgb = c.into().as_rgb(k.unwrap_or(Kind::D65));
@@ -98,31 +100,45 @@ where
     E::from(rgb)
 }
 
-/// Convert color from same colorspace
+/// Utility function that allows to convert a color to any color space by providing the
+/// - input colorspace type
+/// - output colorspace type
 ///
-/// # Arguments
+/// /!\ Note that for XYZ conversion from RGB the default illuminant (D65) is choosen
+///     If you would rather use a different type of illuminant
+/// conversion please use the methods below:
 ///
-/// * `input_color` - T
-///
+/// - from_rgb_space_to_xyz_space
+/// - from_xyz_space_to_rgb_space
 ///
 /// # Examples
 ///
 /// ```
-/// use lymui::{prelude::*, convert_color_from_same_colorspace};
+/// use lymui::{prelude::*, convert_color_from_any_colorspace};
 ///
-/// let rgb = Rgb {
-///     r: 100,
-///     g: 20,
-///     b: 194,
-/// };
-///
-/// let cymk: Cymk = convert_color_from_same_colorspace(rgb);
+/// let rgb = Rgb { r: 6, g: 11, b: 96 };
+/// let okhsl = convert_color_from_any_colorspace::<_, OkHSL, Rgb, Srgb>(rgb);
 /// ```
-pub fn convert_color_from_same_colorspace<T, O>(input_color: T) -> O
+pub fn convert_color_from_any_colorspace<T, O, CS, TS>(input_color: T) -> O
 where
-    O: From<T>,
+    T: Copy,
+    O: From<TS>,
+    CS: From<T>,
+    TS: From<CS>,
 {
-    O::from(input_color)
+    // Convert a color from a given colorspace input to a convertible common type
+    // e.g: we want to convert an hsl to an OkHSL
+    // to do that we first convert the hel to the RGB colorspace (CS)
+    let converted_input_color = CS::from(input_color);
+
+    // Once we have converted input color in the common colorspace (RGB) in that case
+    // we use the TS colorspace which supports the conversion of the color Rgb -> TS
+    // in this example (Srgb)
+    let transition_color = TS::from(converted_input_color);
+
+    // Once done we convert the transition_color to the target type (here srgb -> okhsl)
+    // The final path is: Hsl -> Rgb -> sRGB -> OkHSL
+    O::from(transition_color)
 }
 
 /// Create color from a vector of K where K should be a number
@@ -167,12 +183,13 @@ mod tests {
     use crate::hex::Hex;
     use crate::hsl::Hsl;
     use crate::hwb::Hwb;
+    use crate::xyz::okhsl::OkHSL;
     use crate::xyz::{luv::Luv, srgb::Srgb};
 
     #[test]
     fn expect_to_convert_color() {
         let rgb = Rgb { r: 6, g: 11, b: 96 };
-        let hex: Hex = convert_color_from_same_colorspace(rgb);
+        let hex = convert_color_from_any_colorspace::<_, Hex, Rgb, Rgb>(rgb);
 
         assert_eq!(hex.0, "#060b60");
     }
@@ -230,11 +247,21 @@ mod tests {
             g: 20,
             b: 194,
         };
-        let cymk: Cymk = convert_color_from_same_colorspace(rgb);
+        let cymk = convert_color_from_any_colorspace::<_, Cymk, Rgb, Rgb>(rgb);
 
         util::assert_approx!(cymk.c, 0.4845, 1e-4);
         util::assert_approx!(cymk.y, 0.0, 1e-4);
         util::assert_approx!(cymk.m, 0.8969, 1e-4);
         util::assert_approx!(cymk.k, 0.2392, 1e-4);
+    }
+
+    #[test]
+    fn expect_to_convert_color_from_any_colorspace() {
+        let rgb = Rgb { r: 6, g: 11, b: 96 };
+        let okhsl = convert_color_from_any_colorspace::<_, OkHSL, Rgb, Srgb>(rgb);
+
+        util::assert_approx!(okhsl.h, 0.7397, 1e-4);
+        util::assert_approx!(okhsl.s, 0.9876, 1e-4);
+        util::assert_approx!(okhsl.l, 0.0354, 1e-4);
     }
 }

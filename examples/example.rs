@@ -1,82 +1,45 @@
-use lymui::{
-    from_rgb_space_to_xyz_space,
-    generator::{GeneratorOps, shade::Shade},
-    ops::SliceOps,
-    prelude::*,
-    rgb::FromRgb,
-    xyz::{Kind, rec2020::Rec2020},
-};
+use lymui::{ops::SliceOps, prelude::*, rgb::FromRgb, xyz::Kind};
 
-fn rgb_to_hex() {
-    let rgb = Rgb {
-        r: 17,
-        g: 10,
-        b: 94,
-    };
-
+fn example_one_rgb_to_hex(rgb: Rgb) {
     let hex = Hex::from(rgb);
-    assert_eq!(hex.0, "#110a5e");
+    assert_eq!(hex.0, "#060b60");
 
-    let rgb = Rgb::try_from(hex).unwrap();
-    assert_eq!(rgb.r, 17);
-    assert_eq!(rgb.g, 10);
-    assert_eq!(rgb.b, 94);
+    let rgb = Rgb::from(hex);
+    assert_eq!(rgb.r, 6);
+    assert_eq!(rgb.g, 11);
+    assert_eq!(rgb.b, 96);
 }
 
-fn rgb_to_xyz() {
-    let rgb = Rgb {
-        r: 255,
-        g: 255,
-        b: 255,
-    };
-
+fn example_two_rgb_to_xyz(rgb: Rgb) {
     let xyz = Xyz::from_rgb(rgb, Kind::D65);
-    assert_eq!(xyz.x, 0.95047);
-    assert_eq!(xyz.y, 1.0000001);
-    assert_eq!(xyz.z, 1.08883);
+
+    assert_eq!(xyz.x, 0.02305368595226636);
+    assert_eq!(xyz.y, 0.011222952142319187);
+    assert_eq!(xyz.z, 0.11159179560350473);
 }
 
-fn rgb_to_okhsl() {
-    let srgb: Srgb = lymui::convert_color_from_same_colorspace(Rgb::from_slice(&[20, 40, 50]));
-    let okhsl = OkHSL::from(srgb);
+fn example_three_rgb_to_hsl_slice(rgb: Rgb) {
+    let rgb_slice = rgb.as_slice();
+    let hsl = lymui::convert_color_from_slice::<_, Rgb, Rgb, Hsl, 3>(&rgb_slice);
 
-    assert_eq!(okhsl.h, 0.642895543955712);
-    assert_eq!(okhsl.s, 0.42177851713390757);
-    assert_eq!(okhsl.l, 0.036054338360002325);
+    assert_eq!(hsl.h, 237.);
+    assert_eq!(hsl.s, 88.23529411764704);
+    assert_eq!(hsl.l, 20.);
+}
+
+fn example_four_rgb_to_okhsl(rgb: Rgb) {
+    let okhsl = lymui::convert_color_from_any_colorspace::<_, OkHSL, Rgb, Srgb>(rgb);
+
+    assert_eq!(okhsl.h, 0.7397105312164948);
+    assert_eq!(okhsl.s, 0.987694725979644);
+    assert_eq!(okhsl.l, 0.035486157859664746);
 }
 
 fn main() {
-    let rgb = Rgb {
-        r: 170,
-        g: 125,
-        b: 194,
-    };
-    // Using the utility method to easily convert an RGB type to any type that implement the XYZ
-    let rec2020: Rec2020 = from_rgb_space_to_xyz_space(rgb.clone(), None);
-    assert_eq!(rec2020.r, (0.5800179952190697 * 100_000.) / 100_000.);
-    assert_eq!(rec2020.g, (0.4596835755617258 * 100_000.) / 100_000.);
-    assert_eq!(rec2020.b, (0.7109727343600348 * 100_000.) / 100_000.);
+    let rgb = Rgb { r: 6, g: 11, b: 96 };
 
-    rgb_to_hex();
-    rgb_to_xyz();
-
-    // You can also create a color using a slice of rgb
-    let hsl = Hsl::from_slice(&rgb.as_slice().map(|v| v as f64));
-    assert_eq!(hsl.h, 170.);
-    assert_eq!(hsl.s, 125.);
-    assert_eq!(hsl.l, 194.);
-
-    // Create a shade of rgb
-    let shade = Shade::compute(rgb, 0.1);
-    assert!(shade.is_ok());
-
-    let tone = Tone::from(Rgb {
-        r: 255,
-        g: 255,
-        b: 255,
-    });
-    assert_eq!(tone.0, 100.);
-
-    // okhsl example
-    rgb_to_okhsl();
+    example_one_rgb_to_hex(rgb);
+    example_two_rgb_to_xyz(rgb);
+    example_three_rgb_to_hsl_slice(rgb);
+    example_four_rgb_to_okhsl(rgb);
 }
